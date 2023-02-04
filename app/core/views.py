@@ -14,4 +14,10 @@ def index(request):
 
 
 def landing_page(request):
-    return render(request, 'core/html/index.html')
+    return render(request, 'core/html/landing.html')
+
+def register(request):
+    return render(request, '')
+
+def signin(request):
+    return render(request, '')
