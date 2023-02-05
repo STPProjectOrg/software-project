@@ -1,0 +1,33 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% comment %}
+        serve files from static storage
+        https://docs.djangoproject.com/en/4.1/howto/static-files/
+    {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    {% block header %}
+    {% endblock header %}
+
+    {% block navigation %}
+    {% endblock navigation %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block footer %}
+    {% endblock footer %}
+
+    <div class="position-fixed bottom-0 fst-italic bg-danger-subtle text-danger">Debug</div>
+</body>
+</html>
