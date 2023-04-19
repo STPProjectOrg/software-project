@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'user_app',
 ]
 
 MIDDLEWARE = [
@@ -82,9 +83,22 @@ DATABASES = {
 }
 
 
+
+# Password Hashers 
+# https://docs.djangoproject.com/en/4.1/topics/auth/passwords/#password-validation
+# Using Argon2: running "python -m pip install django[argon2]"
+# Using BCrypt: running "python -m pip install django[bcrypt]"
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -99,6 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTH_USER_MODEL = 'user_app.CustomUser'
 
 
 # Internationalization
@@ -117,6 +132,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "core/static",
+    BASE_DIR / "user_app/static",
+]
+
+
+# Media files (profile-pics)
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = '/media/'
+
+# Login URL
+LOGIN_URL = '/auth/login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
