@@ -15,19 +15,60 @@
 
     <title>Document</title>
 </head>
-<body>
-    {% block header %}
-    {% endblock header %}
+<body class="container-fluid h-100 ">
+    <div class="d-flex flex-column h-100">
 
-    {% block navigation %}
-    {% endblock navigation %}
+        {% block header %}
+        <div class="row justify-content-between" style="background-color: grey;">
+            <div class="col-auto d-md-none">
+                BTN
+            </div>
 
-    {% block content %}
-    {% endblock content %}
+            <div class="col-auto">
+                Logo
+            </div>
+            <div class="col">
+                Search
+            </div>
+            <div class="col-auto">
+                User
+            </div>
+        </div>
+        {% endblock header %}
 
-    {% block footer %}
-    {% endblock footer %}
+        <div class="row row-cols-1 row-cols-md-2 flex-grow-1">
 
-    <div class="position-fixed bottom-0 fst-italic bg-danger-subtle text-danger">Debug</div>
+            {% comment %}
+                display navigation as "offcanvas" element on sm-devices
+            {% endcomment %}
+            <div class="d-none d-md-flex col-md-auto " style="background-color: lightblue;">
+                {% block navigation %}
+                navigation
+                {% endblock navigation %}
+            </div>
+
+            <div class="col d-flex flex-column flex-grow-1">
+                <div class="row flex-grow-1">
+                    <div class="col" style="background-color: orange">
+                        {% block content %}
+                        content
+                        {% endblock content %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="background-color: brown;"> 
+                        {% block footer %}
+                        footer
+                        {% endblock footer %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    
+        
 </body>
 </html>
