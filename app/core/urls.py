@@ -5,8 +5,7 @@ app_name = 'core'
 urlpatterns = [
     # Debug
     path('debug', debug, name='debug'),
-    # path('bootstraü', ),
-    
+
     # Index
     path('', landing_page, name='index'),
 
@@ -14,6 +13,7 @@ urlpatterns = [
     path('landing', landing_page, name='landing'),
 
     # Register
+
 
     # Login
 
