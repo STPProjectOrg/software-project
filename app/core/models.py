@@ -2,15 +2,13 @@
 # Create your models here.
 from django.db import models
 
-class User(models.Model):
-    username = models.CharField(max_length= 50)
-    password = models.CharField(max_length= 100)
+from user_app.models import CustomUser
 
 class Asset(models.Model):
     assetname = models.CharField(max_length= 50)
 
 class Receipt(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     amount = models.FloatField()
     buydate = models.DateTimeField("date bought")
