@@ -1,6 +1,6 @@
 {% load static %}
 
-<html lang="en">
+<html lang="de" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,58 +13,102 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 
+    {% comment %}
+        TODO: ADD TO STATIC    
+    {% endcomment %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
     <title>Document</title>
 </head>
 <body class="container-fluid h-100 ">
     <div class="d-flex flex-column h-100">
 
         {% block header %}
-        <div class="row justify-content-between" style="background-color: grey;">
+        <div class="row justify-content-between p-4 border-bottom">
             <div class="col-auto d-md-none">
-                BTN
+                <button type="button" class="btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">[TGL]</button>
             </div>
 
-            <div class="col-auto">
-                Logo
+            <div class="col-auto my-auto d-flex">
+                <i class="bi bi-pie-chart-fill fs-3 pe-2 my-auto"></i>
+                <div class="fs-3 my-auto">Name</div>
             </div>
-            <div class="col">
+            <div class="col my-auto">
                 Search
             </div>
             <div class="col-auto">
-                User
+                <div class="dropdown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-3"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><h6 class="dropdown-header">[User-Name]</h6></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle pe-2"></i>Hilfe</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear pe-2"></i>Einstellungen</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger-emphasis" href="#"><i class="bi bi-box-arrow-in-left pe-2" ></i>Abmelden</a></li>
+                    </ul>
+                  </div>
             </div>
         </div>
         {% endblock header %}
 
         <div class="row row-cols-1 row-cols-md-2 flex-grow-1">
-
-            {% comment %}
-                display navigation as "offcanvas" element on sm-devices
-            {% endcomment %}
-            <div class="d-none d-md-flex col-md-auto " style="background-color: lightblue;">
+            <div class="d-none d-md-flex col-md-auto border-end p-4">
                 {% block navigation %}
-                navigation
+                {% comment %}
+                       TODO: implement as custom_tag 
+                {% endcomment %}                
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-dark w-100" >
+                            <div class="d-flex">
+                                <i class="bi bi-house my-auto"></i>
+                                <div class="ps-2">Test</div>
+                            </div>
+                        </button>
+                    </li>
+                    <li class="nav-item pt-2">
+                        <button type="button" class="btn btn-dark w-100" >
+                            <div class="d-flex ">
+                                <i class="bi bi-house m-auto"></i>
+                                <div class="ps-2">Test-Long</div>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
                 {% endblock navigation %}
             </div>
-
             <div class="col d-flex flex-column flex-grow-1">
-                <div class="row flex-grow-1">
-                    <div class="col" style="background-color: orange">
+                <div class="row flex-grow-1 p-4 bg-body-secondary">
+                    <div class="col">
                         {% block content %}
                         content
                         {% endblock content %}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col" style="background-color: brown;"> 
+                    <div class="col p-4 border-top"> 
                         {% block footer %}
-                        footer
+                        © Lorem ipsum
                         {% endblock footer %}
                     </div>
                 </div>
             </div>
-
         </div>
+
+        {% comment %}
+            mobile navigation
+        {% endcomment %}
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
+            </div>
+          </div>
 
 
     </div>
