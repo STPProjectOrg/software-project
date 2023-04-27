@@ -17,5 +17,5 @@ def getHistoricalCryptoData(cryptocurrency, currency, date):
     return historicalCryptoData
 
 def getAll():
-    data = cryptocompare.get_coin_list(format=True)
+    data = cryptocompare.get_coin_list(format=False)
     return data
