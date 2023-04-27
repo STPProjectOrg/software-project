@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>Document</title>
 </head>
 <body>
@@ -13,5 +14,43 @@
     <h2>Selected Currency: {{ currency }}</h2>
     <h2>Current Price of {{ crypto }} in {{ currency }}: {{ value }}</h2>
     <h2>Historical Price of {{ crypto }} in {{ currency }} on {{ historicalDate }}: {{ historicalPrice }}</h2>
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const ctx = document.getElementById('myChart');
+    
+
+      const labels = ["janur", "feb"]
+        const data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+        };
+        const config = {
+  type: 'line',
+  data: data,
+};
+
+      new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
 </body>
 </html>
