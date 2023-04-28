@@ -9,10 +9,10 @@ import time
 def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
-
-    #addCoinToDatabase('BTC','Bitcoin','EUR')
-    saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
     
+    #addCoinToDatabase('BTC','Bitcoin','EUR')
+    #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
+
     data = {'value':0, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
 
