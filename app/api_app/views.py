@@ -2,31 +2,66 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAll
 from .models import Asset, AssetHistory
-import datetime
+from datetime import datetime
+import time
 
 # Create your views here.
 def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
-    historicalDate = datetime.datetime(2017,6,5)
-    #currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)
-    #getYearlyData(cryptoCurrencyString[0], currencyString[0], 2017,2017)
-    #historicalPrice = getHistoricalCryptoData(cryptoCurrencyString[0], currencyString[0], historicalDate)
-    #addCoin()
-    assetBTC = Asset.objects.get(name="BTC").pk
-    valueOn = AssetHistory.objects.get(name=assetBTC, date=historicalDate)
-    data = {'value':0, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': valueOn, 'historicalDate': historicalDate}
+
+    #addCoinToDatabase('BTC','Bitcoin','EUR')
+    saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
+    
+    data = {'value':0, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
 
-def addCoin():
-    asset = Asset.objects.get_or_create(name="BTC", coinName="Bitcoin")[0]
-    for i in range(1,6):
-        cryptoCurrencyString = ['BTC']
-        currencyString = ['EUR']
-        historicalDate = datetime.datetime(2017,6,i)
-        historicalPrice = getHistoricalCryptoData(cryptoCurrencyString[0], currencyString[0], historicalDate)
-        AssetHistory.objects.get_or_create(date=historicalDate, value=historicalPrice[cryptoCurrencyString[0]][currencyString[0]], name=asset)[0]
 
+#Die Funktion gibt den Wert der Kryptowährung zum gegebenen Datum zurück
+#Beispielaufruf: getCryptoValueFromDatabase('USDT', datetime(2023,4,28))
+def getCryptoValueFromDatabase(cryptoCurrencyString, date):
+    asset = Asset.objects.get(name=cryptoCurrencyString).pk
+    return AssetHistory.objects.get_or_create(date=date, name=asset)[0]
+
+#Fügt eine neue Kryptowährung der Datenbank hinzu 
+#und dessen dazugehörige Historie für den heutigen Tag
+#Beispielaufruf: addCoinToDatabase('BTC','Bitcoin','EUR')
+def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
+    asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName)[0]
+    currentDate = datetime.now()
+    date = datetime(currentDate.year,currentDate.month,currentDate.day)
+    currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]
+    AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
+
+#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu im Jahrestakt
+#Der Beispielaufruf fügt vom 01.01.2017 bi zum 31.12.2017 der Datenbank tägliche Kursdaten hinzu
+#Aktuell nur den Tageswert.
+#Beispielaufruf: saveYearlyDataToDatabase('BTC', 'EUR', 2017, 2017)
+def saveYearlyDataToDatabase(cryptoCurrency, currency, startYear, endYear):
+    for year in range(startYear, endYear+1):
+        for month in range(1,13):
+            saveMonthlyDataToDatabase(cryptoCurrency, currency, year, month)
+
+#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu im Monatstakt
+#Der Beispielaufruf fügt vom 01.01.2017 bi zum 31.01.2017 der Datenbank tägliche Kursdaten hinzu
+#Aktuell nur den Tageswert.
+#Überprüft vor dem Request an die API, ob der Wert schon existiert, um unnötige API-Requests zu vermeiden
+#Beispielaufruf: saveMonthlyDataToDatabase('BTC', 'EUR', 2017, 1)
+def saveMonthlyDataToDatabase(cryptoCurrency, currency, year, month):
+    asset = Asset.objects.get(name=cryptoCurrency)
+    for day in range(1, getMonthlyDays(year,month)+1):
+        historicalDate = datetime(year,month,day)
+        if AssetHistory.objects.filter(date=historicalDate, name=asset).exists():
+            print("value exists already")
+        else:
+            historicalPrice = getHistoricalCryptoData(cryptoCurrency, currency, historicalDate)
+            AssetHistory.objects.get_or_create(date=historicalDate, value=historicalPrice[cryptoCurrency][currency], name=asset)[0]
+            time.sleep(1)
+
+
+#Hilfsfunktion für saveYearlyDataToDatabase und saveMonthlyDataToDatabase,
+#um die richtige Anzahl von
+#Monatstagen herauszufinden
 def getMonthlyDays(year, month):
     days = 28
     thirtyOneDaysMonth = [1,3,5,7,8,10,12]
@@ -41,12 +76,3 @@ def getMonthlyDays(year, month):
         days = 29
 
     return days
-
-#Aufruf: getYearlyData(cryptoCurrencyString[0], currencyString[0], 2017,2017)
-def getYearlyData(cryptoCurrency, currency, startYear, endYear):
-    for year in range(startYear, endYear+1):
-        for month in range(1,13):
-            for day in range(1, getMonthlyDays(year,month)+1):
-                print(f"{year} {month} {day}")
-                #print(getHistoricalCryptoData(cryptoCurrency, currency, datetime.datetime(year,month,day)))
-
