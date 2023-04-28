@@ -12,8 +12,8 @@ def api(request):
     
     #addCoinToDatabase('BTC','Bitcoin','EUR')
     #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
-
-    data = {'value':0, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
+    values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
+    data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
 
 
@@ -22,6 +22,18 @@ def api(request):
 def getCryptoValueFromDatabase(cryptoCurrencyString, date):
     asset = Asset.objects.get(name=cryptoCurrencyString).pk
     return AssetHistory.objects.get_or_create(date=date, name=asset)[0]
+
+#Die Funktion gibt die Werte der Kryptowährung im Jahrestakt aus der Datenbank zurück
+#Beispielaufruf: getCryptoValuesFromDatabase('BTC, 2022, 2022)
+def getCryptoValuesFromDatabase(cryptoCurrencyString, startYear, endYear):
+    asset = asset = Asset.objects.get(name=cryptoCurrencyString).pk
+    data = []
+    for year in range(startYear, endYear+1):
+        for month in range(1,13):
+            for day in range(1, getMonthlyDays(year,month)+1):
+                date = datetime(year, month, day)
+                data.append(AssetHistory.objects.get_or_create(date=date, name=asset)[0].value)
+    return data
 
 #Fügt eine neue Kryptowährung der Datenbank hinzu 
 #und dessen dazugehörige Historie für den heutigen Tag
