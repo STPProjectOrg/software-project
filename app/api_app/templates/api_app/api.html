@@ -10,47 +10,48 @@
 </head>
 <body>
     <h1>THIS IS THE API</h1>
-    <h2>Selected Crypto: {{ crypto }}</h2>
+    <h2>Selected Crypto: {{ crypto|json_script:'crypto' }}</h2>
     <h2>Selected Currency: {{ currency }}</h2>
-    <h2>Current Price of {{ crypto }} in {{ currency }}: {{ value }}</h2>
+    <h2>Current Price of {{ crypto }} in {{ currency }}:</h2>
     <h2>Historical Price of {{ crypto }} in {{ currency }} on {{ historicalDate }}: {{ historicalPrice }}</h2>
-    <div>
-        <canvas id="myChart"></canvas>
+    <div style="width:50%">
+        <canvas id="myChart" ></canvas>
+        {{ value|json_script:'value' }}
       </div>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
       const ctx = document.getElementById('myChart');
-    
+      var dataValues = JSON.parse(document.getElementById('value').textContent);
+      var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
 
-      const labels = ["janur", "feb"]
+      const labels = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
         const data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        }]
-        };
-        const config = {
-  type: 'line',
-  data: data,
-};
-
-      new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
+                        labels: labels,
+                        datasets: [{
+                            label: cryptoName,
+                            data: dataValues,
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                        };
+                        const config = {
+                  type: 'line',
+                  data: data,
+                };
+        new Chart(ctx, {
+          type: 'line',
+          data: data,
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
             }
           }
-        }
-      });
+        });
     </script>
 </body>
 </html>
