@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAll
+from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
 from .models import Asset, AssetHistory
 from datetime import datetime
 import time
@@ -13,7 +13,7 @@ def api(request):
     #addCoinToDatabase('BTC','Bitcoin','EUR')
     #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
     values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
-    print(getAssetFromDatabase('BTC').name)
+    print(getCoinInformation("BTC"))
     data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
 
@@ -99,6 +99,18 @@ def getAssetFromDatabase(assetString):
     else:
         asset = Asset(name="N/A", coinName="N/A")
     return asset
-    
+
+#Sucht ein Asset in der API und überprüft, ob das Asset verfügbar ist
+def doesCoinExistInAPI(assetString):
+    for asset in getAllCryptoData(formatted=True):
+        if assetString == asset:
+            return True
+    return False
+
+#Fragt Informationen von der API zur angegebenen Kryptowährung ab
+def getCoinInformation(assetString):
+    if doesCoinExistInAPI(assetString):
+        return getAllCryptoData(formatted=False)[assetString]
+    return f"Cryptocurrency {assetString} not supported"
 
         
