@@ -1,4 +1,5 @@
 {% load static %}
+{% load core_tags %}
 
 <html lang="de" data-bs-theme="dark">
 <head>
@@ -31,28 +32,17 @@
                 <button type="button" class="btn btn-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">[TGL]</button>
             </div>
 
-            <div class="col-auto my-auto d-flex">
-                <i class="bi bi-pie-chart-fill fs-3 pe-2 my-auto"></i>
-                <div class="fs-3 my-auto">Name</div>
-            </div>
+            {% logo_name %}
+
             <div class="col-auto">
                 <div class="dropdown">
-                    <!--
-                    <button class="btn btn-outline-primary" href="{% url 'user_app:login' %}" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                        Anmelden
-                    </button>
-                    <form class="form-inline" action="{% url 'user_app:login' %}">
-                        <button type="submit" class="btn btn-outline-warning ms-2">
-                            Registrieren
-                        </button>
-                    </form>
-                    -->
                     <a class="btn btn-outline-primary" href="{% url 'user_app:login' %}">
                         Anmelden
                     </a>
                     <a class="btn btn-outline-warning" href="{% url 'user_app:register' %}">
                         Registrieren
                     </a>
+                </div>
             </div>
         </div>
         {% endblock header %}
@@ -63,5 +53,7 @@
                 
             {% endblock content %}
         </div>
+
+        {% footer %}
 </body>
 </html>
