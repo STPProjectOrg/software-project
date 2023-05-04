@@ -91,6 +91,7 @@ def getMonthlyDays(year, month):
     return days
 
 #Sucht ein Asset in der Datenbank nach dem Namen oder Kürzel der Kryptowährung
+#assetString kann das Kürzel oder der Name der Kryptowährung sein
 def getAssetFromDatabase(assetString):
     if Asset.objects.filter(name=assetString).exists():
         asset = Asset.objects.get(name=assetString)
@@ -101,16 +102,17 @@ def getAssetFromDatabase(assetString):
     return asset
 
 #Sucht ein Asset in der API und überprüft, ob das Asset verfügbar ist
+#assetString muss ein Kürzel sein z.B. 'BTC'
 def doesCoinExistInAPI(assetString):
     for asset in getAllCryptoData(formatted=True):
         if assetString == asset:
             return True
     return False
 
-#Fragt Informationen von der API zur angegebenen Kryptowährung ab
+#Fragt Informationen von der API zur angegebenen Kryptowährung(Kürzel) ab
+#assetString muss ein Kürzel sein z.B. 'BTC'
 def getCoinInformation(assetString):
     if doesCoinExistInAPI(assetString):
         return getAllCryptoData(formatted=False)[assetString]
     return f"Cryptocurrency {assetString} not supported"
 
-        
