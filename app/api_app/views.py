@@ -1,22 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
 from .models import Asset, AssetHistory
 from datetime import datetime
-import time
+from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
+from time import time
 
 # Create your views here.
 def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
     
-    addCoinToDatabase('BTC','Bitcoin','EUR')
+    #addCoinToDatabase('BTC','Bitcoin','EUR')
+    #addCoinToDatabase('ETH','Ethereum','EUR')
+    #addCoinToDatabase('USDT','Tether','EUR')
+    #addCoinToDatabase('XRP','XRP','EUR')
     #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
-    values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
+    #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
+    values = 0
     #print(getCoinInformation("BTC"))
     data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
-
 
 #Die Funktion gibt den Wert der Kryptowährung zum gegebenen Datum zurück
 #Beispielaufruf: getCryptoValueFromDatabase('USDT', datetime(2023,4,28))
@@ -40,14 +43,16 @@ def getCryptoValuesFromDatabase(cryptoCurrencyString, startYear, endYear):
 #und dessen dazugehörige Historie für den heutigen Tag
 #Beispielaufruf: addCoinToDatabase('BTC','Bitcoin','EUR')
 def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
-    if not doesCoinExistInAPI(cryptoCurrencyString): return print(f"{cryptoCurrencyString} not supported from the API")
-    if getAssetFromDatabase(cryptoCurrencyString).name != "N/A": return print(f"{cryptoCurrencyString} already exists in database")
-    
-    asset = Asset.objects.create(name=cryptoCurrencyString, coinName=coinName)[0]
+    if not doesCoinExistInAPI(cryptoCurrencyString): 
+        return print(f"{cryptoCurrencyString} not supported from the API")
+    if getAssetFromDatabase(cryptoCurrencyString).name == cryptoCurrencyString: 
+        return print(f"{cryptoCurrencyString} already exists in database")
+
+    asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName)[0]
     currentDate = datetime.now()
     date = datetime(currentDate.year,currentDate.month,currentDate.day)
     currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]
-    AssetHistory.objects.create(date=date, value=currentCryptoPrice, name=asset)[0]
+    AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
 
         
         
@@ -121,4 +126,5 @@ def getCoinInformation(assetString):
     if doesCoinExistInAPI(assetString):
         return getAllCryptoData(formatted=False)[assetString]
     return f"Cryptocurrency {assetString} not supported"
+
 
