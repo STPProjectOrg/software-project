@@ -142,7 +142,3 @@ env/
 # IDE Settings
 .idea/
 .vscode/
-
-
-# Pycache
-**/__pycache__
