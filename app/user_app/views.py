@@ -57,11 +57,15 @@ def user_login(request):
         current_user = authenticate(username=username, password=password)
 
         if current_user:
+            login(request,current_user)
+            return redirect(reverse('core:index'))
+            '''
             if current_user.is_active:
                 login(request,current_user)
                 return redirect(reverse('core:index'))
             else:
                 return HttpResponse("Account not active")
+            '''
         else: 
             print("Someone tried to login and failed")
             login_form.add_error(None, 'Invalid Login Details!')

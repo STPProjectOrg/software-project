@@ -36,25 +36,6 @@ class UserForm(forms.ModelForm):
         self.set_form_control()
 
 
-        '''
-            if hasattr(self, 'cleaned_data') and field_name in self.cleaned_data and self.cleaned_data[field_name]:
-                if field_name in self.errors:
-                    field.widget.attrs['class'] = 'form-control is-invalid'
-                else:
-                    field.widget.attrs['class'] = 'form-control is-valid'
-            else:
-                field.widget.attrs['class'] = 'form-control'
-
-
-            
-            if field_name in self.errors:
-                field.widget.attrs['class'] = 'form-control is-invalid'
-            elif field_name in self.fields:
-                field.widget.attrs['class'] = 'form-control is-valid'
-            else:
-                field.widget.attrs['class'] = 'form-control'
-            '''
-
     
 
 class UserProfileInfoForm(forms.ModelForm):
@@ -65,8 +46,12 @@ class UserProfileInfoForm(forms.ModelForm):
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Enter your username'
+        'id': 'DropdownFormUsername',
+        'class': 'form-control',
+        'placeholder': 'Enter your username',
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'DropdownFormPassword',
+        'class': 'form-control',
         'placeholder': 'Enter your password'
     }))
