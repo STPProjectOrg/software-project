@@ -13,6 +13,7 @@ def api(request):
     #addCoinToDatabase('BTC','Bitcoin','EUR')
     #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
     values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
+    print(getAssetFromDatabase('BTC').name)
     data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
 
@@ -88,3 +89,16 @@ def getMonthlyDays(year, month):
         days = 29
 
     return days
+
+#Sucht ein Asset in der Datenbank nach dem Namen oder Kürzel der Kryptowährung
+def getAssetFromDatabase(assetString):
+    if Asset.objects.filter(name=assetString).exists():
+        asset = Asset.objects.get(name=assetString)
+    elif Asset.objects.filter(coinName=assetString).exists():
+        asset = Asset.objects.get(coinName=assetString)
+    else:
+        asset = Asset(name="N/A", coinName="N/A")
+    return asset
+    
+
+        
