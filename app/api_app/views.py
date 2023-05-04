@@ -10,10 +10,10 @@ def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
     
-    #addCoinToDatabase('BTC','Bitcoin','EUR')
+    addCoinToDatabase('BTC','Bitcoin','EUR')
     #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
     values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
-    print(getCoinInformation("BTC"))
+    #print(getCoinInformation("BTC"))
     data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
     return render(request, 'api_app/api.html', context=data)
 
@@ -40,11 +40,17 @@ def getCryptoValuesFromDatabase(cryptoCurrencyString, startYear, endYear):
 #und dessen dazugehörige Historie für den heutigen Tag
 #Beispielaufruf: addCoinToDatabase('BTC','Bitcoin','EUR')
 def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
-    asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName)[0]
+    if not doesCoinExistInAPI(cryptoCurrencyString): return print(f"{cryptoCurrencyString} not supported from the API")
+    if getAssetFromDatabase(cryptoCurrencyString).name != "N/A": return print(f"{cryptoCurrencyString} already exists in database")
+    
+    asset = Asset.objects.create(name=cryptoCurrencyString, coinName=coinName)[0]
     currentDate = datetime.now()
     date = datetime(currentDate.year,currentDate.month,currentDate.day)
     currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]
-    AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
+    AssetHistory.objects.create(date=date, value=currentCryptoPrice, name=asset)[0]
+
+        
+        
 
 #Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu im Jahrestakt
 #Der Beispielaufruf fügt vom 01.01.2017 bi zum 31.12.2017 der Datenbank tägliche Kursdaten hinzu
