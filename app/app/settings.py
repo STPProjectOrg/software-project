@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     'user_app',
     'api_app',
+    'dashboard_app',
 ]
 
 MIDDLEWARE = [
