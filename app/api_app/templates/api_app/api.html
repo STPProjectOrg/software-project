@@ -14,15 +14,22 @@
     <h2>Selected Currency: {{ currency }}</h2>
     <h2>Current Price of {{ crypto }} in {{ currency }}:</h2>
     <h2>Historical Price of {{ crypto }} in {{ currency }} on {{ historicalDate }}: {{ historicalPrice }}</h2>
-    <div style="width:50%">
+    <div style="width:50%;display: flex">
         <canvas id="myChart" ></canvas>
         {{ value|json_script:'value' }}
+        <div style="width:50%;">
+          <canvas id="myChart2" ></canvas>
+          <canvas id="myChart3" ></canvas>
+        </div>
       </div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
       const ctx = document.getElementById('myChart');
+      const ctx2 = document.getElementById('myChart2');
+      const ctx3 = document.getElementById('myChart3');
       var dataValues = JSON.parse(document.getElementById('value').textContent);
       var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
 
@@ -52,6 +59,32 @@
             }
           }
         });
+
+          const data2 = {
+            labels: [
+              'Red',
+              'Blue',
+              'Yellow'
+            ],
+            datasets: [{
+              label: 'My First Dataset',
+              data: [300, 50, 100],
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+              ],
+              hoverOffset: 4
+            }]
+          };
+          new Chart(ctx2, {
+          type: 'doughnut',
+          data: data2,
+        })
+        new Chart(ctx3, {
+          type: 'pie',
+          data: data2,
+        })
     </script>
 </body>
 </html>
