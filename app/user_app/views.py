@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from user_app.models import CustomUser
 from user_app.forms import UserForm, UserProfileInfoForm, UserLoginForm
 
 from django.contrib.auth import authenticate,login,logout
@@ -81,3 +82,13 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('core:index'))
 
+@login_required
+def self_profile(request):
+    user = get_object_or_404(CustomUser, username=request.user.username)
+    picture_url = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    return render(request,'user_app/profile.html', 
+                  {"user_name": user.username,
+                   "first_name": user.first_name,
+                   "last_name": user.last_name,
+                   "email": user.email,
+                   "picture_url": picture_url})
