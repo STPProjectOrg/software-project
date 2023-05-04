@@ -1,0 +1,55 @@
+{% load static %}
+{% load core_tags %}
+
+<html lang="de" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+      {% comment %}
+        serve files from static storage
+        https://docs.djangoproject.com/en/4.1/howto/static-files/
+    {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+    {% comment %}
+        TODO: ADD TO STATIC    
+    {% endcomment %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    <title>Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="container-fluid h-100">
+    <div class="d-flex flex-column h-100">
+
+        {% block header %}
+        <div class="row justify-content-between p-4 border-bottom">
+            {% logo_name %}
+
+            <div class="col-auto">
+                <div class="dropdown">
+                    <a class="btn btn-outline-primary" href="{% url 'user_app:login' %}">
+                        Anmelden
+                    </a>
+                    <a class="btn btn-outline-warning" href="{% url 'user_app:register' %}">
+                        Registrieren
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endblock header %}
+
+    
+        <div class="row row-cols-1 row-cols-md-2 flex-grow-1">
+            {% block content %}
+                
+            {% endblock content %}
+        </div>
+
+        {% footer %}
+</body>
+</html>
