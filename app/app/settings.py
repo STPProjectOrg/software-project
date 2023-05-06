@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'user_app',
     'api_app',
     'dashboard_app',
+    'settings_app'
 ]
 
 MIDDLEWARE = [
@@ -85,8 +86,7 @@ DATABASES = {
 }
 
 
-
-# Password Hashers 
+# Password Hashers
 # https://docs.djangoproject.com/en/4.1/topics/auth/passwords/#password-validation
 # Using Argon2: running "python -m pip install django[argon2]"
 # Using BCrypt: running "python -m pip install django[bcrypt]"
