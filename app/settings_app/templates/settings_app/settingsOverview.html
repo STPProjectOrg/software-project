@@ -1,41 +1,14 @@
-{% extends 'core/base.html' %}
-{% block content %}
-<div class="container">
-    <h1>Einstellungsübersicht</h1>
-    <p>In einer Kryptoportfolio-App können typische Benutzereinstellungen Folgendes umfassen:
-      Profilinformationen:
-          Profilbild
-          Name oder Benutzername
-          E-Mail-Adresse
-          Passwort
-      Portfolioeinstellungen:
-          Standardwährung, in der die Portfolio-Werte angezeigt werden (z.B. USD, EUR, BTC)
-          Benachrichtigungseinstellungen (z.B. Preis-Alarme, Portfolio-Updates)
-          Anzeigeoptionen (z.B. Sortierreihenfolge von Coins, bevorzugte Kursdatenquellen)
-      Sicherheit:
-          Zwei-Faktor-Authentifizierung (2FA)
-          Sicherheitsfrage und Antwort
-          Anmeldeverlauf
-      Datenschutzeinstellungen:
-          Datenschutzeinstellungen, wie z.B. die Möglichkeit, öffentliche und private Portfolios zu erstellen
-          Verknüpfungen mit Social-Media-Konten
-          Option zum Löschen des Kontos
-      Abhängig von den spezifischen Funktionen und Zielen der Kryptoportfolio-App können weitere benutzerspezifische Einstellungen hinzugefügt werden, wie zum Beispiel:
-      Handelseinstellungen:
-          Verknüpfung mit Börsen-APIs für die Integration von Handelsaktivitäten
-          Auswahl bevorzugter Handelspaare und Märkte
-          Festlegen von Handelsstrategien und Algorithmen (falls die App Algo-Handel unterstützt)
-      Steuereinstellungen:
-          Land oder Region des Benutzers, um steuerliche Anforderungen zu berücksichtigen
-          Steuersatz und Steuerjahr
-          Exportoptionen für Steuerberichte und Transaktionshistorie
-      Benutzerdefinierte Anpassung:
-          Auswahl von Themes oder Farbschemata für die Benutzeroberfläche
-          Anpassung von Widgets oder Elementen auf dem Dashboard
-      </p>
-    <div class="d-flex justify-content-between" style="max-width: 500px; margin: 0 auto;">
-      <a  class="btn btn-primary flex-fill me-2" role="button">Benutzereinstellungen</a>
-      <a  class="btn btn-primary flex-fill" role="button">Andere Einstellungen</a>
+{% extends 'core/base.html' %} {% block content %}
+<div class="container" style="width: 100%; height: 100%">
+  <div class="d-flex flex-column justify-content-center" style="width: 100%; height: 100%">
+    <h1 style="margin-bottom: 2rem">Einstellungsübersicht</h1>
+    <div class="d-flex flex-column gap-3 flex-wrap justify-items-center">
+      <a href="{% url 'settings_app:userSettings' %}" class="btn btn-outline-light btn-lg flex-fill me-2" role="button">Profileinstellungen</a>
+      <a href="{% url 'settings_app:portfolioSettings' %}" class="btn btn-outline-light btn-lg flex-fill me-2" role="button">Portfolioeinstellungen</a>
+      <a href="{% url 'settings_app:securitySettings' %}" class="btn btn-outline-light btn-lg flex-fill me-2" role="button">Sicherheitseinstellungen</a>
+      <a href="{% url 'settings_app:notificationSettings' %}" class="btn btn-outline-light btn-lg flex-fill me-2" role="button">Benachrichtigungseinstellungen</a>
+      <a href="{% url 'settings_app:viewSettings' %}" class="btn btn-outline-light btn-lg flex-fill me-2" role="button">Anzeigeeinstellungen</a>
     </div>
   </div>
+</div>
 {% endblock content %}
