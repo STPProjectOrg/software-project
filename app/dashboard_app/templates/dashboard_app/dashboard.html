@@ -10,8 +10,13 @@
 </head>
 <body>
     <h1>THIS IS THE DASHBOARD</h1>
-    <h2>Data: {{ value }}</h2>
-    
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Submit</button>
+    </form>
+    <h3>{{ message }}</h3>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
