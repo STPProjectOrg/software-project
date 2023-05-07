@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from .models import Asset, AssetHistory
 from datetime import datetime
 from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
-from time import time
+import time
+
 
 # Create your views here.
 def api(request):
@@ -14,7 +15,7 @@ def api(request):
     #addCoinToDatabase('ETH','Ethereum','EUR')
     #addCoinToDatabase('USDT','Tether','EUR')
     #addCoinToDatabase('XRP','XRP','EUR')
-    #saveYearlyDataToDatabase('BTC', 'EUR', 2022, 2022)
+    #saveYearlyDataToDatabase('BTC', 'EUR', 2023, 2023)
     #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
     values = 0
     #print(getCoinInformation("BTC"))
