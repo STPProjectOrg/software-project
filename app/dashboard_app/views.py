@@ -4,6 +4,7 @@ from datetime import datetime
 from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase
 from user_app.views import getUser
 from dashboard_app.forms import MyForm
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 def dashboard(request):
@@ -19,17 +20,20 @@ def dashboard(request):
 
 
 #TODO aktuellen/historischen Wert der Kryptowährung aus der Datenbank holen und in purchaseValue setzen
-#TODO Daten vom purchaseDate bis heute speichern
 def addToPortfolio(cleanedData):
+    dated = relativedelta(cleanedData.get('purchaseDate'), datetime.now())
     if doesCoinExistInDatabase(cleanedData.get('asset')):
         asset = getAssetFromDatabase(cleanedData.get('asset'))
         user = getUser(cleanedData.get('user'))
-        Portfolio.objects.get_or_create(
-            user=user, 
-            asset=asset, 
-            purchaseDate=cleanedData.get('purchaseDate'), 
-            purchaseValue=cleanedData.get('purchaseValue')
-            )
+        for year in range(datetime.now().year+dated.years, datetime.now().year+1):
+            for month in range(datetime.now().month+dated.months, datetime.now().month+1):
+                for day in range(datetime.now().day+dated.days, datetime.now().day+1):
+                    Portfolio.objects.get_or_create(
+                        user=user, 
+                        asset=asset, 
+                        purchaseDate=datetime(year,month,day), 
+                        purchaseValue=cleanedData.get('purchaseValue')
+                        )
         return "Success: Asset saved"
     else:
         return "Error: Asset could not be saved"
