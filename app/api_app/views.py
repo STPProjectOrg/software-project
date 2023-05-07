@@ -120,6 +120,15 @@ def doesCoinExistInAPI(assetString):
             return True
     return False
 
+#Sucht ein Asset in der Datenbank und überprüft, ob das Asset verfügbar ist
+#assetString muss ein Kürzel sein z.B. 'BTC' oder der Name z.B. 'Bitcoin'
+def doesCoinExistInDatabase(assetString):
+    if getAssetFromDatabase(assetString).name != "N/A":
+        return True
+    else:
+        return False
+
+
 #Fragt Informationen von der API zur angegebenen Kryptowährung(Kürzel) ab
 #assetString muss ein Kürzel sein z.B. 'BTC'
 def getCoinInformation(assetString):
