@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
 from api_app.forms import MyForm
 import time
-from dateutil.relativedelta import relativedelta
 
 
 # Create your views here.
@@ -41,16 +40,20 @@ def getCryptoValueFromDatabase(cryptoCurrencyString, date):
     asset = Asset.objects.get(name=cryptoCurrencyString).pk
     return AssetHistory.objects.get_or_create(date=date, name=asset)[0]
 
-#Die Funktion gibt die Werte der Kryptowährung im Jahrestakt aus der Datenbank zurück
-#Beispielaufruf: getCryptoValuesFromDatabase('BTC, 2022, 2022)
+#Die Funktion gibt die Werte der Kryptowährung aus der Datenbank zurück
+#Beispielaufruf: getCryptoValuesFromDatabase('BTC', dateFrom, dateTo)
 def getCryptoValuesFromDatabase(cryptoCurrencyString, dateFrom, dateTo):
     asset = Asset.objects.get(name=cryptoCurrencyString)
     dateDiff = dateTo - dateFrom 
     data = []
+    for month in range(dateFrom.month, dateTo.month+1):
+        print(month)
     for days in range(dateDiff.days + 1):
         date = dateFrom + timedelta(days=days)
-        data.append(AssetHistory.objects.get_or_create(date=date, name=asset)[0].value)
-          
+        if AssetHistory.objects.filter(date=date, name=asset).exists():
+            data.append(AssetHistory.objects.get_or_create(date=date, name=asset)[0].value)
+        else:
+            print(f"Value for {date} does not exist")
     return data
 
 #Fügt eine neue Kryptowährung der Datenbank hinzu 
@@ -69,10 +72,10 @@ def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
     AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
 
         
-#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu im Jahrestakt
+#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu
 #Der Beispielaufruf fügt vom 01.01.2017 bi zum 31.12.2017 der Datenbank tägliche Kursdaten hinzu
 #Aktuell nur den Tageswert.
-#Beispielaufruf: saveYearlyDataToDatabase('BTC', 'EUR', 2017, 2017)
+#Beispielaufruf: saveYearlyDataToDatabase('BTC', 'EUR', dateFrom, dateTo)
 def saveDataFromApiToDatabase(cryptoCurrency, currency, dateFrom, dateTo):
     dateDiff = dateTo - dateFrom 
     asset = Asset.objects.get(name=cryptoCurrency)
