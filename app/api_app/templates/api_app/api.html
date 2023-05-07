@@ -14,6 +14,14 @@
     <h2>Selected Currency: {{ currency }}</h2>
     <h2>Current Price of {{ crypto }} in {{ currency }}:</h2>
     <h2>Historical Price of {{ crypto }} in {{ currency }} on {{ historicalDate }}: {{ historicalPrice }}</h2>
+    <h3>Download Data from API</h3> 
+    <form method="POST">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit">Submit</button>
+    </form>
+    <h3>{{ message }}</h3>
+
     <div style="width:50%;display: flex">
         <canvas id="myChart" ></canvas>
         {{ value|json_script:'value' }}
