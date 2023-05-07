@@ -92,3 +92,7 @@ def self_profile(request):
                    "last_name": user.last_name,
                    "email": user.email,
                    "picture_url": picture_url})
+
+def getUser(id):
+    user = CustomUser.objects.get(id=id)
+    return user

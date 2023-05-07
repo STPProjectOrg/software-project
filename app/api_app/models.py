@@ -9,7 +9,7 @@ class Asset(models.Model):
         return self.name
     
 class AssetHistory(models.Model):
-    date = models.DateField(unique=True)
+    date = models.DateField()
     value = models.CharField(max_length=30, blank=False)
     name = models.ForeignKey(Asset, on_delete=models.CASCADE)
 
