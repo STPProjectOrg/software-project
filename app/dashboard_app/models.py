@@ -7,6 +7,7 @@ class Portfolio(models.Model):
     user = models.ForeignKey(CustomUser ,on_delete=models.CASCADE)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     purchaseDate = models.DateField()
+    amount = models.FloatField()
 
     def __str__(self):
         return self.asset

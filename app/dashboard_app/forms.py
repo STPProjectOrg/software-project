@@ -12,4 +12,5 @@ class MyForm(forms.Form):
         assetChoices.append((asset.name, asset.coinName))
     user = forms.CharField(max_length=20)
     assetDropdown = forms.CharField(label='Asset', widget=forms.Select(choices=assetChoices))
+    amount = forms.FloatField()
     purchaseDate = forms.DateField(widget=DateInput, initial=datetime.now)

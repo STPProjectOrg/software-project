@@ -26,10 +26,11 @@ def addToPortfolio(cleanedData):
     if doesCoinExistInDatabase(cleanedData.get('assetDropdown')):
         asset = getAssetFromDatabase(cleanedData.get('assetDropdown'))
         user = getUser(cleanedData.get('user'))
-        Portfolio.objects.get_or_create(
+        Portfolio.objects.create(
                 user=user, 
                 asset=asset, 
-                purchaseDate=datetime(date1.year,date1.month,date1.day)
+                purchaseDate=datetime(date1.year,date1.month,date1.day),
+                amount = cleanedData.get('amount')
                 )
         return "Success: Asset saved"
     else:
