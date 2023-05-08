@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Asset, AssetHistory
-from datetime import datetime
+from datetime import datetime, timedelta
 from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
+from api_app.forms import MyForm
 import time
 
 
@@ -15,11 +16,22 @@ def api(request):
     #addCoinToDatabase('ETH','Ethereum','EUR')
     #addCoinToDatabase('USDT','Tether','EUR')
     #addCoinToDatabase('XRP','XRP','EUR')
-    #saveYearlyDataToDatabase('BTC', 'EUR', 2023, 2023)
-    #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
+    #saveDataFromApiToDatabase('BTC', 'EUR', dateFrom, dateTo)
     values = 0
+    #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
+    message = ""
+    form = MyForm()
+    if request.method=='POST':
+        form = MyForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            dateFrom = data.get('dateFrom')
+            dateTo = data.get('dateTo')
+            values = getCryptoValuesFromDatabase('BTC', dateFrom, dateTo)
+            message = "s"
+
     #print(getCoinInformation("BTC"))
-    data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0}
+    data = {'value':values, 'crypto': cryptoCurrencyString, 'currency': currencyString, 'historicalPrice': 0, 'historicalDate': 0, 'form': form, 'message': message}
     return render(request, 'api_app/api.html', context=data)
 
 #Die Funktion gibt den Wert der Kryptowährung zum gegebenen Datum zurück
@@ -28,16 +40,20 @@ def getCryptoValueFromDatabase(cryptoCurrencyString, date):
     asset = Asset.objects.get(name=cryptoCurrencyString).pk
     return AssetHistory.objects.get_or_create(date=date, name=asset)[0]
 
-#Die Funktion gibt die Werte der Kryptowährung im Jahrestakt aus der Datenbank zurück
-#Beispielaufruf: getCryptoValuesFromDatabase('BTC, 2022, 2022)
-def getCryptoValuesFromDatabase(cryptoCurrencyString, startYear, endYear):
-    asset = asset = Asset.objects.get(name=cryptoCurrencyString).pk
+#Die Funktion gibt die Werte der Kryptowährung aus der Datenbank zurück
+#Beispielaufruf: getCryptoValuesFromDatabase('BTC', dateFrom, dateTo)
+def getCryptoValuesFromDatabase(cryptoCurrencyString, dateFrom, dateTo):
+    asset = Asset.objects.get(name=cryptoCurrencyString)
+    dateDiff = dateTo - dateFrom 
     data = []
-    for year in range(startYear, endYear+1):
-        for month in range(1,13):
-            for day in range(1, getMonthlyDays(year,month)+1):
-                date = datetime(year, month, day)
-                data.append(AssetHistory.objects.get_or_create(date=date, name=asset)[0].value)
+    for month in range(dateFrom.month, dateTo.month+1):
+        print(month)
+    for days in range(dateDiff.days + 1):
+        date = dateFrom + timedelta(days=days)
+        if AssetHistory.objects.filter(date=date, name=asset).exists():
+            data.append(AssetHistory.objects.get_or_create(date=date, name=asset)[0].value)
+        else:
+            print(f"Value for {date} does not exist")
     return data
 
 #Fügt eine neue Kryptowährung der Datenbank hinzu 
@@ -56,51 +72,22 @@ def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
     AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
 
         
-        
-
-#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu im Jahrestakt
+#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu
 #Der Beispielaufruf fügt vom 01.01.2017 bi zum 31.12.2017 der Datenbank tägliche Kursdaten hinzu
 #Aktuell nur den Tageswert.
-#Beispielaufruf: saveYearlyDataToDatabase('BTC', 'EUR', 2017, 2017)
-def saveYearlyDataToDatabase(cryptoCurrency, currency, startYear, endYear):
-    for year in range(startYear, endYear+1):
-        for month in range(1,13):
-            saveMonthlyDataToDatabase(cryptoCurrency, currency, year, month)
-
-#Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu im Monatstakt
-#Der Beispielaufruf fügt vom 01.01.2017 bi zum 31.01.2017 der Datenbank tägliche Kursdaten hinzu
-#Aktuell nur den Tageswert.
-#Überprüft vor dem Request an die API, ob der Wert schon existiert, um unnötige API-Requests zu vermeiden
-#Beispielaufruf: saveMonthlyDataToDatabase('BTC', 'EUR', 2017, 1)
-def saveMonthlyDataToDatabase(cryptoCurrency, currency, year, month):
+#Beispielaufruf: saveYearlyDataToDatabase('BTC', 'EUR', dateFrom, dateTo)
+def saveDataFromApiToDatabase(cryptoCurrency, currency, dateFrom, dateTo):
+    dateDiff = dateTo - dateFrom 
     asset = Asset.objects.get(name=cryptoCurrency)
-    for day in range(1, getMonthlyDays(year,month)+1):
-        historicalDate = datetime(year,month,day)
+    for days in range(dateDiff.days + 1):
+        historicalDate = dateFrom + timedelta(days=days)
         if AssetHistory.objects.filter(date=historicalDate, name=asset).exists():
             print("value exists already")
         else:
             historicalPrice = getHistoricalCryptoData(cryptoCurrency, currency, historicalDate)
             AssetHistory.objects.get_or_create(date=historicalDate, value=historicalPrice[cryptoCurrency][currency], name=asset)[0]
-            time.sleep(1)
+            time.sleep(0.33)
 
-
-#Hilfsfunktion für saveYearlyDataToDatabase und saveMonthlyDataToDatabase,
-#um die richtige Anzahl von
-#Monatstagen herauszufinden
-def getMonthlyDays(year, month):
-    days = 28
-    thirtyOneDaysMonth = [1,3,5,7,8,10,12]
-    thirtyDaysMonth = [4,6,9,11]
-    leapYear = [2000, 2004, 2008, 2012, 2016, 2020, 2024]
-    if month in thirtyOneDaysMonth:
-        days = 31
-    elif month in thirtyDaysMonth:
-        days = 30
-    
-    if year in leapYear and  month == 2:
-        days = 29
-
-    return days
 
 #Sucht ein Asset in der Datenbank nach dem Namen oder Kürzel der Kryptowährung
 #assetString kann das Kürzel oder der Name der Kryptowährung sein
@@ -138,3 +125,5 @@ def getCoinInformation(assetString):
     return f"Cryptocurrency {assetString} not supported"
 
 
+def getAllCoinsFromDatabase():
+    return Asset.objects.all()
