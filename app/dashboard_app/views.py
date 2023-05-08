@@ -21,19 +21,16 @@ def dashboard(request):
 
 def addToPortfolio(cleanedData):
     if cleanedData.get('purchaseDate') > date.today(): return "You picked a date in the future!"
-    dateDiff = relativedelta(cleanedData.get('purchaseDate'), datetime.now())
-    if doesCoinExistInDatabase(cleanedData.get('asset')):
-        asset = getAssetFromDatabase(cleanedData.get('asset'))
+    date1 = cleanedData.get('purchaseDate')
+    print(cleanedData.get('assetDropdown'))
+    if doesCoinExistInDatabase(cleanedData.get('assetDropdown')):
+        asset = getAssetFromDatabase(cleanedData.get('assetDropdown'))
         user = getUser(cleanedData.get('user'))
-        for year in range(datetime.now().year+dateDiff.years, datetime.now().year+1):
-            for month in range(datetime.now().month+dateDiff.months, datetime.now().month+1):
-                for day in range(datetime.now().day+dateDiff.days, datetime.now().day+1):
-                    Portfolio.objects.get_or_create(
-                        user=user, 
-                        asset=asset, 
-                        purchaseDate=datetime(year,month,day), 
-                        purchaseValue=getCryptoValueFromDatabase(cleanedData.get('asset'), datetime(year,month,day))
-                        )
+        Portfolio.objects.get_or_create(
+                user=user, 
+                asset=asset, 
+                purchaseDate=datetime(date1.year,date1.month,date1.day)
+                )
         return "Success: Asset saved"
     else:
         return "Error: Asset could not be saved"

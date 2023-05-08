@@ -17,7 +17,7 @@ def api(request):
     #addCoinToDatabase('USDT','Tether','EUR')
     #addCoinToDatabase('XRP','XRP','EUR')
     #saveDataFromApiToDatabase('BTC', 'EUR', dateFrom, dateTo)
-    
+    values = 0
     #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
     message = ""
     form = MyForm()
@@ -125,3 +125,5 @@ def getCoinInformation(assetString):
     return f"Cryptocurrency {assetString} not supported"
 
 
+def getAllCoinsFromDatabase():
+    return Asset.objects.all()
