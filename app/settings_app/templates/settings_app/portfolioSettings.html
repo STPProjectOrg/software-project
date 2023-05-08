@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %} {% block content %}
+<div class="container">
+    <h1 class="text-center mb-5">Portfolioeinstellungen</h1>
+    <div class="card">
+        <div class="card-body">
+            <form class="ps-5 pe-5 pt-2">
+                <div class="form-group mb-3">
+                    <label for="dateTimeFormat">Datums- und Zeitformat</label>
+                    <select class="form-control" id="dateTimeFormat">
+                      <option>DD.MM.YYYY HH:mm</option>
+                      <option>MM/DD/YYYY HH:mm</option>
+                      <option>YYYY-MM-DD HH:mm</option>
+                    </select>
+                  </div>
+                <div class="form-group mb-3 mt-2">
+                    <label for="dateTimeFormat">Währung</label>
+                    <select class="form-control" id="currencySelector" style="width: 20%;">
+                        <option>Euro</option>
+                        <option>USD</option>
+                        <option>Pfund</option>
+                        <option>Rubel</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-end gap-3">
+                    <button type="submit" class="btn btn-success">
+                        Speichern
+                    </button>
+                    <a href="{% url 'settings_app:settingsOverview' %}" class="btn btn-danger">Zurück</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

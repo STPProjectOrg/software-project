@@ -41,3 +41,4 @@ def update_data():
             concreteCurrency.get('name'),
             concreteCurrency.get('currency')
         )
+        # GETCURRENTCRYPTOPRICE
