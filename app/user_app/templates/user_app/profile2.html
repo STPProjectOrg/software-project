@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    
+<div class="card mb-3">
+  <div class="position-relative">
+    <img class="card-img-top" style="margin-bottom: 5%" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fkbhxfkobabf11.png&f=1&nofb=1&ipt=7138a6d0e9e4fe655b60f911ce3bf0bbd7d3492d9c7edcf53ed436e1ae2c8c7b&ipo=images" alt="Card image cap">
+    <div class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0" >
+      <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle h-50 border border-dark border-5" alt="Avatar" onclick="">
+      {% comment %} <button class="btn btn-primary mt-3">Avatar hochladen</button> {% endcomment %}
+    </div>
+    {% comment %} <button class="btn btn-primary position-absolute bottom-0 end-0 mb-3 me-3">Banner hochladen</button> {% endcomment %}
+  </div>
+  <div class="card-body">
+    <div class="row" id="title">
+      <div class="col-auto">
+        <div class="fs-6 my-auto">u/Username</div>
+        <div class="fs-2 fw-bold text-white">{{first_name}} {{last_name}}</div>
+      </div>
+    </div>
+    <div class="row" id="information">
+      <div class="col">
+      </div>
+    </div>
+    <div class="row" id="bio">
+      <div class="col">
+      </div>
+    </div>
+    <div class="row" id="buttons">
+      <div class="col">
+      </div>
+      <div class="col">
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    
+
+{% endblock content %}
