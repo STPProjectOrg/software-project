@@ -86,7 +86,7 @@ def user_logout(request):
 def self_profile(request):
     user = get_object_or_404(CustomUser, username=request.user.username)
     picture_url = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-    return render(request,'user_app/profile.html', 
+    return render(request,'user_app/profile2.html', 
                   {"user_name": user.username,
                    "first_name": user.first_name,
                    "last_name": user.last_name,
