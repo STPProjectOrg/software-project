@@ -1,22 +1,59 @@
 {% extends 'core/clear_base.html' %}
+{% load core_tags %}
+{% block title %}| Login{% endblock title %}| Login
 {% block content %}
-    <div class="container">
-        <div class="jumbotron">
-                <h1>Login Here!</h1>
 
+<div class="row h-100 flex-center">
+    <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3 m-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center fs-1"> 
+                    <i class="bi bi-pie-chart-fill pe-2 my-auto"></i>
+                </div>
+                <div class="text-center fs-1">
+                    Anmeldung
+                </div>
                 <form action="{% url 'user_app:login' %}" method="post">
                     {% csrf_token %}
-                    {{ form.username }}
-                    {{ form.password }}
-                    {% if form.errors or form.non_field_errors %}
-                        {% for field in form %}
-                            {{ field.errors }}
-                        {% endfor %}
+                    
+                    <div class="mt-4">
+                        <label for="username" class="form-label">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                            {{ form.username }}
+                        </div>
+            
+                    </div>
+                    
+                    <div class="mt-4">
+                        <label for="password" class="form-label">Passwort</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-key-fill"></i></div>
+                            {{ form.password }}
+                        </div>
+                    </div>
 
-                        {{ form.non_field_errors }}
-                    {% endif %}
-                    <input type="submit" value="Login">
+                    {% if form.errors or form.non_field_errors %}
+                        <div class="mt-4 text-danger-emphasis bg-danger-subtle d-flex" style="border-radius: 0.375rem">
+                            <div class="pe-2 bg-danger" style="border-start-start-radius: 0.375rem; border-end-start-radius: 0.375rem">
+                            </div>
+                            <div class="px-3 pt-3">
+                                <strong>Fehlgeschlagen</strong>
+                                {% for field in form %}
+                                    {{ field.errors }}
+                                {% endfor %}
+        
+                                {{ form.non_field_errors }}
+                            </div>
+                        </div>                        
+                    {% endif %}         
+        
+                    <input class="btn btn-primary mt-4 w-100" type="submit" value="Anmelden">
                 </form>
+            </div>
         </div>
+        
     </div>
+</div>
+
 {% endblock content %}

@@ -9,6 +9,10 @@ register = template.Library()
 def logo_name():
     return
 
+@register.inclusion_tag("inclusion/logo.html")
+def logo():
+    return
+
 
 @register.inclusion_tag("inclusion/navigation.html")
 def navigation():

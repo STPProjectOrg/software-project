@@ -46,12 +46,12 @@ class UserProfileInfoForm(forms.ModelForm):
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'id': 'DropdownFormUsername',
-        'class': 'form-control',
-        'placeholder': 'Enter your username',
+        'id': 'username',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'name@beispiel.de',
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'id': 'DropdownFormPassword',
-        'class': 'form-control',
-        'placeholder': 'Enter your password'
+        'id': 'password',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Passwort'
     }))
