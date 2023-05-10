@@ -1,8 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from user_app.models import UserProfileInfo
 from user_app.models import CustomUser
 from user_app.forms import UserForm, UserProfileInfoForm, UserLoginForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
+
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -86,7 +90,7 @@ def user_logout(request):
 def profile(request, username):
     is_own_profile = False
     if username == "self":
-        user = get_object_or_404(CustomUser, username=request.user.username)
+        user = CustomUser.objects.get(username=request.user.username)
         is_own_profile = True
     else:
         user = get_object_or_404(CustomUser, username=username) 
@@ -94,7 +98,9 @@ def profile(request, username):
     picture_url = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
 
     return render(request,'user_app/profile2.html', 
-                  {"user_name": user.username,
+                  {"user_id": user.id,
+                   "user_profile_id": user.userprofileinfo.id,
+                   "user_name": user.username,
                    "first_name": user.first_name,
                    "last_name": user.last_name,
                    "email": user.email,
@@ -104,3 +110,19 @@ def profile(request, username):
 def getUser(id):
     user = CustomUser.objects.get(id=id)
     return user
+
+class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = UserProfileInfo
+    fields = ['profile_pic']
+    # form_class = UserProfileUpdateForm
+    # template_name = 'profile_update.html'
+    # success_url = reverse('user_app:profile', kwargs={"username": self.request.user})
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        # user_id = self.kwargs.get('id')
+        return reverse('user_app:self_profile', kwargs={"username": "self"})
+        #return super().get_success_url()

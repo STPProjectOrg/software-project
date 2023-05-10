@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% block content %}
     
+<h1>Id : {{user_profile_id}}</h1>
 <div class="card mb-3">
   <div class="position-relative">
     <img class="card-img-top" style="margin-bottom: 5%" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fkbhxfkobabf11.png&f=1&nofb=1&ipt=7138a6d0e9e4fe655b60f911ce3bf0bbd7d3492d9c7edcf53ed436e1ae2c8c7b&ipo=images" alt="Card image cap">
@@ -13,6 +14,20 @@
     {%endif%}
   </div>
   <div class="card-body">
+    {%if is_own_profile%}
+    <div class="row">
+      <div class="col-7">
+        <form action="{% url 'user_app:update_userprofile' user_profile_id %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="input-group">
+            <label for="id_profile_pic">Profilbild ändern</label>
+            <input type="file" class="form-control" id="id_profile_pic" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="profile_pic">
+            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Button</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    {%endif%}
     <div class="row" id="title">
       <div class="col-auto">
         <div class="fs-6 my-auto">u/Username</div>
