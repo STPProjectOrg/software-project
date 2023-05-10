@@ -83,15 +83,23 @@ def user_logout(request):
     return redirect(reverse('core:index'))
 
 @login_required
-def self_profile(request):
-    user = get_object_or_404(CustomUser, username=request.user.username)
+def profile(request, username):
+    is_own_profile = False
+    if username == "self":
+        user = get_object_or_404(CustomUser, username=request.user.username)
+        is_own_profile = True
+    else:
+        user = get_object_or_404(CustomUser, username=username) 
+    
     picture_url = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+
     return render(request,'user_app/profile2.html', 
                   {"user_name": user.username,
                    "first_name": user.first_name,
                    "last_name": user.last_name,
                    "email": user.email,
-                   "picture_url": picture_url})
+                   "picture_url": picture_url,
+                   "is_own_profile": is_own_profile})
 
 def getUser(id):
     user = CustomUser.objects.get(id=id)
