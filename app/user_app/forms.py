@@ -4,9 +4,42 @@ from django.contrib.auth.models import User
 from user_app.models import UserProfileInfo
 from .models import CustomUser
 
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
+class UserRegistrationForm(forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'username',
+        'class': 'form-control bg-body-secondary',
+        'placeholder': 'Benutzername',
+    }))
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'password',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Passwort',
+    }))
+    
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'password2',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Passwort',
+    }))
+    
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'first_name',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Vorname',
+    }))
+    
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'last_name',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Nachname',
+    }))
+    
+    email = forms.CharField(widget=forms.TextInput(attrs={
+        'id': 'email',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'E-Mail',
+    }))
 
     class Meta():
         model = CustomUser 
@@ -16,11 +49,11 @@ class UserForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             if self.is_bound:
                 if field_name in self.errors:
-                    field.widget.attrs['class'] = 'form-control is-invalid'
+                    field.widget.attrs['class'] = 'form-control bg-body-tertiary is-invalid'
                 else:
-                    field.widget.attrs['class'] = 'form-control is-valid' 
+                    field.widget.attrs['class'] = 'form-control bg-body-tertiary is-valid' 
             else:
-                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['class'] = 'form-control bg-body-tertiary border-start-0'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,12 +79,12 @@ class UserProfileInfoForm(forms.ModelForm):
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'id': 'DropdownFormUsername',
-        'class': 'form-control',
-        'placeholder': 'Enter your username',
+        'id': 'username',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Benutzername',
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'id': 'DropdownFormPassword',
-        'class': 'form-control',
-        'placeholder': 'Enter your password'
+        'id': 'password',
+        'class': 'form-control bg-body-tertiary border-start-0',
+        'placeholder': 'Passwort'
     }))

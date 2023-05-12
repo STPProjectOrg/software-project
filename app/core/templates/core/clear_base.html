@@ -20,8 +20,7 @@
     {% endcomment %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
-    <title>Test</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PMS {% block title %}{% endblock title %}</title>
 </head>
 <body class="container-fluid h-100">
     <div class="d-flex flex-column h-100">
@@ -44,10 +43,11 @@
         {% endblock header %}
 
     
-        <div class="row row-cols-1 row-cols-md-2 flex-grow-1">
-            {% block content %}
-                
-            {% endblock content %}
+        <div class="row flex-grow-1 bg-body-secondary">
+            <div class="col">
+                {% block content %}
+                {% endblock content %}
+            </div>
         </div>
 
         {% footer %}
