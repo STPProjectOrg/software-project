@@ -24,18 +24,18 @@ def start_scheduler():
         day_of_week="mon-sun",
         hour=3
     )
-    scheduler.start()
+    try:
+        scheduler.start()
+    except Exception as e:
+        print(f"Error starting dailyScheduler: {e}")
 
 
 # Diese Funktion wird vom Scheduler aufgerufen.
 # Der Aufruf der Methode addCoinToDatabase() fügt die Coins der Datenbank hinzu.
 # Eventuell müssen die Fehler noch gefangen werden. -> Mit Julian besprechen
 def update_data():
-    print("scheduler: NEW API UPDATE INITIALIZED")
-    for i in range(len(allCurrencys)):
-        concreteCurrency = allCurrencys.get("%i" % i)
-        print(allCurrencys)
-        print(concreteCurrency)
+    print("scheduler: API DATA UPDATE INITIALIZED")
+    for concreteCurrency in allCurrencys:
         addCoinToDatabase(
             concreteCurrency.get('identifier'),
             concreteCurrency.get('name'),
