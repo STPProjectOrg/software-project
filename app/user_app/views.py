@@ -3,10 +3,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from user_app.models import UserProfileInfo
 from user_app.models import CustomUser
-from user_app.forms import UserForm, UserProfileInfoForm, UserLoginForm
+from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -18,7 +17,7 @@ def register(request):
 
     if request.method == "POST":
         # Get the form data of the POST-method
-        user_form = UserForm(data=request.POST)
+        user_form = UserRegistrationForm(data=request.POST)
         userprofile_form = UserProfileInfoForm(data=request.POST)
 
         if user_form.is_valid() and userprofile_form.is_valid():
@@ -44,7 +43,7 @@ def register(request):
             print(user_form.errors, userprofile_form.errors)
     
     else:
-        user_form = UserForm()
+        user_form = UserRegistrationForm()
         userprofile_form = UserProfileInfoForm()
 
     return render(request, 'user_app/registration.html', 
