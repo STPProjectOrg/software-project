@@ -4,7 +4,6 @@ from datetime import datetime, date
 from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCryptoValueFromDatabase
 from user_app.views import getUser
 from dashboard_app.forms import MyForm
-from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 def dashboard(request):

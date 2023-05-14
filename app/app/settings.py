@@ -156,3 +156,13 @@ LOGOUT_REDIRECT_URL = '/landing'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#SMTP Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.web.de'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'resetpwtest@web.de'
+DEFAULT_FROM_EMAIL = 'resetpwtest@web.de'
+EMAIL_HOST_PASSWORD = 'ResetPassword$44'
