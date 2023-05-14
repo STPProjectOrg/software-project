@@ -18,8 +18,8 @@ def dashboard(request):
     return render(request, 'dashboard_app/dashboard.html', context=data)
 
 #TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
-def asset(request):
-    selectedCoin = 'BTC'
+def asset(request, coin):
+    selectedCoin = coin
     user = 1
     message = ""
     form = MyForm2(initial={'user': user, 'assetDropdown': selectedCoin})
@@ -30,8 +30,10 @@ def asset(request):
 
     #TODO diesen Wert nehmen, wenn jeden Tag aktuelle Werte in die DB gespeichert werden
     #todaysValue = getCryptoValueFromDatabase(selectedCoin,datetime.today().strftime('%Y-%m-%d'))
-    todaysValue = getCryptoValueFromDatabase(selectedCoin, datetime(2023,4,28))
-
+    try:
+        todaysValue = getCryptoValueFromDatabase(selectedCoin, datetime(2023,4,28))
+    except:
+        todaysValue = 0
     data = {'coinInfo': getCoinInformation(selectedCoin), 
             'todaysValue': todaysValue,
             'values':getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=11)),
