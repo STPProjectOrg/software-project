@@ -10,8 +10,7 @@ urlpatterns = [
     path('login', auth_views.LoginView.as_view(template_name = 'user_app/login.html', authentication_form = UserLoginForm), name='login'),
     path('logout', auth_views.LogoutView.as_view(template_name = 'core/landing.html'), name='logout'),
     path('profile/<str:username>/', views.profile, name='self_profile'),
-    path('update/userprofile/<int:pk>', views.UserProfileUpdateView.as_view(), name='update_userprofile')
-    
+    path('update/userprofile/<int:pk>', views.UserProfileUpdateView.as_view(), name='update_userprofile'),
 ]
 '''
     path('<int:id>',include([
