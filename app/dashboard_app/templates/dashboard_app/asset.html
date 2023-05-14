@@ -22,7 +22,8 @@
       </div>
 
     </div>
-    <div style="width:75%;display: flex">
+    <div style="width:75%;">
+        <h2 style="color: rgb(112, 221, 112);">Wert Heute: {{ todaysValue }}</h2>
         <canvas id="myChart" ></canvas>
         {{ coinInfo.FullName|json_script:'FullName' }}
         {{ values|json_script:'values' }}

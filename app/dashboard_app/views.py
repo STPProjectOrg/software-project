@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from dashboard_app.models import Portfolio
 from datetime import datetime, date
-from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCoinInformation, getCryptoValuesFromDatabase
+from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCoinInformation, getCryptoValuesFromDatabase, getCryptoValueFromDatabase
 from user_app.views import getUser
 from dashboard_app.forms import MyForm, MyForm2
 
@@ -17,6 +17,7 @@ def dashboard(request):
     data = {'form': form, 'message': message}
     return render(request, 'dashboard_app/dashboard.html', context=data)
 
+#TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
 def asset(request):
     selectedCoin = 'BTC'
     user = 1
@@ -26,7 +27,13 @@ def asset(request):
         form = MyForm2(request.POST)
         if form.is_valid():
             message = addToPortfolio(form.cleaned_data)
+
+    #TODO diesen Wert nehmen, wenn jeden Tag aktuelle Werte in die DB gespeichert werden
+    #todaysValue = getCryptoValueFromDatabase(selectedCoin,datetime.today().strftime('%Y-%m-%d'))
+    todaysValue = getCryptoValueFromDatabase(selectedCoin, datetime(2023,4,28))
+
     data = {'coinInfo': getCoinInformation(selectedCoin), 
+            'todaysValue': todaysValue,
             'values':getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=11)),
             'form': form,
             'message': message}
