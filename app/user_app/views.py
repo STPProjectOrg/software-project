@@ -93,7 +93,9 @@ def profile(request, username):
         user = CustomUser.objects.get(username=request.user.username)
         is_own_profile = True
     else:
-        user = get_object_or_404(CustomUser, username=username) 
+        user = get_object_or_404(CustomUser, username=username)
+
+    test =  user.userprofileinfo
     
     picture_url = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
 
