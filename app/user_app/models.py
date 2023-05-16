@@ -15,6 +15,14 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+class UserFollowing(models.Model):
+    follower_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='following')
+    following_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='followers')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.follower_user.username} follows {self.following_user.username}'
 
 
 class UserProfileInfo(models.Model):
