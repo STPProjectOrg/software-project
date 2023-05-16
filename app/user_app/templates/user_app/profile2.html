@@ -1,17 +1,25 @@
 {% extends 'core/base.html' %}
 {% block content %}
-    
-<h1>Path : {{user_profile_path}}</h1>
+
 <div class="card mb-3">
   <div class="position-relative">
     <img class="card-img-top" style="margin-bottom: 5%" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fkbhxfkobabf11.png&f=1&nofb=1&ipt=7138a6d0e9e4fe655b60f911ce3bf0bbd7d3492d9c7edcf53ed436e1ae2c8c7b&ipo=images" alt="Card image cap">
     <div class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0" >
       <img src="{{picture_url}}" class="rounded-circle h-50 border border-dark border-5" alt="Avatar" style="object-fit: cover;">
-      <button class="btn btn-primary mt-3">Avatar hochladen</button> 
+      
+      <span>Followers: {{followers}}</span>
+      {% if not is_own_profile %}
+        
+          {% if is_following %}
+            <a href="{% url 'user_app:follow' user_name %}">Unfollow</a>
+            {% comment "" %}<button class="btn btn-outline-danger mt-3">Unfollow</button>{% endcomment %}
+          {% else %}
+            <a href="{% url 'user_app:follow' user_name %}">Follow</a>
+          {% endif %}
+    
+        
+      {% endif %} 
     </div>
-    {%if is_own_profile%}
-      <button class="btn btn-primary position-absolute bottom-0 end-0 mb-3 me-3">Banner hochladen</button> 
-    {%endif%}
   </div>
   <div class="card-body">
     {%if is_own_profile%}
