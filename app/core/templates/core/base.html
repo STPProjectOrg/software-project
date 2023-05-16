@@ -26,11 +26,11 @@
 <body class="container-fluid h-100 ">
     <div class="d-flex flex-column h-100">
 
+        {# Header #}
         {% block header %}
         <div class="row justify-content-between p-4 border-bottom">
-            {% comment %}
-            mobile navigation toggle
-            {% endcomment %}
+
+            {# Mobile navigation toggle #}
             <div class="col-auto d-md-none">
                 <button type="button" class="btn btn-dark h-100" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
                     aria-controls="offcanvas">
@@ -40,18 +40,12 @@
 
             {% logo_name %}
 
-            {% comment %}
-            search
-            -> als angepasstes dropdown darstellen
-            {% endcomment %}
-
+            {# Search #}
             <div class="col my-auto d-none d-md-block">
                 {% search 60 %}
             </div>
 
-            {% comment %}
-            user
-            {% endcomment %}
+            {# User Settings #}
             <div class="col-auto">
                 <div class="dropdown">
                     <button class="btn btn-dark dropdown-toggle h-100" type="button" data-bs-toggle="dropdown"
@@ -73,20 +67,20 @@
                 </div>
             </div>
         </div>
-        
-
         {% endblock header %}
 
-        {% comment %}
-        desktop navigation
-        {% endcomment %}
+        {# View #}
         <div class="row row-cols-1 row-cols-md-2 flex-grow-1">
+
+            {# Desktop navigation #}
             <div class="d-none d-md-flex col-md-auto border-end p-4">
                 {% navigation %}
             </div>
+
+            {# Content #}
             <div class="col d-flex flex-column flex-grow-1">
                 <div class="row flex-grow-1 p-4 bg-body-secondary">
-                    <div class="col">
+                    <div class="col m-4">
                         {% block content %}
                         content
                         {% endblock content %}
@@ -96,9 +90,7 @@
             </div>
         </div>
 
-        {% comment %}
-        mobile navigation
-        {% endcomment %}
+        {# Mobile navigaiton #}
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header">
                 {% logo_name %}
