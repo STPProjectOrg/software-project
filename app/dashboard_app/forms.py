@@ -8,8 +8,8 @@ class DateInput(forms.DateInput):
 class MyForm(forms.Form):
     assets = getAllCoinsFromDatabase()
     assetChoices = []
-    for asset in assets:
-        assetChoices.append((asset.name, asset.coinName))
+    #for asset in assets:
+    #    assetChoices.append((asset.name, asset.coinName))
     user = forms.CharField(max_length=20)
     assetDropdown = forms.CharField(label='Asset', widget=forms.Select(choices=assetChoices))
     amount = forms.FloatField()

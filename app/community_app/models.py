@@ -10,14 +10,13 @@ class Posts(models.Model):
     created_at = models.DateField()
     hashtags = models.CharField(max_length=100)
     #privacySettings = models.CharField()
-
+    REQUIRED_FIELDS = ['user_id', 'asset', 'content', 'created_at']
     def __str__(self):
         return self.user_id
 
 class PostLikes(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    likes = models.IntegerField()
 
     def __str__(self):
         return self.user_id
