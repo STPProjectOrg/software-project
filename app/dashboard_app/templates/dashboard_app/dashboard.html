@@ -6,6 +6,7 @@
             {{request.user.username}} 
         </h2>
     </div>
+
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
@@ -31,6 +32,8 @@
       </div>
 
     
+      </form>
+      <h3>{{ message }}</h3>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>

@@ -1,10 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from user_app.models import CustomUser
-from user_app.forms import UserForm, UserProfileInfoForm, UserLoginForm
-
-from django.contrib.auth import authenticate,login,logout
+from user_app.models import CustomUser, UserProfileInfo, UserFollowing
+from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
 
 
@@ -14,7 +13,7 @@ def register(request):
 
     if request.method == "POST":
         # Get the form data of the POST-method
-        user_form = UserForm(data=request.POST)
+        user_form = UserRegistrationForm(data=request.POST)
         userprofile_form = UserProfileInfoForm(data=request.POST)
 
         if user_form.is_valid() and userprofile_form.is_valid():
@@ -40,7 +39,7 @@ def register(request):
             print(user_form.errors, userprofile_form.errors)
     
     else:
-        user_form = UserForm()
+        user_form = UserRegistrationForm()
         userprofile_form = UserProfileInfoForm()
 
     return render(request, 'user_app/registration.html', 
@@ -49,50 +48,64 @@ def register(request):
                    'registred':registred})
 
 
-def user_login(request):
-    if request.method == 'POST':
-        login_form = UserLoginForm(data=request.POST)
 
-        username = login_form.username         #request.POST.get('username')
-        password = login_form.password         #request.POST.get('password')
-        current_user = authenticate(username=username, password=password)
+@login_required
+def profile(request, username):
 
-        if current_user:
-            login(request,current_user)
-            return redirect(reverse('core:index'))
-            '''
-            if current_user.is_active:
-                login(request,current_user)
-                return redirect(reverse('core:index'))
-            else:
-                return HttpResponse("Account not active")
-            '''
-        else: 
-            print("Someone tried to login and failed")
-            login_form.add_error(None, 'Invalid Login Details!')
-            # return HttpResponse("Invalid login details")
+    # Check if the current profile is it's own profile or not an get the user from DB
+    is_own_profile = False
+    if username == "self":
+        profile_user = CustomUser.objects.get(username=request.user.username)
+        is_own_profile = True
     else:
-        login_form = UserLoginForm()
-    
-    return render(request,'user_app/login.html',{'login_form':login_form})
-    
+        profile_user = get_object_or_404(CustomUser, username=username)
 
-@login_required
-def user_logout(request):
-    logout(request)
-    return redirect(reverse('core:index'))
+    # Get followers and following
+    get_follower_count = profile_user.followers.count()
+    get_following_count = profile_user.following.count()
+    is_following = request.user.following.all().filter(following_user=profile_user).exists()
 
-@login_required
-def self_profile(request):
-    user = get_object_or_404(CustomUser, username=request.user.username)
-    picture_url = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    # Get the picture url. When user doesn't have one get the default picture
+    picture_url = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+
     return render(request,'user_app/profile2.html', 
-                  {"user_name": user.username,
-                   "first_name": user.first_name,
-                   "last_name": user.last_name,
-                   "email": user.email,
-                   "picture_url": picture_url})
+                  {"user_id": profile_user.id,
+                   "user_profile_id": profile_user.userprofileinfo.id,
+                   "user_name": profile_user.username,
+                   "first_name": profile_user.first_name,
+                   "last_name": profile_user.last_name,
+                   "email": profile_user.email,
+                   "picture_url": picture_url,
+                   "is_own_profile": is_own_profile,
+                   "followers": get_follower_count,
+                   "following": get_following_count,
+                   "is_following": is_following,
+                   })
+
+@login_required
+def toggle_follow(request, username):
+    profile_user = CustomUser.objects.get(username=request.user.username)
+    other_user = get_object_or_404(CustomUser, username=username)
+    
+    if profile_user != other_user:
+        if profile_user.following.all().filter(following_user=other_user).exists():
+            UserFollowing.objects.filter(follower_user=profile_user, following_user=other_user).delete()
+        else:
+            UserFollowing.objects.create(follower_user=profile_user, following_user=other_user)
+
+    return redirect(reverse('user_app:profile', kwargs={"username": username}))
 
 def getUser(id):
     user = CustomUser.objects.get(id=id)
     return user
+
+class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = UserProfileInfo
+    fields = ['profile_pic']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('user_app:profile', kwargs={"username": "self"})

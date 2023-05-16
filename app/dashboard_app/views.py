@@ -4,10 +4,13 @@ from dashboard_app.models import Portfolio
 from api_app.models import AssetHistory
 from core.models import History
 from datetime import datetime, date, timedelta
-from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCryptoValueFromDatabase, saveDataFromApiToDatabase
+from datetime import datetime, date
+from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCoinInformation, getCryptoValuesFromDatabase, getCryptoValueFromDatabase, saveDataFromApiToDatabase
+
 from user_app.views import getUser
-from dashboard_app.forms import MyForm
+from dashboard_app.forms import MyForm, MyForm2
 from dateutil.relativedelta import relativedelta
+
 
 # Create your views here.
 def dashboard(request):
@@ -22,6 +25,7 @@ def dashboard(request):
     chartData = getDataForLine(request.user)
     data = {**{'form': form, 'message': message},**pieData, **chartData}
     return render (request, 'dashboard_app/dashboard.html', data)
+
 
 def getAllUserAssets(user):
     allAssets = Portfolio.objects.filter(user = user.id)
@@ -93,10 +97,39 @@ def createHistory(thisAsset, dateTo, dateFrom):
     saveDataFromApiToDatabase(thisAsset.name, 'EUR', dateFrom, dateTo)
     
 
+#TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
+def asset(request, coin):
+    selectedCoin = coin
+    user = 1
+    message = ""
+    form = MyForm2(initial={'user': user, 'assetDropdown': selectedCoin})
+    if request.method=='POST':
+        form = MyForm2(request.POST)
+        if form.is_valid():
+            message = addToPortfolio(form.cleaned_data)
+
+    #TODO diesen Wert nehmen, wenn jeden Tag aktuelle Werte in die DB gespeichert werden
+    #todaysValue = getCryptoValueFromDatabase(selectedCoin,datetime.today().strftime('%Y-%m-%d'))
+    try:
+        todaysValue = getCryptoValueFromDatabase(selectedCoin, datetime(2023,4,28))
+    except:
+        todaysValue = 0
+    data = {'coinInfo': getCoinInformation(selectedCoin), 
+            'todaysValue': todaysValue,
+            'values':getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=11)),
+            'form': form,
+            'message': message}
+    return render(request, 'dashboard_app/asset.html', context=data)
+
+
+
 def addToPortfolio(cleanedData):
     if cleanedData.get('purchaseDate') > date.today(): return "You picked a date in the future!"
     date1 = cleanedData.get('purchaseDate')
+
+    
     #print(cleanedData.get('assetDropdown'))
+
     if doesCoinExistInDatabase(cleanedData.get('assetDropdown')):
         asset = getAssetFromDatabase(cleanedData.get('assetDropdown'))
         user = getUser(cleanedData.get('user'))
