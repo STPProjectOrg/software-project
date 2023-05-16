@@ -8,7 +8,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-      {% comment %}
+    {% comment %}
         serve files from static storage
         https://docs.djangoproject.com/en/4.1/howto/static-files/
     {% endcomment %}
@@ -42,9 +42,8 @@
         </div>
         {% endblock header %}
 
-    
         <div class="row flex-grow-1 bg-body-secondary">
-            <div class="col">
+            <div class="col m-4">
                 {% block content %}
                 {% endblock content %}
             </div>
