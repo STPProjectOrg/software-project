@@ -1,5 +1,38 @@
 {% extends 'core/clear_base.html' %}
 
+{% comment %}
+    For further information visit:
+    https://www.ionos.de/digitalguide/websites/online-recht/mehr-nutzervertrauen-dank-datenschutzerklaerung/
+{% endcomment %}
+
 {% block content %}
-    Datenschutz
+    {# Title #}
+    <div>
+        <h1>Datenschutz</h1>
+    </div>
+
+    {# Content #}
+    <div class="mt-4">
+        
+        <h2>Anbieter</h2>
+        <p>Die <b>Verantwortlichen</b> im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze sind alle im <a href="{% url 'core:legal_disclosure' %}">Impressum</a> aufgeführten Personen.</p>
+        
+        <h2>Angabe der Rechtsgrundlage</h2>
+        <p>Insofern wir für die Verarbeitung der personenbezogenen Daten eine <b>Einwilligung</b> der betroffenen Person eingeholt haben, gilt Artikel 6 Absatz 1 Unterabsatz 1a der DSGVO als rechtliche Grundlage.</p>
+        <p>Ist die Verarbeitung personenbezogener Daten für die <b>Erfüllung eines Vertrags</b> mit der betroffenen Person oder für <b>vorvertragliche Maßnahmen</b> erforderlich, die durch die betroffene Person veranlasst wurden, dient Artikel 6 Absatz 1 Unterabsatz 1b (DSGVO) als Rechtsgrundlage.</p>
+        <p>Ist die Datenverarbeitung das Resultat einer <b>rechtlichen Verpflichtung</b>, der wir unterliegen, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1c der DSGVO als rechtliche Basis.</p>
+        <p>Erfolgt die Verarbeitung personenbezogener Daten, um <b>lebenswichtige Interessen</b> der betroffenen Person oder einer anderen natürlichen Person zu schützen, dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage.</p>
+        <p>Dient die Datenverarbeitung einer Aufgabe, die im <b>öffentlichen Interesse</b> liegt oder in <b>Ausübung öffentlicher Gewalt</b> erfolgt, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1e der DSGVO.</p>
+        <p>Insofern die Verarbeitung personenbezogener Daten erforderlich ist, um <b>berechtigte Interessen des Verantwortlichen</b> oder <b>eines Dritten</b> zu wahren – ohne dabei die Interessen, Grundrechte oder Grundfreiheiten der betroffenen Person zu gefährden –, gilt Artikel 6 Absatz 1 Unterabsatz 1f (DSGVO) als Rechtsgrundlage.</p>
+
+        <h2>Angabe des Datenverarbeitungszwecks</h2>
+        {# TODO #}
+
+        <h2>Angabe der Datenspeicherungsdauer</h2>
+        {# TODO #}
+
+        <h2>Betroffenenrechte</h2>
+        <p>Im Sinne der DSGVO zählen Sie als Betroffener, wenn personenbezogene Daten, die Sie betreffen, von uns verarbeitet werden. Aus diesem Grund können Sie von verschiedenen Betroffenenrechten Gebrauch machen, die in der Datenschutz-Grundverordnung verankert sind. Hierbei handelt es sich um das <b>Auskunftsrecht</b> (Artikel 15 DSGVO), das <b>Recht auf Berichtigung</b> (Artikel 16 DSGVO), das <b>Recht auf Löschung</b> (Artikel 17 DSGVO), das <b>Recht auf Einschränkung der Verarbeitung</b> (Artikel 18 DSGVO), das <b>Widerspruchsrecht</b> (Artikel 21 DSGVO), das <b>Recht auf Beschwerde bei einer Aufsichtsbehörde</b> (Artikel 77 DSGVO) sowie das Recht auf <b>Datenübertragbarkeit</b> (Artikel 20 DSGVO).</p>
+        
+    </div>
 {% endblock content %}
