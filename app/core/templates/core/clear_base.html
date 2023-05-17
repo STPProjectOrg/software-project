@@ -13,6 +13,7 @@
         https://docs.djangoproject.com/en/4.1/howto/static-files/
     {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 
     {% comment %}
@@ -27,6 +28,7 @@
 
         {% block header %}
         <div class="row justify-content-between p-4 border-bottom">
+
             {% logo_name %}
 
             <div class="col-auto">
@@ -42,8 +44,8 @@
         </div>
         {% endblock header %}
 
-        <div class="row flex-grow-1 bg-body-secondary">
-            <div class="col m-4">
+        <div class="row flex-grow-1 bg-body-secondary p-4">
+            <div class="col m-0 p-0">
                 {% block content %}
                 {% endblock content %}
             </div>
