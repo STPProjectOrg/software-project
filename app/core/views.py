@@ -25,3 +25,12 @@ def register(request):
 def signin(request):
     return render(request, '')
 
+def legal_disclosure(request):
+    return render(request, 'core/legal_disclosure.html')
+
+def privacy(request):
+    return render(request, 'core/privacy.html')
+
+def cookie_disclosure(request):
+    return render(request, 'core/cookie_disclosure.html')
+
