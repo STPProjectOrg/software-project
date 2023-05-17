@@ -23,10 +23,13 @@
             <p>Hashtags: {{ post.hashtags }}</p>
         </div>
         <div style="display: flex; justify-content: flex-end;">
+            <p>Likes: {{ post.likes }} : </p>
             <button>Kommentieren</button>
             <form method="POST">
                 {%  csrf_token %}
+                {{ likeForm.post_id.value|default_if_none:1 }}
                 {{ likeForm.as_p }}
+
                 <input type="Submit" name="like"/>
             </form>
 
