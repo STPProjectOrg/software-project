@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h3>Community</h3>
+<p>Neuen Post anlegen</p>
+<form method="POST">
+    {%  csrf_token %}
+    {{ form.as_p }}
+    <input type="Submit" name="comment"/>
+</form>
+<div>
+    {% for post in posts %}
+    <div style="display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row; justify-content: space-evenly; background-color: lightblue;">
+            <p>User: {{ post.user }}</p>
+            <a href="http://localhost:8000/dashboard_app/asset/{{post.asset}}/">{{ post.asset }}</a>
+            <p>Erstellt am: {{ post.created_at }}</p>
+        </div>
+        <div style="display: flex; background-color: aliceblue; justify-content: center;">
+            <p>Inhalt: {{ post.content }}</p>
+        </div>
+        <div style="display: flex; background-color: rgb(76, 78, 80); justify-content: center;">
+            <p>Hashtags: {{ post.hashtags }}</p>
+        </div>
+        <div style="display: flex; justify-content: flex-end;">
+            <p>Likes: {{ post.likes }} : </p>
+            <button>Kommentieren</button>
+            <form method="POST">
+                {%  csrf_token %}
+                {{ likeForm.post_id.value|default_if_none:1 }}
+                {{ likeForm.as_p }}
+
+                <input type="Submit" name="like"/>
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

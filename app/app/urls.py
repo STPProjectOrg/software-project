@@ -27,6 +27,7 @@ urlpatterns = [
     path('api_app/', include('api_app.urls')),
     path('dashboard_app/', include('dashboard_app.urls')),
     path('settings_app/', include('settings_app.urls')),
+    path('community_app/', include('community_app.urls')),
 
     #Passwort zurücksetzen
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="user_app/password_recovery/reset_password.html"), name='reset_password'),
