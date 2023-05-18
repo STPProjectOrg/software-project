@@ -11,5 +11,6 @@ urlpatterns = [
     path('logout', auth_views.LogoutView.as_view(template_name = 'core/landing.html'), name='logout'),
     path('profile/<str:username>/', views.profile, name='profile'),
     path('update/userprofile/<int:pk>', views.UserProfileUpdateView.as_view(), name='update_userprofile'),
-    path('follow/<str:username>', views.toggle_follow, name='follow')  
+    path('follow/<str:username>', views.toggle_follow, name='follow'),
+    path('follower_list/<str:username>', views.follower_list, name='follower_list')  
 ]

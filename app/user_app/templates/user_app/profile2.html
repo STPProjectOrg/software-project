@@ -7,7 +7,7 @@
     <div class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0" >
       <img src="{{picture_url}}" class="rounded-circle h-50 border border-dark border-5" alt="Avatar" style="object-fit: cover;">
       
-      <span>Followers: {{followers}}</span>
+      <span><a href="{% url 'user_app:follower_list' user_name %}">Followers: {{followers}}</a></span>
       {% if not is_own_profile %}
         
           {% if is_following %}
