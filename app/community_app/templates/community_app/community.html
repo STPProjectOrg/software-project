@@ -9,6 +9,9 @@
     <input type="Submit" name="comment"/>
 </form>
 <div>
+        <!--#########-->
+        <!--  Posts  -->
+        <!--#########-->
     {% for post in posts %}
     <div style="display: flex; flex-direction: column; margin-bottom: 50px;">
         <div style="display: flex; flex-direction: row; justify-content: space-evenly; background-color: lightblue;">
@@ -26,9 +29,12 @@
             <p>Likes: {{ post.likes }}  </p>
             <p>Kommentare: {{ post.commentsLength }}</p>
             <input type="text" id="post_comment{{post.post_id}}" name="post_comment"/>
-            <button type="submit" onclick="redirect('{{post.post_id}}');">Kommentieren</button></a>
+            <button type="submit" onclick="postComment('{{post.post_id}}');">Kommentieren</button></a>
             <a href="http://localhost:8000/community_app/community/?post_id={{post.post_id}}"><button>Like</button></a>
         </div>
+        <!--#######################-->
+        <!--  Kommentare vom Post  -->
+        <!--#######################-->
         {% if post.commentsLength > 0 %}
         <div style="display: flex; flex-direction: column;">
             <button onclick="showComments('{{post.post_id}}')" id="showCommentsButton{{post.post_id}}">Kommentare anzeigen</button>
@@ -45,7 +51,6 @@
                         <p>{{ comment.content }}</p>
                     </div>
                     <div>
-                        <p>{{ comment.user}} {{user}}</p>
                         {% if comment.user == user %}
                             <button onclick="deleteComment('{{comment.id}}')">Löschen</button>
                         {% endif %}
@@ -58,7 +63,7 @@
     </div>
     {% endfor %}
     <script>
-        function redirect(post_id) {
+        function postComment(post_id) {
             let comment = document.getElementById("post_comment"+post_id).value
             let button = document.getElementById("post")
             window.location.href = "http://localhost:8000/community_app/community/?post_id="+post_id+"&post_comment="+comment
