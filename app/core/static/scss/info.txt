@@ -1,0 +1,10 @@
+-- Install SASS from https://sass-lang.com/ 
+
+-- Navigate to designated directory
+cd -> software-project\app\core\static
+
+--compilse sass files
+sass scss/custom.scss css/custom.css
+
+-- https://getbootstrap.com/docs/5.0/customize/sass/
+-- https://sass-lang.com/dart-sass 

@@ -1,0 +1,18 @@
+// Bootstrap import
+@import "../bootstrap/scss/bootstrap";
+
+// Bootstrap overrides
+$enable-shadows: true;
+
+//  Custom classes
+.logo {
+    height: calc((1.3rem + 0.6vw) * 1.5) !important;
+}
+
+.text-gradient {
+    background: linear-gradient(to right, #EB1260 0%, #FDB128 100%) !important;
+    background-clip: initial;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: inline-block !important;
+}
