@@ -10,7 +10,7 @@ class Posts(models.Model):
     created_at = models.DateField()
     hashtags = models.CharField(max_length=100)
     #privacySettings = models.CharField()
-    REQUIRED_FIELDS = ['user_id', 'asset', 'content', 'created_at']
+    
     def __str__(self):
         return self.user_id
 
