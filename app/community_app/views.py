@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse,HttpResponseNotFound
 from community_app.forms import PostForm, LikeForm
 from community_app.models import Posts, PostLikes, PostComments
 from user_app.models import CustomUser
@@ -17,7 +18,7 @@ def community(request):
             print(form)
             if form.is_valid():
                 d = form.cleaned_data
-                user = CustomUser.objects.get(id=d.get("user_id"))
+                user = CustomUser.objects.get(id=request.user.id)
                 post = Posts.objects.create(
                     user_id= user,
                     asset=Asset.objects.get(name=d.get("asset")),
@@ -29,23 +30,26 @@ def community(request):
                     user_id = user,
                     post_id = post
                 )
-        elif 'like' in request.POST:
-            likeForm = LikeForm(request.POST)              
-            if likeForm.is_valid():
-                d = likeForm.cleaned_data
-                if PostLikes.objects.filter(user_id=d.get("user_id"), post_id=d.get("post_id")).exists():
-                    PostLikes.objects.filter(user_id=d.get("user_id"), post_id=d.get("post_id")).delete()
-                else:
-                    PostLikes.objects.create(
-                        user_id = CustomUser.objects.get(id=d.get("user_id")),
-                        post_id = Posts.objects.get(id=d.get("post_id"))
-                        )
+
+    if request.GET.get('post_id') is not None:
+        post_id = request.GET.get('post_id')
+        if PostLikes.objects.filter(user_id=request.user.id, post_id=post_id).exists():
+            PostLikes.objects.filter(user_id=request.user.id, post_id=post_id).delete()
+        else:
+            PostLikes.objects.create(
+                user_id = CustomUser.objects.get(id=request.user.id),
+                post_id = Posts.objects.get(id=post_id)
+                )
 
 
     posts = Posts.objects.all()
     posts = convertPosts(posts)
     data = {'value': 0, 'form': form, 'likeForm': likeForm, 'posts': posts}
     return render(request, 'community_app/community.html' ,context=data)
+
+def abc(request, userid, postid):
+    print(f"{userid} + + {postid}")
+    return HttpResponse()
 
 def convertPosts(posts):
     convertedPosts = []
