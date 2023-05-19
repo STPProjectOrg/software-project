@@ -65,7 +65,7 @@ def profile(request, username):
 
     # Check if the current profile is it's own profile or not an get the user from DB
     is_own_profile = False
-    if username == "self":
+    if username == request.user.username:
         profile_user = CustomUser.objects.get(username=request.user.username)
         is_own_profile = True
     else:
