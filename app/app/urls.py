@@ -26,15 +26,8 @@ urlpatterns = [
     path('', include('core.urls')),
     path('api_app/', include('api_app.urls')),
     path('dashboard_app/', include('dashboard_app.urls')),
-    path('settings_app/', include('settings_app.urls')),
-    path('community_app/', include('community_app.urls')),
-
-    #Passwort zurücksetzen
-    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="user_app/password_recovery/reset_password.html"), name='reset_password'),
-    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="user_app/password_recovery/reset_password_sent.html"), name='password_reset_done'),
-    path('reset_password/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="user_app/password_recovery/reset_password_confirm.html"), name='password_reset_confirm'),
-    path('reset_password/done/', auth_views.PasswordResetCompleteView.as_view(template_name="user_app/password_recovery/reset_password_done.html"), name='password_reset_complete')
-    
+    path('settings_app/', include('settings_app.urls')),    
+    path('community_app/', include('community_app.urls'))
 ]
 
 if settings.DEBUG:

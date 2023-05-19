@@ -12,8 +12,7 @@
     serve files from static storage
     https://docs.djangoproject.com/en/4.1/howto/static-files/
     {% endcomment %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
     
     {% comment %}
@@ -29,7 +28,7 @@
 
         {# Header #}
         {% block header %}
-        <div class="row justify-content-between p-4 border-bottom">
+        <div class="row justify-content-between p-2 border-bottom">
 
             {# Mobile navigation toggle #}
             <div class="col-auto d-md-none">
@@ -49,21 +48,21 @@
             {# User Settings #}
             <div class="col-auto">
                 <div class="dropdown">
-                    <button class="btn btn-dark dropdown-toggle h-100" type="button" data-bs-toggle="dropdown"
+                    <button class="btn btn-link h-100" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <i class="bi bi-person-circle fs-3"></i>
+                        <i class="bi bi-person-circle fs-3 text-dark-emphasis"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>
-                            <h6 class="dropdown-header">{{request.user.username}}</h6>
+                        <li class="text-center">
+                            <p class="my-2 text-body-emphasis fw-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
                         </li>
+                        <li><a class="dropdown-item" href="{% url 'user_app:profile' request.user.username %}"><i class="bi bi-person-fill pe-2"></i>Profil</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle pe-2"></i>Hilfe</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear pe-2"></i>Einstellungen</a></li>
+                        <li><a class="dropdown-item" href="{% url 'settings_app:overview' %}"><i class="bi bi-gear pe-2"></i>Einstellungen</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-danger-emphasis" href="{% url 'user_app:logout'%}"><i
-                                    class="bi bi-box-arrow-in-left pe-2"></i>Abmelden</a></li>
+                        <li><a class="dropdown-item text-danger-emphasis" href="{% url 'user_app:logout'%}"><i class="bi bi-box-arrow-in-left pe-2"></i>Abmelden</a></li>
                     </ul>
                 </div>
             </div>

@@ -5,7 +5,7 @@ from . import views
 app_name = 'settings_app'
 
 urlpatterns = [
-    path('', views.settings, name='settingsOverview'),
+    path('', views.settings, name='overview'),
     path('userSettings/', views.userSettings, name='userSettings'),
     path('securitySettings/', views.securitySettings, name='securitySettings'),
     path('portfolioSettings/', views.portfolioSettings, name='portfolioSettings'),

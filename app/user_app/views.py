@@ -1,12 +1,23 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from user_app.models import CustomUser, UserProfileInfo, UserFollowing
 from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.contrib.messages.views import SuccessMessageMixin
 
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'users/password_reset.html'
+    email_template_name = "user_app/password_recovery/reset_password_email.html",
+    subject_template_name = "user_app/password_recovery/reset_password_email_subject",
+    success_url = reverse_lazy('user_app:password_reset_done')
+    
+class ConfirmResetPasswordView(PasswordResetConfirmView):
+    success_url = reverse_lazy('user_app:password_reset_complete')
+    
 # Create your views here.
 def register(request):
     registred = False
@@ -54,7 +65,7 @@ def profile(request, username):
 
     # Check if the current profile is it's own profile or not an get the user from DB
     is_own_profile = False
-    if username == "self":
+    if username == request.user.username:
         profile_user = CustomUser.objects.get(username=request.user.username)
         is_own_profile = True
     else:

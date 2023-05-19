@@ -12,7 +12,6 @@
         serve files from static storage
         https://docs.djangoproject.com/en/4.1/howto/static-files/
     {% endcomment %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 
@@ -27,16 +26,16 @@
     <div class="d-flex flex-column h-100">
 
         {% block header %}
-        <div class="row justify-content-between p-4 border-bottom">
+        <div class="row justify-content-between p-2 border-bottom">
 
             {% logo_name %}
 
-            <div class="col-auto">
-                <div class="dropdown">
-                    <a class="btn btn-outline-primary" href="{% url 'user_app:login' %}">
+            <div class="col-auto d-flex">
+                <div class="dropdown m-auto">
+                    <a class="btn btn-link" href="{% url 'user_app:login' %}">
                         Anmelden
                     </a>
-                    <a class="btn btn-outline-warning" href="{% url 'user_app:register' %}">
+                    <a class="btn btn-outline-primary" href="{% url 'user_app:register' %}">
                         Registrieren
                     </a>
                 </div>
