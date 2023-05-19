@@ -59,6 +59,11 @@ def register(request):
                    'registred':registred})
 
 
+@login_required
+def profile_redirect(request):
+    username = request.user.username
+    profile_url = reverse('user_app:profile', kwargs={'username': username})
+    return redirect(profile_url)
 
 @login_required
 def profile(request, username):

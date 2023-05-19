@@ -147,7 +147,7 @@ MEDIA_URL = '/media/'
 
 # Login URL
 LOGIN_URL = '/auth/login'
-LOGIN_REDIRECT_URL = '/auth/profile/self'
+LOGIN_REDIRECT_URL = '/auth/profile-redirect/'
 
 # Logut URL
 LOGOUT_REDIRECT_URL = '/landing'
