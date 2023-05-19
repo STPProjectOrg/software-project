@@ -2,9 +2,37 @@
 {% block content %}
     <h1>Follower Liste</h1>
     <h2>Dir folgt:</h2>
-    {% for follower in follower %}
-    <div>
-        <a href="{% url 'user_app:profile' follower.username %}">{{follower.username}}</a>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-5">
+                <div class="p-3 text-center">
+                    {% for follower in follower %}
+                    <div class="d-flex flex-row justify-content-between align-items-center mt-3">
+                        <div class="d-flex flex-row align-items-center">
+                            <img class="rounded-circle" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" width="55">
+                            <div class="d-flex flex-column align-items-center ml-3">
+                                <a href="{% url 'user_app:profile' follower.username %}">{{follower.username}}</a>
+                                <span class="followers">1450 Followers</span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mt-2">
+                            <button class="btn btn-outline-primary btn-sm" type="button">Follow</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-    {% endfor %}
+
+
 {% endblock content %}
+
+<!--
+                        <div class="d-flex flex-row justify-content-between align-items-center mt-2">
+                        <div class="d-flex flex-row align-items-center"><img class="rounded-circle" src="https://i.imgur.com/I6WnkOv.jpg" width="55">
+                            <div class="d-flex flex-column align-items-start ml-2"><span class="font-weight-bold">Scarlet</span><span class="followers">18570 Followers</span></div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mt-2"><button class="btn btn-primary btn-sm" type="button">Following</button></div>
+                    </div>
+-->
