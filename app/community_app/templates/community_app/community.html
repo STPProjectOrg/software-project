@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h3>Community</h3>
+<p>Neuen Post anlegen</p>
+<form method="POST">
+    {%  csrf_token %}
+    {{ form.as_p }}
+    <input type="Submit" name="comment"/>
+</form>
+<div>
+        <!--#########-->
+        <!--  Posts  -->
+        <!--#########-->
+    {% for post in posts %}
+    <div style="display: flex; flex-direction: column; margin-bottom: 50px;">
+        <div style="display: flex; flex-direction: row; justify-content: space-evenly; background-color: lightblue;">
+            <a href="http://localhost:8000/auth/profile/{{post.user}}/">{{ post.user }}</a>
+            <a href="http://localhost:8000/dashboard_app/asset/{{post.asset}}/">{{ post.asset }}</a>
+            <p>Erstellt am: {{ post.created_at }}</p>
+        </div>
+        <div style="display: flex; background-color: aliceblue; justify-content: center;">
+            <p>Inhalt: {{ post.content }}</p>
+        </div>
+        <div style="display: flex; background-color: rgb(76, 78, 80); justify-content: center;">
+            <p>Hashtags: {{ post.hashtags }}</p>
+        </div>
+        <div style="display: flex; justify-content: flex-end;">
+            <p>Likes: {{ post.likes }}  </p>
+            <p>Kommentare: {{ post.commentsLength }}</p>
+            <input type="text" id="post_comment{{post.post_id}}" name="post_comment"/>
+            <button type="submit" onclick="postComment('{{post.post_id}}');">Kommentieren</button></a>
+            <a href="http://localhost:8000/community_app/community/?post_id={{post.post_id}}"><button>Like</button></a>
+        </div>
+        <!--#######################-->
+        <!--  Kommentare vom Post  -->
+        <!--#######################-->
+        {% if post.commentsLength > 0 %}
+        <div style="display: flex; flex-direction: column;">
+            <button onclick="showComments('{{post.post_id}}')" id="showCommentsButton{{post.post_id}}">Kommentare anzeigen</button>
+            <div id="comments{{post.post_id}}" hidden="true">
+                {% for comment in post.comments %}
+                <div style="margin-bottom: 10px; margin-top: 10px;">
+                    <div style="width:50%; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="display: flex; flex-direction: row; justify-content: space-evenly; background-color: lightblue;">
+                            <a href="http://localhost:8000/auth/profile/{{comment.user}}/">{{ comment.user }}</a>
+                            <p>{{ comment.created_at }}</p>
+                        </div>
+                    </div>
+                    <div style="width:50%; display: flex; background-color: aliceblue; justify-content: center;">
+                        <p>{{ comment.content }}</p>
+                    </div>
+                    <div>
+                        {% if comment.user == user %}
+                            <button onclick="deleteComment('{{comment.id}}')">Löschen</button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <script>
+        function postComment(post_id) {
+            let comment = document.getElementById("post_comment"+post_id).value
+            let button = document.getElementById("post")
+            window.location.href = "http://localhost:8000/community_app/community/?post_id="+post_id+"&post_comment="+comment
+            window.location.href = "http://localhost:8000/community_app/community/"
+        }
+        function deleteComment(comment_id) {
+            window.location.href = "http://localhost:8000/community_app/community/?comment_id="+comment_id
+            window.location.href = "http://localhost:8000/community_app/community/"
+        }
+
+        function showComments(post_id) {
+            let comments = document.getElementById("comments"+post_id)
+            let commentsButton = document.getElementById("showCommentsButton"+post_id)
+            if (commentsButton.textContent == "Kommentare anzeigen") {
+                commentsButton.textContent = "Kommentare ausblenden"
+            } else {
+                commentsButton.textContent = "Kommentare anzeigen"
+            }
+
+            comments.hidden = !comments.hidden
+        }
+    </script>
+</div>
+{% endblock content %}
+

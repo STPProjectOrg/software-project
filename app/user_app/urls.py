@@ -12,6 +12,7 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile, name='profile'),
     path('update/userprofile/<int:pk>', views.UserProfileUpdateView.as_view(), name='update_userprofile'),
     path('follow/<str:username>', views.toggle_follow, name='follow'),
+  path('follower_list/<str:username>', views.follower_list, name='follower_list'),
     
     # Password reset
     path('password-reset/',
@@ -33,3 +34,4 @@ urlpatterns = [
         template_name="user_app/password_recovery/reset_password_complete.html"), 
         name='password_reset_complete')
 ]
+

@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <h1>Follower Liste</h1>
+    <h2>Dir folgt:</h2>
+    {% for follower in follower %}
+    <div>
+        <a href="{% url 'user_app:profile' follower.username %}">{{follower.username}}</a>
+    </div>
+    {% endfor %}
+{% endblock content %}

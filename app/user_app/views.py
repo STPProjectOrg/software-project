@@ -120,3 +120,13 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('user_app:profile', kwargs={"username": "self"})
+    
+def follower_list(request, username):
+    profile_user = CustomUser.objects.get(username=username)
+    follower_list = []
+    for follower in UserFollowing.objects.filter(following_user_id=profile_user.id):
+        username = CustomUser.objects.get(id=follower.follower_user_id).username
+        followerData = {"username": username}
+        follower_list.append(followerData)
+    data = {"follower": follower_list}
+    return  render(request,'user_app/follower_list.html', context=data)
