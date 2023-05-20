@@ -99,7 +99,7 @@ def createHistory(thisAsset, dateTo, dateFrom):
 
 #TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
 def asset(request, coin):
-    selectedCoin = coin
+    selectedCoin = coin.upper()
     user = 1
     message = ""
     form = MyForm2(initial={'user': user, 'assetDropdown': selectedCoin})
@@ -116,7 +116,7 @@ def asset(request, coin):
         todaysValue = 0
     data = {'coinInfo': getCoinInformation(selectedCoin), 
             'todaysValue': todaysValue,
-            'values':getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=11)),
+            'values':getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=16)),
             'form': form,
             'message': message}
     return render(request, 'dashboard_app/asset.html', context=data)
