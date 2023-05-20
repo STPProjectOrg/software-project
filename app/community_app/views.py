@@ -46,13 +46,15 @@ def community(request):
 
     posts = Posts.objects.all()
     posts = reversed(convertPosts(posts))
-    data = {'user': request.user.username, 'form': form, 'posts': posts}
+    user_picture = request.user.userprofileinfo.profile_pic.url if request.user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    data = {'user': request.user, "user_picture": user_picture, 'form': form, 'posts': posts}
     return render(request, 'community_app/community.html' ,context=data)
 
 def convertPosts(posts):
     convertedPosts = []
     for post in posts:
-        user = CustomUser.objects.get(id=post.user_id.id).username
+        user = CustomUser.objects.get(id=post.user_id.id)
+        username = user.username
         asset = Asset.objects.get(name=post.asset.name).name
         post = Posts.objects.get(id=post.id)
         post_id = Posts.objects.get(id=post.id).id
@@ -61,7 +63,17 @@ def convertPosts(posts):
         hashtags = post.hashtags
         likes = PostLikes.objects.filter(post_id = post).count()
         comments = convertComments(post_id)
-        postObject = {"user":user, "asset":asset, "content":content, "created_at":created_at, "hashtags":hashtags, "likes": likes, "post_id": post_id, "comments": comments, "commentsLength": comments.__len__()}
+        picture = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        postObject = {"username":username, 
+                      "asset":asset, 
+                      "content":content, 
+                      "created_at":created_at, 
+                      "hashtags":hashtags, 
+                      "likes": likes, 
+                      "post_id": post_id, 
+                      "comments": comments, 
+                      "commentsLength": comments.__len__(),
+                      "picture": picture}
         convertedPosts.append(postObject)
     return convertedPosts
 
@@ -69,9 +81,10 @@ def convertComments(post_id):
     convertedComments = []
     for comment in PostComments.objects.filter(post_id=post_id):
         id = comment.id
-        user = CustomUser.objects.get(id=comment.user_id.id).username
+        user = CustomUser.objects.get(id=comment.user_id.id)
         content = comment.content
         created_at = comment.created_at
-        commentObject = {"id":id, "user": user, "content": content, "created_at": created_at}
+        picture = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        commentObject = {"id":id, "user": user, "user_picture": picture, "content": content, "created_at": created_at}
         convertedComments.append(commentObject)
     return convertedComments
