@@ -18,11 +18,11 @@
             <div class="card-body">
               <div class="d-flex flex-start align-items-center">
                 <img class="rounded-circle shadow-1-strong me-3"
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="avatar" width="60"
+                  src="{{ post.picture }}" alt="avatar" width="60"
                   height="60" />
                 <div>
-                    <a href="http://localhost:8000/auth/profile/{{post.user}}/">
-                        <h6 class="fw-bold text-primary mb-1">{{ post.user }}</h6>
+                    <a href="{% url 'user_app:profile' post.username %}">
+                        <h6 class="fw-bold text-primary mb-1">{{ post.username }}</h6>
                     </a>
                   <p class="text-muted small mb-0">
                     Erstellt am: {{ post.created_at }}
@@ -60,7 +60,7 @@
             <div class="card-footer py-3 border-5">
                     <div class="d-flex flex-start w-100">
                       <img class="rounded-circle shadow-1-strong me-3"
-                        src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="avatar" width="40"
+                        src="{{ user_picture }}" alt="avatar" width="40"
                         height="40" />
                       <div class="form-outline w-100">
                         <label class="form-label" for="textAreaExample">Kommentieren:</label>
@@ -83,11 +83,11 @@
                             <div class="card-body">
                                 <div class="d-flex flex-start align-items-center">
                                 <img class="rounded-circle shadow-1-strong me-3"
-                                    src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="avatar" width="60"
+                                    src="{{ comment.user_picture }}" alt="avatar" width="60"
                                     height="60" />
                                 <div>
-                                    <a href="http://localhost:8000/auth/profile/{{comment.user}}/">
-                                        <h6 class="fw-bold text-primary mb-1">{{ comment.user }}</h6>
+                                    <a href="{% url 'user_app:profile' comment.user%}">
+                                        <h6 class="fw-bold text-primary mb-1">{{ comment.user.username }}</h6>
                                     </a>
                                     <p class="text-muted small mb-0">
                                     Erstellt am: {{ comment.created_at }}
