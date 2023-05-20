@@ -125,13 +125,16 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('user_app:profile', kwargs={"username": "self"})
-    
+
+@login_required 
 def follower_list(request, username):
     profile_user = CustomUser.objects.get(username=username)
     follower_list = []
     for follower in UserFollowing.objects.filter(following_user_id=profile_user.id):
-        username = CustomUser.objects.get(id=follower.follower_user_id).username
-        followerData = {"username": username}
+        follower_user = CustomUser.objects.get(id=follower.follower_user_id)
+        user_picture = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        is_following = UserFollowing.objects.filter(following_user_id=follower.follower_user.id).filter(follower_user_id=request.user.id).exists()
+        followerData = {"username": follower_user.username, "user_picture": user_picture, "is_following": is_following, "followers": follower_user.followers.count()}
         follower_list.append(followerData)
     data = {"follower": follower_list}
     return  render(request,'user_app/follower_list.html', context=data)
