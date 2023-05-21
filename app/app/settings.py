@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'api_app',
     'dashboard_app',
     'settings_app',
-    'community_app'
+    'community_app',
+    'messaging_app'
 ]
 
 MIDDLEWARE = [
