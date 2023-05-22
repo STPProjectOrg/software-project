@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import RequestContext
-from dashboard_app.models import Portfolio
+from dashboard_app.models import Transaction
 from api_app.models import AssetHistory
 from core.models import History
 from datetime import datetime, date, timedelta
@@ -28,7 +28,7 @@ def dashboard(request):
 
 
 def getAllUserAssets(user):
-    allAssets = Portfolio.objects.filter(user = user.id)
+    allAssets = Transaction.objects.filter(user = user.id)
     return allAssets
 
 
@@ -59,7 +59,7 @@ def getDataForPie(user):
     return data
 
 def getDataForLine(user):
-    sorted = Portfolio.objects.filter(user = user.id).order_by('purchaseDate')
+    sorted = Transaction.objects.filter(user = user.id).order_by('purchaseDate')
     today = date.today()
     beginning = sorted.first().purchaseDate
     uniqueAssets = list()
@@ -133,7 +133,7 @@ def addToPortfolio(cleanedData):
     if doesCoinExistInDatabase(cleanedData.get('assetDropdown')):
         asset = getAssetFromDatabase(cleanedData.get('assetDropdown'))
         user = getUser(cleanedData.get('user'))
-        Portfolio.objects.create(
+        Transaction.objects.create(
                 user=user, 
                 asset=asset, 
                 purchaseDate=datetime(date1.year,date1.month,date1.day),
