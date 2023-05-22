@@ -1,4 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import render
+from user_app.models import CustomUser
 
 def debug(request):
     """ Renders a custom url for debug purposes """
@@ -34,3 +36,11 @@ def privacy(request):
 def cookie_disclosure(request):
     return render(request, 'core/cookie_disclosure.html')
 
+def search_results(request):
+    username = request.GET.get('username','')
+
+    # Search for users with a similar username
+    results = CustomUser.objects.filter(username__icontains=username)
+    result_list = [user.username for user in results]
+
+    return JsonResponse({'results': result_list})
