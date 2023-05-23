@@ -41,6 +41,8 @@ def search_results(request):
 
     # Search for users with a similar username
     results = CustomUser.objects.filter(username__icontains=username)
+    # result_list = [user for user in results]
+    # return JsonResponse({'results': result_list})
+    
     result_list = [user.username for user in results]
-
     return JsonResponse({'results': result_list})

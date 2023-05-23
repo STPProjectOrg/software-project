@@ -4,6 +4,9 @@ register = template.Library()
 
 # inclusion_tags
 
+@register.inclusion_tag("inclusion/search_result.html")
+def search_result(username):
+    return {'username': username}
 
 @register.inclusion_tag("inclusion/logo_name.html")
 def logo_name():
