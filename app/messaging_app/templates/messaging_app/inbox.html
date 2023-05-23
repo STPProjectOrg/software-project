@@ -2,11 +2,6 @@
 {% block content %}
     <h1>Inbox</h1>
     <h2>Chats:</h2>
-    <form method="POST">
-        {%  csrf_token %}
-        {{ form.as_p }}
-        <input type="Submit" name="comment"/>
-    </form>
 
     <div class="container mt-5">
         <div class="d-flex justify-content-center row">

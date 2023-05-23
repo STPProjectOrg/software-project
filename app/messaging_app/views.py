@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from messaging_app.models import Inbox, InboxParticipants, Message
 from user_app.models import CustomUser
-from messaging_app.forms import AddParticipantForm, AddMessageForm
+from messaging_app.forms import AddMessageForm
 from datetime import datetime
 
 # Create your views here.
@@ -10,28 +10,17 @@ def inbox(request):
     inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
     inbox_participants = InboxParticipants.objects.filter(inbox_id=inbox_from_user[0])
 
-    form = AddParticipantForm()
-    if request.method=='POST':
-        form = AddParticipantForm(request.POST)
-        if form.is_valid():
-            d = form.cleaned_data
-            participant_to_add = CustomUser.objects.get(id=d.get("participant"))
-            InboxParticipants.objects.get_or_create(
-                inbox_id = inbox_from_user[0],
-                participant_id = participant_to_add
-            )
     participants = []
     for participant in inbox_participants:
         participant_user = CustomUser.objects.get(username=participant.participant_id)
         participant_pic = participant_user.userprofileinfo.profile_pic.url if participant_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
         participants.append({"participant": participant_user, "participant_pic":participant_pic})
-    data = {"participants": participants, "form": form}
+    data = {"participants": participants}
     return render(request, "messaging_app/inbox.html", context=data)
 
 def chat(request, participant):
     user = CustomUser.objects.get(id=request.user.id)
     chat_participant = CustomUser.objects.get(username=participant)
-    user = CustomUser.objects.get(id=request.user.id)
     inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
     InboxParticipants.objects.get_or_create(
                 inbox_id = inbox_from_user[0],
