@@ -15,10 +15,10 @@
                     {% for participant in participants %}
                     <div class="d-flex flex-row justify-content-between align-items-center mt-3">
                         <div class="d-flex flex-row align-items-center">
-                            <a href="{% url 'messaging_app:chat' participant.username %}">
-                            <img class="rounded-circle" src="{{participant.user_pic}}" width="55">
+                            <a href="{% url 'messaging_app:chat' participant.participant.username %}">
+                            <img class="rounded-circle" src="{{participant.participant_pic}}" width="55">
                             <div class="d-flex flex-column align-items-start ml-3">
-                                <p>{{ participant.username }}</p>
+                                <p>{{ participant.participant.username }}</p>
                             </div>
                             </a>
                         </div>

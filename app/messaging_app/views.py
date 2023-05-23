@@ -22,7 +22,9 @@ def inbox(request):
             )
     participants = []
     for participant in inbox_participants:
-        participants.append(CustomUser.objects.get(id=participant.id))
+        participant_user = CustomUser.objects.get(id=participant.id)
+        participant_pic = participant_user.userprofileinfo.profile_pic.url if participant_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        participants.append({"participant": participant_user, "participant_pic":participant_pic})
     data = {"participants": participants, "form": form}
     return render(request, "messaging_app/inbox.html", context=data)
 
