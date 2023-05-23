@@ -1,0 +1,26 @@
+<div class="modal fade" id="search-results-modal" tabindex="-1" role="dialog" aria-labelledby="search-results-modal-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="search-results-modal-title">Suchergebnisse</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% comment "" %}
+            <div class="modal-body">
+                <ul id="search-results-list">
+                    <!-- Search results will be dynamically populated here -->
+            </div>
+            {% endcomment %}
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table  class="table align-middle mb-0">
+                        <tbody id="search-results-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
