@@ -43,4 +43,4 @@ def search_results(request):
     results = CustomUser.objects.filter(username__icontains=username)
     result_list = [user.username for user in results]
 
-    return JsonResponse({'results': result_list})
+    return JsonResponse({'results': result_list}, safe=False)
