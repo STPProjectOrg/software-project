@@ -1,158 +1,141 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+{% load user_tags %}
+{% block title %}
+    | {{ profile_user.first_name }} {{ profile_user.last_name }}
+{% endblock title %}
 {% block content %}
-    <h1>Profile Page</h1>
-    <h2>User: {{user_name}}</h2>
-    
-    <div class="container py-5">
-        
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card mb-4">
-              <div class="card-body text-center">
-                <img src="{{picture_url}}" alt="avatar"
-                  class="rounded-circle img-thumbnail" style="width: 150px;">
-                <input type="file" class="text-center center-block file-upload">
-                <h5 class="my-3">{{user_name}}</h5>
-                <div class="d-flex justify-content-evenly rounded-3 p-2 mb-2 bg-body-tertiary">
-                  <div>
-                    <p class="small text-muted mb-1">Posts</p>
-                    <p class="mb-0">0</p>
-                  </div>
-                  <div class="px-3">
-                    <p class="small text-muted mb-1">Followers</p>
-                    <p class="mb-0">0</p>
-                  </div>
-                  <div>
-                    <p class="small text-muted mb-1">Following</p>
-                    <p class="mb-0">0</p>
-                  </div>
+    <div class="card mb-3">
+        <div class="position-relative">
+            <img class="card-img-top"
+                 style="max-height: 25vh"
+                 src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fkbhxfkobabf11.png&f=1&nofb=1&ipt=7138a6d0e9e4fe655b60f911ce3bf0bbd7d3492d9c7edcf53ed436e1ae2c8c7b&ipo=images"
+                 alt="Card image cap" />
+            <div class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0">
+                <div class="h-75 mb-n4" style="z-index: 1000; position: relative">
+                    <img src="{{ picture_url }}"
+                         class="rounded-circle h-100 border border-dark border-5"
+                         alt="Avatar" />
+                    {% if is_own_profile %}
+                        <div type="button"
+                             class="h-100 w-100 rounded-circle profile-image-info"
+                             style="position: absolute;
+                                    top: 0"
+                             data-bs-toggle="modal"
+                             data-bs-target="#profileImageModal">
+                            <div class="fs-3 d-flex h-100">
+                                <i class="bi bi-camera-fill m-auto"></i>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="col-lg-8">
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <p class="mb-0">Voller Name</p>
-                  </div>
-                  <div class="col-sm-7">
-                    <p class="text-muted mb-0">{{first_name}} {{last_name}}</p>
-                  </div>
+            {% if is_own_profile %}
+                <div type="button"
+                     data-bs-toggle="modal"
+                     data-bs-target="#profileBannerModal"
+                     class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0 profile-banner-info">
+                    <div class="ms-auto mt-auto mb-2 me-2 fs-3">
+                        <i class="bi bi-camera-fill mt-auto ms-auto"></i>
+                    </div>
                 </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <p class="mb-0">Email</p>
-                  </div>
-                  <div class="col-sm-7">
-                    <p class="text-muted mb-0">{{email}}</p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <p class="mb-0">Telefonnummer</p>
-                  </div>
-                  <div class="col-sm-7">
-                    <p class="text-muted mb-0">(097) 234-5678</p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <p class="mb-0">Geburtstag</p>
-                  </div>
-                  <div class="col-sm-7">
-                    <p class="text-muted mb-0">20.04.1999</p>
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-5">
-                    <p class="mb-0">Addresse</p>
-                  </div>
-                  <div class="col-sm-7">
-                    <p class="text-muted mb-0">Kanzleistraße, Flensburg, DE</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card mb-4 mb-md-0">
-                  <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                    </p>
-                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                    <div class="progress rounded mb-2" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="card mb-4 mb-md-0">
-                  <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                    </p>
-                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                    <div class="progress rounded" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                    <div class="progress rounded mb-2" style="height: 5px;">
-                      <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-primary">Profil bearbeiten</button>
-            </div>
-          </div>
+            {% endif %}
         </div>
-      </div>
+        <div class="card-body">
+            <div class="row" id="title">
+                <div class="col-auto">
+                    <div class="fs-6 my-auto">u/{{ profile_user.username }}</div>
+                    <div class="fs-2 fw-bold text-white">{{ profile_user.first_name }} {{ profile_user.last_name }}</div>
+                </div>
+            </div>
+            <div class="row" id="information">
+                <div class="col d-flex gap-4">
+                    <div class="d-flex gap-2 btn btn-link p-0 fs-5"
+                         data-bs-toggle="modal"
+                         data-bs-target="#profileFollowersModal">
+                        <div class="m-auto">
+                            <i class="bi bi-people-fill fw-normal"></i>
+                        </div>
+                        <div class="fw-semibold">{{ followers.count }}</div>
+                        <div class="user-select-none fw-normal">Follower</div>
+                    </div>
+                    <div class="d-flex gap-2 btn btn-link p-0 fs-5"
+                         data-bs-toggle="modal"
+                         data-bs-target="#profileFollowingModal">
+                        <div class="m-auto">
+                            <i class="bi bi-person-heart fw-normal"></i>
+                        </div>
+                        <div class="fw-semibold">{{ following.count }}</div>
+                        <div class="user-select-none fw-normal">Gefolgt</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2" id="bio">
+                {% if is_own_profile %}
+                    {# On Hover & Onclick -> Modal #}
+                    <div class="col">
+                        <div class="d-flex gap-2">
+                            <div class="my-auto fs-5">
+                                <i class="bi bi-blockquote-right"></i>
+                            </div>
+                            <div class="fs-6 border border-1 rounded p-1 profile-bio user-select-none">
+                                "Hier muss noch die Bio eingefügt werden"
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <div>"Hier muss noch die Bio eingefügt werden"</div>
+                    </div>
+                {% endif %}
+                {# TODO: Bio #}
+            </div>
+            {% if not is_own_profile %}
+                <div class="row mt-2" id="buttons">
+                    <div class="col-auto">
+                        {% if is_following %}
+                            <a class="btn btn-primary"
+                               href="{% url 'user_app:follow' profile_user.username %}">
+                                <div class="d-flex gap-2">
+                                    <div class="m-auto">
+                                        <i class="bi bi-person-dash-fill"></i>
+                                    </div>
+                                    <div>Entfolgen</div>
+                                </div>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-primary"
+                               href="{% url 'user_app:follow' profile_user.username %}">
+                                <div class="d-flex gap-2">
+                                    <div class="m-auto">
+                                        <i class="bi bi-person-plus-fill"></i>
+                                    </div>
+                                    <div>Folgen</div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-outline-primary" href="#">
+                            <div class="d-flex gap-2">
+                                <div class="m-auto">
+                                    <i class="bi bi-chat-dots-fill"></i>
+                                </div>
+                                <div>Nachricht senden</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="fst-italic">Hier kommt das Portfolio des Nutzers (Preview als Link)</div>
+    <div class="fst-italic">Hier kommen die Posts</div>
+    {# Modals #}
+    {% if is_own_profile %}
+        {% profile_image_modal user_profile_id %}
+        {% profile_banner_modal %}
+        {# TODO: Bio Modal #}
+    {% endif %}
+    {% profile_followers_modal request profile_user followers own_following %}
+    {% profile_following_modal request profile_user following own_following %}
 {% endblock content %}

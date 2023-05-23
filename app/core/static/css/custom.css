@@ -12594,6 +12594,14 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: transparent;
 }
 
+.btn-nav {
+  --bs-btn-font-weight: 500;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #85a9ff;
+  --bs-btn-active-color: #2d5dcc;
+  --bs-btn-active-border-color: transparent;
+}
+
 .btn-outline-primary {
   --bs-btn-font-weight: 600;
   --bs-btn-color: #85a9ff;
@@ -12610,6 +12618,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-bg: #f5f7fa;
   --bs-btn-disabled-border-color: #e3e6ed;
   --bs-gradient: none;
+  --bs-btn-bg: #0F111A;
 }
 
 .btn-link {
@@ -12621,12 +12630,59 @@ textarea.form-control-lg {
   height: calc((1.3rem + 0.6vw) * 1.5) !important;
 }
 
+.logo-fs-3 {
+  border-radius: 50% !important;
+  height: calc((1.3rem + 0.6vw) * 1.5) !important;
+  width: auto;
+}
+
 .text-gradient {
   background: linear-gradient(to right, #EB1260 0%, #FDB128 100%) !important;
   background-clip: initial;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   display: inline-block !important;
+}
+
+.profile-image-info {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0);
+  cursor: auto;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-image-info:hover {
+  background-color: rgba(0, 0, 0, 0.431372549);
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-banner-info {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0);
+  cursor: auto;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-banner-info:hover {
+  background-color: rgba(0, 0, 0, 0.431372549);
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-bio {
+  border-color: #141824 !important;
+  background-color: #141824;
+  transition: background-color 0.5s, border-color 0.5s;
+}
+
+.profile-bio:hover {
+  cursor: pointer;
+  border-color: #31374a !important;
+  background-color: #0F111A;
+  transition: background-color 0.5s, border-color 0.5s;
 }
 
 /*# sourceMappingURL=custom.css.map */
