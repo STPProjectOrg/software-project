@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from user_app.models import CustomUser
+from core.templatetags.core_tags import search_result
+from django.template.loader import render_to_string
 
 def debug(request):
     """ Renders a custom url for debug purposes """
@@ -41,6 +43,13 @@ def search_results(request):
 
     # Search for users with a similar username
     results = CustomUser.objects.filter(username__icontains=username)
-    result_list = [user.username for user in results]
+    
+    # result_list = [user for user in results]
+    # return JsonResponse({'results': result_list})
+    
+    # result_list = [user.username for user in results]
+    # return JsonResponse({'results': result_list})
 
-    return JsonResponse({'results': result_list}, safe=False)
+    # result_list = [search_result(user.username) for user in results]
+    result_list = [render_to_string('inclusion/search_result.html', {'username': user.username}) for user in results]
+    return JsonResponse({'results': result_list})

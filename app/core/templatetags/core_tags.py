@@ -3,6 +3,11 @@ from django import template
 register = template.Library()
 
 # inclusion_tags
+
+@register.inclusion_tag("inclusion/search_modal.html")
+def search_modal():
+    return 
+
 @register.inclusion_tag("inclusion/search_result.html")
 def search_result(username):
     return {'username': username}

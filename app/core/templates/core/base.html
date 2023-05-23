@@ -48,53 +48,7 @@
 
 
             <!-- Search Results Modal -->
-            <div class="modal fade" id="search-results-modal" tabindex="-1" role="dialog" aria-labelledby="search-results-modal-title" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="search-results-modal-title">Suchergebnisse</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        
-                        {% comment "" %}
-                        <div class="modal-body">
-                            <ul id="search-results-list">
-                                <!-- Search results will be dynamically populated here -->
-                        </div>
-                        {% endcomment %}
-                        <div class="modal-body">
-                            <div class="table-responsive">
-                                <table  class="table align-middle mb-0">
-                                    <tbody id="search-results-list">
-                                        {% comment "" %}
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle border border-dark border-5" alt="Avatar" style="width: 45px; height: 45px">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <a href="#">Dimi</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="badge rounded-pill text-bg-success">User</span>
-                                            </td>
-                                            <td>
-                                                <i class="bi bi-person-fill-check"></i>
-                                            </td>
-                                        </tr>
-                                        {% endcomment %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% search_modal %}
 
             <!-- JavaScript to handle search form submission and displaying results -->
 <script>
@@ -118,11 +72,8 @@
             if (response.results.length > 0) {
                 // Append search results to the modal
                 response.results.forEach(function(username) {
-                    // $('#search-results-list').append('<li>' + username + '</li>');
+                    //$('#search-results-list').append('<li>' + username + '</li>');
                     $('#search-results-list').append('<tr><td><div><a href="#">' + username + '</a></div></td></tr>');
-                    
-                    //var renderedHtml = '{% search_result "' + username + '" %}';
-                    //$('#search-results-list').append(renderedHtml);
                 });
             } else {
                 // Display a message when no results are found
