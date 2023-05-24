@@ -35,8 +35,11 @@ def userSettings(request):
 
 @login_required
 def securitySettings(request):
-
-    return render(request, 'settings_app/securitySettings.html')
+    if request.method == "POST":
+        # Do something with the request
+        return render(request, 'settings_app/settingsOverview.html')
+    else:
+        return render(request, 'settings_app/securitySettings.html')
 
 
 @login_required
