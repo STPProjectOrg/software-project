@@ -16,7 +16,10 @@
           {% else %}
             <a href="{% url 'user_app:follow' user_name %}">Follow</a>
           {% endif %}
-    
+
+          <a href="{% url 'messaging_app:chat' user_name %}">
+            <i class="bi bi-envelope"></i>
+          </a>
         
       {% endif %} 
     </div>

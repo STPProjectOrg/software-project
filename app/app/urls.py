@@ -27,7 +27,8 @@ urlpatterns = [
     path('api_app/', include('api_app.urls')),
     path('dashboard_app/', include('dashboard_app.urls')),
     path('settings_app/', include('settings_app.urls')),    
-    path('community_app/', include('community_app.urls'))
+    path('community_app/', include('community_app.urls')),
+    path('messaging_app/', include('messaging_app.urls'))
 ]
 
 if settings.DEBUG:
