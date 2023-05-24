@@ -16,14 +16,22 @@
     <h3>{{ message }}</h3>
 
 
-
+    <form action="" method="post">
+      {% csrf_token %}
+      <button type="submit" name="complete">complete history</button>
+      <button type="submit" name="year">last year</button>
+      <button type="submit" name="sixmonths">last six months</button>
+      <button type="submit" name="month">last month</button>
+      <button type="submit" name="week">last week</button>
+      
+    </form>
     <div style="width:50%;display: flex">
         <canvas id="myChart" ></canvas>
         {{ crypto|json_script:'crypto' }}
         {{ value|json_script:'value' }}
         {{ assetList|json_script:'assetList' }}
         {{ values|json_script:'valueList' }}
-        {{ months|json_script:'months' }}
+        {{ interval|json_script:'interval' }}
         {{ dateValues|json_script:'dateValues' }}
         <div style="width:50%;">
           <canvas id="myChart2" ></canvas>
@@ -32,7 +40,7 @@
       </div>
 
     
-      </form>
+
       <h3>{{ message }}</h3>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -44,13 +52,13 @@
       var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
       var assetList = JSON.parse(document.getElementById('assetList').textContent);
       var valueList = JSON.parse(document.getElementById('valueList').textContent);
-      var months = JSON.parse(document.getElementById('months').textContent);
+      var interval = JSON.parse(document.getElementById('interval').textContent);
       var dateValues = JSON.parse(document.getElementById('dateValues').textContent);
 
 
       console.log(assetList)
       console.log(valueList)
-      const labels = months
+      const labels = interval
         const data = {
                         labels: labels,
                         datasets: [{
