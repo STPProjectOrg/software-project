@@ -7,7 +7,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="profileFollowingModalLabel">
-                    {{ profile_user.first_name }} {{ profile_user.last_name }} folgt {{ following.count }} Personen
+                    {{ profile_user.first_name }} {{ profile_user.last_name }} folgt {{ profile_following_list.count }} Personen
                 </h1>
                 <button type="button"
                         class="btn-close"
@@ -16,7 +16,7 @@
             </div>
             <div class="modal-body">
                 <div class="d-flex flex-column gap-2">
-                    {% for user in following %}
+                    {% for user in profile_following_list %}
                         <div class="d-flex gap-2 bg-body-secondary p-2 border rounded">
                             <div>
                                 <a class="btn btn-link text-start p-0 d-flex gap-2"
@@ -37,8 +37,7 @@
                                     </div>
                                 </a>
                             </div>
-                            {# TODO: Switch folgen / Entfolgen #}
-                            {% if user.id in own_following %}
+                            {% if user.id in user_following_list %}
                                 <div class="my-auto ms-auto">
                                     <a class="btn btn-outline-primary"
                                        href="{% url 'user_app:follow' user.username %}">Entfolgen</a>
@@ -52,7 +51,6 @@
                         </div>
                     {% endfor %}
                 </div>
-                {# User-Entry #}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary ms-auto" data-bs-dismiss="modal">Schließen</button>

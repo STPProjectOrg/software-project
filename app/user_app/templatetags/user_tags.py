@@ -16,10 +16,10 @@ def profile_banner_modal():
 
 
 @register.inclusion_tag("modals/profile_following_modal.html")
-def profile_following_modal(request, profile_user, following, own_following):
-    return {"request": request, "profile_user": profile_user, "following": following, "own_following": own_following}
+def profile_following_modal(request, profile_user, profile_following_list, user_following_list):
+    return {"request": request, "profile_user": profile_user, "profile_following_list": profile_following_list, "user_following_list": user_following_list}
 
 
 @register.inclusion_tag("modals/profile_followers_modal.html")
-def profile_followers_modal(request, profile_user, followers, own_following):
-    return {"request": request, "profile_user": profile_user, "followers": followers, "own_following": own_following}
+def profile_followers_modal(request, profile_user, profile_followers_list, user_following_list):
+    return {"request": request, "profile_user": profile_user, "profile_followers_list": profile_followers_list, "user_following_list": user_following_list}

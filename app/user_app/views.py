@@ -73,37 +73,38 @@ def profile_redirect(request):
 
 @login_required
 def profile(request, username):
+    """ Render a user-profile.
 
-    # Check if the current profile is it's own profile or not an get the user from DB
+    Keyword arguments:
+        request: The http request
+        username: The profile user's username
+    """
+
+    # Get profile user
     profile_user = get_object_or_404(
-        CustomUser, username=username)
-    is_own_profile = request.user.username == profile_user.username
+        CustomUser.objects.select_related("userprofileinfo"), username=username)
 
-    # following_list = CustomUser.objects.filter(id=1)
-    followers = CustomUser.objects.filter(
-        following__following_user_id=profile_user.id).select_related("userprofileinfo")
-    following = CustomUser.objects.filter(
-        followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
-
-    own_following = request.user.following.values_list(
+    # Declare common variables
+    user_following_list = request.user.following.values_list(
         "following_user_id", flat=True)
+    is_user_profile = request.user.username == profile_user.username
+    is_user_following = profile_user.userprofileinfo.id in user_following_list
+    profile_picture_url = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
 
-    # is_followig und picture_url direct im Objekt speichern
-    is_following = request.user.following.all().filter(
-        following_user=profile_user).exists()
-    picture_url = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-
-    # Get the picture url. When user doesn't have one get the default picture
+    # Get profile user's follow-lists
+    profile_followers_list = CustomUser.objects.filter(
+        following__following_user_id=profile_user.id).select_related("userprofileinfo")
+    profile_following_list = CustomUser.objects.filter(
+        followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
 
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
-                   "user_profile_id": profile_user.userprofileinfo.id,
-                   "picture_url": picture_url,
-                   "is_own_profile": is_own_profile,
-                   "is_following": is_following,
-                   "followers": followers,
-                   "following": following,
-                   "own_following": own_following,
+                   "picture_url": profile_picture_url,  # TODO: Delete
+                   "is_user_profile": is_user_profile,
+                   "is_user_following": is_user_following,
+                   "profile_followers_list": profile_followers_list,
+                   "profile_following_list": profile_following_list,
+                   "user_following_list": user_following_list,
                    })
 
 

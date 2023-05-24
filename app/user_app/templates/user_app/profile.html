@@ -15,7 +15,7 @@
                     <img src="{{ picture_url }}"
                          class="rounded-circle h-100 border border-dark border-5"
                          alt="Avatar" />
-                    {% if is_own_profile %}
+                    {% if is_user_profile %}
                         <div type="button"
                              class="h-100 w-100 rounded-circle profile-image-info"
                              style="position: absolute;
@@ -29,7 +29,7 @@
                     {% endif %}
                 </div>
             </div>
-            {% if is_own_profile %}
+            {% if is_user_profile %}
                 <div type="button"
                      data-bs-toggle="modal"
                      data-bs-target="#profileBannerModal"
@@ -55,7 +55,7 @@
                         <div class="m-auto">
                             <i class="bi bi-people-fill fw-normal"></i>
                         </div>
-                        <div class="fw-semibold">{{ followers.count }}</div>
+                        <div class="fw-semibold">{{ profile_followers_list.count }}</div>
                         <div class="user-select-none fw-normal">Follower</div>
                     </div>
                     <div class="d-flex gap-2 btn btn-link p-0 fs-5"
@@ -64,13 +64,13 @@
                         <div class="m-auto">
                             <i class="bi bi-person-heart fw-normal"></i>
                         </div>
-                        <div class="fw-semibold">{{ following.count }}</div>
+                        <div class="fw-semibold">{{ profile_following_list.count }}</div>
                         <div class="user-select-none fw-normal">Gefolgt</div>
                     </div>
                 </div>
             </div>
             <div class="row mt-2" id="bio">
-                {% if is_own_profile %}
+                {% if is_user_profile %}
                     {# On Hover & Onclick -> Modal #}
                     <div class="col">
                         <div class="d-flex gap-2">
@@ -89,10 +89,10 @@
                 {% endif %}
                 {# TODO: Bio #}
             </div>
-            {% if not is_own_profile %}
+            {% if not is_user_profile %}
                 <div class="row mt-2" id="buttons">
                     <div class="col-auto">
-                        {% if is_following %}
+                        {% if is_user_following %}
                             <a class="btn btn-primary"
                                href="{% url 'user_app:follow' profile_user.username %}">
                                 <div class="d-flex gap-2">
@@ -131,11 +131,11 @@
     <div class="fst-italic">Hier kommt das Portfolio des Nutzers (Preview als Link)</div>
     <div class="fst-italic">Hier kommen die Posts</div>
     {# Modals #}
-    {% if is_own_profile %}
-        {% profile_image_modal user_profile_id %}
+    {% if is_user_profile %}
+        {% profile_image_modal request.user.id %}
         {% profile_banner_modal %}
         {# TODO: Bio Modal #}
     {% endif %}
-    {% profile_followers_modal request profile_user followers own_following %}
-    {% profile_following_modal request profile_user following own_following %}
+    {% profile_followers_modal request profile_user profile_followers_list user_following_list %}
+    {% profile_following_modal request profile_user profile_following_list user_following_list %}
 {% endblock content %}
