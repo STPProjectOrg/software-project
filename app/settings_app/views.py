@@ -15,12 +15,6 @@ def settings(request):
 def userSettings(request):
     if request.method == "POST":
         user = CustomUser.objects.get(username=request.user.username)
-        user_image = UserProfileInfo.objects.get(user=request.user)
-
-        image_file = request.FILES.get('profile_pic', None)
-        if image_file is not None:
-            user_image.profile_pic = image_file
-            user_image.user_profile.save()
 
         user.username = request.POST["username"]
         user.email = request.POST["email"]
