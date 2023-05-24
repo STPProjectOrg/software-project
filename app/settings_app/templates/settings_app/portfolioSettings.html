@@ -3,18 +3,19 @@
     <h1 class="text-center mb-5">Portfolioeinstellungen</h1>
     <div class="card">
         <div class="card-body">
-            <form class="ps-5 pe-5 pt-2">
+            <form method="POST" class="ps-5 pe-5 pt-2">
+                {% csrf_token %}
                 <div class="form-group mb-3">
                     <label for="dateTimeFormat">Datums- und Zeitformat</label>
-                    <select class="form-control" id="dateTimeFormat">
+                    <select name="dateTimeFormat" class="form-control" id="dateTimeFormat">
                       <option>DD.MM.YYYY HH:mm</option>
                       <option>MM/DD/YYYY HH:mm</option>
                       <option>YYYY-MM-DD HH:mm</option>
                     </select>
                   </div>
                 <div class="form-group mb-3 mt-2">
-                    <label for="dateTimeFormat">Währung</label>
-                    <select class="form-control" id="currencySelector" style="width: 20%;">
+                    <label for="currencySelector">Währung</label>
+                    <select name="currencySelector" class="form-control" id="currencySelector" style="width: 20%;">
                         <option>Euro</option>
                         <option>USD</option>
                         <option>Pfund</option>
@@ -25,7 +26,7 @@
                     <button type="submit" class="btn btn-success">
                         Speichern
                     </button>
-                    <a href="{% url 'settings_app:settingsOverview' %}" class="btn btn-danger">Zurück</a>
+                    <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">Zurück</a>
                 </div>
             </form>
         </div>

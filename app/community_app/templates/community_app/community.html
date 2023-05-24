@@ -9,8 +9,24 @@
     <input type="Submit" name="comment"/>
 </form>
 
-{% for post in posts %}
+
+<div class="d-flex justify-content-center">
+  <a href="{% url 'community_app:community' all %}">
+        <button class="btn btn-outline-primary btn-sm me-2" type="button">All</button>
+  </a>
+  <a href="{% url 'community_app:community' follower %}">
+      <button class="btn btn-outline-primary btn-sm me-2" type="button">Follower</button>
+  </a>
+  <a href="{% url 'community_app:community' user.username %}">
+    <button class="btn btn-outline-primary btn-sm me-2" type="button">My Timeline</button>
+</a>
+</div>
+
+<div>
 <section>
+
+{% for post in posts %}
+
     <div class="container my-3 py-3">
       <div class="row d-flex justify-content-center">
         <div class="col-md-24 col-lg-20 col-xl-20">
@@ -116,22 +132,24 @@
         </div>
       </div>
     </div>
-  </section>
+
   {% endfor %}
+</section>
+</div>
 
     <script>
         function postComment(post_id) {
             let comment = document.getElementById("post_comment"+post_id).value
             let button = document.getElementById("post")
-            window.location.href = "http://localhost:8000/community_app/community/?post_id="+post_id+"&post_comment="+comment
-            window.location.href = "http://localhost:8000/community_app/community/"
+            window.location.href = "http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id+"&post_comment="+comment
+            window.location.href = "http://localhost:8000/community_app/community/{{feed}}/"
         }
-        function deleteComment(comment_id) {
-            fetch("http://localhost:8000/community_app/community/?comment_id="+comment_id)
+        function deleteComment(comment_id, feed) {
+            fetch("http://localhost:8000/community_app/community/{{feed}}/?comment_id="+comment_id)
         }
 
-        function likeComment(post_id) {
-            fetch("http://localhost:8000/community_app/community/?post_id="+post_id)
+        function likeComment(post_id, feed) {
+            fetch("http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id)
         }
 
         function showComments(post_id) {

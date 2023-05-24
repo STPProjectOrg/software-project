@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from community_app.forms import PostForm
 from community_app.models import Posts, PostLikes, PostComments
-from user_app.models import CustomUser
+from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
 from datetime import datetime
 # Create your views here.
-def community(request):
+def community(request, feed):
     selectedCoin = 'BTC'
     user = 1
     form = PostForm(initial={'user_id': user, 'asset': selectedCoin})
@@ -43,12 +44,34 @@ def community(request):
                     post_id = Posts.objects.get(id=post_id)
                     )
 
+    if feed == "all":
+        posts = Posts.objects.all()
+        posts = reversed(convertPosts(posts))
+    elif feed == "follower":
+        posts = []
+        f = UserFollowing.objects.all().filter(follower_user_id=request.user.id)
+        for follow in f:
+            po = Posts.objects.all().filter(user_id=follow.following_user_id)
+            for p in po:
+                posts.append(p)
+        posts = reversed(convertPosts(posts))
+    else:
+        posts = Posts.objects.all().filter(user_id = request.user.id)
+        posts = reversed(convertPosts(posts))
 
-    posts = Posts.objects.all()
-    posts = reversed(convertPosts(posts))
     user_picture = request.user.userprofileinfo.profile_pic.url if request.user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-    data = {'user': request.user, "user_picture": user_picture, 'form': form, 'posts': posts}
+    data = {'user': request.user,
+            "user_picture": user_picture,
+            'form': form, 
+            'posts': posts,
+            'all':'all',
+            'follower':'follower',
+            'feed': feed}
     return render(request, 'community_app/community.html' ,context=data)
+
+
+def toggle_feed(request, feed):
+    return redirect(reverse('community_app:community', kwargs={"feed": feed}))
 
 def convertPosts(posts):
     convertedPosts = []
