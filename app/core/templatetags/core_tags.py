@@ -1,3 +1,5 @@
+""" Custom Tags for the "Core Application" """
+
 from django import template
 
 register = template.Library()

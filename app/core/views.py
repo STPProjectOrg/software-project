@@ -3,17 +3,24 @@ from user_app import views as user_views
 
 
 def debug(request):
-    """ Renders a custom url for debug purposes """
+    """ 
+        Renders a custom url for debug purposes.
+    """
+
     url = 'core/base.html'
     return render(request, url)
 
 
 def index(request):
+    """ 
+        Render either the landing page or a user's profile page 
+        depending on a user's authentication status. 
+    """
 
     if request.user.is_authenticated:
         return user_views.profile(request, request.user.username)
-    else:
-        return render(request, 'core/landing.html')
+
+    return render(request, 'core/landing.html')
 
 
 def landing_page(request):
