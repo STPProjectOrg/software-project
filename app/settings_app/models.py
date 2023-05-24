@@ -7,7 +7,11 @@ from user_app.models import CustomUser
 
 
 class Settings(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    dateTimeFormat = models.CharField(
+        max_length=30, blank=False, default="DD.MM.YYYY HH:mm")
+    currency = models.CharField(max_length=30, blank=False, default="EUR")
+    theme = models.CharField(max_length=30, blank=False, default="dark")
 
     def __str__(self):
-        return self.settings
+        return self.user.username + "'s settings"
