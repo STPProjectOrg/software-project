@@ -43,9 +43,7 @@ def search_results(request):
 
     # Search for users with a similar username
     results = CustomUser.objects.filter(username__icontains=username)
-    
-    # result_list = [user.username for user in results]
-    # return JsonResponse({'results': result_list})
+    # result_string = render_to_string('inclusion/search_result.html', {'results': results})
 
     result_list = []
     for result in results:
@@ -57,5 +55,4 @@ def search_results(request):
                                                                              'pic': pic,
                                                                              'icon': icon}))
 
-    #result_list = [render_to_string('inclusion/search_result.html', {'username': user.username}) for user in results]
     return JsonResponse({'results': result_list})

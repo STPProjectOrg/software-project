@@ -71,9 +71,8 @@
              // Check if results exist 
             if (response.results.length > 0) {
                 // Append search results to the modal
-                response.results.forEach(function(username) {
-                    //$('#search-results-list').append('<li>' + username + '</li>');
-                    $('#search-results-list').append('<tr><td><div><a href="#">' + username + '</a></div></td></tr>');
+                response.results.forEach(function(userResult) {
+                    $('#search-results-list').append(userResult);
                 });
             } else {
                 // Display a message when no results are found
