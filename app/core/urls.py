@@ -7,17 +7,17 @@ urlpatterns = [
     path('debug', debug, name='debug'),
 
     # Index
-    path('', landing_page, name='index'),
+    path('', index, name='index'),
 
     # Landing Page
-    path('landing', landing_page, name='landing'),
-    
+    path('landing',  landing_page, name='landing'),
+
     # Legal Disclosure
     path('impressum', legal_disclosure, name='legal_disclosure'),
-    
+
     # Privacy
     path('datenschutz', privacy, name='privacy'),
-    
+
     # Cookie Disclosure
     path('cookies', cookie_disclosure, name='cookie_disclosure'),
 
