@@ -11,6 +11,7 @@
         {% endcomment %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         {% comment %}
     TODO: ADD TO STATIC
         {% endcomment %}
@@ -39,7 +40,6 @@
                     {% logo_name %}
                     {# Search #}
                     <div class="col my-auto d-none d-md-block">{% search 60 %}</div>
-                    {# User Settings #}
                     {% user_menu request %}
                 </div>
             {% endblock header %}
