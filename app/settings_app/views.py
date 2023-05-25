@@ -52,6 +52,7 @@ def portfolioSettings(request):
 
 @login_required
 def notificationSettings(request):
+    print(request.POST)
     return render(request, 'settings_app/notificationSettings.html')
 
 
