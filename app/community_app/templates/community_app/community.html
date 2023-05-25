@@ -142,7 +142,6 @@
             let comment = document.getElementById("post_comment"+post_id).value
             let button = document.getElementById("post")
             window.location.href = "http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id+"&post_comment="+comment
-            window.location.href = "http://localhost:8000/community_app/community/{{feed}}/"
         }
         function deleteComment(comment_id, feed) {
             fetch("http://localhost:8000/community_app/community/{{feed}}/?comment_id="+comment_id)
