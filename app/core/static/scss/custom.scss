@@ -22,6 +22,8 @@ $link-hover-color-dark: #3874ff;
 
 $border-color-dark: #31374a;
 
+$enable-negative-margins: true;
+
 // -- Form
 $form-text-color: #9fa6bc;
 
@@ -74,6 +76,14 @@ $headings-color: #e3e6ed;
     --bs-btn-disabled-border-color: transparent;
 }
 
+.btn-nav {
+    --bs-btn-font-weight: 500;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #85a9ff;
+    --bs-btn-active-color: #2d5dcc;
+    --bs-btn-active-border-color: transparent;
+}
+
 .btn-outline-primary {
     --bs-btn-font-weight: 600;
     --bs-btn-color: #85a9ff;
@@ -90,6 +100,7 @@ $headings-color: #e3e6ed;
     --bs-btn-disabled-bg: #f5f7fa;
     --bs-btn-disabled-border-color: #e3e6ed;
     --bs-gradient: none;
+    --bs-btn-bg: #0F111A;
 }
 
 .btn-link {
@@ -105,10 +116,58 @@ $headings-color: #e3e6ed;
     height: calc((1.3rem + 0.6vw) * 1.5) !important;
 }
 
+.logo-fs-3 {
+    border-radius: 50% !important;
+    height: calc((1.3rem + 0.6vw) * 1.5) !important;
+    width: auto;
+}
+
 .text-gradient {
     background: linear-gradient(to right, #EB1260 0%, #FDB128 100%) !important;
     background-clip: initial;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     display: inline-block !important;
+}
+
+.profile-image-info {
+    background-color: #00000000;
+    color: #00000000;
+    cursor: auto;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-image-info:hover{
+    background-color: #0000006e;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-banner-info {
+    background-color: #00000000;
+    color: #00000000;
+    cursor: auto;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-banner-info:hover{
+    background-color: #0000006e;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.profile-bio {
+    border-color: $body-bg-dark !important;
+    background-color: $body-bg-dark;
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+
+.profile-bio:hover {
+    cursor: pointer;
+    border-color: $border-color-dark !important;
+    background-color: $body-secondary-bg-dark;
+    transition: background-color 0.5s, border-color 0.5s;
 }

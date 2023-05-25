@@ -1,3 +1,5 @@
+""" Custom Tags for the "Core Application" """
+
 from django import template
 
 register = template.Library()
@@ -9,14 +11,27 @@ register = template.Library()
 def logo_name():
     return
 
+
 @register.inclusion_tag("inclusion/logo.html")
 def logo():
     return
 
 
+@register.inclusion_tag("inclusion/user_menu.html")
+def user_menu(request):
+    return {'request': request}
+
+
 @register.inclusion_tag("inclusion/navigation.html")
 def navigation():
     return
+
+
+@register.inclusion_tag("inclusion/navigation_button.html")
+def navigation_button(name, route, icon):
+    return {'name': name,
+            'route': route,
+            'icon': icon}
 
 
 @register.inclusion_tag("inclusion/footer.html")
