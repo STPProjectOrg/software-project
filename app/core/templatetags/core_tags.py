@@ -1,6 +1,7 @@
 """ Custom Tags for the "Core Application" """
 
 from django import template
+from django.urls import reverse
 
 register = template.Library()
 
@@ -35,9 +36,21 @@ def navigation():
 
 
 @register.inclusion_tag("inclusion/navigation_button.html")
-def navigation_button(name, route, icon):
+def navigation_button(name, icon, route, *args, **kwargs):
+    """
+    Include a navigation button.
+
+    Keyword arguments:
+        name: The name to be displayed.
+        icon: The icon to be displayed.
+        route: The url of the given page.
+        args, kwargs: Additional route parameter.
+    """
+
+    resolved_route = reverse(route, None, args, kwargs)
+
     return {'name': name,
-            'route': route,
+            'route': resolved_route,
             'icon': icon}
 
 
