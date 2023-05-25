@@ -24,7 +24,6 @@ def community(request, feed):
                     created_at=datetime.now(),
                     hashtags=d.get("hashtags")
                 )
-    print(request.GET.get('post_comment'))
     if request.GET.get("comment_id") is not None:
         PostComments.objects.filter(id=request.GET.get("comment_id")).delete()
     if request.GET.get('post_id') is not None:
