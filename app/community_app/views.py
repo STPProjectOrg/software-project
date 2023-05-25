@@ -5,6 +5,7 @@ from community_app.models import Posts, PostLikes, PostComments
 from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
 from datetime import datetime
+
 # Create your views here.
 def community(request, feed):
     selectedCoin = 'BTC'
@@ -23,7 +24,6 @@ def community(request, feed):
                     created_at=datetime.now(),
                     hashtags=d.get("hashtags")
                 )
-
     if request.GET.get("comment_id") is not None:
         PostComments.objects.filter(id=request.GET.get("comment_id")).delete()
     if request.GET.get('post_id') is not None:
