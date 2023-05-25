@@ -16,5 +16,5 @@ class InboxParticipants(models.Model):
 class Message(models.Model):
     from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="from_user")
     to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="to_user")
-    message = models.CharField(max_length=200)
+    message = models.CharField(max_length=1000)
     created_at = models.DateTimeField()
