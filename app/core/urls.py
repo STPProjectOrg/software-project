@@ -1,13 +1,11 @@
 """ Routes for the core_app """
 
 from django.urls import path
-from core.views import (
-    debug, index, landing_page,
-    legal_disclosure, privacy, cookie_disclosure,
-    search_results, question_and_answers)
+from core.views import (debug, index, landing_page, legal_disclosure,
+                        privacy, cookie_disclosure, search_results, question_and_answers)
 
 # Configuration
-APP_NAME = 'core'
+app_name = 'core'
 
 # Routes
 urlpatterns = [
