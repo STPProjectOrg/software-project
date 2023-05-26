@@ -1,11 +1,9 @@
-""" Custom Tags for the "Core Application" """
+""" Custom Tags for the core_app """
 
 from django import template
 from django.urls import reverse
 
 register = template.Library()
-
-# inclusion_tags
 
 
 @register.inclusion_tag("inclusion/search_modal.html")
@@ -20,21 +18,29 @@ def search_result(username):
 
 @register.inclusion_tag("inclusion/logo_name.html")
 def logo_name():
+    """ Include the logo and name element. """
+
     return
 
 
 @register.inclusion_tag("inclusion/logo.html")
 def logo():
+    """ Include the logo element. """
+
     return
 
 
 @register.inclusion_tag("inclusion/user_menu.html")
 def user_menu(request):
+    """ Include the user menu element. """
+
     return {'request': request}
 
 
 @register.inclusion_tag("inclusion/navigation.html")
 def navigation():
+    """ Include the navigation element. """
+
     return
 
 
@@ -45,11 +51,12 @@ def navigation_button(name, icon, route, *args, **kwargs):
 
     Keyword arguments:
         name: The name to be displayed.
-        icon: The icon to be displayed.
-        route: The url of the given page.
-        args, kwargs: Additional route parameter.
+        icon: The icon to be displayed (bootstrap icon class).
+        route: The reversed url of the given page ('app:route' args).
+        *args, **kwargs: Additional route parameter.
     """
 
+    # Resolve route
     resolved_route = reverse(route, None, args, kwargs)
 
     return {'name': name,
@@ -59,6 +66,8 @@ def navigation_button(name, icon, route, *args, **kwargs):
 
 @register.inclusion_tag("inclusion/footer.html")
 def footer():
+    """ Include the footer element. """
+
     return
 
 
