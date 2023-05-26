@@ -73,7 +73,8 @@ def profile_redirect(request):
 
 @login_required
 def profile(request, username):
-    """ Render a user-profile.
+    """ 
+    Render a user-profile.
 
     Keyword arguments:
         request: The http request
