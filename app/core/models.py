@@ -2,7 +2,7 @@
 
 # Create your models here.
 from django.db import models
-from app.user_app.models import CustomUser
+from user_app.models import CustomUser
 
 
 class Asset(models.Model):

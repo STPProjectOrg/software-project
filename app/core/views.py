@@ -3,8 +3,8 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from app.user_app.models import CustomUser
-from app.user_app import views as user_views
+from user_app.models import CustomUser
+from user_app import views as user_views
 
 
 def debug(request):

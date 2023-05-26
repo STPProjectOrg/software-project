@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from app.community_app.forms import PostForm
-from app.community_app.models import Posts, PostLikes, PostComments
-from app.user_app.models import CustomUser, UserFollowing
-from app.api_app.models import Asset
+from community_app.forms import PostForm
+from community_app.models import Posts, PostLikes, PostComments
+from user_app.models import CustomUser, UserFollowing
+from api_app.models import Asset
 from datetime import datetime
 
 # Create your views here.

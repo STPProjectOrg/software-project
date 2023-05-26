@@ -1,7 +1,7 @@
 """ Routes for the core_app """
 
 from django.urls import path
-from app.core.views import (
+from core.views import (
     debug, index, landing_page,
     legal_disclosure, privacy, cookie_disclosure,
     search_results, question_and_answers)
