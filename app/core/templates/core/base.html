@@ -46,7 +46,7 @@
             {# View #}
             <div class="row row-cols-1 row-cols-md-2 flex-grow-1">
                 {# Desktop navigation #}
-                <div class="d-none d-md-flex col-md-auto border-end p-4">{% navigation %}</div>
+                <div class="d-none d-md-flex col-md-auto border-end p-4">{% navigation request.user.username %}</div>
                 {# Content #}
                 <div class="col d-flex flex-column flex-grow-1">
                     <div class="row flex-grow-1 p-4 bg-body-secondary">
@@ -74,7 +74,7 @@
                 <div class="offcanvas-body">
                     {% search 100 %}
                     <div class="pt-4"></div>
-                    {% navigation %}
+                    {% navigation request.user.username %}
                 </div>
             </div>
         </div>

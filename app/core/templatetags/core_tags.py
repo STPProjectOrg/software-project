@@ -38,10 +38,10 @@ def user_menu(request):
 
 
 @register.inclusion_tag("inclusion/navigation.html")
-def navigation():
+def navigation(username):
     """ Include the navigation element. """
 
-    return
+    return {'username': username}
 
 
 @register.inclusion_tag("inclusion/navigation_button.html")
