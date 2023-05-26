@@ -57,6 +57,7 @@ def navigation_button(name, icon, route, *args, **kwargs):
     """
 
     # Resolve route
+
     resolved_route = reverse(route, None, args, kwargs)
 
     return {'name': name,
