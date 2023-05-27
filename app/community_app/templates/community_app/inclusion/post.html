@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div id="user_information" class="text-start p-0 d-flex gap-2 ">
+            <div class="my-auto">
+                {% if post.user_id.userprofileinfo.profile_pic %}
+                    <img class="logo-fs-3"
+                         src="{{ post.user_id.userprofileinfo.profile_pic.url }}">
+                {% else %}
+                    <img class="logo-fs-3"
+                         src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                {% endif %}
+            </div>
+            <div>
+                <div class="fs-5 fw-semibold">{{ post.user_id.first_name }} {{ post.user_id.last_name }}</div>
+                <div>
+                    <small>{{ post.created_at }}</small>
+                </div>
+            </div>
+        </div>
+        {% if user.id == post.user_id.id %}
+            <div class="dropdown ms-auto my-auto">
+                <button class=" btn btn-outline-primary p-2 fs-5"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="bi bi-gear-fill pe-2"></i>Bearbeiten</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger-emphasis" href="#"><i class="bi bi-trash-fill pe-2"></i>Löschen</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <div class="card-body pb-2">
+        <div id="content">{{ post.content }}</div>
+        <div class="border-top mt-3 mb-2"></div>
+        <div id="post_information" class="d-flex">
+            <div>
+                <a href="#!" class="btn btn-link p-0 " onclick="">
+                    <small>{{ post.hashtags }}</small>
+                </a>
+            </div>
+            <div class="d-flex ms-auto gap-4">
+                <a href=""
+                   class="btn btn-link p-0 fw-bold"
+                   onclick="likeComment('{{ post.id }}')">
+                    <small class="d-flex gap-1">
+                        <div class="my-auto">
+                            <i class="bi bi-heart-fill"></i>
+                        </div>
+                        <div class="my-auto">{{ post.postlikes_set.count }}</div>
+                        <div class="my-auto">Likes</div>
+                    </small>
+                </a>
+                <a href="#!"
+                   class="btn btn-link p-0 fw-bold"
+                   onclick="showComments('{{ post.id }}')">
+                    <small class="d-flex gap-1">
+                        <div class="my-auto">
+                            <i class="bi bi-card-text"></i>
+                        </div>
+                        <div class="my-auto">{{ post.postcomments_set.count }}</div>
+                        <div class="my-auto">Kommentare</div>
+                    </small>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        {# TODO #}
+        <div class="d-flex flex-start w-100">
+            <div class="form-outline w-100">
+                <textarea class="form-control"
+                          id="post_comment{{ post.id }}"
+                          name="post_comment"
+                          rows="3"
+                          style="background: #fff"></textarea>
+            </div>
+        </div>
+        <div class="float-end mt-2 pt-0">
+            <button type="button"
+                    class="btn btn-primary btn-sm"
+                    onclick="postComment('{{ post.id }}')">Post comment</button>
+        </div>
+        <div>Kommentare</div>
+        {% for comment in post.postcomments_set.all %}
+            <div>{{ comment.content }}</div>
+            {% if comment.user_id.id == user.id %}
+                <a href="{% url 'community_app:delete_comment' comment.id %}">
+                    <i class="far fa-comment-dots me-2"></i>
+                    <p class="mb-0"  id="showComments{{ post.post_id }}">Löschen</p>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

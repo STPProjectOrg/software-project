@@ -1,12 +1,48 @@
+""" Views for the community_app """
+
+from datetime import datetime
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from community_app.forms import PostForm
 from community_app.models import Posts, PostLikes, PostComments
 from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
-from datetime import datetime
+
 
 # Create your views here.
+
+
+def get_posts(*args, **kwargs):
+    """
+    Get a filtered set of 'Posts'.
+
+    Keyword arguments:
+        feed: The feed to be filtered by.
+        *args: The filter to be aplied.
+        ** kwargs: The filter value.
+    """
+
+    # TODO: Über args und kwargs lassen sich die Filter für den Feed einbinden
+
+    posts = Posts.objects.select_related(
+        "user_id", "user_id__userprofileinfo")
+
+    # TODO: reversed() in query einbauen
+
+    return reversed(posts)
+
+
+def delete_comment(request, comment_id):
+    """
+    Delete a 'Comment' by its id.
+
+    Keyword arguments:
+        id: The id of the 'Comment' to be deleted.
+    """
+
+    PostComments.objects.filter(id=comment_id).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def community(request, feed):
@@ -26,8 +62,8 @@ def community(request, feed):
                     created_at=datetime.now(),
                     hashtags=d.get("hashtags")
                 )
-    if request.GET.get("comment_id") is not None:
-        PostComments.objects.filter(id=request.GET.get("comment_id")).delete()
+    # if request.GET.get("comment_id") is not None:
+    #     PostComments.objects.filter(id=request.GET.get("comment_id")).delete()
     if request.GET.get('post_id') is not None:
         if request.GET.get('post_comment') is not None and request.GET.get("post_comment") != "":
             PostComments.objects.create(
@@ -48,8 +84,7 @@ def community(request, feed):
                 )
 
     if feed == "all":
-        posts = Posts.objects.all()
-        posts = reversed(convertPosts(posts))
+        posts = get_posts()
     elif feed == "follower":
         posts = []
         f = UserFollowing.objects.all().filter(follower_user_id=request.user.id)
