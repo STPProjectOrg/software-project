@@ -12723,6 +12723,20 @@ textarea.form-control-lg {
   transition: background-color 0.5s, border-color 0.5s;
 }
 
+.btn-link-danger {
+  --bs-btn-font-weight: 600;
+  text-decoration: none;
+  color: #ea868f;
+}
+
+.btn-link-danger:hover {
+  color: #DC3545;
+}
+
+.btn-link-danger:active {
+  color: #DC3545 !important;
+}
+
 ::-webkit-scrollbar {
   width: 0.5em;
 }

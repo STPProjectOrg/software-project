@@ -24,6 +24,8 @@ $border-color-dark: #31374a;
 
 $enable-negative-margins: true;
 
+$bs-danger-text: #DC3545;
+$bs-danger-text-emphasis: #ea868f;
 // -- Form
 $form-text-color: #9fa6bc;
 
@@ -207,6 +209,20 @@ $headings-color: #e3e6ed;
     border-color: $border-color-dark !important;
     background-color: $body-secondary-bg-dark;
     transition: background-color 0.5s, border-color 0.5s;
+}
+
+.btn-link-danger {
+    --bs-btn-font-weight: 600;
+    text-decoration: none;
+    color: $bs-danger-text-emphasis;
+}
+
+.btn-link-danger:hover {
+    color: $bs-danger-text;
+}
+
+.btn-link-danger:active {
+    color: $bs-danger-text !important;
 }
 
 ::-webkit-scrollbar {

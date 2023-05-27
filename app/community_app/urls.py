@@ -5,6 +5,8 @@ app_name = 'community_app'
 urlpatterns = [
     path('community/<str:feed>/', views.community, name="community"),
     path('community/<str:feed>/', views.toggle_feed, name='feed'),
-    path('comment/delete/<int:comment_id>/',
-         views.delete_comment, name="delete_comment")
+    path('comment/delete/<int:comment_id>',
+         views.comment_delete, name="comment_delete"),
+    path('comment/add/<int:post_id>', views.comment_create, name="comment_create"),
+    path('post/like/<int:post_id>', views.like_toggle, name="like_toggle"),
 ]
