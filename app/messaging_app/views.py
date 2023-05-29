@@ -45,13 +45,10 @@ def inbox_chat(request, participant_req):
         form = AddMessageForm(request.POST)
         if form.is_valid():
             d = form.cleaned_data
-            inbox_participant = Inbox.objects.get_or_create(
-                inbox_from_user=chat_participant)
-            InboxParticipants.objects.get_or_create(
-                inbox_id=inbox_participant[0],
-                participant_id=user
-            )
             message = d.get("message")
+            update_inbox_participant(user, chat_participant, message)
+            update_inbox_participant(chat_participant, user, message)
+
             Message.objects.create(
                 from_user=user,
                 to_user=chat_participant,
@@ -74,5 +71,25 @@ def get_participants(inbox_participants):
             username=participant.participant_id)
         participant_pic = participant_user.userprofileinfo.profile_pic.url if participant_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
         participants.append(
-            {"participant": participant_user, "participant_pic": participant_pic})
+            {"participant": participant_user, 
+             "last_message": participant.last_message, 
+             "last_message_sent_at": participant.last_message_sent_at,
+             "participant_pic": participant_pic})
     return participants
+
+def update_inbox_participant(user, chat_participant, last_message):
+            inbox_user = Inbox.objects.get_or_create(inbox_from_user=user)
+            if InboxParticipants.objects.filter(inbox_id=inbox_user[0],participant_id=chat_participant).exists():
+                InboxParticipants.objects.filter(inbox_id=inbox_user[0],participant_id=chat_participant).update(
+                    inbox_id=inbox_user[0],
+                    participant_id=chat_participant,
+                    last_message = last_message,
+                    last_message_sent_at = datetime.now()
+                )
+            else:
+                InboxParticipants.objects.create(
+                    inbox_id=inbox_user[0],
+                    participant_id=chat_participant,
+                    last_message = last_message,
+                    last_message_sent_at = datetime.now()
+                )
