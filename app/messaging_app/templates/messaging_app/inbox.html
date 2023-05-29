@@ -24,11 +24,11 @@
                     </div>
                     <div class="d-none d-md-block" id="user_info">
                         <div class="fw-semibold text-white">{{ entry.participant.first_name }} {{ entry.participant.last_name }}</div>
-                        <small>Letzte Nachricht...</small> {# Lezter Nachrichten-Text #}
+                        <small>{{ entry.last_message }}</small> {# Lezter Nachrichten-Text #}
                     </div>
                     <div class="ms-auto d-none flex-column d-md-flex"id="message_info">
                         <div>
-                            <small>12:15</small> {# Zeitstempel letzte Nachricht #}
+                            <small>{{ entry.last_message_sent_at }}</small> {# Zeitstempel letzte Nachricht #}
                         </div>
                         {% if 1 == 1 %}
                             {# If Bedinung ändern #}
