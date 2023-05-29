@@ -11,10 +11,10 @@
                     <div class="my-auto mx-auto mx-md-0" id="profile_image">
                         <div class="d-md-none text-white d-flex gap-2">
                             <small>{{ entry.participant.first_name }} {{ entry.participant.last_name }}</small>
-                            {% if 1 == 1 %}
+                            {% if entry.unread_messages > 0 %}
                                 {# If Bedinung ändern #}
                                 <div class="ms-auto d-md-none">
-                                    <span class="badge chat-badge">4</span> {# Nachrichten Anzahl einfügen #}
+                                    <span class="badge chat-badge">{{ entry.last_message_sent_at }}</span> {# Nachrichten Anzahl einfügen #}
                                 </div>
                             {% endif %}
                         </div>
@@ -30,10 +30,10 @@
                         <div>
                             <small>{{ entry.last_message_sent_at }}</small> {# Zeitstempel letzte Nachricht #}
                         </div>
-                        {% if 1 == 1 %}
+                        {% if entry.unread_messages > 0 %}
                             {# If Bedinung ändern #}
                             <div class="ms-auto ">
-                                <span class="badge chat-badge">4</span> {# Nachrichten Anzahl einfügen #}
+                                <span class="badge chat-badge">{{ entry.unread_messages }}</span> {# Nachrichten Anzahl einfügen #}
                             </div>
                         {% endif %}
                     </div>
