@@ -29,3 +29,10 @@ class PostComments(models.Model):
 
     def __str__(self):
         return self.user_id
+    
+class CommentLikes(models.Model):
+    user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    comment_id = models.ForeignKey(PostComments, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user_id
