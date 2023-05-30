@@ -5,51 +5,98 @@ from messaging_app.forms import AddMessageForm
 from datetime import datetime
 
 # Create your views here.
+
+
 def inbox(request):
     user = CustomUser.objects.get(id=request.user.id)
     inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
-    inbox_participants = InboxParticipants.objects.filter(inbox_id=inbox_from_user[0])
+    participants = get_participants(user, 
+        InboxParticipants.objects.filter(inbox_id=inbox_from_user[0]))
 
-    participants = []
-    for participant in inbox_participants:
-        participant_user = CustomUser.objects.get(username=participant.participant_id)
-        participant_pic = participant_user.userprofileinfo.profile_pic.url if participant_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        participants.append({"participant": participant_user, "participant_pic":participant_pic})
-    data = {"participants": participants}
+    data = {"chatOpen": False, "participants": participants,
+            "participant": "", "messages": "", "form": ""}
+
     return render(request, "messaging_app/inbox.html", context=data)
 
-def chat(request, participant):
+
+def inbox_chat(request, participant_req):
     user = CustomUser.objects.get(id=request.user.id)
-    chat_participant = CustomUser.objects.get(username=participant)
+    inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
+    participants = get_participants(user=user, inbox_participants=InboxParticipants.objects.filter(inbox_id=inbox_from_user[0]))
+    chat_participant = CustomUser.objects.select_related("userprofileinfo").get(username=participant_req)
     inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
     InboxParticipants.objects.get_or_create(
-                inbox_id = inbox_from_user[0],
-                participant_id = chat_participant
-            )
-    chat_messages_logged_in = Message.objects.filter(from_user=user, to_user=chat_participant)
-    chat_messages_participant = Message.objects.filter(from_user=chat_participant, to_user=user)
-    chat_messages = (chat_messages_logged_in | chat_messages_participant).order_by('created_at').values()
-
+        inbox_id=inbox_from_user[0],
+        participant_id=chat_participant
+    )
+    # Chat
     form = AddMessageForm()
-    if request.method=='POST':
+    if request.method == 'POST':
         form = AddMessageForm(request.POST)
         if form.is_valid():
             d = form.cleaned_data
-            inbox_participant = Inbox.objects.get_or_create(inbox_from_user=chat_participant)
-            InboxParticipants.objects.get_or_create(
-                inbox_id = inbox_participant[0],
-                participant_id = user
-            )
             message = d.get("message")
+            update_inbox_participant(user, chat_participant, message)
+            update_inbox_participant(chat_participant, user, message)
+
             Message.objects.create(
-                from_user = user,
-                to_user = chat_participant,
-                message = message,
-                created_at = datetime.now()
+                from_user=user,
+                to_user=chat_participant,
+                message=message,
+                message_read = False,
+                created_at=datetime.now()
             )
     messages = []
-    for mes in chat_messages:
-        messages.append(mes)
+    for mes in get_chat_messages(user, chat_participant):
+        if mes["message_read"] == False:
+             Message.objects.filter(id=mes["id"], from_user=chat_participant).update(message_read = True)
+        messages.insert(0, mes)
 
-    data = {"user": user,"participant": chat_participant, "messages": messages, "form": form}
-    return render(request, "messaging_app/chat.html", context=data)
+    data = {"chatOpen": True, "user": user, "participants": participants,
+            "participant": chat_participant, "messages": messages, "form": form}
+    return render(request, "messaging_app/inbox.html", context=data)
+
+
+def get_participants(user, inbox_participants):
+    participants = []
+    for participant in inbox_participants:
+        participant_user = CustomUser.objects.get(
+            username=participant.participant_id)
+        participant_pic = participant_user.userprofileinfo.profile_pic.url if participant_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        participants.append(
+            {"participant": participant_user, 
+             "last_message": participant.last_message, 
+             "last_message_sent_at": participant.last_message_sent_at,
+             "unread_messages": Message.objects.filter(from_user=participant_user, to_user=user).filter(message_read=False).__len__(),
+             "participant_pic": participant_pic})
+    return participants
+
+def get_chat_messages(user, chat_participant):
+    chat_messages_user_logged_in = Message.objects.filter(
+        from_user=user, to_user=chat_participant)
+    chat_messages_participant = Message.objects.filter(
+        from_user=chat_participant, to_user=user)
+    chat_messages = (chat_messages_user_logged_in |
+                     chat_messages_participant).order_by('created_at').values()
+    return chat_messages
+
+def update_inbox_participant(user, chat_participant, message):
+            inbox_user = Inbox.objects.get_or_create(inbox_from_user=user)
+            if message.__len__() > 20:
+                last_message = message[0:20] + "..."
+            else:
+                 last_message = message
+            if InboxParticipants.objects.filter(inbox_id=inbox_user[0],participant_id=chat_participant).exists():
+                InboxParticipants.objects.filter(inbox_id=inbox_user[0],participant_id=chat_participant).update(
+                    inbox_id=inbox_user[0],
+                    participant_id=chat_participant,
+                    last_message = last_message,
+                    last_message_sent_at = datetime.now()
+                )
+            else:
+                InboxParticipants.objects.create(
+                    inbox_id=inbox_user[0],
+                    participant_id=chat_participant,
+                    last_message = last_message,
+                    last_message_sent_at = datetime.now()
+                )

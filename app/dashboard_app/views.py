@@ -16,13 +16,30 @@ from dateutil.relativedelta import relativedelta
 def dashboard(request):
     message = ""
     form = MyForm()
+    todaysDate = date.fromisoformat('2023-05-20')
     if request.method=='POST':
         form = MyForm(request.POST)
         if form.is_valid():
             message = addToPortfolio(form.cleaned_data)
+    
+    if 'complete' in request.POST:
+        chartData = getDataForLine(request.user, date.min, relativedelta(months = 1))
+    else:
+        if 'month' in request.POST:
+            chartData = getDataForLine(request.user, todaysDate - relativedelta(months = 1), relativedelta(days= 3))
+        else:
+            if 'week' in request.POST:
+                chartData = getDataForLine(request.user, todaysDate - timedelta(days=7), relativedelta(days= 1))
+            else:
+                if 'sixmonths' in request.POST:
+                    chartData = getDataForLine(request.user, todaysDate - relativedelta(months = 6), relativedelta(weeks = 1))
+                else:
+                    if 'year' in request.POST:
+                        chartData = getDataForLine(request.user, todaysDate - relativedelta(years=1), relativedelta(weeks = 2))
+                    else:
+                        chartData = getDataForLine(request.user, date.min, relativedelta(months = 1))
 
     pieData = getDataForPie(request.user)
-    chartData = getDataForLine(request.user)
     data = {**{'form': form, 'message': message},**pieData, **chartData}
     return render (request, 'dashboard_app/dashboard.html', data)
 
@@ -41,60 +58,59 @@ def getAllUniqueAssets(allAssets):
 
 def getDataForPie(user):
     allAssets = getAllUserAssets(user)
-    assetList = getAllUniqueAssets(allAssets)
-    pieList = list()
-    assetNameList = list()
-    for thisAsset in assetList:
-        assetNameList.append(thisAsset.name)
-        temp = allAssets.filter(asset = thisAsset)
-        tempAmount = 0
-        for tempAsset in temp:
-            tempAmount += tempAsset.amount
-        pieList.append([thisAsset, tempAmount])
-    valueList = list()
-    for element in pieList:
-        currentVal = float(getAssetValue(element[0], date.today()))
-        valueList.append(currentVal*element[1])
-    data = {'assetList' : assetNameList, 'values': valueList}
-    return data
+    if not allAssets:    
+        return {'assetList' : list(), 'values' : list()}
+    else:
+        assetList = getAllUniqueAssets(allAssets)
+        pieList = list()
+        assetNameList = list()
+        valueList = list()
+        for thisAsset in assetList:
+            assetNameList.append(thisAsset.name)
+            temp = allAssets.filter(asset = thisAsset)
+            tempAmount = 0
+            for tempAsset in temp:
+                tempAmount += tempAsset.amount
+            currentVal = float(getAssetValue(thisAsset, date.fromisoformat('2023-05-20')))
+            valueList.append(currentVal*tempAmount)
+        data = {'assetList' : assetNameList, 'values': valueList}
+        return data
 
-def getDataForLine(user):
-    sorted = Transaction.objects.filter(user = user.id).order_by('purchaseDate')
-    today = date.today()
-    beginning = sorted.first().purchaseDate
-    uniqueAssets = list()
-    months = getMonths(beginning, today)
-    for thisAsset in sorted:
-        if thisAsset.asset not in uniqueAssets:
-            for month in months:
-                createHistory(thisAsset.asset, month, month - timedelta(1))
-            uniqueAssets.append(thisAsset)
-    dateValues = list()
-    for IterDate in months:
-        dateVal = 0
-        for thisAsset in sorted:
-            if thisAsset.purchaseDate <= IterDate:
-                dateVal += thisAsset.amount*float(getAssetValue(thisAsset.asset, IterDate))
-        dateValues.append(dateVal)
-    data = {'months' : months, 'dateValues' : dateValues}
-    return data
+def getDataForLine(user, dateFrom, timeInterval):
+    sortedTransactions = Transaction.objects.filter(user = user.id).order_by('purchaseDate')
+    if not sortedTransactions:
+        return {'interval' : list(), 'dateValues' : list()}
+    else:
+        today = date.fromisoformat('2023-05-20')
+        beginning = sortedTransactions.first().purchaseDate
+        interval = getInterval(beginning, today, timeInterval)
+        dateValues = list()
+        for IterDate in interval:
+            dateVal = 0
+            for thisAsset in sortedTransactions:
+                if thisAsset.purchaseDate <= IterDate:
+                    dateVal += thisAsset.amount*float(getAssetValue(thisAsset.asset, IterDate))
+            if IterDate >= dateFrom:
+                dateValues.append(dateVal)
+        rightInterval = list(filter(lambda inter: inter >= dateFrom, interval))
+        data = {'interval' : rightInterval, 'dateValues' : dateValues}
+        return data
 
-def getMonths(beginning, today):
-    monthsList = list()
+def getInterval(beginning, today, interval):
+    weeksList = list()
     iterDate = beginning
-    while iterDate.month <= today.month :
-        monthsList.append(iterDate)
-        iterDate = iterDate + relativedelta(months = 1)
-    return monthsList
+    while iterDate <= today :
+        weeksList.append(iterDate)
+        iterDate = iterDate + interval
+    if today not in weeksList:
+        weeksList.append(today)
+    return weeksList
 
 
 def getAssetValue(thisAsset, date):
     todaysHistory = AssetHistory.objects.get(name = thisAsset, date = date)
     currentVal =todaysHistory.value
     return currentVal
-
-def createHistory(thisAsset, dateTo, dateFrom):
-    saveDataFromApiToDatabase(thisAsset.name, 'EUR', dateFrom, dateTo)
     
 
 #TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
@@ -124,7 +140,7 @@ def asset(request, coin):
 
 
 def addToPortfolio(cleanedData):
-    if cleanedData.get('purchaseDate') > date.today(): return "You picked a date in the future!"
+    if cleanedData.get('purchaseDate') > date.fromisoformat('2023-05-20'): return "You picked a date in the future!"
     date1 = cleanedData.get('purchaseDate')
 
     

@@ -1,5 +1,10 @@
 from django import forms
 
-class AddMessageForm(forms.Form):
-    message = forms.CharField(max_length=200)
 
+class AddMessageForm(forms.Form):
+    message = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control chat-textarea',
+        'placeholder': 'Gib eine Nachricht ein...',
+        'rows': '2',
+    }),
+        max_length=1000)

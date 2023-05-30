@@ -1,7 +1,7 @@
 import os
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from PIL import Image
 
 # Create your models here.
@@ -28,13 +28,13 @@ class UserFollowing(models.Model):
 class UserProfileInfo(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
-    # additional attributes for user 
+
+    # additional attributes for user
     profile_pic = models.ImageField(upload_to='profile_pics',blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
-    
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 

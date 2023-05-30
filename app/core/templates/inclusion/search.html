@@ -1,7 +1,56 @@
-
-<form class="inline my-auto mx-auto" style="max-width: {{width}}%;">
+{% load core_tags %}
+<form id="search-form"
+      method="GET"
+      action="{% url 'core:search_results' %}"
+      class="inline my-auto mx-auto"
+      style="max-width: {{ width }}%">
     <div class="input-group">
         <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Suche" aria-label="Suche" aria-describedby="basic-addon1">
-        </div>
+        <input type="text"
+               name="username"
+               class="form-control"
+               placeholder="Suche"
+               aria-label="Suche"
+               aria-describedby="basic-addon1">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
 </form>
+{% search_modal %}
+<script>
+    $(document).ready(function() {
+      $('#search-form').submit(function(e) {
+        e.preventDefault();
+        var username = $('input[name="username"]').val();
+        // $('#search-results-modal').modal('show');
+        
+        
+        $.ajax({
+          url: $(this).attr('action'),
+          type: 'GET',
+          data: { username: username },
+          success: function(response) {
+            // Clear previous search results
+            $('#search-results-list').empty();
+            console.log(response);
+            
+             // Check if results exist 
+            if (response.results.length > 0) {
+                // Append search results to the modal
+                response.results.forEach(function(userResult) {
+                    $('#search-results-list').append(userResult);
+                });
+            } else {
+                // Display a message when no results are found
+                $('#search-results-list').append('<li>No results found.</li>');
+            }
+  
+            // Show the modal
+            $('#search-results-modal').modal('show');
+          },
+          error: function() {
+            alert('An error occurred while performing the search.');
+          }
+        });
+      });
+    });
+</script>
