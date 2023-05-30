@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from community_app.forms import PostForm
-from community_app.models import Posts, PostLikes, PostComments
+from community_app.models import Posts, PostLikes, PostComments, CommentLikes
 from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
 from datetime import datetime
@@ -28,9 +28,18 @@ def community(request, feed):
                 )
     if request.GET.get("comment_id") is not None:
         PostComments.objects.filter(id=request.GET.get("comment_id")).delete()
+    if request.GET.get("comment_like") is not None:
+        comment_id = request.GET.get('comment_like')
+        if CommentLikes.objects.filter(user_id=request.user.id, comment_id=comment_id).exists():
+            CommentLikes.objects.filter(
+                user_id=request.user.id, comment_id=comment_id).delete()
+        else:
+            CommentLikes.objects.create(
+                user_id=CustomUser.objects.get(id=request.user.id),
+                comment_id=PostComments.objects.get(id=comment_id)
+            )
     if request.GET.get("post_delete") is not None:
         Posts.objects.filter(id=request.GET.get("post_delete")).delete()
-        #print(Posts.objects.filter(id=request.GET.get("post_delete")))
     if request.GET.get('post_id') is not None:
         if request.GET.get('post_comment') is not None and request.GET.get("post_comment") != "":
             PostComments.objects.create(
@@ -114,9 +123,14 @@ def convertComments(post_id):
         id = comment.id
         user = CustomUser.objects.get(id=comment.user_id.id)
         content = comment.content
+        likes = CommentLikes.objects.filter(comment_id=comment.id).count()
         created_at = comment.created_at
         picture = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        commentObject = {"id": id, "user": user, "user_picture": picture,
-                         "content": content, "created_at": created_at}
+        commentObject = {"id": id, 
+                         "user": user, 
+                         "user_picture": picture,
+                         "content": content, 
+                         "likes": likes,
+                         "created_at": created_at}
         convertedComments.append(commentObject)
     return convertedComments

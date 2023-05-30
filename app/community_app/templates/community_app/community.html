@@ -46,7 +46,7 @@
                   {% if post.username == user.username %}
                   <a href="" onclick="deletePost('{{post.post_id}}')">
                       <i class="far fa-comment-dots me-2"></i>
-                      <p class="mb-0"  id="showComments{{post.post_id}}">Löschen</p>
+                      <p class="mb-0">Löschen</p>
                   </a>
               {% endif %}
                 </div>
@@ -66,7 +66,7 @@
 
               <div class="small d-flex justify-content-end">
                 <p class="mb-0">( {{ post.likes }} )</p>
-                <a href="" class="d-flex align-items-center me-3" onclick="likeComment('{{post.post_id}}')">
+                <a href="" class="d-flex align-items-center me-3" onclick="likePost('{{post.post_id}}')">
                   <i class="far fa-thumbs-up me-2"></i>
                   <p class="mb-0">Like</p>
                 </a>
@@ -126,6 +126,13 @@
                                             </a>
                                         {% endif %}
                                     </div>
+                                    <div class="small d-flex justify-content-end">
+                                      <p class="mb-0">( {{ comment.likes }} )</p>
+                                      <a href="" class="d-flex align-items-center me-3" onclick="likeComment('{{comment.id}}')">
+                                        <i class="far fa-thumbs-up me-2"></i>
+                                        <p class="mb-0">Like</p>
+                                      </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +154,8 @@
         function postComment(post_id) {
             let comment = document.getElementById("post_comment"+post_id).value
             let button = document.getElementById("post")
-            window.location.href = "http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id+"&post_comment="+comment
+            fetch("http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id+"&post_comment="+comment)
+            window.location.href = "http://localhost:8000/community_app/community/{{feed}}"
         }
         function deleteComment(comment_id, feed) {
             fetch("http://localhost:8000/community_app/community/{{feed}}/?comment_id="+comment_id)
@@ -156,8 +164,11 @@
             fetch("http://localhost:8000/community_app/community/{{feed}}/?post_delete="+post_id)
         }
 
-        function likeComment(post_id, feed) {
+        function likePost(post_id, feed) {
             fetch("http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id)
+        }
+        function likeComment(comment_id, feed) {
+            fetch("http://localhost:8000/community_app/community/{{feed}}/?comment_like="+comment_id)
         }
 
         function showComments(post_id) {
