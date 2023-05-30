@@ -23,10 +23,16 @@ def create(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def delete():
-    """ Delete a 'Post' by a its id. """
+def delete(request, post_id):
+    """
+    Delete a 'Post' by its id.
 
-    return ""
+    Keyword arguments:
+        id: The id of the 'Post' to be deleted.
+    """
+
+    Post.objects.filter(id=post_id).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def get_by_feed(feed, **kwargs):

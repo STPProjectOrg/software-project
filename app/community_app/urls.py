@@ -18,5 +18,5 @@ urlpatterns = [
     # Post
     path('post/like/<int:post_id>', post.like_toggle, name="like_toggle"),
     path('post/create', post.create, name="post_create"),
-    path('post/delete', post.delete, name="post_delete"),
+    path('post/delete/<int:post_id>', post.delete, name="post_delete"),
 ]
