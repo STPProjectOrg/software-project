@@ -11,6 +11,7 @@ urlpatterns = [
 
     # Comment
     path('comment/add/<int:post_id>', comment.create, name="comment_create"),
+    path('comment/like/<int:comment_id>', comment.like_comment, name="like_comment"),
     path('comment/delete/<int:comment_id>',
          comment.delete, name="comment_delete"),
 

@@ -31,3 +31,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user
+    
+class CommentLike(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user_id
