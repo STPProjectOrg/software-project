@@ -3,7 +3,9 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
+from api_app.models import Asset
 from user_app.models import CustomUser
+from django.db.models import Q
 from user_app import views as user_views
 
 
@@ -68,21 +70,30 @@ def question_and_answers(request):
 
 
 def search_results(request):
-    username = request.GET.get('username', '')
+    search_value = request.GET.get('username', '')
 
-    # Search for users with a similar username
-    results = CustomUser.objects.filter(username__icontains=username)
-    # result_string = render_to_string('inclusion/search_result.html', {'results': results})
+    # Search for users and assets with a similar search value 
+    user_results = CustomUser.objects.filter(username__icontains=search_value)
+    users = [get_object_or_404(CustomUser, username=user.username) for user in user_results]
+    asset_results = Asset.objects.filter(Q(name__icontains=search_value) | Q(coinName__icontains=search_value))
 
+    user_following_list = request.user.following.values_list(
+        "following_user_id", flat=True)
+    results = {'users': users, 'assets': asset_results, 'followers': user_following_list}
+    response = [render_to_string('inclusion/search_result.html', results)]
+
+    '''
     result_list = []
-    for result in results:
+    for result in user_results:
         curren_user = get_object_or_404(CustomUser, username=result.username)
-        username = curren_user.username
+        search_value = curren_user.username
         pic = curren_user.userprofileinfo.profile_pic.url if curren_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
         icon = "bi bi-person-fill-check" if request.user.following.all().filter(
             following_user=curren_user).exists() else "bi bi-person-plus"
-        result_list.append(render_to_string('inclusion/search_result.html', {'username': username,
+        result_list.append(render_to_string('inclusion/search_result.html', {'username': search_value,
                                                                              'pic': pic,
                                                                              'icon': icon}))
 
     return JsonResponse({'results': result_list})
+    '''
+    return JsonResponse({'results': response})
