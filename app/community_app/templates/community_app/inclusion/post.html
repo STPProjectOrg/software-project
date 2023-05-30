@@ -4,9 +4,9 @@
         {# User information #}
         <div id="user_information" class="text-start p-0 d-flex gap-2 ">
             <div class="my-auto">
-                {% if post.user_id.userprofileinfo.profile_pic %}
+                {% if post.user.userprofileinfo.profile_pic %}
                     <img class="logo-fs-3"
-                         src="{{ post.user_id.userprofileinfo.profile_pic.url }}">
+                         src="{{ post.user.userprofileinfo.profile_pic.url }}">
                 {% else %}
                     <img class="logo-fs-3"
                          src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -14,8 +14,8 @@
             </div>
             <div>
                 <a class="btn btn-link text-start p-0 text-body"
-                   href="{% url 'user_app:profile' post.user_id.username %}">
-                    <div class="fw-semibold text-white fs-5">{{ post.user_id.first_name }} {{ post.user_id.last_name }}</div>
+                   href="{% url 'user_app:profile' post.user.username %}">
+                    <div class="fw-semibold text-white fs-5">{{ post.user.first_name }} {{ post.user.last_name }}</div>
                 </a>
                 <div>
                     <small>{{ post.created_at|datetime_converter }}</small>
@@ -23,7 +23,7 @@
             </div>
         </div>
         {# Post settings #}
-        {% if user.id == post.user_id.id %}
+        {% if user.id == post.user.id %}
             <div class="dropdown ms-auto my-auto">
                 <button class=" btn btn-outline-primary p-2 fs-5"
                         data-bs-toggle="dropdown"
@@ -62,7 +62,7 @@
                         <div class="my-auto">
                             <i class="bi bi-heart-fill m-auto"></i>
                         </div>
-                        <div class="my-auto">{{ post.like_set.count }}</div>
+                        <div class="my-auto">{{ post.postlike_set.count }}</div>
                         <div class="my-auto">Likes</div>
                     </small>
                 </a>
@@ -90,9 +90,9 @@
             {% for comment in post.comment_set.all %}
                 <div class="d-flex gap-2 mb-3">
                     <div>
-                        {% if comment.user_id.userprofileinfo.profile_pic %}
+                        {% if comment.user.userprofileinfo.profile_pic %}
                             <img class="logo-fs-3 mt-1"
-                                 src="{{ comment.user_id.userprofileinfo.profile_pic.url }}">
+                                 src="{{ comment.user.userprofileinfo.profile_pic.url }}">
                         {% else %}
                             <img class="logo-fs-3 mt-1"
                                  src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
@@ -102,9 +102,9 @@
                         {# Header #}
                         <div class="d-flex gap-2">
                             <a class="btn btn-link text-start p-0 text-body"
-                               href="{% url 'user_app:profile' comment.user_id.username %}">
+                               href="{% url 'user_app:profile' comment.user.username %}">
                                 <div>
-                                    <small>u/{{ comment.user_id.username }}</small>
+                                    <small>u/{{ comment.user.username }}</small>
                                 </div>
                                 <div class="fw-semibold text-white">{{ comment.user_id.first_name }} {{ comment.user_id.last_name }}</div>
                             </a>
@@ -112,7 +112,7 @@
                                 <div class="mt-auto">
                                     <small>{{ comment.created_at|datetime_converter }}</small>
                                 </div>
-                                {% if comment.user_id.id == user.id %}
+                                {% if comment.user.id == user.id %}
                                     <a class="btn btn-link btn-link-danger p-0"
                                        href="{% url 'community_app:comment_delete' comment.id %}">
                                         <small class="d-flex text-center">

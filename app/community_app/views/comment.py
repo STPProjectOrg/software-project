@@ -14,8 +14,8 @@ def create(request, post_id):
     """
 
     Comment.objects.create(
-        user_id=request.user,
-        post_id=Post.objects.filter(id=post_id).get(),
+        user=request.user,
+        post=Post.objects.filter(id=post_id).get(),
         content=request.POST.get("post_comment"),
         created_at=datetime.now()
     )
