@@ -1,8 +1,8 @@
 """ Custom Tags for the core_app """
 
-import datetime
+from datetime import datetime
 from django import template
-from django.urls import reverse
+
 
 register = template.Library()
 
@@ -23,12 +23,22 @@ def post_create_modal(user, form):
 
 @register.filter(name="to_tag_list")
 def to_tag_list(string):
+    """ Converts a string of tags seperated by ',' into a list of strings. """
+
     trimmed_string = string.replace(" ", "")
     return trimmed_string.split(",")
 
 
 @register.filter(name="datetime_converter")
-def datetime_converter(dt):
+def datetime_converter(entry_datetime: datetime):
     """ Converts a datetime depending on the time since creation. """
 
-    return dt
+    now = datetime.now()
+
+    if entry_datetime.date() == now.date():
+        return f"Heute {entry_datetime.hour}:{entry_datetime.minute}"
+
+    if (now.date() - entry_datetime.date()).days == 1:
+        return "Gestern"
+
+    return f"{entry_datetime.day}.{entry_datetime.month}.{entry_datetime.year}"

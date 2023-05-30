@@ -2,7 +2,8 @@
 
 from datetime import datetime
 from django.http import HttpResponseRedirect
-from community_app.models import Comment, Post
+from django.core.exceptions import ObjectDoesNotExist
+from community_app.models import Comment, Post,CommentLike
 
 
 def create(request, post_id):
@@ -14,8 +15,8 @@ def create(request, post_id):
     """
 
     Comment.objects.create(
-        user_id=request.user,
-        post_id=Post.objects.filter(id=post_id).get(),
+        user=request.user,
+        post=Post.objects.filter(id=post_id).get(),
         content=request.POST.get("post_comment"),
         created_at=datetime.now()
     )
@@ -32,4 +33,25 @@ def delete(request, comment_id):
     """
 
     Comment.objects.filter(id=comment_id).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def like_comment(request, comment_id):
+    """
+    Toggles a 'CommentLikes' entrie by a given comment_id and the requesting user.
+
+    Keyword arguments:
+        comment_id: The id of the 'Comment' to be liked.
+    """
+
+    # Try deleting database entry
+    try:
+        CommentLike.objects.filter(
+            user=request.user.id, comment=comment_id).get().delete()
+
+    # Else create new entry
+    except ObjectDoesNotExist:
+        CommentLike.objects.create(user=request.user,
+                                comment=Comment.objects.get(id=comment_id))
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

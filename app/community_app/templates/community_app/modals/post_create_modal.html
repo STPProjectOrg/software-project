@@ -13,7 +13,7 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post">
+                <form action="{% url 'community_app:post_create' %}" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ form.as_p }}
                     <input type="Submit" name="comment" />
