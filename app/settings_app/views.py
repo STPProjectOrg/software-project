@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import notificationSettingsForm
+from .forms import notificationSettingsForm, userSettingsForm
 from user_app.models import CustomUser, UserProfileInfo
 from .models import Settings
 from django.contrib import messages
@@ -14,27 +14,20 @@ def settings(request):
 
 @login_required
 def userSettings(request):
+    user = CustomUser.objects.get(id=request.user.id)
+    form = userSettingsForm(instance=user)
+
     if request.method == "POST":
-        user = CustomUser.objects.get(username=request.user.username)
-
-        user.username = request.POST["username"]
-        user.email = request.POST["email"]
-        user.first_name = request.POST["first_name"]
-        user.last_name = request.POST["last_name"]
-
-        user.save()
-        return render(request, 'settings_app/settingsOverview.html')
-    else:
-        return render(request, 'settings_app/userSettings.html')
+        form = userSettingsForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+    return render(request, 'settings_app/userSettings.html', {'form': form})
 
 
 @login_required
 def securitySettings(request):
-    if request.method == "POST":
-        # Do something with the request
-        return render(request, 'settings_app/settingsOverview.html')
-    else:
-        return render(request, 'settings_app/securitySettings.html')
+    return render(request, 'settings_app/securitySettings.html')
 
 
 @login_required

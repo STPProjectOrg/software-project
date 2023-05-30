@@ -1,8 +1,17 @@
 from django import forms
+
+from user_app.models import CustomUser
 from .models import Settings
 
 # TODO: Template String für Internationalisierung der Dropdown Texte
 CHOICES = [(False, 'Deaktiviert'), (True, 'Aktiviert')]
+
+
+class userSettingsForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ["username", "email", "first_name", "last_name"]
 
 
 class notificationSettingsForm(forms.Form):
