@@ -1,196 +1,41 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+{% load community_tags %}
+{% block title %}
+  | Community
+{% endblock title %}
 {% block content %}
-
-<h3>Community</h3>
-<div class="d-flex justify-content-center">
-    <a href="{% url 'community_app:community' all %}">
-      <button class="btn btn-outline-primary btn-sm me-2" type="button">All</button>
-    </a>
-    <a href="{% url 'community_app:community' follower %}">
-        <button class="btn btn-outline-primary btn-sm me-2" type="button">Follower</button>
-    </a>
-    <a href="{% url 'community_app:community' user.username %}">
-      <button class="btn btn-outline-primary btn-sm me-2" type="button">My Timeline</button>
-    </a>
-    <button class="btn btn-outline-primary btn-sm me-2" type="button" onclick="showCreatePost()">+ Post</button>
-</div>
-
-
-<div id="createPost" hidden="true">
-  <p>Neuen Post anlegen</p>
-  <form method="POST">
-    {%  csrf_token %}
-    {{ form.as_p }}
-    <input type="Submit" name="comment"/>
-  </form>
-</div>
-
-<div>
-<section>
-
-{% for post in posts %}
-
-    <div class="container my-3 py-3">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-24 col-lg-20 col-xl-20">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex flex-start align-items-center">
-                <img class="rounded-circle shadow-1-strong me-3"
-                  src="{{ post.picture }}" alt="avatar" width="60"
-                  height="60" />
-                <div>
-                    <a href="{% url 'user_app:profile' post.username %}">
-                        <h6 class="fw-bold text-primary mb-1">{{ post.username }}</h6>
-                    </a>
-                  <p class="text-muted small mb-0">
-                    Erstellt am: {{ post.created_at }}
-                  </p>
-                  {% if post.username == user.username %}
-                  <a href="" onclick="deletePost('{{post.post_id}}')">
-                      <i class="far fa-comment-dots me-2"></i>
-                      <p class="mb-0">Löschen</p>
-                  </a>
-              {% endif %}
-                </div>
-              </div>
-  
-              <p class="mt-3 mb-4 pb-2">
-                {{ post.content }}
-              </p>
-
-              <!--Hashtags-->
-              <div class="small d-flex justify-content-start">
-                <a href="#!" class="d-flex align-items-center me-3" onclick="">
-                    <i class="far fa-thumbs-up me-2"></i>
-                    <p class="mb-0">{{ post.hashtags }}</p>
-                  </a>
-              </div>
-
-              <div class="small d-flex justify-content-end">
-                <p class="mb-0">( {{ post.likes }} )</p>
-                <a href="" class="d-flex align-items-center me-3" onclick="likePost('{{post.post_id}}')">
-                  <i class="far fa-thumbs-up me-2"></i>
-                  <p class="mb-0">Like</p>
-                </a>
-                <p class="mb-0">( {{ post.commentsLength }} )</p>
-                <a href="#!" class="d-flex align-items-center me-3" onclick="showComments('{{post.post_id}}')">
-                  <i class="far fa-comment-dots me-2"></i>
-                  <p class="mb-0"  id="showComments{{post.post_id}}">Kommentare anzeigen</p>
-                </a>
-              </div>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body d-flex">
+          {# Feed toggle #}
+          <div class="d-flex gap-2">
+            <div class="d-flex gap-2 fw-semibold fs-3 text-white">
+              <i class="bi bi-newspaper m-auto"></i>
+              <div>Feed</div>
             </div>
-
-            <!--Kommentar verfassen-->
-            <div class="card-footer py-3 border-5">
-                    <div class="d-flex flex-start w-100">
-                      <img class="rounded-circle shadow-1-strong me-3"
-                        src="{{ user_picture }}" alt="avatar" width="40"
-                        height="40" />
-                      <div class="form-outline w-100">
-                        <label class="form-label" for="textAreaExample">Kommentieren:</label>
-                        <textarea class="form-control" id="post_comment{{post.post_id}}" name="post_comment" rows="3"
-                          style="background: #fff;"></textarea>
-                      </div>
-                    </div>
-                    <div class="float-end mt-2 pt-0">
-                      <button type="button" class="btn btn-primary btn-sm" onclick="postComment('{{post.post_id}}');">Post comment</button>
-                    </div>
-            </div>
-            
-            <!--Kommentare-->
-            <div id="comments{{post.post_id}}" hidden="true">
-                {% for comment in post.comments %}
-                <div class="container my-1 py-1">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-xl-20">
-                            <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex flex-start align-items-center">
-                                <img class="rounded-circle shadow-1-strong me-3"
-                                    src="{{ comment.user_picture }}" alt="avatar" width="60"
-                                    height="60" />
-                                <div>
-                                    <a href="{% url 'user_app:profile' comment.user%}">
-                                        <h6 class="fw-bold text-primary mb-1">{{ comment.user.username }}</h6>
-                                    </a>
-                                    <p class="text-muted small mb-0">
-                                    Erstellt am: {{ comment.created_at }}
-                                    </p>
-                    
-                                <p class="mt-3 mb-4 pb-2">
-                                {{ comment.content }}
-                                </p>
-                                    <div class="d-flex flex-end fw-bold text-primary mb-1">
-                                        {% if comment.user == user %}
-                                            <a href="" onclick="deleteComment('{{comment.id}}')">
-                                                <i class="far fa-comment-dots me-2"></i>
-                                                <p class="mb-0"  id="showComments{{post.post_id}}">Löschen</p>
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="small d-flex justify-content-end">
-                                      <p class="mb-0">( {{ comment.likes }} )</p>
-                                      <a href="" class="d-flex align-items-center me-3" onclick="likeComment('{{comment.id}}')">
-                                        <i class="far fa-thumbs-up me-2"></i>
-                                        <p class="mb-0">Like</p>
-                                      </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-
+            <a href="{% url 'community_app:community' "all" %}">
+              <button class="btn btn-outline-primary h-100" type="button">Global</button>
+            </a>
+            <a href="{% url 'community_app:community' "follower" %}">
+              <button class="btn btn-outline-primary h-100" type="button">Follower</button>
+            </a>
           </div>
+          {# Create post #}
+          <button class="btn btn-outline-primary ms-auto"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#postCreateModal">Neuer Post</button>
         </div>
       </div>
     </div>
-
-  {% endfor %}
-</section>
-</div>
-
-    <script>
-        function postComment(post_id) {
-            let comment = document.getElementById("post_comment"+post_id).value
-            let button = document.getElementById("post")
-            fetch("http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id+"&post_comment="+comment)
-            window.location.href = "http://localhost:8000/community_app/community/{{feed}}"
-        }
-        function deleteComment(comment_id, feed) {
-            fetch("http://localhost:8000/community_app/community/{{feed}}/?comment_id="+comment_id)
-        }
-        function deletePost(post_id, feed) {
-            fetch("http://localhost:8000/community_app/community/{{feed}}/?post_delete="+post_id)
-        }
-
-        function likePost(post_id, feed) {
-            fetch("http://localhost:8000/community_app/community/{{feed}}/?post_id="+post_id)
-        }
-        function likeComment(comment_id, feed) {
-            fetch("http://localhost:8000/community_app/community/{{feed}}/?comment_like="+comment_id)
-        }
-
-        function showComments(post_id) {
-            let comments = document.getElementById("comments"+post_id)
-            let commentsButton = document.getElementById("showComments"+post_id)
-            if (commentsButton.textContent == "Kommentare anzeigen") {
-                commentsButton.textContent = "Kommentare ausblenden"
-            } else {
-                commentsButton.textContent = "Kommentare anzeigen"
-            }
-
-            comments.hidden = !comments.hidden
-        }
-
-        function showCreatePost(){
-          let createPost = document.getElementById("createPost")
-          createPost.hidden = !createPost.hidden
-        }
-    </script>
-</div>
+  </div>
+  <div class="row">
+    <div class="col d-flex flex-column gap-3">
+      {% for post in posts %}
+        {% entry request.user post %}
+      {% endfor %}
+    </div>
+  </div>
+  {% post_create_modal request.user form %}
 {% endblock content %}
-

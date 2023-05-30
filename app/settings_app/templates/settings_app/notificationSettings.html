@@ -3,106 +3,12 @@
   <h1 class="text-center mb-5">Benachrichtigungseinstellungen</h1>
   <div class="card">
     <div class="card-body">
-      <form method="POST" class="ps-5 pe-5 pt-2">
-        {% csrf_token %}
-        <div class="form-group mb-3">
-          <label for="assetNotification"
-            >Benachrichtigung bei Veränderung der Assetmengen</label
-          >
-          <select
-            name="assetNotification"
-            class="form-control"
-            id="assetNotification"
-          >
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="followerAlert"
-            >Benachrichtigung sobald ihnen jemand folgt.</label
-          >
-          <select name="followerAlert" class="form-control" id="followerAlert">
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="likePostAllert"
-            >Benachrichtigung wenn jemand einen ihrer Beiträge geliked
-            hat.</label
-          >
-          <select
-            name="likePostAllert"
-            class="form-control"
-            id="likePostAllert"
-          >
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="likeCommentAllert"
-            >Benachrichtigung wenn jemand eins ihrer Kommentare geliked
-            hat.</label
-          >
-          <select
-            name="likeCommentAllert"
-            class="form-control"
-            id="likeCommentAllert"
-          >
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="commentAllert"
-            >Benachrichtigung wenn jemand ein Kommentar unter einem ihrer
-            Beiträge verfasst hat.</label
-          >
-          <select name="commentAllert" class="form-control" id="commentAllert">
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="shareAllert"
-            >Benachrichtigung wenn jemand einen ihrer Beiträge geteilt
-            hat.</label
-          >
-          <select name="shareAllert" class="form-control" id="shareAllert">
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="ipAdressAllert"
-            >Benachrichtigung wenn sie sich mit einer neuen IP-Adresse
-            anmelden.</label
-          >
-          <select
-            name="ipAdressAllert"
-            class="form-control"
-            id="ipAdressAllert"
-          >
-            <option>Aktiviert</option>
-            <option>Deaktiviert</option>
-          </select>
-        </div>
-
-        <div class="d-flex justify-content-end gap-3">
-          <button type="Submit" class="btn btn-success">Speichern</button>
-          <a href="{% url 'settings_app:overview' %}" class="btn btn-danger"
-            >Zurück</a
-          >
-        </div>
-      </form>
+        <form method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+          <button type="submit" class="btn btn-success">Speichern</button>
+          <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">Zurück</a>
+        </form>
     </div>
   </div>
 </div>

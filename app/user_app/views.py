@@ -91,7 +91,7 @@ def profile(request, username):
     is_user_profile = request.user.username == profile_user.username
     is_user_following = profile_user.userprofileinfo.id in user_following_list
     profile_picture_url = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-
+    print(profile_picture_url)
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
         following__following_user_id=profile_user.id).select_related("userprofileinfo")
