@@ -139,7 +139,7 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('user_app:profile', kwargs={"username": "self"})
+        return reverse('user_app:profile_redirect')
 
 
 @login_required
