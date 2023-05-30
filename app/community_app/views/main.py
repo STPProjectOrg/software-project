@@ -40,36 +40,6 @@ def posts_delete():
     ""
 
 
-def comment_create(request, post_id):
-    """
-    Create a 'Comment' related to a given post.
-
-    Keyword arguments:
-        post_id: The id of the post to be commented.
-    """
-
-    Comment.objects.create(
-        user_id=request.user,
-        post_id=Post.objects.filter(id=post_id).get(),
-        content=request.POST.get("post_comment"),
-        created_at=datetime.now()
-    )
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-def comment_delete(request, comment_id):
-    """
-    Delete a 'Comment' by its id.
-
-    Keyword arguments:
-        id: The id of the 'Comment' to be deleted.
-    """
-
-    Comment.objects.filter(id=comment_id).delete()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
 def like_toggle(request, post_id):
     """
     Toggles a 'PostLikes' entrie by a given post_id and the requesting user.

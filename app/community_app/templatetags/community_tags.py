@@ -1,5 +1,6 @@
 """ Custom Tags for the core_app """
 
+import datetime
 from django import template
 from django.urls import reverse
 
@@ -24,3 +25,10 @@ def post_create_modal(user, form):
 def to_tag_list(string):
     trimmed_string = string.replace(" ", "")
     return trimmed_string.split(",")
+
+
+@register.filter(name="datetime_converter")
+def datetime_converter(dt):
+    """ Converts a datetime depending on the time since creation. """
+
+    return dt

@@ -15,14 +15,14 @@
                             <div>Feed</div>
                         </div>
                         <a href="{% url 'community_app:community' all %}">
-                            <button class="btn btn-outline-primary" type="button">Global</button>
+                            <button class="btn btn-outline-primary h-100" type="button">Global</button>
                         </a>
                         <a href="{% url 'community_app:community' follower %}">
-                            <button class="btn btn-outline-primary" type="button">Follower</button>
+                            <button class="btn btn-outline-primary h-100" type="button">Follower</button>
                         </a>
                     </div>
                     {# Create post #}
-                    <button class="btn btn-outline-primary"
+                    <button class="btn btn-outline-primary ms-auto"
                             type="button"
                             data-bs-toggle="modal"
                             data-bs-target="#postCreateModal">Neuer Post</button>

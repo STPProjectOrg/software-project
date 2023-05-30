@@ -18,7 +18,7 @@
                     <div class="fw-semibold text-white fs-5">{{ post.user_id.first_name }} {{ post.user_id.last_name }}</div>
                 </a>
                 <div>
-                    <small>{{ post.created_at }}</small>
+                    <small>{{ post.created_at|datetime_converter }}</small>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
                             </a>
                             <div class="d-flex mt-auto gap-2">
                                 <div class="mt-auto">
-                                    <small>{{ comment.created_at }}</small>
+                                    <small>{{ comment.created_at|datetime_converter }}</small>
                                 </div>
                                 {% if comment.user_id.id == user.id %}
                                     <a class="btn btn-link btn-link-danger p-0"
