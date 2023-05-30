@@ -2,24 +2,27 @@
 {% block content %}
 
 <h3>Community</h3>
-<p>Neuen Post anlegen</p>
-<form method="POST">
+<div class="d-flex justify-content-center">
+    <a href="{% url 'community_app:community' all %}">
+      <button class="btn btn-outline-primary btn-sm me-2" type="button">All</button>
+    </a>
+    <a href="{% url 'community_app:community' follower %}">
+        <button class="btn btn-outline-primary btn-sm me-2" type="button">Follower</button>
+    </a>
+    <a href="{% url 'community_app:community' user.username %}">
+      <button class="btn btn-outline-primary btn-sm me-2" type="button">My Timeline</button>
+    </a>
+    <button class="btn btn-outline-primary btn-sm me-2" type="button" onclick="showCreatePost()">+ Post</button>
+</div>
+
+
+<div id="createPost" hidden="true">
+  <p>Neuen Post anlegen</p>
+  <form method="POST">
     {%  csrf_token %}
     {{ form.as_p }}
     <input type="Submit" name="comment"/>
-</form>
-
-
-<div class="d-flex justify-content-center">
-  <a href="{% url 'community_app:community' all %}">
-        <button class="btn btn-outline-primary btn-sm me-2" type="button">All</button>
-  </a>
-  <a href="{% url 'community_app:community' follower %}">
-      <button class="btn btn-outline-primary btn-sm me-2" type="button">Follower</button>
-  </a>
-  <a href="{% url 'community_app:community' user.username %}">
-    <button class="btn btn-outline-primary btn-sm me-2" type="button">My Timeline</button>
-</a>
+  </form>
 </div>
 
 <div>
@@ -181,6 +184,11 @@
             }
 
             comments.hidden = !comments.hidden
+        }
+
+        function showCreatePost(){
+          let createPost = document.getElementById("createPost")
+          createPost.hidden = !createPost.hidden
         }
     </script>
 </div>
