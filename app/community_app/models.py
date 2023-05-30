@@ -25,7 +25,7 @@ class PostComments(models.Model):
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
     content = models.CharField(max_length=1000)
-    created_at = models.DateField()
+    created_at = models.DateTimeField()
 
     def __str__(self):
         return self.user_id
