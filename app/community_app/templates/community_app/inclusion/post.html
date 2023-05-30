@@ -43,6 +43,10 @@
     </div>
     <div class="card-body pb-2">
         <div id="content">{{ post.content }}</div>
+        {# Post Image #}
+        {% if post.image != "" %}
+        <div><img src="{{ post.image.url }}" style="width:400px;"/></div>
+        {% endif %}
         <div class="border-top mt-3 mb-2"></div>
         {# Post information #}
         <div id="post_information" class="d-flex">

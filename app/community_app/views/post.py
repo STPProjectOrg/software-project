@@ -11,13 +11,15 @@ from community_app.forms import PostForm
 def create(request):
     """ Create a new 'Post' from PostForm(). """
 
-    form = PostForm(request.POST)
+    form = PostForm(request.POST, request.FILES)
+    print(form.is_valid())
     if form.is_valid():
         form_data = form.cleaned_data
         Post.objects.create(
             user_id=request.user.id,
             content=form_data.get("content"),
             created_at=datetime.now(),
+            image = form_data.get("image"),
             tags=form_data.get("tags")
         )
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
