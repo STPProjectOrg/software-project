@@ -1,0 +1,20 @@
+
+<tr>
+    <td>
+        <div class="d-flex align-items-center">
+            <img src="{{pic}}" class="rounded-circle border border-dark border-5" alt="Avatar" style="width: 45px; height: 45px">
+        </div>
+    </td>
+    <td>
+        <div>
+            <a href="{% url 'user_app:profile' username %}">{{username}}</a>
+        </div>
+    </td>
+    <td>
+        <span class="badge rounded-pill text-bg-success">User</span>
+    </td>
+    <td>
+        <i class="{{icon}}"></i>
+    </td>
+</tr>
+

@@ -1,0 +1,148 @@
+{% load community_tags %}
+<div class="card" id="post_{{ post.id }}">
+    <div class="card-header d-flex">
+        {# User information #}
+        <div id="user_information" class="text-start p-0 d-flex gap-2 ">
+            <div class="my-auto">
+                {% if post.user_id.userprofileinfo.profile_pic %}
+                    <img class="logo-fs-3"
+                         src="{{ post.user_id.userprofileinfo.profile_pic.url }}">
+                {% else %}
+                    <img class="logo-fs-3"
+                         src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                {% endif %}
+            </div>
+            <div>
+                <a class="btn btn-link text-start p-0 text-body"
+                   href="{% url 'user_app:profile' post.user_id.username %}">
+                    <div class="fw-semibold text-white fs-5">{{ post.user_id.first_name }} {{ post.user_id.last_name }}</div>
+                </a>
+                <div>
+                    <small>{{ post.created_at|datetime_converter }}</small>
+                </div>
+            </div>
+        </div>
+        {# Post settings #}
+        {% if user.id == post.user_id.id %}
+            <div class="dropdown ms-auto my-auto">
+                <button class=" btn btn-outline-primary p-2 fs-5"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="bi bi-gear-fill pe-2"></i>Bearbeiten</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger-emphasis" href="#"><i class="bi bi-trash-fill pe-2"></i>Löschen</a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <div class="card-body pb-2">
+        <div id="content">{{ post.content }}</div>
+        <div class="border-top mt-3 mb-2"></div>
+        {# Post information #}
+        <div id="post_information" class="d-flex">
+            {# Tags #}
+            <div>
+                {% for tag in post.tags|to_tag_list %}
+                    <a href="#!" class="btn btn-link p-0 " onclick="">
+                        <small>#{{ tag }}</small>
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="d-flex ms-auto gap-4">
+                {# Likes #}
+                <a href="{% url 'community_app:like_toggle' post.id %}"
+                   class="btn btn-link p-0 fw-bold">
+                    <small class="d-flex gap-1">
+                        <div class="my-auto">
+                            <i class="bi bi-heart-fill m-auto"></i>
+                        </div>
+                        <div class="my-auto">{{ post.like_set.count }}</div>
+                        <div class="my-auto">Likes</div>
+                    </small>
+                </a>
+                {# Comments #}
+                <a href="#post_{{ post.id }}_comments"
+                   class="btn btn-link p-0 fw-bold"
+                   data-bs-toggle="collapse"
+                   role="button"
+                   aria-expanded="true"
+                   aria-controls="#post_{{ post.id }}_comments">
+                    <small class="d-flex gap-1">
+                        <div class="my-auto">
+                            <i class="bi bi-card-text"></i>
+                        </div>
+                        <div class="my-auto">{{ post.comment_set.count }}</div>
+                        <div class="my-auto">Kommentare</div>
+                    </small>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        {# Comment section #}
+        <div class="collapse", id="post_{{ post.id }}_comments">
+            {% for comment in post.comment_set.all %}
+                <div class="d-flex gap-2 mb-3">
+                    <div>
+                        {% if comment.user_id.userprofileinfo.profile_pic %}
+                            <img class="logo-fs-3 mt-1"
+                                 src="{{ comment.user_id.userprofileinfo.profile_pic.url }}">
+                        {% else %}
+                            <img class="logo-fs-3 mt-1"
+                                 src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        {% endif %}
+                    </div>
+                    <div>
+                        {# Header #}
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-link text-start p-0 text-body"
+                               href="{% url 'user_app:profile' comment.user_id.username %}">
+                                <div>
+                                    <small>u/{{ comment.user_id.username }}</small>
+                                </div>
+                                <div class="fw-semibold text-white">{{ comment.user_id.first_name }} {{ comment.user_id.last_name }}</div>
+                            </a>
+                            <div class="d-flex mt-auto gap-2">
+                                <div class="mt-auto">
+                                    <small>{{ comment.created_at|datetime_converter }}</small>
+                                </div>
+                                {% if comment.user_id.id == user.id %}
+                                    <a class="btn btn-link btn-link-danger p-0"
+                                       href="{% url 'community_app:comment_delete' comment.id %}">
+                                        <small class="d-flex text-center">
+                                            <i class="bi bi-trash-fill pe-1 m-auto"></i>
+                                            <div>Löschen</div>
+                                        </small>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {# Content #}
+                        <div>{{ comment.content }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {# Add comment #}
+        <div>
+            <form class="my-2 d-flex gap-2"
+                  method="post"
+                  action="{% url 'community_app:comment_create' post.id %}">
+                {% csrf_token %}
+                <textarea class="form-control"
+                          name="post_comment"
+                          rows="1"
+                          placeholder="Schreibe einen Kommentar..."></textarea>
+                <button class="btn btn-outline-primary d-flex gap-2 m-auto" type="submit">
+                    <div>Kommentieren</div>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

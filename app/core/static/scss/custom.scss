@@ -24,6 +24,8 @@ $border-color-dark: #31374a;
 
 $enable-negative-margins: true;
 
+$bs-danger-text: #DC3545;
+$bs-danger-text-emphasis: #ea868f;
 // -- Form
 $form-text-color: #9fa6bc;
 
@@ -109,9 +111,46 @@ $headings-color: #e3e6ed;
 }
 
 
-
-
 // 7. Add additional custom code here
+.mw-75 {
+    max-width: 75%;
+}
+
+.h-0 {
+    height: 0;
+}
+
+.chat-user-entry {
+    text-decoration: none;
+    color: #8A94AD;
+    border-color: transparent !important;
+}
+
+.chat-user-entry-selected {
+    text-decoration: none;
+    color: #8A94AD;
+    background-color: $body-bg-dark;
+    border-color: #31374a;
+}
+
+.chat-user-entry:hover {
+    border-color: #31374a;
+    background-color: #31374a;
+}
+
+.chat-badge {
+    background-color: #141824;
+    color: #85a9ff;
+    border: 1px solid #31374a;
+    border-radius: 0.25rem;
+}
+
+.chat-textarea {
+    resize: none;
+    overflow: auto;
+}
+
+
 .logo {
     height: calc((1.3rem + 0.6vw) * 1.5) !important;
 }
@@ -170,4 +209,30 @@ $headings-color: #e3e6ed;
     border-color: $border-color-dark !important;
     background-color: $body-secondary-bg-dark;
     transition: background-color 0.5s, border-color 0.5s;
+}
+
+.btn-link-danger {
+    --bs-btn-font-weight: 600;
+    text-decoration: none;
+    color: $bs-danger-text-emphasis;
+}
+
+.btn-link-danger:hover {
+    color: $bs-danger-text;
+}
+
+.btn-link-danger:active {
+    color: $bs-danger-text !important;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 0.375rem;
+}
+::-webkit-scrollbar-thumb {
+    background-color: $body-tertiary-color-dark;
+    border-radius: 0.375rem;
 }

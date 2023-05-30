@@ -1,7 +1,13 @@
-from core.views import debug, index, landing_page, legal_disclosure, privacy, cookie_disclosure
-from django.urls import path
+""" Routes for the core_app """
 
+from django.urls import path
+from core.views import (debug, index, landing_page, legal_disclosure,
+                        privacy, cookie_disclosure, search_results, question_and_answers)
+
+# Configuration
 app_name = 'core'
+
+# Routes
 urlpatterns = [
     # Debug
     path('debug', debug, name='debug'),
@@ -21,9 +27,10 @@ urlpatterns = [
     # Cookie Disclosure
     path('cookies', cookie_disclosure, name='cookie_disclosure'),
 
-    # Register
+    # Cookie Disclosure
+    path('faq', question_and_answers, name='faq'),
 
-
-    # Login
+    # Search results
+    path('search/', search_results, name='search_results')
 
 ]
