@@ -14,17 +14,24 @@ class userSettingsForm(forms.ModelForm):
         fields = ["username", "email", "first_name", "last_name"]
 
 
-class notificationSettingsForm(forms.Form):
+class portfolioSettingsForm(forms.Form):
 
-    hasAssetAmountChanged = forms.BooleanField(
-        label="Benachrichtigung bei Veränderung der Assetmenge", required=False, widget=forms.Select(choices=CHOICES))
-    hasNewFollower = forms.BooleanField(
-        label="Benachrichtigung wenn ihnen jemand folgt", required=False, widget=forms.Select(choices=CHOICES))
-    hasLikedPost = forms.BooleanField(
-        label="Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat", required=False, widget=forms.Select(choices=CHOICES))
-    hasLikedComment = forms.BooleanField(
-        label="Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat", required=False, widget=forms.Select(choices=CHOICES))
-    hasNewComment = forms.BooleanField(
-        label="Benachrichtigung wenn jemand ein Kommentar unter einem ihrer Beiträge verfasst hat", required=False, widget=forms.Select(choices=CHOICES))
-    hasSharedPost = forms.BooleanField(
-        label="Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat", required=False, widget=forms.Select(choices=CHOICES))
+    class Meta:
+        model = Settings
+        fields = ["dateTimeFormat", "currency", "theme"]
+
+
+class notificationSettingsForm(forms.ModelForm):
+
+    class Meta:
+        model = Settings
+        fields = ["hasAssetAmountChanged", "hasNewFollower", "hasLikedPost",
+                  "hasLikedComment", "hasNewComment", "hasSharedPost"]
+        labels = {
+            'hasAssetAmountChanged': "Benachrichtigung bei Veränderung der Assetmenge",
+            'hasNewFollower': "Benachrichtigung wenn ihnen jemand folgt",
+            'hasLikedPost': "Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat",
+            'hasLikedComment': "Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat",
+            'hasNewComment': "Benachrichtigung wenn jemand ein Kommentar unter einem ihrer Beiträge verfasst hat",
+            'hasSharedPost': "Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat"
+        }
