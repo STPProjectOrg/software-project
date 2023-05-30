@@ -1,41 +1,41 @@
 {% extends "core/base.html" %}
 {% load community_tags %}
 {% block title %}
-    | Community
+  | Community
 {% endblock title %}
 {% block content %}
-    <div class="row mb-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-body d-flex">
-                    {# Feed toggle #}
-                    <div class="d-flex gap-2">
-                        <div class="d-flex gap-2 fw-semibold fs-3 text-white">
-                            <i class="bi bi-newspaper m-auto"></i>
-                            <div>Feed</div>
-                        </div>
-                        <a href="{% url 'community_app:community' "all" %}">
-                            <button class="btn btn-outline-primary h-100" type="button">Global</button>
-                        </a>
-                        <a href="{% url 'community_app:community' "follower" %}">
-                            <button class="btn btn-outline-primary h-100" type="button">Follower</button>
-                        </a>
-                    </div>
-                    {# Create post #}
-                    <button class="btn btn-outline-primary ms-auto"
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#postCreateModal">Neuer Post</button>
-                </div>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-body d-flex">
+          {# Feed toggle #}
+          <div class="d-flex gap-2">
+            <div class="d-flex gap-2 fw-semibold fs-3 text-white">
+              <i class="bi bi-newspaper m-auto"></i>
+              <div>Feed</div>
             </div>
+            <a href="{% url 'community_app:community' "all" %}">
+              <button class="btn btn-outline-primary h-100" type="button">Global</button>
+            </a>
+            <a href="{% url 'community_app:community' "follower" %}">
+              <button class="btn btn-outline-primary h-100" type="button">Follower</button>
+            </a>
+          </div>
+          {# Create post #}
+          <button class="btn btn-outline-primary ms-auto"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#postCreateModal">Neuer Post</button>
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col d-flex flex-column gap-3">
-            {% for post in posts %}
-                {% entry request.user post %}
-            {% endfor %}
-        </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex flex-column gap-3">
+      {% for post in posts %}
+        {% entry request.user post %}
+      {% endfor %}
     </div>
-    {% post_create_modal request.user form %}
+  </div>
+  {% post_create_modal request.user form %}
 {% endblock content %}

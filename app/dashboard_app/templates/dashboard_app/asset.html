@@ -1,36 +1,34 @@
-{% extends 'core/base.html' %} {% block content %}
-
-
-    <div style="display: flex;">
-      <div style="width: 33%">
-        <h3>{{ coinInfo.FullName }}</h3>
-        <img style="width: 150px" src="https://www.cryptocompare.com{{coinInfo.ImageUrl}}"/>
-      </div>
-      <div style="width: 33%">
-        <h4>Coin-Info</h4>
-        <p>Name: {{coinInfo.CoinName}}</p>
-        <p>Symbol: {{coinInfo.Symbol}}</p>
-      </div>
-      <div style="width: 33%">
-        <h4>Add To Portfolio</h4>
-        <form method="POST">
-          {% csrf_token %}
-          {{form.as_p}}
-          <button type="submit">Submit</button>
-        </form>
-        <h3>{{ message }}</h3>
-      </div>
-
+{% extends 'core/base.html' %}
+{% block content %}
+  <div style="display: flex;">
+    <div style="width: 33%">
+      <h3>{{ coinInfo.FullName }}</h3>
+      <img style="width: 150px"
+           src="https://www.cryptocompare.com{{ coinInfo.ImageUrl }}" />
     </div>
-    <div style="width:75%;">
-        <h2 style="color: rgb(112, 221, 112);">Wert Heute: {{ todaysValue }}</h2>
-        <canvas id="myChart" ></canvas>
-        {{ coinInfo.FullName|json_script:'FullName' }}
-        {{ values|json_script:'values' }}
+    <div style="width: 33%">
+      <h4>Coin-Info</h4>
+      <p>Name: {{ coinInfo.CoinName }}</p>
+      <p>Symbol: {{ coinInfo.Symbol }}</p>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-    <script>
+    <div style="width: 33%">
+      <h4>Add To Portfolio</h4>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+      <h3>{{ message }}</h3>
+    </div>
+  </div>
+  <div style="width:75%;">
+    <h2 style="color: rgb(112, 221, 112);">Wert Heute: {{ todaysValue }}</h2>
+    <canvas id="myChart"></canvas>
+    {{ coinInfo.FullName|json_script:'FullName' }}
+    {{ values|json_script:'values' }}
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+  <script>
       const ctx = document.getElementById('myChart');
       var dataValues = JSON.parse(document.getElementById('values').textContent);
         var cryptoName = JSON.parse(document.getElementById('FullName').textContent);
@@ -60,5 +58,5 @@
             }
           }
         });
-    </script>
+  </script>
 {% endblock content %}
