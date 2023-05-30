@@ -5,6 +5,7 @@ from community_app.models import Posts, PostLikes, PostComments, CommentLikes
 from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
 from datetime import datetime, date
+from app.settings import MEDIA_ROOT
 
 # Create your views here.
 
@@ -15,7 +16,9 @@ def community(request, feed):
     form = PostForm(initial={'user_id': user, 'asset': selectedCoin})
     if request.method == 'POST':
         if 'comment' in request.POST:
-            form = PostForm(request.POST)
+            form = PostForm(request.POST, request.FILES)
+            print(form.is_valid())
+            print(request.FILES.get("image"))
             if form.is_valid():
                 d = form.cleaned_data
                 user = CustomUser.objects.get(id=request.user.id)
@@ -24,6 +27,7 @@ def community(request, feed):
                     asset=Asset.objects.get(name=d.get("asset")),
                     content=d.get("content"),
                     created_at=datetime.now(),
+                    image = d.get("image"),
                     hashtags=d.get("hashtags")
                 )
     if request.GET.get("comment_id") is not None:
@@ -99,8 +103,8 @@ def convertPosts(posts):
         post_id = Posts.objects.get(id=post.id).id
         content = post.content
         created_at = define_created_at(post.created_at)
-
-
+        image = post.image
+        print(image)
         hashtags = post.hashtags
         likes = PostLikes.objects.filter(post_id=post).count()
         comments = convertComments(post_id)
@@ -109,6 +113,7 @@ def convertPosts(posts):
                       "asset": asset,
                       "content": content,
                       "created_at": created_at,
+                      "image": image,
                       "hashtags": hashtags,
                       "likes": likes,
                       "post_id": post_id,

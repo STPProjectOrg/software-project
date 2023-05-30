@@ -9,6 +9,7 @@ class Posts(models.Model):
     content = models.CharField(max_length=1000)
     created_at = models.DateTimeField()
     hashtags = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='post_images/', blank=True)
     #privacySettings = models.CharField()
     
     def __str__(self):
@@ -26,6 +27,7 @@ class PostComments(models.Model):
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
     content = models.CharField(max_length=1000)
     created_at = models.DateTimeField()
+    image = models.ImageField()
 
     def __str__(self):
         return self.user_id
