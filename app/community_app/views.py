@@ -4,7 +4,7 @@ from community_app.forms import PostForm
 from community_app.models import Posts, PostLikes, PostComments, CommentLikes
 from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
-from datetime import datetime
+from datetime import datetime, date
 
 # Create your views here.
 
@@ -98,7 +98,9 @@ def convertPosts(posts):
         post = Posts.objects.get(id=post.id)
         post_id = Posts.objects.get(id=post.id).id
         content = post.content
-        created_at = post.created_at
+        created_at = define_created_at(post.created_at)
+
+
         hashtags = post.hashtags
         likes = PostLikes.objects.filter(post_id=post).count()
         comments = convertComments(post_id)
@@ -124,7 +126,7 @@ def convertComments(post_id):
         user = CustomUser.objects.get(id=comment.user_id.id)
         content = comment.content
         likes = CommentLikes.objects.filter(comment_id=comment.id).count()
-        created_at = comment.created_at
+        created_at = define_created_at(comment.created_at)
         picture = user.userprofileinfo.profile_pic.url if user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
         commentObject = {"id": id, 
                          "user": user, 
@@ -134,3 +136,13 @@ def convertComments(post_id):
                          "created_at": created_at}
         convertedComments.append(commentObject)
     return convertedComments
+
+def define_created_at(datetime: datetime):
+        created_at = datetime
+        if created_at.date() == datetime.today():
+            created_at = datetime
+        elif (date.today() - created_at.date()).days >= 2 :
+            created_at = datetime.date()
+        elif (date.today() - created_at.date()).days >= 1 :
+            created_at = "Gestern"
+        return created_at
