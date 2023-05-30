@@ -28,6 +28,9 @@ def community(request, feed):
                 )
     if request.GET.get("comment_id") is not None:
         PostComments.objects.filter(id=request.GET.get("comment_id")).delete()
+    if request.GET.get("post_delete") is not None:
+        Posts.objects.filter(id=request.GET.get("post_delete")).delete()
+        #print(Posts.objects.filter(id=request.GET.get("post_delete")))
     if request.GET.get('post_id') is not None:
         if request.GET.get('post_comment') is not None and request.GET.get("post_comment") != "":
             PostComments.objects.create(
