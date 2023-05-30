@@ -3,14 +3,9 @@
     <h1 class="text-center mb-5">Anzeigeeinstellungen</h1>
     <div class="card">
         <div class="card-body">
-            <form class="ps-5 pe-5 pt-2">
-                <div class="form-group">
-                    <label for="themeSelector" class="form-label m-2">Theme</label>
-                    <select class="form-control" id="themeSelector" style="width: 30%">
-                        <option>Light</option>
-                        <option>Dark</option>
-                    </select>
-                </div>
+            <form method="POST" class="ps-5 pe-5 pt-2">
+                {% csrf_token %}
+                {{form.as_p}}
                 <div class="d-flex justify-content-end gap-3">
                     <button type="submit" class="btn btn-success">
                         Speichern
