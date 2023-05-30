@@ -6,8 +6,12 @@
         <form method="POST">
           {% csrf_token %}
           {{form.as_p}}
-          <button type="submit" class="btn btn-success">Speichern</button>
+        <div class="d-flex justify-content-end gap-3">
+          <button type="submit" class="btn btn-success">
+            Speichern
+          </button>
           <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">Zurück</a>
+        </div>
         </form>
     </div>
   </div>
