@@ -100,6 +100,7 @@ def profile(request, username):
 
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
+                   'user_profile_id': profile_user.userprofileinfo.id,
                    "picture_url": profile_picture_url,  # TODO: Delete
                    "is_user_profile": is_user_profile,
                    "is_user_following": is_user_following,
@@ -129,6 +130,15 @@ def getUser(id):
     user = CustomUser.objects.get(id=id)
     return user
 
+@login_required    
+def delete_profile_pic(request, pk):
+    user_profile = get_object_or_404(UserProfileInfo, pk=pk)
+    
+    if pk == request.user.userprofileinfo.id:
+        # user_profile.profile_pic.delete()
+        user_profile.delete_profile_pic()
+
+    return redirect(reverse('user_app:profile_redirect'))
 
 class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = UserProfileInfo

@@ -52,3 +52,8 @@ class UserProfileInfo(models.Model):
         if self.profile_pic:
             os.remove(self.profile_pic.path)
         super(UserProfileInfo, self).delete(*args, **kwargs)
+
+    def delete_profile_pic(self):
+        if self.profile_pic and os.path.basename(self.profile_pic.name) != 'default_profile.png':
+            self.profile_pic = 'profile_pics/default_profile.png'
+            self.save()

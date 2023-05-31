@@ -30,6 +30,8 @@
                     <button type="button"
                             class="btn btn-secondary me-auto"
                             data-bs-dismiss="modal">Abbrechen</button>
+                    <a href="{% url 'user_app:delete_userprofile' profile_id %}"
+                       class="btn btn-outline-danger">Profilbild löschen</a>
                     <button type="submit" class="btn btn-primary">Änderungen speichern</button>
                 </div>
             </form>
