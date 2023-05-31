@@ -56,8 +56,6 @@
       var dateValues = JSON.parse(document.getElementById('dateValues').textContent);
 
 
-      console.log(assetList)
-      console.log(valueList)
       const labels = interval
         const data = {
                         labels: labels,
@@ -102,7 +100,16 @@
         new Chart(ctx3, {
           type: 'pie',
           data: data2,
+          options: {
+            onClick: pieClickEvent
+          }
         })
+        function pieClickEvent(event, array){
+          if (array[0]){
+            var id = assetList[array[0].index]
+            document.location.href = "asset/" + id;
+          }
+        }
     </script>
 
     {% endblock content %}
