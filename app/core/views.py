@@ -70,30 +70,19 @@ def question_and_answers(request):
 
 
 def search_results(request):
+    # Get the search value from the request
     search_value = request.GET.get('username', '')
 
     # Search for users and assets with a similar search value 
     user_results = CustomUser.objects.filter(username__icontains=search_value)
-    users = [get_object_or_404(CustomUser, username=user.username) for user in user_results]
     asset_results = Asset.objects.filter(Q(name__icontains=search_value) | Q(coinName__icontains=search_value))
 
+    # Get the following-list by the signed user 
     user_following_list = request.user.following.values_list(
         "following_user_id", flat=True)
-    results = {'users': users, 'assets': asset_results, 'followers': user_following_list}
+    
+    # Create the result dictionary with the corresponding lists and hand them over to the template 'search_result.html'
+    results = {'users': user_results, 'assets': asset_results, 'followers': user_following_list}
     response = [render_to_string('inclusion/search_result.html', results)]
 
-    '''
-    result_list = []
-    for result in user_results:
-        curren_user = get_object_or_404(CustomUser, username=result.username)
-        search_value = curren_user.username
-        pic = curren_user.userprofileinfo.profile_pic.url if curren_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        icon = "bi bi-person-fill-check" if request.user.following.all().filter(
-            following_user=curren_user).exists() else "bi bi-person-plus"
-        result_list.append(render_to_string('inclusion/search_result.html', {'username': search_value,
-                                                                             'pic': pic,
-                                                                             'icon': icon}))
-
-    return JsonResponse({'results': result_list})
-    '''
     return JsonResponse({'results': response})

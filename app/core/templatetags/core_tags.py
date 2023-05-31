@@ -1,7 +1,11 @@
 """ Custom Tags for the core_app """
 
+from datetime import datetime
 from django import template
 from django.urls import reverse
+
+from api_app.views import getCryptoValueFromDatabase, getCoinInformation
+import cryptocompare
 
 register = template.Library()
 
@@ -75,3 +79,12 @@ def footer():
 @register.inclusion_tag("inclusion/search.html")
 def search(width):
     return {'width': width}
+
+@register.filter
+def get_asset_value(asset):
+    # return getCryptoValueFromDatabase(asset.name, datetime(2023,4,28))
+    return cryptocompare.get_price('BTC', currency='EUR')['BTC']['EUR']
+
+@register.filter
+def get_asset_picture(asset):
+    return getCoinInformation(asset.name).get("ImageUrl")
