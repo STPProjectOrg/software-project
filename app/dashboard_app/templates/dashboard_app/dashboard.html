@@ -93,9 +93,22 @@
         var dateValues = JSON.parse(document.getElementById('dateValues').textContent);
 
 
-        console.log(assetList)
-        console.log(valueList)
-        const labels = interval
+      <h3>{{ message }}</h3>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const ctx = document.getElementById('myChart');
+      const ctx2 = document.getElementById('myChart2');
+      const ctx3 = document.getElementById('myChart3');
+      var dataValues = JSON.parse(document.getElementById('value').textContent);
+      var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
+      var assetList = JSON.parse(document.getElementById('assetList').textContent);
+      var valueList = JSON.parse(document.getElementById('valueList').textContent);
+      var interval = JSON.parse(document.getElementById('interval').textContent);
+      var dateValues = JSON.parse(document.getElementById('dateValues').textContent);
+
+
+      const labels = interval
         const data = {
                         labels: labels,
                         datasets: [{
@@ -137,9 +150,16 @@
             };
 
         new Chart(ctx3, {
-            type: 'pie',
-            data: data2,
+          type: 'pie',
+          data: data2,
+          options: {
+            onClick: pieClickEvent
+          }
         })
-        </script>
-    </div>
-{% endblock content %}
+        function pieClickEvent(event, array){
+          if (array[0]){
+            var id = assetList[array[0].index]
+            document.location.href = "asset/" + id;
+          }
+        }
+    </script>

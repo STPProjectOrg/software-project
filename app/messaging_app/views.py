@@ -2,7 +2,7 @@ from django.shortcuts import render
 from messaging_app.models import Inbox, InboxParticipants, Message
 from user_app.models import CustomUser
 from messaging_app.forms import AddMessageForm
-from datetime import datetime
+from datetime import datetime, date, timezone
 
 # Create your views here.
 
@@ -63,10 +63,11 @@ def get_participants(user, inbox_participants):
         participant_user = CustomUser.objects.get(
             username=participant.participant_id)
         participant_pic = participant_user.userprofileinfo.profile_pic.url if participant_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        last_message_sent_at = define_created_at(participant.last_message_sent_at)
         participants.append(
             {"participant": participant_user, 
              "last_message": participant.last_message, 
-             "last_message_sent_at": participant.last_message_sent_at,
+             "last_message_sent_at": last_message_sent_at,
              "unread_messages": Message.objects.filter(from_user=participant_user, to_user=user).filter(message_read=False).__len__(),
              "participant_pic": participant_pic})
     return participants
@@ -100,3 +101,13 @@ def update_inbox_participant(user, chat_participant, message):
                     last_message = last_message,
                     last_message_sent_at = datetime.now()
                 )
+
+def define_created_at(datetime: datetime):
+        created_at = datetime
+        if created_at.date() == datetime.today():
+            created_at = datetime
+        elif (date.today() - created_at.date()).days >= 2 :
+            created_at = datetime.date()
+        elif (date.today() - created_at.date()).days >= 1 :
+            created_at = "Gestern"
+        return created_at

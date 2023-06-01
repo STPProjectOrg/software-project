@@ -35,7 +35,7 @@
                         <a class="dropdown-item" href="#"><i class="bi bi-gear-fill pe-2"></i>Bearbeiten</a>
                     </li>
                     <li>
-                        <a class="dropdown-item text-danger-emphasis" href="#"><i class="bi bi-trash-fill pe-2"></i>Löschen</a>
+                        <a class="dropdown-item text-danger-emphasis" href="{% url 'community_app:post_delete' post.id %}"><i class="bi bi-trash-fill pe-2"></i>Löschen</a>
                     </li>
                 </ul>
             </div>
@@ -43,6 +43,10 @@
     </div>
     <div class="card-body pb-2">
         <div id="content">{{ post.content }}</div>
+        {# Post Image #}
+        {% if post.image != "" %}
+        <div><img src="{{ post.image.url }}" style="width:400px;"/></div>
+        {% endif %}
         <div class="border-top mt-3 mb-2"></div>
         {# Post information #}
         <div id="post_information" class="d-flex">
@@ -125,6 +129,17 @@
                         </div>
                         {# Content #}
                         <div>{{ comment.content }}</div>
+                        {# Likes #}
+                        <a href="{% url 'community_app:like_comment' comment.id %}"
+                        class="btn btn-link p-0 fw-bold">
+                            <small class="d-flex gap-1">
+                                <div class="my-auto">
+                                    <i class="bi bi-heart-fill m-auto"></i>
+                                </div>
+                                <div class="my-auto">{{ comment.commentlike_set.count }}</div>
+                                <div class="my-auto">Likes</div>
+                            </small>
+                        </a>
                     </div>
                 </div>
             {% endfor %}

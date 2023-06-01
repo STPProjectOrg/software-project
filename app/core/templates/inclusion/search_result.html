@@ -1,20 +1,66 @@
-
-<tr>
-    <td>
-        <div class="d-flex align-items-center">
-            <img src="{{pic}}" class="rounded-circle border border-dark border-5" alt="Avatar" style="width: 45px; height: 45px">
-        </div>
-    </td>
-    <td>
-        <div>
-            <a href="{% url 'user_app:profile' username %}">{{username}}</a>
-        </div>
-    </td>
-    <td>
-        <span class="badge rounded-pill text-bg-success">User</span>
-    </td>
-    <td>
-        <i class="{{icon}}"></i>
-    </td>
-</tr>
-
+{% load core_tags %}
+{% if not users and not assets %}
+    <tr class="text-center">
+        <td>
+            <span>Keine Ergebnisse gefunden!</span>
+        </td>
+    </tr>
+{% endif %}
+{% for user in users %}
+    <tr>
+        <td class="col-3">
+            <div class="d-flex align-items-center">
+                {% comment "" %} <img src="{{user|}}" class="rounded-circle border border-dark border-5" alt="Avatar" style="width: 45px; height: 45px"> {% endcomment %}
+                <img {% if user.userprofileinfo.profile_pic %} src="{{ user.userprofileinfo.profile_pic.url }}" {% else %} src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" {% endif %}
+                     class="rounded-circle border border-dark border-5"
+                     alt="Avatar"
+                     style="width: 45px;
+                            height: 45px">
+            </div>
+        </td>
+        <td class="col-3">
+            <div>
+                <a href="{% url 'user_app:profile' user.username %}">{{ user.username }}</a>
+            </div>
+        </td>
+        <td class="col-3">
+            <span class="badge rounded-pill text-bg-success">User</span>
+        </td>
+        <td class="col-3">
+            {% comment "" %} <i class="bi bi-person-fill-check"></i> {% endcomment %}
+            {% if user.id in followers %}
+                <a class="btn btn-outline-primary"
+                   href="{% url 'user_app:follow' user.username %}">Entfolgen</a>
+            {% elif user.id != request.user.id %}
+                <a class="btn btn-outline-primary"
+                   href="{% url 'user_app:follow' user.username %}">Folgen</a>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+{% for asset in assets %}
+    <tr>
+        <td class="col-3">
+            <div class="d-flex align-items-center">
+                <img src="https://www.cryptocompare.com{{ asset|get_asset_picture }}"
+                     class="rounded-circle border border-dark border-5"
+                     alt="Avatar"
+                     style="width: 45px;
+                            height: 45px">
+            </div>
+        </td>
+        <td class="col-3">
+            <div class="d-flex align-items-center">
+                <a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.coinName }} ({{ asset.name }})</a>
+            </div>
+        </td>
+        <td class="col-3">
+            <div class="d-flex align-items-center">
+                <span class="badge rounded-pill text-bg-light">Asset</span>
+            </div>
+        </td>
+        <td class="col-3">
+            <span>{{ asset|get_asset_value }}€</span>
+        </td>
+    </tr>
+{% endfor %}

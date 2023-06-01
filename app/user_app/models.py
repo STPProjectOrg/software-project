@@ -30,7 +30,7 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # additional attributes for user
-    profile_pic = models.ImageField(upload_to='profile_pics',blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pics',blank=True,default='static/default_profile.png')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -52,3 +52,8 @@ class UserProfileInfo(models.Model):
         if self.profile_pic:
             os.remove(self.profile_pic.path)
         super(UserProfileInfo, self).delete(*args, **kwargs)
+
+    def delete_profile_pic(self):
+        if self.profile_pic and os.path.basename(self.profile_pic.name) != 'default_profile.png':
+            self.profile_pic = 'static/default_profile.png'
+            self.save()

@@ -9,6 +9,7 @@ class Post(models.Model):
     content = models.CharField(max_length=1000)
     created_at = models.DateTimeField()
     tags = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='post_images/', blank=True)
     # privacySettings = models.CharField()
 
     def __str__(self):
@@ -28,6 +29,15 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.CharField(max_length=1000)
     created_at = models.DateTimeField()
+    image = models.ImageField(upload_to='comment_images/', blank=True)
 
     def __str__(self):
         return self.user
+    
+class CommentLike(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user_id
+    

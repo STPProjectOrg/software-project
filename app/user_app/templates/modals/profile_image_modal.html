@@ -12,7 +12,7 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <form action="{% url 'user_app:update_userprofile' user_id %}"
+            <form action="{% url 'user_app:update_userprofile' profile_id %}"
                   method="post"
                   enctype="multipart/form-data">
                 {% csrf_token %}
@@ -30,6 +30,8 @@
                     <button type="button"
                             class="btn btn-secondary me-auto"
                             data-bs-dismiss="modal">Abbrechen</button>
+                    <a href="{% url 'user_app:delete_userprofile' profile_id %}"
+                       class="btn btn-outline-danger">Profilbild löschen</a>
                     <button type="submit" class="btn btn-primary">Änderungen speichern</button>
                 </div>
             </form>

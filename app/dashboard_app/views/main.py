@@ -69,7 +69,6 @@ def getDataForPie(user):
         return {'assetList': list(), 'values': list()}
     else:
         assetList = getAllUniqueAssets(allAssets)
-        pieList = list()
         assetNameList = list()
         valueList = list()
         for thisAsset in assetList:

@@ -15,13 +15,12 @@ class Settings(models.Model):
     currency = models.CharField(max_length=30, blank=False, default="EUR")
 
     # Notificationsettings field's
-    assetAmountChanged = models.BooleanField(blank=False, default=False)
-    followMessage = models.BooleanField(blank=False, default=True)
-    likedPostMessage = models.BooleanField(blank=False, default=True)
-    likedCommentMessage = models.BooleanField(blank=False, default=True)
-    commentedMessage = models.BooleanField(blank=False, default=True)
-    sharedPostMessage = models.BooleanField(blank=False, default=False)
-    changedIpAdress = models.BooleanField(blank=False, default=False)
+    hasAssetAmountChanged = models.BooleanField(default=True)
+    hasNewFollower = models.BooleanField(default=True)
+    hasLikedPost = models.BooleanField(default=True)
+    hasLikedComment = models.BooleanField(default=True)
+    hasNewComment = models.BooleanField(default=True)
+    hasSharedPost = models.BooleanField(default=True)
 
     # Displaysettings field's
     theme = models.CharField(max_length=30, blank=False, default="dark")

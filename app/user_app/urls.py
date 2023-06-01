@@ -15,6 +15,7 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile, name='profile'),
     path('update/userprofile/<int:pk>',
          views.UserProfileUpdateView.as_view(), name='update_userprofile'),
+    path('delete/userprofile/<int:pk>', views.delete_profile_pic, name='delete_userprofile'),
     path('follow/<str:username>', views.toggle_follow, name='follow'),
     path('follower_list/<str:username>',
          views.follower_list, name='follower_list'),
