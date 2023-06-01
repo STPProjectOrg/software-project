@@ -1,0 +1,33 @@
+<script>
+    var canvas = document.getElementById('pieChart');
+    var label = JSON.parse(document.getElementById('assetList').textContent);
+    var data = JSON.parse(document.getElementById('valueList').textContent);
+
+    var chartData = {
+        labels: label,
+        datasets: [{
+            label: 'My First Dataset',
+            data: data,
+            backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+            ]
+        }]
+    };
+
+    new Chart(canvas, {
+        type: 'pie',
+        data: chartData,
+        options: {
+            onClick: pieClickEvent
+        }
+    })
+    
+    function pieClickEvent(event, array){
+        if (array[0]){
+        var id = assetList[array[0].index]
+        document.location.href = "asset/" + id;
+        }
+    }
+</script>
