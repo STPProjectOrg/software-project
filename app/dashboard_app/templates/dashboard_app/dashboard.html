@@ -1,45 +1,97 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+{% load dashboard_tags %}
+{% block title %}
+    | Dashboard
+{% endblock title %}
 {% block content %}
-    <h1>THIS IS THE DASHBOARD</h1>
-    <div>
-        <h2>
-            {{request.user.username}} 
-        </h2>
-    </div>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Submit</button>
-    </form>
-    
-    <h3>{{ message }}</h3>
-
-
-    <form action="" method="post">
-      {% csrf_token %}
-      <button type="submit" name="complete">complete history</button>
-      <button type="submit" name="year">last year</button>
-      <button type="submit" name="sixmonths">last six months</button>
-      <button type="submit" name="month">last month</button>
-      <button type="submit" name="week">last week</button>
-      
-    </form>
-    <div style="width:50%;display: flex">
-        <canvas id="myChart" ></canvas>
-        {{ crypto|json_script:'crypto' }}
-        {{ value|json_script:'value' }}
-        {{ assetList|json_script:'assetList' }}
-        {{ values|json_script:'valueList' }}
-        {{ interval|json_script:'interval' }}
-        {{ dateValues|json_script:'dateValues' }}
-        <div style="width:50%;">
-          <canvas id="myChart2" ></canvas>
-          <canvas id="myChart3" ></canvas>
+    <div class="row bg-body-tertiary mx-n4 mt-n4 p-4">
+        <div class="col col-auto">Pie-Chart</div>
+        <div class="col">
+            <div>[User]-Portfolio</div>
+            <div>Key Values</div>
         </div>
-      </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">Kursverlauf</div>
+                <div class="card-body">
+                    <div id="range_selection">
+                        <div class="p-2 border rounded">
+                            <a href="" class="">
+                                <div>Seit Kauf</div>
+                                <div>-37%</div>
+                            </a>
+                            <button class="btn btn-secondary" type="button">Middle</button>
+                            <button class="btn btn-secondary" type="button">Right</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">KPI</div>
+                <div class="card-body">KPI</div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">Assets</div>
+                <div class="card-body">Assets</div>
+            </div>
+        </div>
+    </div>
+    {# OLD #}
+    <div>
+        <h1>THIS IS THE DASHBOARD</h1>
+        <div>
+            <h2>{{ request.user.username }}</h2>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        <h3>{{ message }}</h3>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit" name="complete">complete history</button>
+            <button type="submit" name="year">last year</button>
+            <button type="submit" name="sixmonths">last six months</button>
+            <button type="submit" name="month">last month</button>
+            <button type="submit" name="week">last week</button>
+        </form>
+        <div style="width:50%;display: flex">
+            <canvas id="myChart"></canvas>
+            {{ crypto|json_script:'crypto' }}
+            {{ value|json_script:'value' }}
+            {{ assetList|json_script:'assetList' }}
+            {{ values|json_script:'valueList' }}
+            {{ interval|json_script:'interval' }}
+            {{ dateValues|json_script:'dateValues' }}
+            <div style="width:50%;">
+                <canvas id="myChart2"></canvas>
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+        <h3>{{ message }}</h3>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        const ctx = document.getElementById('myChart');
+        const ctx2 = document.getElementById('myChart2');
+        const ctx3 = document.getElementById('myChart3');
+        var dataValues = JSON.parse(document.getElementById('value').textContent);
+        var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
+        var assetList = JSON.parse(document.getElementById('assetList').textContent);
+        var valueList = JSON.parse(document.getElementById('valueList').textContent);
+        var interval = JSON.parse(document.getElementById('interval').textContent);
+        var dateValues = JSON.parse(document.getElementById('dateValues').textContent);
 
-    
 
       <h3>{{ message }}</h3>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -68,34 +120,34 @@
                         }]
                         };
                         const config = {
-                  type: 'line',
-                  data: data,
+                    type: 'line',
+                    data: data,
                 };
         new Chart(ctx, {
-          type: 'line',
-          data: data,
-          options: {
+            type: 'line',
+            data: data,
+            options: {
             scales: {
-              y: {
+                y: {
                 beginAtZero: true
-              }
+                }
             }
-          }
+            }
         });
 
-          const data2 = {
+            const data2 = {
             labels: assetList,
             datasets: [{
-              label: 'My First Dataset',
-              data: valueList,
-              backgroundColor: [
+                label: 'My First Dataset',
+                data: valueList,
+                backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
                 'rgb(255, 205, 86)'
-              ],
-              hoverOffset: 4
+                ],
+                hoverOffset: 4
             }]
-          };
+            };
 
         new Chart(ctx3, {
           type: 'pie',
@@ -111,5 +163,3 @@
           }
         }
     </script>
-
-    {% endblock content %}
