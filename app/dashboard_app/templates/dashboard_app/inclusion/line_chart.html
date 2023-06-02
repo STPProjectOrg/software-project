@@ -1,4 +1,6 @@
 <script>
+    
+
     var canvas = document.getElementById('lineChart');
     var ctx = canvas.getContext("2d")
     var label = JSON.parse(document.getElementById('interval').textContent);
@@ -29,7 +31,7 @@
     };
         
     new Chart(canvas, {
-        type: 'line',
+        type: "line",
         data: chartData,
         options: {
             scales: {
@@ -43,8 +45,21 @@
                         },
                         padding: 10,
                         maxTicksLimit: 8,
-                        callback: function(value, index, ticks) {
-                            return Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
+                        callback: function(value) {
+                            var ranges = [
+                            { divider: 1e9, suffix: 'B' },
+                            { divider: 1e6, suffix: 'M' },
+                            { divider: 1e3, suffix: 'k' }
+                         ];
+                         function formatNumber(n) {
+                            for (var i = 0; i < ranges.length; i++) {
+                               if (n >= ranges[i].divider) {
+                                  return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                               }
+                            }
+                            return n;
+                         }
+                         return '$' + formatNumber(value);
                         }
                     },
                     grid: {
@@ -63,18 +78,54 @@
                         padding: 10,
                         maxTicksLimit: 10,
                         maxRotation: 45,
-                        minRotation: 45
+                        minRotation: 45,
+                        
                     },
                     grid: {
                         display: false,
-                    }
-                }
+                    },
+                    type: "time",
+                    time: {
+                        unit: "day",
+                        displayFormats: {
+                            day: "dd.MM.yyyy"
+                        },
+                        tooltipFormat: "dd.MM.yyyy",
+                        
+                    },            
+                },
+                
             },
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: false,
+                },
+                tooltip: {
+                    backgroundColor: "rgba(49, 55, 74, 0.95)",
+                    titleAlign: "center",
+                    titleSpacing: 4,
+                    titleColor: "rgba(138, 148, 173, 1)",
+                    titleFont: {
+                        size: 14,
+                        family: "Source Sans Pro",
+                    },
+                    bodyAlign: "center",
+                    bodyFont: {
+                        size: 20,
+                        family: "Source Sans Pro",
+                    },
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            let label = '';
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                            }
+                            return label;
+                        },
+                    }
                 }
             }
         },
