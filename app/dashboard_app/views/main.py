@@ -24,11 +24,11 @@ def dashboard(request):
 
     if 'complete' in request.POST:
         chartData = getDataForLine(
-            request.user, date.min, relativedelta(months=1))
+            request.user, date.min, relativedelta(days=1))
     else:
         if 'month' in request.POST:
             chartData = getDataForLine(
-                request.user, todaysDate - relativedelta(months=1), relativedelta(days=3))
+                request.user, todaysDate - relativedelta(months=1), relativedelta(days=1))
         else:
             if 'week' in request.POST:
                 chartData = getDataForLine(
@@ -36,11 +36,11 @@ def dashboard(request):
             else:
                 if 'sixmonths' in request.POST:
                     chartData = getDataForLine(
-                        request.user, todaysDate - relativedelta(months=6), relativedelta(weeks=1))
+                        request.user, todaysDate - relativedelta(months=6), relativedelta(days=1))
                 else:
                     if 'year' in request.POST:
                         chartData = getDataForLine(
-                            request.user, todaysDate - relativedelta(years=1), relativedelta(weeks=2))
+                            request.user, todaysDate - relativedelta(years=1), relativedelta(days=1))
                     else:
                         chartData = getDataForLine(
                             request.user, date.min, relativedelta(months=1))

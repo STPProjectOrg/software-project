@@ -7,8 +7,20 @@ register = template.Library()
 
 
 @register.inclusion_tag("dashboard_app/inclusion/line_chart.html")
-def line_chart():
+def line_chart(chart_label):
     """ Include a line-chart element. """
+    return {"chart_label": chart_label}
+
+
+@register.inclusion_tag("dashboard_app/inclusion/pie_chart.html")
+def pie_chart():
+    """ Include a pie-chart element. """
+    return
+
+
+@register.inclusion_tag("dashboard_app/inclusion/include_chart.html")
+def include_chart():
+    """ Include Chart-JS. """
     return
 
 
