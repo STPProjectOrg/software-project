@@ -27,7 +27,7 @@
                         <button type="submit" name="week">last week</button>
                     </form>
                     <div id="range_selection">
-                        <div class="p-2 border rounded">
+                        <div class="">
                             <a href="" class="">
                                 <div>Seit Kauf</div>
                                 <div>-37%</div>
@@ -36,8 +36,8 @@
                             <button class="btn btn-secondary" type="button">Right</button>
                         </div>
                     </div>
-                    <div>
-                        <canvas id="lineChart"></canvas>
+                    <div class="mt-4" style="height:40vh">
+                        <canvas id="lineChart" style="height:40vh"></canvas>
                     </div>
                 </div>
             </div>
@@ -59,18 +59,13 @@
             </div>
         </div>
     </div>
-    {# OLD #}
-    <div>
-        {# Chart selection #}
-        <div style="display: flex"></div>
-        {{ crypto|json_script:'crypto' }}
-        {{ value|json_script:'value' }}
-        {{ assetList|json_script:'assetList' }}
-        {{ values|json_script:'valueList' }}
-        {{ interval|json_script:'interval' }}
-        {{ dateValues|json_script:'dateValues' }}
-        {# Charts JS-Script #}
-        {% include_chart %}
-        {% line_chart "Wert" %}
-        {% pie_chart %}
-    {% endblock content %}
+    {# Chart selection #}
+    {{ assetList|json_script:'assetList' }}
+    {{ values|json_script:'valueList' }}
+    {{ interval|json_script:'interval' }}
+    {{ dateValues|json_script:'dateValues' }}
+    {# Charts JS-Script #}
+    {% include_chart %}
+    {% line_chart "Wert" %}
+    {% pie_chart %}
+{% endblock content %}

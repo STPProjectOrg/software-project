@@ -14,7 +14,7 @@ def line_chart(chart_label):
 
 @register.inclusion_tag("dashboard_app/inclusion/pie_chart.html")
 def pie_chart():
-    """ Include a line-chart element. """
+    """ Include a pie-chart element. """
     return
 
 
