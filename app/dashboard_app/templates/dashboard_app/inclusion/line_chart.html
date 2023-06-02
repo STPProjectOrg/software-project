@@ -47,19 +47,20 @@
                         maxTicksLimit: 8,
                         callback: function(value) {
                             var ranges = [
-                            { divider: 1e9, suffix: 'B' },
-                            { divider: 1e6, suffix: 'M' },
-                            { divider: 1e3, suffix: 'k' }
-                         ];
-                         function formatNumber(n) {
-                            for (var i = 0; i < ranges.length; i++) {
-                               if (n >= ranges[i].divider) {
-                                  return (n / ranges[i].divider).toString() + ranges[i].suffix;
-                               }
+                                { divider: 1e9, suffix: 'Mrd.' },
+                                { divider: 1e6, suffix: 'Mio.' },
+                                { divider: 1e3, suffix: 'T' }
+                            ];
+                            function formatNumber(n) {
+                                for (var i = 0; i < ranges.length; i++) {
+                                if (n >= ranges[i].divider) {
+                                    return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                                }
+                                }
+                                return n;
                             }
-                            return n;
-                         }
-                         return '$' + formatNumber(value);
+                            if (value == 0) return "0 (EUR)"
+                            return formatNumber(value);
                         }
                     },
                     grid: {
@@ -121,7 +122,7 @@
                         label: function(context) {
                             let label = '';
                             if (context.parsed.y !== null) {
-                                label += new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                label += new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
                             }
                             return label;
                         },

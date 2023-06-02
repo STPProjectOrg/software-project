@@ -12594,6 +12594,13 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: transparent;
 }
 
+.btn-secondary {
+  --bs-btn-border-color: $border-color-dark;
+  --bs-btn-bg: #171c28;
+  --bs-btn-hover-bg: #31374a;
+  --bs-btn-active-bg: #171c28;
+}
+
 .btn-nav {
   --bs-btn-font-weight: 500;
   --bs-btn-color: #fff;
