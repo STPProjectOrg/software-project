@@ -20,22 +20,35 @@
                 <div class="card-body">
                     <form action="" method="post">
                         {% csrf_token %}
-                        <button type="submit" name="complete">complete history</button>
-                        <button type="submit" name="year">last year</button>
-                        <button type="submit" name="sixmonths">last six months</button>
-                        <button type="submit" name="month">last month</button>
-                        <button type="submit" name="week">last week</button>
-                    </form>
-                    <div id="range_selection">
-                        <div class="">
-                            <a href="" class="">
-                                <div>Seit Kauf</div>
-                                <div>-37%</div>
-                            </a>
-                            <button class="btn btn-secondary" type="button">Middle</button>
-                            <button class="btn btn-secondary" type="button">Right</button>
+                        <div id="range_selection"
+                             class="btn-group w-100 overflow-auto"
+                             role="group">
+                            <button type="submit"
+                                    name="complete"
+                                    class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Gesamt</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                            <button type="submit" name="year" class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Jahr</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                            <button type="submit"
+                                    name="sixmonths"
+                                    class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">6 Monate</div>
+                                <div class="fs-4 text-success-emphasis">+19,42%</div>
+                            </button>
+                            <button type="submit" name="month" class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Monat</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                            <button type="submit" name="week" class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Woche</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
                         </div>
-                    </div>
+                    </form>
                     <div class="mt-4" style="height:40vh">
                         <canvas id="lineChart" style="height:40vh"></canvas>
                     </div>

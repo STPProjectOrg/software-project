@@ -8,6 +8,7 @@
 $primary: #3874ff;
 $dark: #141824;
 $body-color-dark: #8A94AD;
+$body-color-dark-rgb: rgb(138,148,173);
 $body-emphasis-color-dark: #e3e6ed;
 $body-bg-dark: #141824;
 //$body-secondary-color-dark:;
@@ -76,6 +77,13 @@ $headings-color: #e3e6ed;
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #3874ff;
     --bs-btn-disabled-border-color: transparent;
+}
+
+.btn-secondary {
+    --bs-btn-border-color: $border-color-dark;
+    --bs-btn-bg: #171c28;
+    --bs-btn-hover-bg: #31374a;
+    --bs-btn-active-bg: #171c28;
 }
 
 .btn-nav {
