@@ -2,29 +2,10 @@
 <h1 class="text-center mb-1">Profileinstellungen</h1>
 <div class="card">
   <div class="card-body">
-    <form method="POST" enctype="multipart/form-data" class="pt-2 pb-2 ps-5 pe-5">
+    <form method="POST" class="pt-2 pb-2 ps-5 pe-5">
       <div class="d-flex flex-column gap-2">
         {% csrf_token %}
-        <div>
-          <label for="username" class="form-label">Benutzername</label>
-          <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" />
-        </div>
-        <div>
-          <label for="email" class="form-label">E-Mail</label>
-          <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" />
-        </div>
-        <div>
-          <label for="first_name" class="form-label">Vorname</label>
-          <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" />
-        </div>
-        <div>
-          <label for="last_name" class="form-label">Nachname</label>
-          <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" />
-        </div>
-        <div>
-          <label for="picture" class="form-label">Profilbild</label>
-          <input type="file" class="form-control" id="picture" name="picture" />
-        </div>
+        {{form.as_p}}
         <div class="d-flex justify-content-end gap-3">
           <button type="submit" class="btn btn-success">
             Speichern
@@ -35,6 +16,4 @@
     </form>
   </div>
 </div>
-</div>
-
 {% endblock content %}

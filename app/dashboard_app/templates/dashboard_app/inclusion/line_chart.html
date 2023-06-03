@@ -1,0 +1,137 @@
+<script>
+    
+
+    var canvas = document.getElementById('lineChart');
+    var ctx = canvas.getContext("2d")
+    var label = JSON.parse(document.getElementById('interval').textContent);
+    var data = JSON.parse(document.getElementById('dateValues').textContent);
+
+    var gradient = ctx.createLinearGradient(0, 0, 0, 600); 
+    gradient.addColorStop(0, 'rgb(49,55,74, 1)');   
+    gradient.addColorStop(1, 'rgb(20,24,36, 0)');
+
+    var chartData = {
+        labels: label,
+        datasets: [{
+            label: "{{ chart_label }}",
+            data: data,
+            fill: false,
+            lineTension: 0,
+            borderWidth: 2,
+            borderColor: "rgb(255, 255, 255)",
+            pointBorderColor: "rgba(0, 0, 0, 0)",
+            pointBackgroundColor: "rgba(0, 0, 0, 0)",
+            pointHoverBackgroundColor: "rgb(255, 255, 255)",
+            pointHoverBorderColor: "rgb(255, 255, 255)",
+
+            backgroundColor: gradient,
+            fill: true,
+            cubicInterpolationMode: "default",
+        }]
+    };
+        
+    new Chart(canvas, {
+        type: "line",
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: "#8A94AD",
+                        font: {
+                            size: 14,
+                            family: "Source Sans Pro",
+                        },
+                        padding: 10,
+                        maxTicksLimit: 8,
+                        callback: function(value) {
+                            var ranges = [
+                                { divider: 1e9, suffix: 'Mrd.' },
+                                { divider: 1e6, suffix: 'Mio.' },
+                                { divider: 1e3, suffix: 'T' }
+                            ];
+                            function formatNumber(n) {
+                                for (var i = 0; i < ranges.length; i++) {
+                                if (n >= ranges[i].divider) {
+                                    return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                                }
+                                }
+                                return n;
+                            }
+                            if (value == 0) return "0 (EUR)"
+                            return formatNumber(value);
+                        }
+                    },
+                    grid: {
+                        display: true,
+                        color: "#171c28"
+                    },
+                    position: "right",
+                },
+                x: {
+                    ticks: {
+                        color: "#8A94AD",
+                        font: {
+                            size: 14,
+                            family: "Source Sans Pro",
+                        },
+                        padding: 10,
+                        maxTicksLimit: 10,
+                        maxRotation: 45,
+                        minRotation: 45,
+                        
+                    },
+                    grid: {
+                        display: false,
+                    },
+                    type: "time",
+                    time: {
+                        unit: "day",
+                        displayFormats: {
+                            day: "dd.MM.yyyy"
+                        },
+                        tooltipFormat: "dd.MM.yyyy",
+                        
+                    },            
+                },
+                
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    backgroundColor: "rgba(49, 55, 74, 0.95)",
+                    titleAlign: "center",
+                    titleSpacing: 4,
+                    titleColor: "rgba(138, 148, 173, 1)",
+                    titleFont: {
+                        size: 14,
+                        family: "Source Sans Pro",
+                    },
+                    bodyAlign: "center",
+                    bodyFont: {
+                        size: 20,
+                        family: "Source Sans Pro",
+                    },
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            let label = '';
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
+                            }
+                            return label;
+                        },
+                    }
+                }
+            }
+        },
+        defaults: {
+            color: "#ff0000",
+        }
+    });
+</script>

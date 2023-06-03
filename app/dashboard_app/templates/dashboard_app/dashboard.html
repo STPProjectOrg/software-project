@@ -1,100 +1,84 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+{% load dashboard_tags %}
+{% block title %}
+    | Dashboard
+{% endblock title %}
 {% block content %}
-    <h1>THIS IS THE DASHBOARD</h1>
-    <div>
-        <h2>
-            {{request.user.username}} 
-        </h2>
-    </div>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Submit</button>
-    </form>
-    
-    <h3>{{ message }}</h3>
-
-
-
-    <div style="width:50%;display: flex">
-        <canvas id="myChart" ></canvas>
-        {{ crypto|json_script:'crypto' }}
-        {{ value|json_script:'value' }}
-        {{ assetList|json_script:'assetList' }}
-        {{ values|json_script:'valueList' }}
-        {{ months|json_script:'months' }}
-        {{ dateValues|json_script:'dateValues' }}
-        <div style="width:50%;">
-          <canvas id="myChart2" ></canvas>
-          <canvas id="myChart3" ></canvas>
+    <div class="row bg-body-tertiary mx-n4 mt-n4 p-4">
+        <div class="col col-auto">
+            <canvas id="pieChart"></canvas>
         </div>
-      </div>
-
-    
-      </form>
-      <h3>{{ message }}</h3>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-      const ctx = document.getElementById('myChart');
-      const ctx2 = document.getElementById('myChart2');
-      const ctx3 = document.getElementById('myChart3');
-      var dataValues = JSON.parse(document.getElementById('value').textContent);
-      var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
-      var assetList = JSON.parse(document.getElementById('assetList').textContent);
-      var valueList = JSON.parse(document.getElementById('valueList').textContent);
-      var months = JSON.parse(document.getElementById('months').textContent);
-      var dateValues = JSON.parse(document.getElementById('dateValues').textContent);
-
-
-      console.log(assetList)
-      console.log(valueList)
-      const labels = months
-        const data = {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Portfoliowert',
-                            data: dateValues,
-                            fill: false,
-                            borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1
-                        }]
-                        };
-                        const config = {
-                  type: 'line',
-                  data: data,
-                };
-        new Chart(ctx, {
-          type: 'line',
-          data: data,
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
-        });
-
-          const data2 = {
-            labels: assetList,
-            datasets: [{
-              label: 'My First Dataset',
-              data: valueList,
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
-              ],
-              hoverOffset: 4
-            }]
-          };
-
-        new Chart(ctx3, {
-          type: 'pie',
-          data: data2,
-        })
-    </script>
-
-    {% endblock content %}
+        <div class="col">
+            <div>[User]-Portfolio</div>
+            <div>Key Values</div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">Kursverlauf</div>
+                <div class="card-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div id="range_selection"
+                             class="btn-group w-100 overflow-auto"
+                             role="group">
+                            <button type="submit"
+                                    name="complete"
+                                    class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Gesamt</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                            <button type="submit" name="year" class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Jahr</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                            <button type="submit"
+                                    name="sixmonths"
+                                    class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">6 Monate</div>
+                                <div class="fs-4 text-success-emphasis">+19,42%</div>
+                            </button>
+                            <button type="submit" name="month" class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Monat</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                            <button type="submit" name="week" class="btn btn-secondary border text-body">
+                                <div class="fw-semibold">Woche</div>
+                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-4" style="height:40vh">
+                        <canvas id="lineChart" style="height:40vh"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">KPI</div>
+                <div class="card-body">KPI</div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">Assets</div>
+                <div class="card-body">Assets</div>
+            </div>
+        </div>
+    </div>
+    {# Chart selection #}
+    {{ assetList|json_script:'assetList' }}
+    {{ values|json_script:'valueList' }}
+    {{ interval|json_script:'interval' }}
+    {{ dateValues|json_script:'dateValues' }}
+    {# Charts JS-Script #}
+    {% include_chart %}
+    {% line_chart "Wert" %}
+    {% pie_chart %}
+{% endblock content %}

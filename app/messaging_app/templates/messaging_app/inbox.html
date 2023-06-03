@@ -1,27 +1,106 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+{% block title %}
+    | Nachrichten
+{% endblock title %}
 {% block content %}
-    <h1>Inbox</h1>
-    <h2>Chats:</h2>
-
-    <div class="container mt-5">
-        <div class="d-flex justify-content-center row">
-            <div class="col-md-5">
-                <div class="p-3 text-center">
-                    {% for participant in participants %}
-                    <div class="d-flex flex-row justify-content-between align-items-center mt-3">
-                        <div class="d-flex flex-row align-items-center">
-                            <a href="{% url 'messaging_app:chat' participant.participant.username %}">
-                            <img class="rounded-circle" src="{{participant.participant_pic}}" width="55">
-                            <div class="d-flex flex-column align-items-start ml-3">
-                                <p>{{ participant.participant.username }}</p>
-                            </div>
-                            </a>
+    <div class="row h-100">
+        <div class="d-grid col-auto col-lg-4 col-xxl-3 gap-2 mb-auto overflow-auto">
+            {% for entry in participants %}
+                <a class="d-flex gap-2 p-2 rounded border {% if chatOpen and participant.id == entry.participant.id %} chat-user-entry-selected {% else %} chat-user-entry {% endif %}"
+                   href="{% url 'messaging_app:inbox_chat' entry.participant.username %}">
+                    <div class="my-auto mx-auto mx-md-0" id="profile_image">
+                        <div class="d-md-none text-white d-flex gap-2">
+                            <small>{{ entry.participant.first_name }} {{ entry.participant.last_name }}</small>
+                            {% if entry.unread_messages > 0 %}
+                                {# If Bedinung ändern #}
+                                <div class="ms-auto d-md-none">
+                                    <span class="badge chat-badge">{{ entry.last_message_sent_at }}</span> {# Nachrichten Anzahl einfügen #}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex">
+                            <img class="logo-fs-3 m-auto my-md-auto" src="{{ entry.participant_pic }}">
                         </div>
                     </div>
-                    {% endfor %}
+                    <div class="d-none d-md-block" id="user_info">
+                        <div class="fw-semibold text-white">{{ entry.participant.first_name }} {{ entry.participant.last_name }}</div>
+                        <small>{{ entry.last_message }}</small> {# Lezter Nachrichten-Text #}
+                    </div>
+                    <div class="ms-auto d-none flex-column d-md-flex"id="message_info">
+                        <div>
+                            <small>{{ entry.last_message_sent_at }}</small> {# Zeitstempel letzte Nachricht #}
+                        </div>
+                        {% if entry.unread_messages > 0 %}
+                            {# If Bedinung ändern #}
+                            <div class="ms-auto ">
+                                <span class="badge chat-badge">{{ entry.unread_messages }}</span> {# Nachrichten Anzahl einfügen #}
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        {% if chatOpen %}
+            <div class="col flex-1 h-100">
+                <div class="card h-100 mh-100">
+                    <div class="card-header d-flex">
+                        <div class="text-decoration-none text-start p-0 d-flex gap-2">
+                            <div class="my-auto">
+                                {% if participant.userprofileinfo.profile_pic %}
+                                    <img class="logo-fs-3"
+                                         src="{{ participant.userprofileinfo.profile_pic.url }}">
+                                {% else %}
+                                    <img class="logo-fs-3"
+                                         src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                                {% endif %}
+                            </div>
+                            <div>
+                                <div>
+                                    <small class="text-body">u/{{ participant.username }}</small>
+                                </div>
+                                <div class="text-white fw-semibold fs-5">{{ participant.first_name }} {{ participant.last_name }}</div>
+                            </div>
+                        </div>
+                        <a class="ms-auto my-auto btn btn-outline-primary p-2 fs-5"
+                           href="{% url 'user_app:profile' participant.username %}"><i class="bi bi-person-fill"></i></a>
+                    </div>
+                    <div class="card-body d-flex gap-3 overflow-auto h-0 flex-column-reverse">
+                        {% for message in messages %}
+                            {% if message.from_user_id == user.id %}
+                                <div class="d-flex flex-column mw-75 ms-auto">
+                                    <div class="card bg-body-tertiary  ms-auto">
+                                        <div class="card-body py-2 ">{{ message.message }}</div>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <small>{{ message.created_at }}</small>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="d-flex flex-column mw-75 me-auto">
+                                    <div class="card me-auto">
+                                        <div class="card-body py-2">{{ message.message }}</div>
+                                    </div>
+                                    <div class="me-auto">
+                                        <small>{{ message.created_at }}</small>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <form class="my-2 d-flex flex-column gap-2" method="post">
+                            {% csrf_token %}
+                            {{ form.message }}
+                            <button class="btn btn-outline-primary d-flex gap-2 ms-auto" type="submit">
+                                <div>Senden</div>
+                                <div class="my-auto">
+                                    <i class="bi bi-send-fill"></i>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
-
 {% endblock content %}
