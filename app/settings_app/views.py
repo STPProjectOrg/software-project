@@ -5,7 +5,7 @@ This file contains all views for the settings app.
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from user_app.models import CustomUser
+from app.user_app.models import CustomUser
 from .models import Settings
 from .forms import NotificationSettingsForm, UserSettingsForm
 
