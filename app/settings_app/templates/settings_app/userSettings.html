@@ -1,19 +1,18 @@
-{% extends 'core/base.html' %} {% block content %}
-<h1 class="text-center mb-1">Profileinstellungen</h1>
-<div class="card">
-  <div class="card-body">
-    <form method="POST" class="pt-2 pb-2 ps-5 pe-5">
-      <div class="d-flex flex-column gap-2">
-        {% csrf_token %}
-        {{form.as_p}}
-        <div class="d-flex justify-content-end gap-3">
-          <button type="submit" class="btn btn-success">
-            Speichern
-          </button>
-          <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">Zurück</a>
+{% extends "core/base.html" %}
+{% block content %}
+    <h1 class="text-center mb-1">Profileinstellungen</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post" class="pt-2 pb-2 ps-5 pe-5">
+                <div class="d-flex flex-column gap-2">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-end gap-3">
+                        <button type="submit" class="btn btn-success">Speichern</button>
+                        <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">Zurück</a>
+                    </div>
+                </div>
+            </form>
         </div>
-      </div>
-    </form>
-  </div>
-</div>
+    </div>
 {% endblock content %}

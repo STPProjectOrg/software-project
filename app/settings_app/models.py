@@ -1,3 +1,7 @@
+""" 
+This file contains the models for the settings_app. 
+"""
+
 from django.db import models
 
 from user_app.models import CustomUser
@@ -7,6 +11,10 @@ from user_app.models import CustomUser
 
 
 class Settings(models.Model):
+    """
+    This class represents the settings model.
+    """
+
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     # Portfoliosettings field's
