@@ -1,24 +1,33 @@
+
+"""
+This file contains all views for the settings app.
+"""
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import notificationSettingsForm, userSettingsForm
-from user_app.models import CustomUser, UserProfileInfo
+from user_app.models import CustomUser
 from .models import Settings
-from django.contrib import messages
-# Create your views here.
+from .forms import NotificationSettingsForm, UserSettingsForm
 
 
 @login_required
 def settings(request):
+    """
+    Renders the settings overview page.
+    """
     return render(request, 'settings_app/settingsOverview.html')
 
 
 @login_required
-def userSettings(request):
+def user_settings(request):
+    """
+    Renders the user settings page.
+    """
     user = CustomUser.objects.get(id=request.user.id)
-    form = userSettingsForm(instance=user)
+    form = UserSettingsForm(instance=user)
 
     if request.method == "POST":
-        form = userSettingsForm(request.POST, instance=user)
+        form = UserSettingsForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
@@ -26,12 +35,18 @@ def userSettings(request):
 
 
 @login_required
-def securitySettings(request):
+def security_settings(request):
+    """
+    Renders the security settings page.
+    """
     return render(request, 'settings_app/securitySettings.html')
 
 
 @login_required
-def portfolioSettings(request):
+def portfolio_settings(request):
+    """
+    Renders the portfolio settings page.
+    """
     if request.method == "POST":
         setting = Settings.objects.get_or_create(user=request.user)
 
@@ -45,9 +60,12 @@ def portfolioSettings(request):
 
 
 @login_required
-def notificationSettings(request):
+def notification_settings(request):
+    """
+    Renders the notification settings page.
+    """
     setting = Settings.objects.get_or_create(user=request.user)[0]
-    form = notificationSettingsForm(
+    form = NotificationSettingsForm(
         initial={
             'hasAssetAmountChanged': setting.hasAssetAmountChanged,
             'hasNewFollower': setting.hasNewFollower,
@@ -58,7 +76,7 @@ def notificationSettings(request):
         })
 
     if request.method == "POST":
-        form = notificationSettingsForm(request.POST)
+        form = NotificationSettingsForm(request.POST)
         if form.is_valid():
             setting.hasAssetAmountChanged = form.cleaned_data["hasAssetAmountChanged"]
             setting.hasNewFollower = form.cleaned_data["hasNewFollower"]
@@ -73,5 +91,8 @@ def notificationSettings(request):
 
 
 @login_required
-def viewSettings(request):
+def view_settings(request):
+    """
+    Renders the view settings page.
+    """
     return render(request, 'settings_app/viewSettings.html')
