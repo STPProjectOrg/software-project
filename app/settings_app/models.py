@@ -4,7 +4,7 @@ This file contains the models for the settings_app.
 
 from django.db import models
 
-from app.user_app.models import CustomUser
+from user_app.models import CustomUser
 
 
 # Create your models here.

@@ -3,7 +3,8 @@
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from community_app.models import Comment, Post,CommentLike
+from notification_app.views import create_notification
+from community_app.models import Comment, Post, CommentLike
 
 
 def create(request, post_id):
@@ -20,6 +21,9 @@ def create(request, post_id):
         content=request.POST.get("post_comment"),
         created_at=datetime.now()
     )
+
+    create_notification(request, "comment",
+                        "%s commented on your post.") % request.user.username
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -52,6 +56,6 @@ def like_comment(request, comment_id):
     # Else create new entry
     except ObjectDoesNotExist:
         CommentLike.objects.create(user=request.user,
-                                comment=Comment.objects.get(id=comment_id))
+                                   comment=Comment.objects.get(id=comment_id))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

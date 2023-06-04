@@ -4,7 +4,7 @@ This file contains all forms for the settings_app.
 
 from django import forms
 
-from app.user_app.models import CustomUser
+from user_app.models import CustomUser
 from .models import Settings
 
 # TODO: Template String für Internationalisierung der Dropdown Texte
