@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'dashboard_app',
     'settings_app',
     'community_app',
-    'messaging_app'
+    'messaging_app',
+    'notification_app'
 ]
 
 MIDDLEWARE = [
@@ -159,7 +160,7 @@ LOGOUT_REDIRECT_URL = '/landing'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#SMTP Configuration
+# SMTP Configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.web.de'
 EMAIL_PORT = 587
