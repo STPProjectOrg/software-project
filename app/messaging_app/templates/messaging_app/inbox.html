@@ -70,6 +70,9 @@
                                 <div class="d-flex flex-column mw-75 ms-auto">
                                     <div class="card bg-body-tertiary  ms-auto">
                                         <div class="card-body py-2 ">{{ message.message }}</div>
+                                        {% if message.image != "" %}
+                                        <div><img src="{{ message.image.url }}" style="width:200px;"/></div>
+                                        {% endif %}
                                     </div>
                                     <div class="ms-auto">
                                         <small>{{ message.created_at }}</small>
@@ -79,6 +82,9 @@
                                 <div class="d-flex flex-column mw-75 me-auto">
                                     <div class="card me-auto">
                                         <div class="card-body py-2">{{ message.message }}</div>
+                                        {% if message.image != "" %}
+                                        <div><img src="{{ message.image.url }}" style="width:200px;"/></div>
+                                        {% endif %}
                                     </div>
                                     <div class="me-auto">
                                         <small>{{ message.created_at }}</small>
@@ -88,9 +94,10 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer">
-                        <form class="my-2 d-flex flex-column gap-2" method="post">
+                        <form class="my-2 d-flex flex-column gap-2" method="post" enctype='multipart/form-data'>
                             {% csrf_token %}
                             {{ form.message }}
+                            {{ form.image }}
                             <button class="btn btn-outline-primary d-flex gap-2 ms-auto" type="submit">
                                 <div>Senden</div>
                                 <div class="my-auto">
