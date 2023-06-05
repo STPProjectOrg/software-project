@@ -32,24 +32,24 @@ def inbox_chat(request, participant_req):
     # Chat
     form = AddMessageForm()
     if request.method == 'POST':
-        form = AddMessageForm(request.POST)
+        form = AddMessageForm(request.POST, request.FILES)
         if form.is_valid():
             d = form.cleaned_data
             message = d.get("message")
             update_inbox_participant(user, chat_participant, message)
             update_inbox_participant(chat_participant, user, message)
-
             Message.objects.create(
                 from_user=user,
                 to_user=chat_participant,
                 message=message,
                 message_read = False,
-                created_at=datetime.now()
+                created_at=datetime.now(),
+                image = d.get("image")
             )
     messages = []
     for mes in get_chat_messages(user, chat_participant):
-        if mes["message_read"] == False:
-             Message.objects.filter(id=mes["id"], from_user=chat_participant).update(message_read = True)
+        if mes.message_read == False:
+            Message.objects.filter(id=mes.id, from_user=chat_participant).update(message_read = True)
         messages.insert(0, mes)
 
     data = {"chatOpen": True, "user": user, "participants": participants,
@@ -78,7 +78,7 @@ def get_chat_messages(user, chat_participant):
     chat_messages_participant = Message.objects.filter(
         from_user=chat_participant, to_user=user)
     chat_messages = (chat_messages_user_logged_in |
-                     chat_messages_participant).order_by('created_at').values()
+                     chat_messages_participant).order_by('created_at')
     return chat_messages
 
 def update_inbox_participant(user, chat_participant, message):
@@ -103,11 +103,12 @@ def update_inbox_participant(user, chat_participant, message):
                 )
 
 def define_created_at(datetime: datetime):
-        created_at = datetime
-        if created_at.date() == datetime.today():
+        if datetime != None:
             created_at = datetime
-        elif (date.today() - created_at.date()).days >= 2 :
-            created_at = datetime.date()
-        elif (date.today() - created_at.date()).days >= 1 :
-            created_at = "Gestern"
-        return created_at
+            if created_at.date() == datetime.today():
+                created_at = datetime
+            elif (date.today() - created_at.date()).days >= 2 :
+                created_at = datetime.date()
+            elif (date.today() - created_at.date()).days >= 1 :
+                created_at = "Gestern"
+            return created_at

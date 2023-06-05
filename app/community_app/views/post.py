@@ -12,7 +12,6 @@ def create(request):
     """ Create a new 'Post' from PostForm(). """
 
     form = PostForm(request.POST, request.FILES)
-    print(form.is_valid())
     if form.is_valid():
         form_data = form.cleaned_data
         Post.objects.create(

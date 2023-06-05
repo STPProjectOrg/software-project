@@ -18,7 +18,7 @@ def community(request, feed):
 
     form = PostForm()
     posts = post.get_by_feed(feed, user_id=request.user.id)
-
+    
     data = {
         'form': form,
         'posts': posts

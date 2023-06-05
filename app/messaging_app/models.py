@@ -21,3 +21,7 @@ class Message(models.Model):
     message = models.CharField(max_length=1000)
     message_read = models.BooleanField()
     created_at = models.DateTimeField()
+    image = models.ImageField(upload_to='message_images/', blank=True)
+
+    def __str__(self):
+        return self.from_user
