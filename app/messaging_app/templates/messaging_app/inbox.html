@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load messaging_tags %}
 {% block title %}
     | Nachrichten
 {% endblock title %}
@@ -71,7 +72,13 @@
                                     <div class="card bg-body-tertiary  ms-auto">
                                         <div class="card-body py-2 ">{{ message.message }}</div>
                                         {% if message.image != "" %}
-                                        <div><img src="{{ message.image.url }}" style="width:200px;"/></div>
+                                        <button class="btn btn-outline-primary ms-auto"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullImageModal">
+                                        <img src="{{ message.image.url }}" style="width:200px;"/>
+                                        </button>
+                                        {% full_image_modal message %}
                                         {% endif %}
                                     </div>
                                     <div class="ms-auto">
@@ -83,7 +90,13 @@
                                     <div class="card me-auto">
                                         <div class="card-body py-2">{{ message.message }}</div>
                                         {% if message.image != "" %}
-                                        <div><img src="{{ message.image.url }}" style="width:200px;"/></div>
+                                        <button class="btn btn-outline-primary ms-auto"
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullImageModal">
+                                        <img src="{{ message.image.url }}" style="width:200px;"/>
+                                        </button>
+                                        {% full_image_modal message.message %}
                                         {% endif %}
                                     </div>
                                     <div class="me-auto">
