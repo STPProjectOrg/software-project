@@ -1,3 +1,4 @@
+import os
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -6,6 +7,8 @@ from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginF
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
+from PIL import Image
+from django.conf import settings
 
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -90,7 +93,7 @@ def profile(request, username):
         "following_user_id", flat=True)
     is_user_profile = request.user.username == profile_user.username
     is_user_following = profile_user.userprofileinfo.id in user_following_list
-    profile_picture_url = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    profile_picture_url = profile_user.userprofileinfo.profile_pic.url # if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
     print(profile_picture_url)
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
@@ -150,6 +153,33 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('user_app:profile_redirect')
+
+
+@login_required
+def update_profile_pic(request, pk):
+    image = request.FILES['profile_pic']
+    user_profile = get_object_or_404(UserProfileInfo, id=pk)
+
+    if image:
+        if user_profile.profile_pic.url == UserProfileInfo.default_image_absolute_url():
+            # default_profile = Image.open(settings.DEFAULT_IMAGE_ROOT)
+            default_profile = Image.open(user_profile.profile_pic.path)
+            old_default_profile_path = os.path.join(settings.DEFAULT_IMAGE_ROOT, 'default_profile2.png')
+            default_profile.save(old_default_profile_path, "PNG")
+            default_profile.close()
+            
+            user_profile.profile_pic = image
+        else:
+            user_profile.profile_pic.delete()
+            user_profile.profile_pic = image
+    else:
+        user_profile.profile_pic = UserProfileInfo.default_image_url()
+
+    user_profile.save()
+    user_profile.refresh_from_db()
+    os.rename(os.path.join(settings.DEFAULT_IMAGE_ROOT, 'default_profile2.png'), os.path.join(settings.DEFAULT_IMAGE_ROOT, 'default_profile.png'))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required

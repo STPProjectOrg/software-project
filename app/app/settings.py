@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'settings_app',
     'community_app',
     'messaging_app',
-    'notification_app'
+    'notification_app',
+    'imagekit'
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,8 @@ STATICFILES_DIRS = [
 # Media files (profile-pics)
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
+DEFAULT_IMAGE_URL = 'static/default_profile.png'
+DEFAULT_IMAGE_ROOT = MEDIA_ROOT / "static"
 
 # Login URL
 LOGIN_URL = '/auth/login'
