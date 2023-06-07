@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from user_app.models import CustomUser, UserProfileInfo, UserFollowing
 from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from PIL import Image
 from django.conf import settings
@@ -93,8 +93,7 @@ def profile(request, username):
         "following_user_id", flat=True)
     is_user_profile = request.user.username == profile_user.username
     is_user_following = profile_user.userprofileinfo.id in user_following_list
-    profile_picture_url = profile_user.userprofileinfo.profile_pic.url # if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-    print(profile_picture_url)
+
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
         following__following_user_id=profile_user.id).select_related("userprofileinfo")
@@ -104,7 +103,6 @@ def profile(request, username):
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
                    'user_profile_id': profile_user.userprofileinfo.id,
-                   "picture_url": profile_picture_url,  # TODO: Delete
                    "is_user_profile": is_user_profile,
                    "is_user_following": is_user_following,
                    "profile_followers_list": profile_followers_list,
@@ -133,17 +131,8 @@ def getUser(id):
     user = CustomUser.objects.get(id=id)
     return user
 
-@login_required    
-def delete_profile_pic(request, pk):
-    user_profile = get_object_or_404(UserProfileInfo, pk=pk)
-    
-    if pk == request.user.userprofileinfo.id:
-        # user_profile.profile_pic.delete()
-        user_profile.delete_profile_pic()
 
-    return redirect(reverse('user_app:profile_redirect'))
-
-class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
+class ProfilePicUpdateView(LoginRequiredMixin, UpdateView):
     model = UserProfileInfo
     fields = ['profile_pic']
 
@@ -155,31 +144,15 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('user_app:profile_redirect')
 
 
-@login_required
-def update_profile_pic(request, pk):
-    image = request.FILES['profile_pic']
-    user_profile = get_object_or_404(UserProfileInfo, id=pk)
+@login_required    
+def delete_profile_pic(request, pk):
+    user_profile = get_object_or_404(UserProfileInfo, pk=pk)
+    
+    if pk == request.user.userprofileinfo.id:
+        user_profile.profile_pic.delete()
+        # user_profile.delete_profile_pic()
 
-    if image:
-        if user_profile.profile_pic.url == UserProfileInfo.default_image_absolute_url():
-            # default_profile = Image.open(settings.DEFAULT_IMAGE_ROOT)
-            default_profile = Image.open(user_profile.profile_pic.path)
-            old_default_profile_path = os.path.join(settings.DEFAULT_IMAGE_ROOT, 'default_profile2.png')
-            default_profile.save(old_default_profile_path, "PNG")
-            default_profile.close()
-            
-            user_profile.profile_pic = image
-        else:
-            user_profile.profile_pic.delete()
-            user_profile.profile_pic = image
-    else:
-        user_profile.profile_pic = UserProfileInfo.default_image_url()
-
-    user_profile.save()
-    user_profile.refresh_from_db()
-    os.rename(os.path.join(settings.DEFAULT_IMAGE_ROOT, 'default_profile2.png'), os.path.join(settings.DEFAULT_IMAGE_ROOT, 'default_profile.png'))
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect(reverse('user_app:profile_redirect'))
 
 
 @login_required
@@ -188,10 +161,9 @@ def follower_list(request, username):
     follower_list = []
     for follower in UserFollowing.objects.filter(following_user_id=profile_user.id):
         follower_user = CustomUser.objects.get(id=follower.follower_user_id)
-        user_picture = profile_user.userprofileinfo.profile_pic.url if profile_user.userprofileinfo.profile_pic else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
         is_following = UserFollowing.objects.filter(
             following_user_id=follower.follower_user.id).filter(follower_user_id=request.user.id).exists()
-        followerData = {"username": follower_user.username, "user_picture": user_picture,
+        followerData = {"username": follower_user.username, "user_picture": profile_user.userprofileinfo.get_profile_pic(),
                         "is_following": is_following, "followers": follower_user.followers.count()}
         follower_list.append(followerData)
     data = {"follower": follower_list}

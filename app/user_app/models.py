@@ -3,7 +3,6 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
-from imagekit.models import ProcessedImageField
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -31,24 +30,13 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # additional attributes for user
-    # profile_pic = models.ImageField(upload_to='profile_pics',blank=True,default='static/default_profile.png')
-    profile_pic = ProcessedImageField(
-        default = settings.DEFAULT_IMAGE_URL,
-        upload_to = 'profile_pics',
-        blank = True,
-        null = True
-    )
+    profile_pic = models.ImageField(upload_to='profile_pics',blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
     
-    @staticmethod
-    def default_image_absolute_url():
-        return settings.MEDIA_URL + settings.DEFAULT_IMAGE_URL
-    
-    @staticmethod
-    def default_image_url():
-        return settings.DEFAULT_IMAGE_URL
+    def get_profile_pic(self):
+        return self.profile_pic.url if self.profile_pic else settings.DEFAULT_IMAGE_URL
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -67,8 +55,3 @@ class UserProfileInfo(models.Model):
         if self.profile_pic:
             os.remove(self.profile_pic.path)
         super(UserProfileInfo, self).delete(*args, **kwargs)
-
-    def delete_profile_pic(self):
-        if self.profile_pic and os.path.basename(self.profile_pic.name) != 'default_profile.png':
-            self.profile_pic = 'static/default_profile.png'
-            self.save()

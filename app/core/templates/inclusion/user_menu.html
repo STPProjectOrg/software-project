@@ -19,14 +19,8 @@
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
-                {# TODO: If entfernen, sobald Profilbild immer #}
-                {% if request.user.userprofileinfo.profile_pic %}
-                    <img class="logo-fs-3"
-                         src="{{ request.user.userprofileinfo.profile_pic.url }}">
-                {% else %}
-                    <img class="logo-fs-3"
-                         src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                {% endif %}
+                <img class="logo-fs-3"
+                     src="{{ request.user.userprofileinfo.get_profile_pic }}">
             </button>
             <ul class="dropdown-menu">
                 <li class="text-center">

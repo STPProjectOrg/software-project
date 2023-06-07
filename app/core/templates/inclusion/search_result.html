@@ -11,7 +11,7 @@
         <td class="col-3">
             <div class="d-flex align-items-center">
                 {% comment "" %} <img src="{{user|}}" class="rounded-circle border border-dark border-5" alt="Avatar" style="width: 45px; height: 45px"> {% endcomment %}
-                <img {% if user.userprofileinfo.profile_pic %} src="{{ user.userprofileinfo.profile_pic.url }}" {% else %} src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" {% endif %}
+                <img src="{{ user.userprofileinfo.get_profile_pic }}"
                      class="rounded-circle border border-dark border-5"
                      alt="Avatar"
                      style="width: 45px;

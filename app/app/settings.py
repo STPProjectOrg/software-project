@@ -137,18 +137,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "core/static",
+    BASE_DIR / "user_app/static"
 ]
-
+DEFAULT_IMAGE_URL = STATIC_URL + 'default_profile.png'
 
 # Media files (profile-pics)
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
-DEFAULT_IMAGE_URL = 'static/default_profile.png'
-DEFAULT_IMAGE_ROOT = MEDIA_ROOT / "static"
 
 # Login URL
 LOGIN_URL = '/auth/login'
