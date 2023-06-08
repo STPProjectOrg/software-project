@@ -22,12 +22,7 @@
                                 <a class="btn btn-link text-start p-0 d-flex gap-2"
                                    href="{% url 'user_app:profile' user.username %}">
                                     <div class="my-auto">
-                                        {% if user.userprofileinfo.profile_pic %}
-                                            <img class="logo-fs-3" src="{{ user.userprofileinfo.profile_pic.url }}">
-                                        {% else %}
-                                            <img class="logo-fs-3"
-                                                 src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                                        {% endif %}
+                                        <img class="logo-fs-3" src="{{ user.userprofileinfo.get_profile_pic }}">
                                     </div>
                                     <div>
                                         <div>
