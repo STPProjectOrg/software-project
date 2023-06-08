@@ -75,7 +75,7 @@
                                         <button class="btn btn-outline-primary ms-auto"
                                         type="button"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#fullImageModal">
+                                        data-bs-target="#fullImageModal{{message.id}}">
                                         <img src="{{ message.image.url }}" style="width:200px;"/>
                                         </button>
                                         {% full_image_modal message %}
@@ -93,7 +93,7 @@
                                         <button class="btn btn-outline-primary ms-auto"
                                         type="button"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#fullImageModal">
+                                        data-bs-target="#fullImageModal{{message.id}}">
                                         <img src="{{ message.image.url }}" style="width:200px;"/>
                                         </button>
                                         {% full_image_modal message.message %}
