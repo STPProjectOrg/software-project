@@ -8,6 +8,10 @@ class Transaction(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     purchaseDate = models.DateField()
     amount = models.FloatField()
+    price = models.FloatField()
+    tax = models.FloatField()
+    charge = models.FloatField()
+    cost = models.FloatField()
 
     def __str__(self):
         return self.asset

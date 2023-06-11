@@ -12,7 +12,7 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <form action="{% url "dashboard_app:transaction_buy" %}" method="post">
+            <form action="{% url "dashboard_app:transaction_buy" coinInfo.Symbol %}" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="modal-footer pb-0">

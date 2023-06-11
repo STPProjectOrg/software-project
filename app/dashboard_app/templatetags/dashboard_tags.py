@@ -25,7 +25,7 @@ def include_chart():
 
 
 @register.inclusion_tag("dashboard_app/modals/transaction_buy_modal.html")
-def transaction_buy_modal(user, coin):
+def transaction_buy_modal(user, coinInfo):
     """ Include a modal for creating a buy-transaction. """
 
-    return {"user": user, "coin": coin, "form": TransactionBuyForm()}
+    return {"user": user, "coinInfo": coinInfo, "form": TransactionBuyForm()}

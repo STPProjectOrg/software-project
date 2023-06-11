@@ -9,5 +9,5 @@ urlpatterns = [
     path('asset/<str:coin>', main.asset),
 
     # Transaction
-    path("transaction/buy", transaction.buy, name="transaction_buy")
+    path("transaction/buy/<str:coin>", transaction.buy, name="transaction_buy")
 ]

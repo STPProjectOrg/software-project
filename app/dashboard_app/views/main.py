@@ -43,7 +43,7 @@ def dashboard(request):
                             request.user, todaysDate - relativedelta(years=1), relativedelta(days=1))
                     else:
                         chartData = getDataForLine(
-                            request.user, date.min, relativedelta(months=1))
+                            request.user, date.min, relativedelta(days=1))
 
     pieData = getDataForPie(request.user)
     data = {**{'form': form, 'message': message}, **pieData, **chartData}
@@ -94,18 +94,54 @@ def getDataForLine(user, dateFrom, timeInterval):
         beginning = sortedTransactions.first().purchaseDate
         interval = getInterval(beginning, today, timeInterval)
         dateValues = list()
+        buttonLabelDates = [
+            checkForPredates(beginning, today - relativedelta(years=1)),
+            checkForPredates(beginning, today - relativedelta(months=6)),
+            checkForPredates(beginning, today - relativedelta(months=1)),
+            checkForPredates(beginning, today - relativedelta(weeks=1))
+        ]
+        buttonLabelValues = list()
         for IterDate in interval:
             dateVal = 0
             for thisAsset in sortedTransactions:
                 if thisAsset.purchaseDate <= IterDate:
                     dateVal += thisAsset.amount * \
                         float(getAssetValue(thisAsset.asset, IterDate))
+            print(IterDate)      
+            if IterDate == beginning or IterDate in buttonLabelDates:
+                print(IterDate)
+                buttonLabelValues.append(dateVal)
+                if IterDate == beginning and IterDate in buttonLabelDates:
+                    count = buttonLabelDates.count(beginning)
+                    for i in range (count):
+                        buttonLabelValues.append(dateVal)
+                
             if IterDate >= dateFrom:
                 dateValues.append(dateVal)
+
+        newButtonLabels = list()
+        todaysVal = dateValues[-1]
+        for labelVal in buttonLabelValues:
+            label = round((todaysVal - labelVal)/labelVal*100, 2)
+            if label >= 0:
+                newButtonLabels.append(("+" + str(label) + "%"))
+            else:
+                newButtonLabels.append((str(label) + "%"))
+                
         rightInterval = list(filter(lambda inter: inter >= dateFrom, interval))
-        data = {'interval': rightInterval, 'dateValues': dateValues}
+        data = {'interval': rightInterval, 'dateValues': dateValues, 'buttonValues': newButtonLabels}
         return data
 
+def createButtonVal(buttonLabelDates, buttonLabelValues, beginning):
+    for buttonLabelDate in buttonLabelDates:
+        if buttonLabelDate == beginning:
+            buttonLabelValues
+
+def checkForPredates(beginning, checkDate):
+    if checkDate < beginning:
+        return beginning
+    else:
+        return checkDate
 
 def getInterval(beginning, today, interval):
     weeksList = list()

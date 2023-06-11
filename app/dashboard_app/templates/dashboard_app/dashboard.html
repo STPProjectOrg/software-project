@@ -27,25 +27,25 @@
                                     name="complete"
                                     class="btn btn-secondary border text-body">
                                 <div class="fw-semibold">Gesamt</div>
-                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                                <div class="fs-4 text-danger-emphasis" id="whole">-37,22%</div>
                             </button>
                             <button type="submit" name="year" class="btn btn-secondary border text-body">
                                 <div class="fw-semibold">Jahr</div>
-                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                                <div class="fs-4 text-danger-emphasis" id="year">-37,22%</div>
                             </button>
                             <button type="submit"
                                     name="sixmonths"
                                     class="btn btn-secondary border text-body">
                                 <div class="fw-semibold">6 Monate</div>
-                                <div class="fs-4 text-success-emphasis">+19,42%</div>
+                                <div class="fs-4 text-success-emphasis" id="sixmonths">+19,42%</div>
                             </button>
                             <button type="submit" name="month" class="btn btn-secondary border text-body">
                                 <div class="fw-semibold">Monat</div>
-                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                                <div class="fs-4 text-danger-emphasis" id="month">-37,22%</div>
                             </button>
                             <button type="submit" name="week" class="btn btn-secondary border text-body">
                                 <div class="fw-semibold">Woche</div>
-                                <div class="fs-4 text-danger-emphasis">-37,22%</div>
+                                <div class="fs-4 text-danger-emphasis" id="week">-37,22%</div>
                             </button>
                         </div>
                     </form>
@@ -77,6 +77,7 @@
     {{ values|json_script:'valueList' }}
     {{ interval|json_script:'interval' }}
     {{ dateValues|json_script:'dateValues' }}
+    {{ buttonValues|json_script:'buttonValues' }}
     {# Charts JS-Script #}
     {% include_chart %}
     {% line_chart "Wert" %}
