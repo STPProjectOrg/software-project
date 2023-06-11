@@ -12,7 +12,7 @@
                  alt="Card image cap" />
             <div class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0">
                 <div class="h-75 mb-n4" style="z-index: 1000; position: relative">
-                    <img src="{{ picture_url }}"
+                    <img src="{{ profile_user.userprofileinfo.get_profile_pic }}"
                          class="rounded-circle h-100 border border-dark border-5"
                          alt="Avatar" />
                     {% if is_user_profile %}

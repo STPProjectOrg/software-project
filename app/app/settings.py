@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'settings_app',
     'community_app',
     'messaging_app',
-    'notification_app'
+    'notification_app',
+    'imagekit'
 ]
 
 MIDDLEWARE = [
@@ -136,12 +137,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "core/static",
+    BASE_DIR / "user_app/static"
 ]
-
+DEFAULT_IMAGE_URL = STATIC_URL + 'default_profile.png'
 
 # Media files (profile-pics)
 MEDIA_ROOT = BASE_DIR / "media"
