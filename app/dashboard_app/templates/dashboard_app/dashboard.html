@@ -60,7 +60,16 @@
         <div class="col">
             <div class="card">
                 <div class="card-header fs-3 fw-semibold text-white">KPI</div>
-                <div class="card-body">KPI</div>
+                <div class="card-body">
+                    <p id="totalWorth"></p>
+                    <p id="paid"></p>
+                    <p id="invested"></p>
+                    <p id="tax"></p>
+                    <p id="charges"></p>
+                    <p id="gains"></p>
+                    <p id="profit"></p>
+
+                </div>
             </div>
         </div>
     </div>
@@ -68,13 +77,20 @@
         <div class="col">
             <div class="card">
                 <div class="card-header fs-3 fw-semibold text-white">Assets</div>
-                <div class="card-body">Assets</div>
+                <div class="card-body" id="assetsList">
+                </div>
             </div>
         </div>
     </div>
     {# Chart selection #}
     {{ assetList|json_script:'assetList' }}
     {{ values|json_script:'valueList' }}
+    {{ assetValues|json_script:'assetValues' }}
+    {{ amounts|json_script:'amounts' }}
+    {{ totalValue|json_script:'totalValue' }}
+    {{ investedVal|json_script:'investedVal' }}
+    {{ taxVal|json_script:'taxVal' }}
+    {{ chargesVal|json_script:'chargesVal' }}
     {{ interval|json_script:'interval' }}
     {{ dateValues|json_script:'dateValues' }}
     {{ buttonValues|json_script:'buttonValues' }}
@@ -82,4 +98,6 @@
     {% include_chart %}
     {% line_chart "Wert" %}
     {% pie_chart %}
+    {% include_kpi %}
+    {% include_assets %}
 {% endblock content %}

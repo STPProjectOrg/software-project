@@ -46,7 +46,8 @@ def dashboard(request):
                             request.user, date.min, relativedelta(days=1))
 
     pieData = getDataForPie(request.user)
-    data = {**{'form': form, 'message': message}, **pieData, **chartData}
+    investedData = getKPIValues(request.user)
+    data = {**{'form': form, 'message': message}, **pieData, **chartData, **investedData}
     return render(request, 'dashboard_app/dashboard.html', data)
 
 
@@ -54,6 +55,17 @@ def getAllUserAssets(user):
     allAssets = Transaction.objects.filter(user=user.id)
     return allAssets
 
+def getKPIValues(user):
+    assets = getAllUserAssets(user)
+    investedVal = 0
+    chargesVal = 0
+    taxVal = 0
+    for asset in assets:
+        investedVal += asset.cost*asset.amount
+        chargesVal += asset.charge
+        taxVal += asset.tax
+
+    return {'investedVal' : round(investedVal,2), 'taxVal' : round (taxVal,2), 'chargesVal' : round(chargesVal,2)}
 
 def getAllUniqueAssets(allAssets):
     assetList = list()
@@ -71,6 +83,8 @@ def getDataForPie(user):
         assetList = getAllUniqueAssets(allAssets)
         assetNameList = list()
         valueList = list()
+        currentValList = list()
+        amountList = list()
         for thisAsset in assetList:
             assetNameList.append(thisAsset.name)
             temp = allAssets.filter(asset=thisAsset)
@@ -80,7 +94,9 @@ def getDataForPie(user):
             currentVal = float(getAssetValue(
                 thisAsset, date.fromisoformat('2023-05-20')))
             valueList.append(currentVal*tempAmount)
-        data = {'assetList': assetNameList, 'values': valueList}
+            currentValList.append(currentVal)
+            amountList.append(tempAmount)
+        data = {'assetList': assetNameList, 'values': valueList, 'amounts': amountList, 'assetValues': currentValList}
         return data
 
 
@@ -129,7 +145,7 @@ def getDataForLine(user, dateFrom, timeInterval):
                 newButtonLabels.append((str(label) + "%"))
                 
         rightInterval = list(filter(lambda inter: inter >= dateFrom, interval))
-        data = {'interval': rightInterval, 'dateValues': dateValues, 'buttonValues': newButtonLabels}
+        data = {'interval': rightInterval, 'dateValues': dateValues, 'buttonValues': newButtonLabels, 'totalValue' : round(dateValues[-1],2)}
         return data
 
 def createButtonVal(buttonLabelDates, buttonLabelValues, beginning):

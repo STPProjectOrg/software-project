@@ -23,6 +23,16 @@ def include_chart():
     """ Include Chart-JS. """
     return
 
+@register.inclusion_tag("dashboard_app/inclusion/include_kpi.html")
+def include_kpi():
+    """include KPI element"""
+    return
+
+@register.inclusion_tag("dashboard_app/inclusion/include_assets.html")
+def include_assets():
+    """include KPI element"""
+    return
+
 
 @register.inclusion_tag("dashboard_app/modals/transaction_buy_modal.html")
 def transaction_buy_modal(user, coinInfo):
