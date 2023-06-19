@@ -4,5 +4,5 @@ app_name = 'messaging_app'
 
 urlpatterns = [
     path('inbox', views.inbox, name="inbox"),
-    path('inbox/<str:participant_req>', views.inbox_chat, name="inbox_chat"),
+    path('inbox/<str:participant_req>', views.inbox_chat, name="inbox-chat"),
 ]
