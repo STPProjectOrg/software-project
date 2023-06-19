@@ -7,7 +7,7 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class MyForm(forms.Form):
+class AddToPortfolioForm(forms.Form):
     assets = getAllCoinsFromDatabase()
     assetChoices = []
     for asset in assets:
@@ -19,7 +19,7 @@ class MyForm(forms.Form):
     purchaseDate = forms.DateField(widget=DateInput, initial=datetime.now)
 
 
-class MyForm2(forms.Form):
+class AddToPortfolioForm2(forms.Form):
     user = forms.CharField(max_length=20)
     user.widget = user.hidden_widget()
     assetDropdown = forms.CharField(max_length=20)

@@ -8,17 +8,17 @@ from datetime import datetime, date
 from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCoinInformation, getCryptoValuesFromDatabase, getCryptoValueFromDatabase, saveDataFromApiToDatabase
 
 from user_app.views import getUser
-from dashboard_app.forms import MyForm, MyForm2
+from dashboard_app.forms import AddToPortfolioForm, AddToPortfolioForm2
 from dateutil.relativedelta import relativedelta
 
 
 # Create your views here.
 def dashboard(request):
     message = ""
-    form = MyForm()
+    form = AddToPortfolioForm()
     todaysDate = date.fromisoformat('2023-05-20')
     if request.method == 'POST':
-        form = MyForm(request.POST)
+        form = AddToPortfolioForm(request.POST)
         if form.is_valid():
             message = addToPortfolio(form.cleaned_data)
 
@@ -181,9 +181,9 @@ def asset(request, coin):
     selectedCoin = coin.upper()
     user = 1
     message = ""
-    form = MyForm2(initial={'user': user, 'assetDropdown': selectedCoin})
+    form = AddToPortfolioForm2(initial={'user': user, 'assetDropdown': selectedCoin})
     if request.method == 'POST':
-        form = MyForm2(request.POST)
+        form = AddToPortfolioForm2(request.POST)
         if form.is_valid():
             message = addToPortfolio(form.cleaned_data)
 

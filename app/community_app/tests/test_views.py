@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 
 class TestViews(TestCase):
 
+    #Test User erstellen und einloggen
     def setUp(self):
         User = get_user_model()
         self.user = User.objects.create_user("test", "test@test.de", "test")
@@ -13,7 +14,6 @@ class TestViews(TestCase):
         self.client.login(username='test', password='test')
 
     def test_GET(self):
-        
         response = self.client.get(reverse("community_app:community", args=["all"]))
 
         self.assertEquals(response.status_code, 200)
