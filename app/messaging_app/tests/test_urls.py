@@ -11,9 +11,9 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, inbox)
 
 
-    #TODO args müssen gefüllt werden, hans ist nicht in jeder datenbank hinterlegt als nutzer
+    #TODO kwargs müssen gefüllt werden
     '''
     def test_inbox_chat_url(self):
-        url = reverse("messaging_app:inbox-chat", args=["hans"])
+        url = reverse("messaging_app:inbox_chat", kwargs={"participant_req": ""})
         self.assertEquals(resolve(url).func, inbox_chat)
     '''

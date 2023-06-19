@@ -195,9 +195,13 @@ def asset(request, coin):
     except:
         todaysValue = 0
 
+    try:
+        values = getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=16))
+    except:
+        values = [0,0]
     data = {'coinInfo': getCoinInformation(selectedCoin),
             'todaysValue': todaysValue,
-            'values': getCryptoValuesFromDatabase(selectedCoin, date(year=2023, month=4, day=19), date(year=2023, month=5, day=16)),
+            'values': values,
             'form': form,
             'message': message}
     return render(request, 'dashboard_app/asset.html', context=data)
