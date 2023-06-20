@@ -56,8 +56,7 @@ def register(request):
 
         else:
             print(user_form.errors, userprofile_form.errors)
-            for er in user_form.errors:
-                print(er.__str__())
+            
     else:
         user_form = UserRegistrationForm()
         userprofile_form = UserProfileInfoForm()
