@@ -37,6 +37,7 @@ jobs:
         python manage.py test community_app
     - name: Dashboard App Tests
       run: |
+        cd app
         python manage.py test dashboard_app
     - name: Messaging App Tests
       run: |
