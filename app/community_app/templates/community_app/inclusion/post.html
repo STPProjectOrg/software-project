@@ -42,7 +42,7 @@
         {% endif %}
     </div>
     <div class="card-body pb-2">
-        <div id="content">{{ post.content }}</div>
+        <div id="content">{{ post.content|tag }}</div>
         {# Post Image #}
         {% if post.image != "" %}
             <button class="btn btn-outline-primary ms-auto"
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                         {# Content #}
-                        <div>{{ comment.content }}</div>
+                        <div>{{ comment.content|tag }}</div>
                         {# Likes #}
                         <a href="{% url 'community_app:like_comment' comment.id %}"
                         class="btn btn-link p-0 fw-bold">
