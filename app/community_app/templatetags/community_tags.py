@@ -42,3 +42,9 @@ def datetime_converter(entry_datetime: datetime):
         return "Gestern"
 
     return f"{entry_datetime.day}.{entry_datetime.month}.{entry_datetime.year}"
+
+@register.inclusion_tag("community_app/modals/full_image_modal.html")
+def full_image_modal(post):
+    """ Include a modal for post creation. """
+
+    return {"post": post}
