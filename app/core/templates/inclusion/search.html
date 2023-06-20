@@ -1,4 +1,5 @@
 {% load core_tags %}
+{% load i18n %}
 <form id="search-form"
       method="GET"
       action="{% url 'core:search_results' %}"
@@ -12,7 +13,7 @@
            placeholder="Suche"
            aria-label="Suche"
            aria-describedby="basic-addon1">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">{% trans "Suche" %}</button>
   </div>
 </form>
 {% search_modal %}

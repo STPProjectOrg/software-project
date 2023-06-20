@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load core_tags %}
 <html lang="de" data-bs-theme="dark">
     <head>
@@ -32,8 +33,8 @@
                     {% else %}
                         <div class="col-auto d-flex">
                             <div class="dropdown m-auto">
-                                <a class="btn btn-link" href="{% url 'user_app:login' %}">Anmelden</a>
-                                <a class="btn btn-outline-primary" href="{% url 'user_app:register' %}">Registrieren</a>
+                                <a class="btn btn-link" href="{% url 'user_app:login' %}">{% trans "Anmelden" %}</a>
+                                <a class="btn btn-outline-primary" href="{% url 'user_app:register' %}">{% trans "Registrieren" %}</a>
                             </div>
                         </div>
                     {% endif %}

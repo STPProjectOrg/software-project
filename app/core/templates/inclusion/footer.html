@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="row">
     <div class="col p-2 border-top"> 
 
@@ -14,11 +15,11 @@
         {# Links #}
         <div class="d-flex">
             <div class="d-flex gap-2 m-auto px-4 pt-2 border-top border-2">
-                <div><a href="{% url 'core:legal_disclosure' %}">Impressum</a></div>
+                <div><a href="{% url 'core:legal_disclosure' %}">{% trans "Impressum" %}</a></div>
                 <div>|</div>
-                <div><a href="{% url 'core:privacy' %}">Datenschutz</a></div>
+                <div><a href="{% url 'core:privacy' %}">{% trans "Datenschutz" %}</a></div>
                 <div>|</div>
-                <div><a href="{% url 'core:cookie_disclosure' %}">Cookie-Erklärung</a></div>
+                <div><a href="{% url 'core:cookie_disclosure' %}">{% trans "Cookie-Erklärung" %}</a></div>
             </div>
         </div>
         
