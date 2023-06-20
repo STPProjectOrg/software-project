@@ -30,4 +30,5 @@ jobs:
     - name: Run Tests
       run: |
         echo "$(python --version) / Django $(django-admin --version)"
+        cd app
         python manage.py test
