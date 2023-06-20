@@ -121,6 +121,11 @@
                     </div>
                 </div>
             </div>
+            {% elif not participants %}
+            <div class="d-flex flex-column mw-100 me-auto text-center">
+                <div class="text-white fw-bold fs-3">Hier werden deine Chats angezeigt.</div>
+                <div class="text-white fw-semibold fs-5">Derzeit hast du dich noch nicht mit anderen ausgetauscht.</div>
+            </div>
         {% endif %}
     </div>
 {% endblock content %}
