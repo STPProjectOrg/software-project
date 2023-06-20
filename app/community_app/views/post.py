@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from community_app.models import Post, PostLike
+from community_app.models import Post, PostLike, Tag
 from community_app.forms import PostForm
 from messaging_app.utils import compress_image
 
@@ -15,13 +15,17 @@ def create(request):
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
         form_data = form.cleaned_data
-        Post.objects.create(
+
+        post = Post.objects.create(
             user_id=request.user.id,
             content=form_data.get("content"),
             created_at=datetime.now(),
             image = compress_image(form_data.get("image")),
             tags=form_data.get("tags")
         )
+        j = form_data.get("tags").split(",")
+        for t in j:
+            Tag.objects.get_or_create(tagname=t, post = post)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -59,6 +63,14 @@ def get_by_feed(feed, **kwargs):
 
     return posts
 
+def get_by_tag(tag, **kwargs):
+    tags = Tag.objects.filter(tagname=tag)
+    posts = []
+    for tag in tags:
+        post = Post.objects.get(id=tag.post_id)
+        posts.append(post)
+    
+    return posts
 
 def like_toggle(request, post_id):
     """

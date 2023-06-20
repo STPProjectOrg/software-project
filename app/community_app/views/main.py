@@ -16,7 +16,10 @@ def community(request, feed):
     """
 
     form = PostForm()
-    posts = post.get_by_feed(feed, user_id=request.user.id)
+    if feed == "all" or feed == "follower":
+        posts = post.get_by_feed(feed, user_id=request.user.id)
+    else:
+        posts = post.get_by_tag(feed)
 
     data = {
         'form': form,
