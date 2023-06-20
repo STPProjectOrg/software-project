@@ -1,15 +1,16 @@
 {% extends "core/base.html" %}
+{% load i18n %}
 {% block content %}
     <div class="container">
-        <h1 class="text-center mb-5">Sicherheitseinstellungen</h1>
+        <h1 class="text-center mb-5">{% trans "Sicherheitseinstellungen" %}</h1>
         <div class="card">
             <div class="card-body">
                 <form method="post" class="pt-2 pb-2 ps-5 pe-5">
                     <div class="d-flex flex-column gap-2">
                         {% csrf_token %}
                         <div class="d-flex justify-content-end gap-3">
-                            <button type="submit" class="btn btn-success">Speichern</button>
-                            <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">Zurück</a>
+                            <button type="submit" class="btn btn-success">{% trans "Speichern" %}</button>
+                            <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">{% trans "Zurück" %}</a>
                         </div>
                     </div>
                 </form>

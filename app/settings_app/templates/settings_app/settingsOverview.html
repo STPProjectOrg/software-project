@@ -1,26 +1,27 @@
 {% extends "core/base.html" %}
+{% load i18n %}
 {% block content %}
     <div class="container" style="width: 100%; height: 100%">
         <div class="d-flex flex-column justify-content-center"
              style="width: 100%;
                     height: 100%">
-            <h1 style="margin-bottom: 2rem">Einstellungsübersicht</h1>
+            <h1 style="margin-bottom: 2rem">{% trans "Einstellungsübersicht" %}</h1>
             <div class="d-flex flex-column gap-3 flex-wrap justify-items-center">
                 <a href="{% url 'settings_app:userSettings' %}"
                    class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">Profileinstellungen</a>
+                   role="button">{% trans "Profileinstellungen" %}</a>
                 <a href="{% url 'settings_app:portfolioSettings' %}"
                    class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">Portfolioeinstellungen</a>
+                   role="button">{% trans "Portfolioeinstellungen" %}</a>
                 <a href="{% url 'settings_app:securitySettings' %}"
                    class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">Sicherheitseinstellungen</a>
+                   role="button">{% trans "Sicherheitseinstellungen" %}</a>
                 <a href="{% url 'settings_app:notificationSettings' %}"
                    class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">Benachrichtigungseinstellungen</a>
+                   role="button">{% trans "Benachrichtigungseinstellungen" %}</a>
                 <a href="{% url 'settings_app:viewSettings' %}"
                    class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">Anzeigeeinstellungen</a>
+                   role="button">{% trans "Anzeigeeinstellungen" %}</a>
             </div>
         </div>
     </div>

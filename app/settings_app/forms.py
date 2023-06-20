@@ -6,6 +6,7 @@ from django import forms
 
 from user_app.models import CustomUser
 from .models import Settings
+from django.utils.translation import gettext_lazy as _
 
 # TODO: Template String für Internationalisierung der Dropdown Texte
 CHOICES = [(False, 'Deaktiviert'), (True, 'Aktiviert')]
@@ -18,7 +19,13 @@ class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ["username", "email", "first_name", "last_name"]
-
+        labels = {
+            "username": _("Benutzername"),
+            "email": _("Email"),
+            "first_name": _("Vorname"),
+            "last_name": _("Name")
+            }
+        
 
 class PortfolioSettingsForm(forms.Form):
     """
@@ -27,7 +34,6 @@ class PortfolioSettingsForm(forms.Form):
     class Meta:
         model = Settings
         fields = ["dateTimeFormat", "currency", "theme"]
-
 
 class NotificationSettingsForm(forms.ModelForm):
     """
@@ -38,11 +44,10 @@ class NotificationSettingsForm(forms.ModelForm):
         fields = ["hasAssetAmountChanged", "hasNewFollower", "hasLikedPost",
                   "hasLikedComment", "hasNewComment", "hasSharedPost"]
         labels = {
-            'hasAssetAmountChanged': "Benachrichtigung bei Veränderung der Assetmenge",
-            'hasNewFollower': "Benachrichtigung wenn ihnen jemand folgt",
-            'hasLikedPost': "Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat",
-            'hasLikedComment': "Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat",
-            'hasNewComment': "Benachrichtigung wenn jemand ein Kommentar"
-            + "unter einem ihrer Beiträge verfasst hat",
-            'hasSharedPost': "Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat"
+            'hasAssetAmountChanged': _("Benachrichtigung bei Veränderung der Assetmenge"),
+            'hasNewFollower': _("Benachrichtigung wenn ihnen jemand folgt"),
+            'hasLikedPost': _("Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat"),
+            'hasLikedComment': _("Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat"),
+            'hasNewComment': _("Benachrichtigung wenn jemand ein Kommentar von dir kommentiert"),
+            'hasSharedPost': _("Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat")
         }
