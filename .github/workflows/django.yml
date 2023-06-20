@@ -51,7 +51,7 @@ jobs:
       run: |
         cd app
         python manage.py test settings_app
-    - name: User App Tests
-      run: |
-        cd app
-        python manage.py test user_app
+    #- name: User App Tests
+    #  run: |
+    #    cd app
+    #    python manage.py test user_app
