@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from community_app.models import Post, PostLike
 from community_app.forms import PostForm
+from messaging_app.utils import compress_image
 
 
 def create(request):
@@ -18,7 +19,7 @@ def create(request):
             user_id=request.user.id,
             content=form_data.get("content"),
             created_at=datetime.now(),
-            image = form_data.get("image"),
+            image = compress_image(form_data.get("image")),
             tags=form_data.get("tags")
         )
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
