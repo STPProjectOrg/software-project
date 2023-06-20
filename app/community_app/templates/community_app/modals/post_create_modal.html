@@ -17,7 +17,7 @@
                 <form action="{% url 'community_app:post_create' %}" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <input type="Submit" name="comment" />
+                    <button type="Submit" name="comment">{% trans 'Post Erstellen' %}</button>
                 </form>
             </div>
             <div class="modal-footer">

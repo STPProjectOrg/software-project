@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 11:19+0200\n"
+"POT-Creation-Date: 2023-06-20 12:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\community_app\templates\community_app\community.html:29
+#: .\community_app\templates\community_app\community.html:31
 msgid "Neuer Post"
 msgstr "New Post"
 
@@ -42,3 +42,15 @@ msgstr "Comments"
 #: .\community_app\templates\community_app\inclusion\post.html:165
 msgid "Kommentieren"
 msgstr "comment"
+
+#: .\community_app\templates\community_app\modals\post_create_modal.html:10
+msgid "Post erstellen"
+msgstr "Create Post"
+
+#: .\community_app\templates\community_app\modals\post_create_modal.html:20
+msgid "Post Erstellen"
+msgstr "Create Post"
+
+#: .\community_app\templates\community_app\modals\post_create_modal.html:24
+msgid "Schließen"
+msgstr "Close"
