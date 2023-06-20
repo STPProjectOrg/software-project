@@ -22,8 +22,8 @@ def create(request, post_id):
         created_at=datetime.now()
     )
 
-    create_notification(request, "comment",
-                        "%s commented on your post.") % request.user.username
+    #create_notification(request, "comment",
+    #                    "%s commented on your post.") % request.user.username
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
