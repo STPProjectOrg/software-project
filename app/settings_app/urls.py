@@ -15,4 +15,6 @@ urlpatterns = [
     path('viewSettings/', views.view_settings, name='viewSettings'),
     path('notificationSettings/', views.notification_settings,
          name='notificationSettings'),
+
+    path('language/<str:language_code>/', views.language_change, name="language_change"),
 ]

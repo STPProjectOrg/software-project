@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from user_app.models import CustomUser
 from .models import Settings
 from .forms import NotificationSettingsForm, UserSettingsForm
-
+from django.http import HttpResponseRedirect
+from django.utils import translation
 
 @login_required
 def settings(request):
@@ -96,3 +97,7 @@ def view_settings(request):
     Renders the view settings page.
     """
     return render(request, 'settings_app/viewSettings.html')
+
+def language_change(request, language_code):
+    translation.activate(language_code)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

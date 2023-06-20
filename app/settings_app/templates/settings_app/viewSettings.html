@@ -12,6 +12,8 @@
                             <option>{% trans "Hell" %}</option>
                             <option>{% trans "Dunkel" %}</option>
                         </select>
+                        <a href="{% url 'settings_app:language_change' 'en_us' %}">Englisch</a>
+                        <a href="{% url 'settings_app:language_change' 'de' %}">Deutsch</a>
                     </div>
                     <div class="d-flex justify-content-end gap-3">
                         <button type="submit" class="btn btn-success">{% trans "Speichern" %}</button>

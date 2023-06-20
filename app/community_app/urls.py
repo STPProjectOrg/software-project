@@ -8,7 +8,6 @@ app_name = 'community_app'
 urlpatterns = [
     # Main
     path('community/<str:feed>/', main.community, name="community"),
-    path('community/language/<str:language_code>/', main.language_change, name="language_change"),
 
     # Comment
     path('comment/add/<int:post_id>', comment.create, name="comment_create"),

@@ -1,9 +1,9 @@
 {% load core_tags %}
 {% load i18n %}
 <ul class="nav nav-pills flex-column mb-auto">
-    <div class="fw-semibold user-select-none">Portfolio</div>
+    <div class="fw-semibold user-select-none">{% trans "Portfolio" %}</div>
     {% navigation_button "Dashboard" "bi-pie-chart-fill" "dashboard_app:dashboard" %}
-    <div class="fw-semibold mt-4 user-select-none">Sozial</div>
+    <div class="fw-semibold mt-4 user-select-none">{% trans "Sozial" %}</div>
     {% navigation_button "Profil" "bi-person-fill" "user_app:profile" username %}
     {% navigation_button "Community" "bi-share-fill" "community_app:community" "all" %}
     {% navigation_button "Nachrichten" "bi-chat-text-fill" "messaging_app:inbox" %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 13:41+0200\n"
+"POT-Creation-Date: 2023-06-20 14:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,13 +41,25 @@ msgid "Anbieter"
 msgstr "Provider"
 
 #: .\core\templates\core\legal_disclosure.html:17
-msgid "Die Webseite wird im Rahmen einer Projektarbeit an der Hochschule Flensburg für private Zwecke betrieben."
-msgstr "The website is operated for private purposes as part of a project at Flensburg University of Applied Sciences."
+msgid ""
+"Die Webseite wird im Rahmen einer Projektarbeit an der Hochschule Flensburg "
+"für private Zwecke betrieben."
+msgstr ""
+"The website is operated for private purposes as part of a project at "
+"Flensburg University of Applied Sciences."
 
 #: .\core\templates\core\privacy.html:11
 #: .\core\templates\inclusion\footer.html:20
 msgid "Datenschutz"
 msgstr "Privacy"
+
+#: .\core\templates\inclusion\navigation.html:4
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: .\core\templates\inclusion\navigation.html:6
+msgid "Sozial"
+msgstr "Social"
 
 #: .\core\templates\inclusion\search.html:16
 msgid "Suche"
