@@ -1,4 +1,3 @@
-'''
 from django.test import SimpleTestCase
 from dashboard_app.forms import AddToPortfolioForm, AddToPortfolioForm2, TransactionBuyForm
 
@@ -77,4 +76,3 @@ class TestForms(SimpleTestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 5)
-'''
