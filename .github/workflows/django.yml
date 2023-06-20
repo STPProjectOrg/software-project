@@ -30,7 +30,6 @@ jobs:
     - name: Setup Tests
       run: |
         echo "$(python --version) / Django $(django-admin --version)"
-        cd app
     - name: Community App Tests
       run: |
         cd app
@@ -43,6 +42,7 @@ jobs:
       run: |
         cd app
         python manage.py test messaging_app
+    # Schmeißt Fehler wegen DB api_app_asset, obwohl keine Tests vorhanden sind
     #- name: Notification App Tests
     #  run: |
     #    cd app
@@ -51,6 +51,7 @@ jobs:
       run: |
         cd app
         python manage.py test settings_app
+    # Schmeißt Fehler wegen DB api_app_asset
     #- name: User App Tests
     #  run: |
     #    cd app

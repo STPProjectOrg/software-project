@@ -45,7 +45,13 @@
         <div id="content">{{ post.content }}</div>
         {# Post Image #}
         {% if post.image != "" %}
-        <div><img src="{{ post.image.url }}" style="width:400px;"/></div>
+            <button class="btn btn-outline-primary ms-auto"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#fullImageModal{{post.id}}">
+                <img src="{{ post.image.url }}" style="width:200px;"/>
+            </button>
+            {% full_image_modal post %}
         {% endif %}
         <div class="border-top mt-3 mb-2"></div>
         {# Post information #}
