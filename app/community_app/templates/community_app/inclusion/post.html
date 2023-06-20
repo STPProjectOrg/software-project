@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load community_tags %}
 <div class="card" id="post_{{ post.id }}">
     <div class="card-header d-flex">
@@ -32,10 +33,10 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="#"><i class="bi bi-gear-fill pe-2"></i>Bearbeiten</a>
+                        <a class="dropdown-item" href="#"><i class="bi bi-gear-fill pe-2"></i>{% trans "Bearbeiten" %}</a>
                     </li>
                     <li>
-                        <a class="dropdown-item text-danger-emphasis" href="{% url 'community_app:post_delete' post.id %}"><i class="bi bi-trash-fill pe-2"></i>Löschen</a>
+                        <a class="dropdown-item text-danger-emphasis" href="{% url 'community_app:post_delete' post.id %}"><i class="bi bi-trash-fill pe-2"></i>{% trans "Löschen" %}</a>
                     </li>
                 </ul>
             </div>
@@ -73,7 +74,7 @@
                             <i class="bi bi-heart-fill m-auto"></i>
                         </div>
                         <div class="my-auto">{{ post.postlike_set.count }}</div>
-                        <div class="my-auto">Likes</div>
+                        <div class="my-auto">{% trans "Likes" %}</div>
                     </small>
                 </a>
                 {# Comments #}
@@ -88,7 +89,7 @@
                             <i class="bi bi-card-text"></i>
                         </div>
                         <div class="my-auto">{{ post.comment_set.count }}</div>
-                        <div class="my-auto">Kommentare</div>
+                        <div class="my-auto">{% trans "Kommentare" %}</div>
                     </small>
                 </a>
             </div>
@@ -127,7 +128,7 @@
                                        href="{% url 'community_app:comment_delete' comment.id %}">
                                         <small class="d-flex text-center">
                                             <i class="bi bi-trash-fill pe-1 m-auto"></i>
-                                            <div>Löschen</div>
+                                            <div>{% trans "Löschen" %}</div>
                                         </small>
                                     </a>
                                 {% endif %}
@@ -143,7 +144,7 @@
                                     <i class="bi bi-heart-fill m-auto"></i>
                                 </div>
                                 <div class="my-auto">{{ comment.commentlike_set.count }}</div>
-                                <div class="my-auto">Likes</div>
+                                <div class="my-auto">{% trans "Likes" %}</div>
                             </small>
                         </a>
                     </div>
@@ -161,7 +162,7 @@
                           rows="1"
                           placeholder="Schreibe einen Kommentar..."></textarea>
                 <button class="btn btn-outline-primary d-flex gap-2 m-auto" type="submit">
-                    <div>Kommentieren</div>
+                    <div>{% trans "Kommentieren" %}</div>
                 </button>
             </form>
         </div>

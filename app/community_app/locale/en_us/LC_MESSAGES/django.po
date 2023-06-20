@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-20 11:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\community_app\templates\community_app\community.html:29
+msgid "Neuer Post"
+msgstr "New Post"
+
+#: .\community_app\templates\community_app\inclusion\post.html:36
+msgid "Bearbeiten"
+msgstr "Edit"
+
+#: .\community_app\templates\community_app\inclusion\post.html:39
+#: .\community_app\templates\community_app\inclusion\post.html:131
+msgid "Löschen"
+msgstr "Delete"
+
+#: .\community_app\templates\community_app\inclusion\post.html:77
+#: .\community_app\templates\community_app\inclusion\post.html:147
+msgid "Likes"
+msgstr "Likes"
+
+#: .\community_app\templates\community_app\inclusion\post.html:92
+msgid "Kommentare"
+msgstr "Comments"
+
+#: .\community_app\templates\community_app\inclusion\post.html:165
+msgid "Kommentieren"
+msgstr "comment"

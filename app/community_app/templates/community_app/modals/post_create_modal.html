@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="modal fade"
      id="postCreateModal"
      tabindex="-1"
@@ -6,7 +7,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="postCreateModalLabel">Post erstellen</h1>
+                <h1 class="modal-title fs-5" id="postCreateModalLabel">{% trans "Post erstellen" %}</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
@@ -20,7 +21,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary ms-auto" data-bs-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-primary ms-auto" data-bs-dismiss="modal">{% trans "Schließen" %}</button>
             </div>
         </div>
     </div>
