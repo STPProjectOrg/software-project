@@ -3,6 +3,7 @@ from messaging_app.models import Inbox, InboxParticipants, Message
 from user_app.models import CustomUser
 from messaging_app.forms import AddMessageForm
 from datetime import datetime, date, timezone
+from messaging_app.utils import compress_image
 
 # Create your views here.
 
@@ -38,13 +39,14 @@ def inbox_chat(request, participant_req):
             message = d.get("message")
             update_inbox_participant(user, chat_participant, message)
             update_inbox_participant(chat_participant, user, message)
+
             Message.objects.create(
                 from_user=user,
                 to_user=chat_participant,
                 message=message,
                 message_read = False,
                 created_at=datetime.now(),
-                image = d.get("image")
+                image = compress_image(d.get("image"))
             )
     messages = []
     for mes in get_chat_messages(user, chat_participant):
@@ -55,6 +57,7 @@ def inbox_chat(request, participant_req):
     data = {"chatOpen": True, "user": user, "participants": participants,
             "participant": chat_participant, "messages": messages, "form": form}
     return render(request, "messaging_app/inbox.html", context=data)
+
 
 
 def get_participants(user, inbox_participants):
