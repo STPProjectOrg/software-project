@@ -33,19 +33,24 @@ jobs:
         cd app
     - name: Community App Tests
       run: |
+        cd app
         python manage.py test community_app
     #- name: Dashboard App Tests
     #  run: |
     #    python manage.py test dashboard_app
     - name: Messaging App Tests
       run: |
+        cd app
         python manage.py test messaging_app
     - name: Notification App Tests
       run: |
+        cd app
         python manage.py test notification_app
     - name: Settings App Tests
       run: |
+        cd app
         python manage.py test settings_app
     - name: User App Tests
       run: |
+        cd app
         python manage.py test user_app
