@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load community_tags %}
+{% load i18n %}
 {% block title %}
   | Community
 {% endblock title %}
@@ -20,12 +21,14 @@
             <a href="{% url 'community_app:community' "follower" %}">
               <button class="btn btn-outline-primary h-100" type="button">Follower</button>
             </a>
+            <a href="{% url 'community_app:language_change' 'en_us' %}">Englisch</a>
+            <a href="{% url 'community_app:language_change' 'de' %}">Deutsch</a>
           </div>
           {# Create post #}
           <button class="btn btn-outline-primary ms-auto"
                   type="button"
                   data-bs-toggle="modal"
-                  data-bs-target="#postCreateModal">Neuer Post</button>
+                  data-bs-target="#postCreateModal">{% trans "Neuer Post" %}</button>
         </div>
       </div>
     </div>
