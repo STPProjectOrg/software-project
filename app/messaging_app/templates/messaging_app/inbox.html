@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load messaging_tags %}
+{% load i18n %}
 {% block title %}
     | Nachrichten
 {% endblock title %}
@@ -112,7 +113,7 @@
                             {{ form.message }}
                             {{ form.image }}
                             <button class="btn btn-outline-primary d-flex gap-2 ms-auto" type="submit">
-                                <div>Senden</div>
+                                <div>{% trans "Senden" %}</div>
                                 <div class="my-auto">
                                     <i class="bi bi-send-fill"></i>
                                 </div>
@@ -123,8 +124,8 @@
             </div>
             {% elif not participants %}
             <div class="d-flex flex-column mw-100 me-auto text-center">
-                <div class="text-white fw-bold fs-3">Hier werden deine Chats angezeigt.</div>
-                <div class="text-white fw-semibold fs-5">Derzeit hast du dich noch nicht mit anderen ausgetauscht.</div>
+                <div class="text-white fw-bold fs-3">{% trans "Hier werden deine Chats angezeigt." %}</div>
+                <div class="text-white fw-semibold fs-5">{% trans "Derzeit hast du dich noch nicht mit anderen ausgetauscht." %}</div>
             </div>
         {% endif %}
     </div>
