@@ -13,7 +13,7 @@ class Post(models.Model):
     # privacySettings = models.CharField()
 
     def __str__(self):
-        return self.user
+        return self.content
 
 
 class PostLike(models.Model):
@@ -41,3 +41,6 @@ class CommentLike(models.Model):
     def __str__(self):
         return self.user_id
     
+class Tag(models.Model):
+    tagname = models.CharField(max_length=20)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)

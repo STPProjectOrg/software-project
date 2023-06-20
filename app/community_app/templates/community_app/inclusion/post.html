@@ -60,7 +60,7 @@
             {# Tags #}
             <div>
                 {% for tag in post.tags|to_tag_list %}
-                    <a href="#!" class="btn btn-link p-0 " onclick="">
+                    <a href="{% url 'community_app:community' tag %}" class="btn btn-link p-0 " onclick="">
                         <small>#{{ tag }}</small>
                     </a>
                 {% endfor %}
