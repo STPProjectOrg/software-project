@@ -1,5 +1,5 @@
 {% extends 'core/clear_base.html' %}
-
+{% load i18n %}
 {% comment %}
     For further information visit:
     https://www.ionos.de/digitalguide/websites/online-recht/mehr-nutzervertrauen-dank-datenschutzerklaerung/
@@ -8,13 +8,13 @@
 {% block content %}
     {# Title #}
     <div>
-        <h1>Datenschutz</h1>
+        <h1>{% trans "Datenschutz" %}</h1>
     </div>
 
     {# Content #}
     <div class="mt-4">
         
-        <h2>Anbieter</h2>
+        <h2>{% trans "Anbieter" %}</h2>
         <p>Die <b>Verantwortlichen</b> im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze sind alle im <a href="{% url 'core:legal_disclosure' %}">Impressum</a> aufgeführten Personen.</p>
         
         <h2>Angabe der Rechtsgrundlage</h2>

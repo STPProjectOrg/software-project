@@ -1,5 +1,5 @@
 {% extends 'core/clear_base.html' %}
-
+{% load i18n %}
 {% comment %}
     For legal information visit:
     https://www.bmuv.de/themen/verbraucherschutz-im-bmuv/digitaler-verbraucherschutz/impressumspflicht
@@ -8,13 +8,13 @@
 {% block content %}
     {# Title #}
     <div>
-        <h1>Impressum</h1>
+        <h1>{% trans "Impressum" %}</h1>
     </div>
 
     {# Content #}
     <div class="mt-4">
-        <h2>Anbieter</h2>
-        <p>Die Webseite wird im Rahmen einer Projektarbeit an der Hochschule Flensburg für private Zwecke betrieben.</p>
+        <h2>{% trans "Anbieter" %}</h2>
+        <p>{% trans "Die Webseite wird im Rahmen einer Projektarbeit an der Hochschule Flensburg für private Zwecke betrieben." %}</p>
         <ul class="list-group" style="width: fit-content">
             <li class="list-group-item">
                 <address class="my-2">

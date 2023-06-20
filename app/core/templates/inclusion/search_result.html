@@ -1,8 +1,9 @@
 {% load core_tags %}
+{% load i18n %}
 {% if not users and not assets %}
     <tr class="text-center">
         <td>
-            <span>Keine Ergebnisse gefunden!</span>
+            <span>{% trans "Keine Ergebnisse gefunden!" %}</span>
         </td>
     </tr>
 {% endif %}
@@ -24,16 +25,16 @@
             </div>
         </td>
         <td class="col-3">
-            <span class="badge rounded-pill text-bg-success">User</span>
+            <span class="badge rounded-pill text-bg-success">{% trans "Benutzer" %}</span>
         </td>
         <td class="col-3">
             {% comment "" %} <i class="bi bi-person-fill-check"></i> {% endcomment %}
             {% if user.id in followers %}
                 <a class="btn btn-outline-primary"
-                   href="{% url 'user_app:follow' user.username %}">Entfolgen</a>
+                   href="{% url 'user_app:follow' user.username %}">{% trans "Entfolgen" %}</a>
             {% elif user.id != request.user.id %}
                 <a class="btn btn-outline-primary"
-                   href="{% url 'user_app:follow' user.username %}">Folgen</a>
+                   href="{% url 'user_app:follow' user.username %}">{% trans "Folgen" %}</a>
             {% endif %}
         </td>
     </tr>

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if True %}
     <div class="col-auto">
         <button class="btn btn-link h-100 pe-0 position-relative" type="button">
@@ -28,20 +29,20 @@
                 </li>
                 <li>
                     <a class="dropdown-item"
-                       href="{% url 'user_app:profile' request.user.username %}"><i class="bi bi-person-fill pe-2"></i>Profil</a>
+                       href="{% url 'user_app:profile' request.user.username %}"><i class="bi bi-person-fill pe-2"></i>{% trans "Profil" %}</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-info-circle pe-2"></i>Hilfe</a>
+                    <a class="dropdown-item" href="#"><i class="bi bi-info-circle pe-2"></i>{% trans "Hilfe" %}</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{% url 'settings_app:overview' %}"><i class="bi bi-gear pe-2"></i>Einstellungen</a>
+                    <a class="dropdown-item" href="{% url 'settings_app:overview' %}"><i class="bi bi-gear pe-2"></i>{% trans "Einstellungen" %}</a>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li>
                     <a class="dropdown-item text-danger-emphasis"
-                       href="{% url 'user_app:logout' %}"><i class="bi bi-box-arrow-in-left pe-2"></i>Abmelden</a>
+                       href="{% url 'user_app:logout' %}"><i class="bi bi-box-arrow-in-left pe-2"></i>{% trans "Abmelden" %}</a>
                 </li>
             </ul>
         </div>

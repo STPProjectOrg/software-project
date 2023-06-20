@@ -1,4 +1,5 @@
 {% load core_tags %}
+{% load i18n %}
 <ul class="nav nav-pills flex-column mb-auto">
     <div class="fw-semibold user-select-none">Portfolio</div>
     {% navigation_button "Dashboard" "bi-pie-chart-fill" "dashboard_app:dashboard" %}
@@ -7,3 +8,4 @@
     {% navigation_button "Community" "bi-share-fill" "community_app:community" "all" %}
     {% navigation_button "Nachrichten" "bi-chat-text-fill" "messaging_app:inbox" %}
 </ul>
+
