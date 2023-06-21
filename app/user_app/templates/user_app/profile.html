@@ -1,5 +1,8 @@
 {% extends "core/base.html" %}
 {% load user_tags %}
+{% load community_tags %}
+
+{% load i18n %}
 {% block title %}
     | {{ profile_user.first_name }} {{ profile_user.last_name }}
 {% endblock title %}
@@ -130,12 +133,26 @@
         </div>
     </div>
     <div class="fst-italic">Hier kommt das Portfolio des Nutzers (Preview als Link)</div>
-    <div class="fst-italic">Hier kommen die Posts</div>
+            {# Create post #}
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-primary ms-auto"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#postCreateModal">{% trans "Neuer Post" %}</button>
+            </div>
+            <div class="row">
+                <div class="col d-flex flex-column gap-3">
+                  {% for post in myposts %}
+                    {% entry request.user post %}
+                  {% endfor %}
+                </div>
+            </div>
     {# Modals #}
     {% if is_user_profile %}
         {% profile_image_modal request.user %}
         {% profile_banner_modal %}
         {# TODO: Bio Modal #}
+        {% post_create_modal request.user postform %}
     {% endif %}
     {% profile_followers_modal request profile_user profile_followers_list user_following_list %}
     {% profile_following_modal request profile_user profile_following_list user_following_list %}
