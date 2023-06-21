@@ -72,6 +72,11 @@ def get_by_tag(tag, **kwargs):
     
     return posts
 
+def get_by_user(user, **kwargs):
+    posts = Post.objects.filter(user_id=user.id)
+    return posts.order_by("-created_at")
+
+
 def like_toggle(request, post_id):
     """
     Toggles a 'PostLikes' entrie by a given post_id and the requesting user.

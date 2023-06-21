@@ -12,6 +12,7 @@ from django.conf import settings
 
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
+from community_app.views import post
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
@@ -99,6 +100,10 @@ def profile(request, username):
         following__following_user_id=profile_user.id).select_related("userprofileinfo")
     profile_following_list = CustomUser.objects.filter(
         followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
+    
+    # Post-Section
+    my_posts = post.get_by_user(request.user)
+    postform = post.PostForm()
 
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
@@ -108,6 +113,8 @@ def profile(request, username):
                    "profile_followers_list": profile_followers_list,
                    "profile_following_list": profile_following_list,
                    "user_following_list": user_following_list,
+                   "postform": postform,
+                   "myposts": my_posts,
                    })
 
 
