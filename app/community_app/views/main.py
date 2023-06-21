@@ -4,9 +4,10 @@
 from django.shortcuts import render
 from community_app.forms import PostForm
 from community_app.views import post
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required
 def community(request, feed):
     """
     Render the community page.

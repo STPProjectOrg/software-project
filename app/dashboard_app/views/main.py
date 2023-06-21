@@ -10,9 +10,11 @@ from api_app.views import getAssetFromDatabase, doesCoinExistInDatabase, getCoin
 from user_app.views import getUser
 from dashboard_app.forms import AddToPortfolioForm, AddToPortfolioForm2
 from dateutil.relativedelta import relativedelta
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required
 def dashboard(request):
     message = ""
     form = AddToPortfolioForm()
@@ -177,6 +179,7 @@ def getAssetValue(thisAsset, date):
 
 
 # TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
+@login_required
 def asset(request, coin):
     selectedCoin = coin.upper()
     user = 1

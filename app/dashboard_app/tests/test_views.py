@@ -9,18 +9,31 @@ class TestViews(TestCase):
         User = get_user_model()
         self.user = User.objects.create_user("test", "test@test.de", "test")
         self.client = Client()
-        self.client.login(username='test', password='test')
 
-    def test_dashboard_page_html(self):
+    def test_dashboard_page_unauthorized_html(self):
         response = self.client.get(reverse("dashboard_app:dashboard"))
 
-        self.assertEquals(response.status_code, 200)
+        assert response.status_code == 302, 'Should redirect to login page'
+        assert 'login' in response.url
+    
+    def test_dashboard_page_authorized_html(self):
+        self.client.login(username='test', password='test')
+        response = self.client.get(reverse("dashboard_app:dashboard"))
+
+        assert response.status_code == 200, 'Status code should be 200'
         self.assertTemplateUsed(response, 'dashboard_app/dashboard.html')
 
     ''' Stellt API-Anfrage
-    def test_asset_page_html(self):
+    def test_asset_page_unauthorized_html(self):
         response = self.client.get(reverse("dashboard_app:asset", kwargs={"coin": "btc"}))
 
-        self.assertEquals(response.status_code, 200)
+        assert response.status_code == 302, 'Should redirect to login page'
+        assert 'login' in response.url
+
+    def test_asset_page_authorized_html(self):
+        self.client.login(username='test', password='test')
+        response = self.client.get(reverse("dashboard_app:asset", kwargs={"coin": "btc"}))
+
+        assert response.status_code == 200, 'Status code should be 200'
         self.assertTemplateUsed(response, 'dashboard_app/asset.html')
     '''

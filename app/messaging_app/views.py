@@ -4,12 +4,12 @@ from user_app.models import CustomUser
 from messaging_app.forms import AddMessageForm
 from datetime import datetime, date, timezone
 from messaging_app.utils import compress_image
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required
 def inbox(request):
-    user = CustomUser.objects.get(id=request.user.id)
+    user = request.user
     inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
     participants = get_participants(user, 
         InboxParticipants.objects.filter(inbox_id=inbox_from_user[0]))
@@ -19,9 +19,9 @@ def inbox(request):
 
     return render(request, "messaging_app/inbox.html", context=data)
 
-
+@login_required
 def inbox_chat(request, participant_req):
-    user = CustomUser.objects.get(id=request.user.id)
+    user = request.user
     inbox_from_user = Inbox.objects.get_or_create(inbox_from_user=user)
     participants = get_participants(user=user, inbox_participants=InboxParticipants.objects.filter(inbox_id=inbox_from_user[0]))
     chat_participant = CustomUser.objects.select_related("userprofileinfo").get(username=participant_req)
