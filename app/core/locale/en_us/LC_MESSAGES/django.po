@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 14:01+0200\n"
+"POT-Creation-Date: 2023-06-21 13:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,58 @@ msgstr "Register"
 #: .\core\templates\inclusion\footer.html:22
 msgid "Cookie-Erklärung"
 msgstr "Cookie Policy"
+
+#: .\core\templates\core\cookie_disclosure.html:11
+msgid "Information"
+msgstr "Information"
+
+#: .\core\templates\core\cookie_disclosure.html:12
+msgid ""
+"Cookie-Dateien sind kleine Textdateien. Sie werden genutzt, um mit einer "
+"Internetseite verbundene Informationen für einige Zeit lokal auf Ihrem "
+"Computer zu speichern und dem Server auf Anfrage wieder zu übermitteln."
+msgstr "Cookie files are small text files. They are used to store information related to a website on your computer for a certain period of time and transmit it back to the server upon request."
+
+#: .\core\templates\core\cookie_disclosure.html:13
+msgid ""
+"Die meisten Internet-Browser sind so eingestellt, dass sie Cookies "
+"automatisch akzeptieren. Sie können diese Funktion jedoch in Ihrem Browser "
+"deaktivieren oder diesen so einstellen, dass Cookies mit dem Schließen des "
+"Browsers gelöscht werden. Eine Zusammenführung von Cookie-Informationen mit "
+"personenbezogenen Daten findet nicht statt."
+msgstr "Most internet browsers are set to automatically accept cookies. However, you can disable this function in your browser or set it to delete cookies when the browser is closed. There is no merging of cookie information with personal data."
+
+#: .\core\templates\core\cookie_disclosure.html:14
+msgid ""
+"Beim Aufruf der Internetseite werden ausschließlich technisch notwendige "
+"Cookies gesetzt. Die auf dieser Seite eingesetzten Session-Cookies "
+"beinhalten keine personenbezogenen Daten und werden nach dem Absenden der "
+"Formulare oder Schließen des Browsers gelöscht."
+msgstr "When accessing the website, only technically necessary cookies are set. The session cookies used on this page do not contain personal data and are deleted after submitting the forms or closing the browser."
+
+#: .\core\templates\core\cookie_disclosure.html:15
+msgid ""
+"Eine Zusammenführung dieser Informationen mit personenbezogenen Daten findet "
+"nicht statt."
+msgstr "There is no merging of this information with personal data."
+
+#: .\core\templates\core\cookie_disclosure.html:16
+msgid ""
+"Folgende Funktionen verwenden Cookies, um korrekt funktionieren zu können."
+msgstr "The following functions use cookies to function correctly."
+
+#: .\core\templates\core\cookie_disclosure.html:17
+msgid "Cookie für Login-Funktion"
+msgstr "Cookie for login function"
+
+#: .\core\templates\core\cookie_disclosure.html:18
+msgid ""
+"Um sich für bestimmte Website-Funktionen einloggen zu können, ist es "
+"notwendig, einen Cookie zu setzen. Wenn Sie sich einloggen, wird im Cookie "
+"vermerkt, dass Sie sich erfolgreich bei der Website angemeldet haben. So "
+"müssen Sie sich nicht bei jedem Besuch einer anderen Unterseite neu "
+"anmelden. Wenn Sie sich wieder abmelden, wird der Cookie gelöscht."
+msgstr "In order to log in for certain website features, it is necessary to set a cookie. When you log in, the cookie will indicate that you have successfully logged in to the website. This way, you don't have to log in again for each visit to a different subpage. When you log out, the cookie will be deleted."
 
 #: .\core\templates\core\legal_disclosure.html:11
 #: .\core\templates\inclusion\footer.html:18
