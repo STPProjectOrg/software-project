@@ -1,31 +1,11 @@
 {% load i18n %}
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm">
-                <img src="https://www.cryptocompare.com{{ asset.ImageUrl }}"></img>
-            </div>
-            <div class="col-sm">
-                <p>Symbol: <a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.name }}</a> </p>
-            </div>
-            <div class="col-sm">
-                <p>Name: {{ asset.coinName }}</p>
-            </div>
-            <div class="col-sm">
-                <p>Preis: {{ asset.price }}</p>
-            </div>
-            <div class="col-sm">
-                <p>Preisdifferenz zum Vortag: {{ asset.pricediff }}</p>
-            </div>
-            <div class="col-sm">
-                <p>Preisdifferenz zum Vortag in %: {{ asset.pricediffpercent }}</p>
-            </div>
-            <div class="col-sm">
-                <p>Hinzugefügt am: {{ asset.added_at }}</p>
-            </div>
-            <div class="col-sm">
-                <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 2rem;"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
+<tr>
+    <td class="text-center"><img src="https://www.cryptocompare.com{{ asset.ImageUrl }}"></img></td>
+    <td class="text-center"><a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.name }}</a></td>
+    <td class="text-center">{{ asset.coinName }}</td>
+    <td class="text-center">{{ asset.price }}</td>
+    <td class="text-center">{{ asset.pricediff }}</td>
+    <td class="text-center">{{ asset.pricediffpercent }}</td>
+    <td class="text-center">{{ asset.added_at }}</td>
+    <td class="text-center"><a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a></td>
+  </tr>

@@ -3,7 +3,24 @@
 {% load i18n %}
 {% block content %}
   <h1>Watchlist</h1>
-  {% for asset in watchlist %}
-    {% include_watchlist_asset asset %}
-  {% endfor %}
+  <h2>Kryptowährung</h2>
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">Image</th>
+        <th scope="col" class="text-center">Symbol</th>
+        <th scope="col" class="text-center">Name</th>
+        <th scope="col" class="text-center">Preis Heute</th>
+        <th scope="col" class="text-center">Preis Vortag</th>
+        <th scope="col" class="text-center">Differenz in %</th>
+        <th scope="col" class="text-center">Hinzugefügt am</th>
+        <th scope="col" class="text-center">Watchlist</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for asset in watchlist %}
+        {% include_watchlist_asset asset %}
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock content %}
