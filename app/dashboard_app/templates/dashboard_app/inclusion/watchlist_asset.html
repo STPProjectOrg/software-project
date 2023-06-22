@@ -1,27 +1,25 @@
 {% load i18n %}
-
-                <h1>{% trans "Asset" %}</h1>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm">
-                                <!--<img src="https://www.cryptocompare.com{{ asset.ImageUrl }}"><a href="{% url 'dashboard_app:asset' asset.name %}"></a></img>-->
-                            </div>
-                            <div class="col-sm">
-                                <p>Symbol: <a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.name }}</a> </p>
-                            </div>
-                            <div class="col-sm">
-                                <p>Name: {{ asset.coinName }}</p>
-                            </div>
-                            <div class="col-sm">
-                                <p>Preis: {{ asset.price }}</p>
-                            </div>
-                            <div class="col-sm">
-                                <p>Hinzugefügt am: {{ asset.added_at }}</p>
-                            </div>
-                            <div class="col-sm">
-                                <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">{% trans "Von der Watchlist entfernen" %}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm">
+                <img src="https://www.cryptocompare.com{{ asset.ImageUrl }}"></img>
+            </div>
+            <div class="col-sm">
+                <p>Symbol: <a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.name }}</a> </p>
+            </div>
+            <div class="col-sm">
+                <p>Name: {{ asset.coinName }}</p>
+            </div>
+            <div class="col-sm">
+                <p>Preis: {{ asset.price }}</p>
+            </div>
+            <div class="col-sm">
+                <p>Hinzugefügt am: {{ asset.added_at }}</p>
+            </div>
+            <div class="col-sm">
+                <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">{% trans "Von der Watchlist entfernen" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
