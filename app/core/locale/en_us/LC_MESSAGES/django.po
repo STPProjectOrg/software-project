@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-21 13:20+0200\n"
+"POT-Creation-Date: 2023-06-22 12:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,82 +17,95 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\core\templates\core\clear_base.html:38
+#: .\templates\core\clear_base.html:38
 msgid "Anmelden"
 msgstr "Sign In"
 
-#: .\core\templates\core\clear_base.html:39
+#: .\templates\core\clear_base.html:39
 msgid "Registrieren"
 msgstr "Register"
 
-#: .\core\templates\core\cookie_disclosure.html:6
-#: .\core\templates\inclusion\footer.html:22
+#: .\templates\core\cookie_disclosure.html:6
+#: .\templates\inclusion\footer.html:22
 msgid "Cookie-Erklärung"
 msgstr "Cookie Policy"
 
-#: .\core\templates\core\cookie_disclosure.html:11
+#: .\templates\core\cookie_disclosure.html:11
 msgid "Information"
 msgstr "Information"
 
-#: .\core\templates\core\cookie_disclosure.html:12
+#: .\templates\core\cookie_disclosure.html:12
 msgid ""
 "Cookie-Dateien sind kleine Textdateien. Sie werden genutzt, um mit einer "
 "Internetseite verbundene Informationen für einige Zeit lokal auf Ihrem "
 "Computer zu speichern und dem Server auf Anfrage wieder zu übermitteln."
-msgstr "Cookie files are small text files. They are used to store information related to a website on your computer for a certain period of time and transmit it back to the server upon request."
+msgstr ""
+"Cookie files are small text files. They are used to store information "
+"related to a website on your computer for a certain period of time and "
+"transmit it back to the server upon request."
 
-#: .\core\templates\core\cookie_disclosure.html:13
+#: .\templates\core\cookie_disclosure.html:13
 msgid ""
 "Die meisten Internet-Browser sind so eingestellt, dass sie Cookies "
 "automatisch akzeptieren. Sie können diese Funktion jedoch in Ihrem Browser "
 "deaktivieren oder diesen so einstellen, dass Cookies mit dem Schließen des "
 "Browsers gelöscht werden. Eine Zusammenführung von Cookie-Informationen mit "
 "personenbezogenen Daten findet nicht statt."
-msgstr "Most internet browsers are set to automatically accept cookies. However, you can disable this function in your browser or set it to delete cookies when the browser is closed. There is no merging of cookie information with personal data."
+msgstr ""
+"Most internet browsers are set to automatically accept cookies. However, you "
+"can disable this function in your browser or set it to delete cookies when "
+"the browser is closed. There is no merging of cookie information with "
+"personal data."
 
-#: .\core\templates\core\cookie_disclosure.html:14
+#: .\templates\core\cookie_disclosure.html:14
 msgid ""
 "Beim Aufruf der Internetseite werden ausschließlich technisch notwendige "
 "Cookies gesetzt. Die auf dieser Seite eingesetzten Session-Cookies "
 "beinhalten keine personenbezogenen Daten und werden nach dem Absenden der "
 "Formulare oder Schließen des Browsers gelöscht."
-msgstr "When accessing the website, only technically necessary cookies are set. The session cookies used on this page do not contain personal data and are deleted after submitting the forms or closing the browser."
+msgstr ""
+"When accessing the website, only technically necessary cookies are set. The "
+"session cookies used on this page do not contain personal data and are "
+"deleted after submitting the forms or closing the browser."
 
-#: .\core\templates\core\cookie_disclosure.html:15
+#: .\templates\core\cookie_disclosure.html:15
 msgid ""
 "Eine Zusammenführung dieser Informationen mit personenbezogenen Daten findet "
 "nicht statt."
 msgstr "There is no merging of this information with personal data."
 
-#: .\core\templates\core\cookie_disclosure.html:16
+#: .\templates\core\cookie_disclosure.html:16
 msgid ""
 "Folgende Funktionen verwenden Cookies, um korrekt funktionieren zu können."
 msgstr "The following functions use cookies to function correctly."
 
-#: .\core\templates\core\cookie_disclosure.html:17
+#: .\templates\core\cookie_disclosure.html:17
 msgid "Cookie für Login-Funktion"
 msgstr "Cookie for login function"
 
-#: .\core\templates\core\cookie_disclosure.html:18
+#: .\templates\core\cookie_disclosure.html:18
 msgid ""
 "Um sich für bestimmte Website-Funktionen einloggen zu können, ist es "
 "notwendig, einen Cookie zu setzen. Wenn Sie sich einloggen, wird im Cookie "
 "vermerkt, dass Sie sich erfolgreich bei der Website angemeldet haben. So "
 "müssen Sie sich nicht bei jedem Besuch einer anderen Unterseite neu "
 "anmelden. Wenn Sie sich wieder abmelden, wird der Cookie gelöscht."
-msgstr "In order to log in for certain website features, it is necessary to set a cookie. When you log in, the cookie will indicate that you have successfully logged in to the website. This way, you don't have to log in again for each visit to a different subpage. When you log out, the cookie will be deleted."
+msgstr ""
+"In order to log in for certain website features, it is necessary to set a "
+"cookie. When you log in, the cookie will indicate that you have successfully "
+"logged in to the website. This way, you don't have to log in again for each "
+"visit to a different subpage. When you log out, the cookie will be deleted."
 
-#: .\core\templates\core\legal_disclosure.html:11
-#: .\core\templates\inclusion\footer.html:18
+#: .\templates\core\legal_disclosure.html:11
+#: .\templates\inclusion\footer.html:18
 msgid "Impressum"
 msgstr "Legal Disclosure"
 
-#: .\core\templates\core\legal_disclosure.html:16
-#: .\core\templates\core\privacy.html:17
+#: .\templates\core\legal_disclosure.html:16 .\templates\core\privacy.html:17
 msgid "Anbieter"
 msgstr "Provider"
 
-#: .\core\templates\core\legal_disclosure.html:17
+#: .\templates\core\legal_disclosure.html:17
 msgid ""
 "Die Webseite wird im Rahmen einer Projektarbeit an der Hochschule Flensburg "
 "für private Zwecke betrieben."
@@ -100,55 +113,67 @@ msgstr ""
 "The website is operated for private purposes as part of a project at "
 "Flensburg University of Applied Sciences."
 
-#: .\core\templates\core\privacy.html:11
-#: .\core\templates\inclusion\footer.html:20
+#: .\templates\core\privacy.html:11 .\templates\inclusion\footer.html:20
 msgid "Datenschutz"
 msgstr "Privacy"
 
-#: .\core\templates\inclusion\navigation.html:4
+#: .\templates\inclusion\navigation.html:4
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: .\core\templates\inclusion\navigation.html:6
+#: .\templates\inclusion\navigation.html:5
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\templates\inclusion\navigation.html:7
 msgid "Sozial"
 msgstr "Social"
 
-#: .\core\templates\inclusion\search.html:16
-msgid "Suche"
-msgstr "Search"
-
-#: .\core\templates\inclusion\search_modal.html:6
-msgid "Suchergebnisse"
-msgstr "Search results"
-
-#: .\core\templates\inclusion\search_result.html:6
-msgid "Keine Ergebnisse gefunden!"
-msgstr "No results found!"
-
-#: .\core\templates\inclusion\search_result.html:28
-msgid "Benutzer"
-msgstr "User"
-
-#: .\core\templates\inclusion\search_result.html:34
-msgid "Entfolgen"
-msgstr "Unfollow"
-
-#: .\core\templates\inclusion\search_result.html:37
-msgid "Folgen"
-msgstr "Follow"
-
-#: .\core\templates\inclusion\user_menu.html:32
+#: .\templates\inclusion\navigation.html:8
+#: .\templates\inclusion\user_menu.html:32
 msgid "Profil"
 msgstr "Profile"
 
-#: .\core\templates\inclusion\user_menu.html:35
+#: .\templates\inclusion\navigation.html:9
+msgid "Community"
+msgstr "Community"
+
+#: .\templates\inclusion\navigation.html:10
+msgid "Nachrichten"
+msgstr "Messages"
+
+#: .\templates\inclusion\search.html:16
+msgid "Suche"
+msgstr "Search"
+
+#: .\templates\inclusion\search_modal.html:6
+msgid "Suchergebnisse"
+msgstr "Search results"
+
+#: .\templates\inclusion\search_result.html:6
+msgid "Keine Ergebnisse gefunden!"
+msgstr "No results found!"
+
+#: .\templates\inclusion\search_result.html:28
+msgid "Benutzer"
+msgstr "User"
+
+#: .\templates\inclusion\search_result.html:34
+msgid "Entfolgen"
+msgstr "Unfollow"
+
+#: .\templates\inclusion\search_result.html:37
+msgid "Folgen"
+msgstr "Follow"
+
+#: .\templates\inclusion\user_menu.html:35
 msgid "Hilfe"
 msgstr "Help"
 
-#: .\core\templates\inclusion\user_menu.html:38
+#: .\templates\inclusion\user_menu.html:38
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: .\core\templates\inclusion\user_menu.html:45
+#: .\templates\inclusion\user_menu.html:45
 msgid "Abmelden"
 msgstr "Sign out"
