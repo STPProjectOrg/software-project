@@ -71,7 +71,7 @@
                             {% if message.from_user_id == user.id %}
                                 <div class="d-flex flex-column mw-75 ms-auto">
                                     <div class="card bg-body-tertiary  ms-auto">
-                                        <div class="card-body py-2 ">{{ message.message|tag }}</div>
+                                        <div class="card-body py-2 ">{{ message.message|tag|linebreaksbr }}</div>
                                         {% if message.image != "" %}
                                         <button class="btn btn-outline-primary ms-auto"
                                         type="button"

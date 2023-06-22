@@ -42,8 +42,9 @@
             </div>
         {% endif %}
     </div>
+    {# Post Content #}
     <div class="card-body pb-2">
-        <div id="content">{{ post.content|tag }}</div>
+        <div id="content">{{ post.content|tag|linebreaksbr }}</div>
         {# Post Image #}
         {% if post.image != "" %}
             <button class="btn btn-outline-primary ms-auto"
@@ -136,8 +137,8 @@
                                 {% endif %}
                             </div>
                         </div>
-                        {# Content #}
-                        <div>{{ comment.content|tag }}</div>
+                        {# Comment Content #}
+                        <div>{{ comment.content|tag|linebreaksbr }}</div>
                         {# Likes #}
                         <a href="{% url 'community_app:like_comment' comment.id %}"
                         class="btn btn-link p-0 fw-bold">

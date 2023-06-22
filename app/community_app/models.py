@@ -1,6 +1,5 @@
 from django.db import models
 from user_app.models import CustomUser
-from api_app.models import Asset
 # Create your models here.
 
 
