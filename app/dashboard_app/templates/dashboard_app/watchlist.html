@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% load dashboard_tags %}
+{% load i18n %}
+{% block content %}
+  <h1>Watchlist</h1>
+  {% for asset in watchlist %}
+    {% include_watchlist_asset asset %}
+  {% endfor %}
+{% endblock content %}

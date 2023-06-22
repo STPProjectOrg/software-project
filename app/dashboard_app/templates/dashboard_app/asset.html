@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load dashboard_tags %}
+{% load i18n %}
 {% block content %}
     <div class="row">
         <div class="col">
@@ -22,6 +23,12 @@
             <h4>Coin-Info</h4>
             <p>Name: {{ coinInfo.CoinName }}</p>
             <p>Symbol: {{ coinInfo.Symbol }}</p>
+            {# Watchlist #}
+            {% if asset_in_watchlist %}
+              <p>Watchlist: <a href="{% url 'dashboard_app:watchlist_add' coinInfo.Symbol %}"><i class="bi bi-star-fill my-auto" style="font-size: 2rem;"></i></a></p>
+            {% else %}
+              <p>Watchlist: <a href="{% url 'dashboard_app:watchlist_add' coinInfo.Symbol %}"><i class="bi bi-star my-auto" style="font-size: 2rem;"></i></a></p>
+            {% endif %}
         </div>
         <div style="width: 33%">
             <h4>Add To Portfolio</h4>

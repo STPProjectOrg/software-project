@@ -39,3 +39,8 @@ def transaction_buy_modal(user, coinInfo):
     """ Include a modal for creating a buy-transaction. """
 
     return {"user": user, "coinInfo": coinInfo, "form": TransactionBuyForm()}
+
+@register.inclusion_tag("dashboard_app/inclusion/watchlist_asset.html")
+def include_watchlist_asset(asset):
+    """include KPI element"""
+    return {"asset":asset}

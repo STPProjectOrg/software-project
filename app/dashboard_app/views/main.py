@@ -11,6 +11,8 @@ from user_app.views import getUser
 from dashboard_app.forms import AddToPortfolioForm, AddToPortfolioForm2
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
+from dashboard_app.models import Watchlist
+from dashboard_app.views.watchlist import get_watchlist
 
 
 # Create your views here.
@@ -184,6 +186,7 @@ def asset(request, coin):
     selectedCoin = coin.upper()
     user = 1
     message = ""
+    asset = Asset.objects.get(name=coin)
     form = AddToPortfolioForm2(initial={'user': user, 'assetDropdown': selectedCoin})
     if request.method == 'POST':
         form = AddToPortfolioForm2(request.POST)
@@ -205,9 +208,17 @@ def asset(request, coin):
     data = {'coinInfo': getCoinInformation(selectedCoin),
             'todaysValue': todaysValue,
             'values': values,
+            'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
             'form': form,
             'message': message}
     return render(request, 'dashboard_app/asset.html', context=data)
+
+@login_required
+def watchlist(request):
+    
+    data = {"watchlist": get_watchlist(request.user)}
+    return render(request, 'dashboard_app/watchlist.html', context=data)
+
 
 
 def addToPortfolio(cleanedData):
