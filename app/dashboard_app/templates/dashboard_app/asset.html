@@ -25,9 +25,9 @@
             <p>Symbol: {{ coinInfo.Symbol }}</p>
             {# Watchlist #}
             {% if asset_in_watchlist %}
-              <a href="{% url 'dashboard_app:watchlist_add' coinInfo.Symbol %}">{% trans "Von der Watchlist entfernen" %}</a>
+              <p>Watchlist: <a href="{% url 'dashboard_app:watchlist_add' coinInfo.Symbol %}"><i class="bi bi-star-fill my-auto" style="font-size: 2rem;"></i></a></p>
             {% else %}
-              <a href="{% url 'dashboard_app:watchlist_add' coinInfo.Symbol %}">{% trans "Zur Watchlist hinzufügen" %}</a>
+              <p>Watchlist: <a href="{% url 'dashboard_app:watchlist_add' coinInfo.Symbol %}"><i class="bi bi-star my-auto" style="font-size: 2rem;"></i></a></p>
             {% endif %}
         </div>
         <div style="width: 33%">

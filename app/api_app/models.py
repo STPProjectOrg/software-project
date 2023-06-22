@@ -10,8 +10,8 @@ class Asset(models.Model):
     
 class AssetHistory(models.Model):
     date = models.DateField()
-    value = models.CharField(max_length=30, blank=False)
+    value = models.FloatField(max_length=30, blank=False)
     name = models.ForeignKey(Asset, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.value
+        return str(self.value)

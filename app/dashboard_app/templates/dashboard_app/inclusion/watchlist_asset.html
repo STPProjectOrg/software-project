@@ -15,10 +15,16 @@
                 <p>Preis: {{ asset.price }}</p>
             </div>
             <div class="col-sm">
+                <p>Preisdifferenz zum Vortag: {{ asset.pricediff }}</p>
+            </div>
+            <div class="col-sm">
+                <p>Preisdifferenz zum Vortag in %: {{ asset.pricediffpercent }}</p>
+            </div>
+            <div class="col-sm">
                 <p>Hinzugefügt am: {{ asset.added_at }}</p>
             </div>
             <div class="col-sm">
-                <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">{% trans "Von der Watchlist entfernen" %}</a>
+                <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 2rem;"></i></a>
             </div>
         </div>
     </div>
