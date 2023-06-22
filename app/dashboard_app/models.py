@@ -15,3 +15,8 @@ class Transaction(models.Model):
 
     def __str__(self):
         return self.asset
+
+class Watchlist(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
+    added_at = models.DateTimeField()
