@@ -14,7 +14,7 @@ class UserRegistrationForm(forms.ModelForm):
         'id': 'username',
         'class': 'form-control',
         'placeholder': 'Benutzername',
-    }),error_messages={'username': invalid_email_msg})
+    }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'id': 'password',
@@ -68,9 +68,9 @@ class UserRegistrationForm(forms.ModelForm):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password2 = cleaned_data.get("password2")
-        username = cleaned_data.get("username")
-        if CustomUser.objects.filter(username = username).exists:
-            self.add_error("username", "Benutzername existiert bereits.")
+        #username = cleaned_data.get("username")
+        #if CustomUser.objects.filter(username = username).exists:
+        #    self.add_error("username", "Benutzername existiert bereits.")
         if password and password2 and password != password2:
             self.add_error("password2", invalid_password_match_msg)
         self.set_form_control()
