@@ -11,12 +11,12 @@ import time
 def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
-    print(getCoinInformation("BTC"))
     #addCoinToDatabase('BTC','Bitcoin','EUR')
     #addCoinToDatabase('ETH','Ethereum','EUR')
     #addCoinToDatabase('USDT','Tether','EUR')
     #addCoinToDatabase('XRP','XRP','EUR')
-    #saveDataFromApiToDatabase('BTC', 'EUR', dateFrom, dateTo)
+    #addCoinToDatabase('BNB', 'Binance Coin', 'EUR')
+    #saveDataFromApiToDatabase('BNB', 'EUR', datetime(2023,5,1), datetime(2023,5,31))
     values = 0
     #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
     message = ""
@@ -65,7 +65,7 @@ def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
     if getAssetFromDatabase(cryptoCurrencyString).name == cryptoCurrencyString: 
         return print(f"{cryptoCurrencyString} already exists in database")
 
-    asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName)[0]
+    asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName, imageUrl="https://www.cryptocompare.com"+getCoinInformation(cryptoCurrencyString)['ImageUrl'])[0]
     currentDate = datetime.now()
     date = datetime(currentDate.year,currentDate.month,currentDate.day)
     currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]

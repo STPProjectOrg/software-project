@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from dashboard_app.models import Watchlist
+from dashboard_app.models import Watchlist, Transaction
 from api_app.models import Asset, AssetHistory
 
 
@@ -27,6 +27,18 @@ def get_watchlist(user):
         price = AssetHistory.objects.get(name_id=asset.id, date=date)
         pricediff = AssetHistory.objects.get(name_id=asset.id, date=d-timedelta(days=1))
         pricediffpercent = round((price.value / pricediff.value) - 1,4)
-        data = {"name": asset.name, "coinName": asset.coinName, "price": price, "pricediff": pricediff, "pricediffpercent":pricediffpercent,"added_at": watchlist_asset.added_at}
+        data = {
+            "imageUrl": asset.imageUrl,
+            "name": asset.name, 
+            "coinName": asset.coinName, 
+            "price": price, 
+            "pricediff": pricediff, 
+            "pricediffpercent":pricediffpercent,
+            "added_at": watchlist_asset.added_at,
+            "isInPortfolio": Transaction.objects.filter(user=user, asset=asset).exists()
+            }
         assets.insert(0, data)
     return assets
+
+
+    

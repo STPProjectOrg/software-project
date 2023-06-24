@@ -1,11 +1,21 @@
 {% load i18n %}
 <tr>
-    <td class="text-center"><img src="https://www.cryptocompare.com{{ asset.ImageUrl }}"></img></td>
+    <td class="text-center"><img src="{{ asset.imageUrl }}" style="width:25px;"></img></td>
     <td class="text-center"><a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.name }}</a></td>
     <td class="text-center">{{ asset.coinName }}</td>
     <td class="text-center">{{ asset.price }}</td>
     <td class="text-center">{{ asset.pricediff }}</td>
-    <td class="text-center">{{ asset.pricediffpercent }}</td>
+    {% if asset.pricediffpercent > 0 %}
+      <td class="text-center" style="color: green">+{{ asset.pricediffpercent }}</td>
+    {% else %}
+      <td class="text-center" style="color: red">{{ asset.pricediffpercent }}</td>
+    {% endif %}
     <td class="text-center">{{ asset.added_at }}</td>
     <td class="text-center"><a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a></td>
+    <td class="text-center">{{ asset.isInPortfolio }}</td>
+    {% if asset.isInPortfolio %}
+      <td class="text-center">Kaufen / Verkaufen</td>
+    {% else %}
+      <td class="text-center">Kaufen</td>
+    {% endif %}
   </tr>
