@@ -48,7 +48,6 @@ def inbox_chat(request, participant_req):
                 created_at=datetime.now(),
                 image = compress_image(d.get("image"))
             )
-            form = AddMessageForm()
     messages = []
     for mes in get_chat_messages(user, chat_participant):
         if mes.message_read == False:
