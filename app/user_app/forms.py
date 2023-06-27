@@ -13,7 +13,7 @@ class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'id': 'username',
         'class': 'form-control',
-        'placeholder': 'Benutzername',
+        'placeholder': 'Bebebebe',
     }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
