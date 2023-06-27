@@ -5,6 +5,7 @@
 __pycache__
 pycache
 db.sqlite3
+app/db.sqlite3
 media
 
 # Backup files # 
