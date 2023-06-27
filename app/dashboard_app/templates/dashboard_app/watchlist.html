@@ -2,7 +2,7 @@
 {% load dashboard_tags %}
 {% load i18n %}
 {% block content %}
-  <h1>Watchlist</h1>
+  {% if watchlist %}
   <h2>Kryptowährung</h2>
   <table class="table table-striped table-dark">
     <thead>
@@ -26,4 +26,10 @@
       {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  <div class="d-flex flex-column mw-100 me-auto text-center">
+    <div class="text-white fw-bold fs-3">Sie haben noch keine Assets Ihrer Watchlist hinzugefügt.</div>
+    <div class="text-white fw-semibold fs-5">Um ein Asset Ihrer Watchlist hinzuzufügen, suchen Sie nach einem Asset in der Suche und drücken Sie auf den Stern.</div>
+  </div>
+  {% endif %}
 {% endblock content %}
