@@ -1,12 +1,16 @@
 name: Continuous Integration and Delivery
 
-on: [push]
+on: 
+  pull_request:
+    types:
+      - closed
 
 env:
   WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
 
 jobs:
   tests:
+      if: github.event.pull_request.merged == true
       name: Run Tests
       runs-on: ubuntu-latest
       strategy:
