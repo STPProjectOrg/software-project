@@ -12,9 +12,9 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <form action="" {# TODO: Route #}
-                method="post"
-                enctype="multipart/form-data">
+            <form action="{% url 'user_app:update_userbanner' profile_id %}"
+                  method="post"
+                  enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="input-group">
@@ -23,14 +23,14 @@
                                id="id_profile_pic"
                                aria-describedby="inputGroupFileAddon04"
                                aria-label="Upload"
-                               name="profile_pic" />
+                               name="profile_banner" />
                     </div>
                 </div>
                 <div class="modal-footer pb-0">
                     <button type="button"
                             class="btn btn-secondary me-auto"
                             data-bs-dismiss="modal">Abbrechen</button>
-                    <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+                    <button type="submit" class="btn btn-outline-primary">Änderungen speichern</button>
                 </div>
             </form>
         </div>

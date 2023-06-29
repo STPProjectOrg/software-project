@@ -28,7 +28,7 @@ urlpatterns = [
     path('cookies', cookie_disclosure, name='cookie_disclosure'),
 
     # Cookie Disclosure
-    path('faq', question_and_answers, name='faq'),
+    path('question-and-answers', question_and_answers, name='qaa'),
 
     # Search results
     path('search/', search_results, name='search_results')

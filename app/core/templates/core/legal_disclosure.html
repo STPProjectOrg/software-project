@@ -1,4 +1,4 @@
-{% extends 'core/clear_base.html' %}
+{% extends request.user.is_authenticated|yesno:'core/base.html,core/clear_base.html' %}
 {% load i18n %}
 {% comment %}
     For legal information visit:
@@ -40,10 +40,6 @@
             <li class="list-group-item">
                 <address class="my-2">
                     <strong>Maximilian Steinberg</strong>
-                    <br>
-                    Dorotheenstr. 7
-                    <br>
-                    24939, Flensburg
                     <br>
                     <a href="mailto:maximilian.steinberg@stud.hs-flensburg.de">maximilian.steinberg@stud.hs-flensburg.de</a>
                 </address>

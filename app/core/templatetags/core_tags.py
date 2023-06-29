@@ -3,6 +3,7 @@
 from datetime import datetime
 from django import template
 from django.urls import reverse
+from api_app.models import Asset
 
 from api_app.views import getCryptoValueFromDatabase, getCoinInformation
 import cryptocompare
@@ -80,10 +81,27 @@ def footer():
 def search(width):
     return {'width': width}
 
+
 @register.filter
-def get_asset_value(asset):
-    # return getCryptoValueFromDatabase(asset.name, datetime(2023,4,28))
-    return cryptocompare.get_price('BTC', currency='EUR')['BTC']['EUR']
+def get_asset_value(asset: Asset):
+    """ Returns the price of a given asset in EUR. """
+
+    value = cryptocompare.get_price(asset.name, currency='EUR')[
+        asset.name]['EUR']
+
+    return to_locale_valuta(value)
+
+
+@register.filter
+def to_locale_valuta(value):
+    # Add thousands separators and format to 2 decimal places
+    formatted_value = f'{value:,.2f}'
+    # Replace the decimal separator with a comma
+    formatted_value = formatted_value.replace(',', '#')
+    formatted_value = formatted_value.replace('.', ',')
+    formatted_value = formatted_value.replace('#', '.')
+    return formatted_value + " €"
+
 
 @register.filter
 def get_asset_picture(asset):

@@ -73,13 +73,13 @@
                                     <div class="card bg-body-tertiary  ms-auto">
                                         <div class="card-body py-2 ">{{ message.message|tag|linebreaksbr }}</div>
                                         {% if message.image != "" %}
-                                        <button class="btn btn-outline-primary ms-auto"
-                                        type="button"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullImageModal{{message.id}}">
-                                        <img src="{{ message.image.url }}" style="width:200px;"/>
-                                        </button>
-                                        {% full_image_modal message %}
+                                            <button class="btn btn-outline-primary ms-auto"
+                                                    type="button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#fullImageModal{{ message.id }}">
+                                                <img src="{{ message.image.url }}" style="width:200px;" />
+                                            </button>
+                                            {% full_image_modal message %}
                                         {% endif %}
                                     </div>
                                     <div class="ms-auto">
@@ -91,13 +91,13 @@
                                     <div class="card me-auto">
                                         <div class="card-body py-2">{{ message.message|tag }}</div>
                                         {% if message.image != "" %}
-                                        <button class="btn btn-outline-primary ms-auto"
-                                        type="button"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullImageModal{{message.id}}">
-                                        <img src="{{ message.image.url }}" style="width:200px;"/>
-                                        </button>
-                                        {% full_image_modal message.message %}
+                                            <button class="btn btn-outline-primary ms-auto"
+                                                    type="button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#fullImageModal{{ message.id }}">
+                                                <img src="{{ message.image.url }}" style="width:200px;" />
+                                            </button>
+                                            {% full_image_modal message.message %}
                                         {% endif %}
                                     </div>
                                     <div class="me-auto">
@@ -108,7 +108,9 @@
                         {% endfor %}
                     </div>
                     <div class="card-footer">
-                        <form class="my-2 d-flex flex-column gap-2" method="post" enctype='multipart/form-data'>
+                        <form class="my-2 d-flex flex-column gap-2"
+                              method="post"
+                              enctype='multipart/form-data'>
                             {% csrf_token %}
                             {{ form.message }}
                             {{ form.image }}
@@ -122,10 +124,10 @@
                     </div>
                 </div>
             </div>
-            {% elif not participants %}
+        {% elif not participants %}
             <div class="d-flex flex-column mw-100 me-auto text-center">
                 <div class="text-white fw-bold fs-3">{% trans "Hier werden deine Chats angezeigt." %}</div>
-                <div class="text-white fw-semibold fs-5">{% trans "Derzeit hast du dich noch nicht mit anderen ausgetauscht." %}</div>
+                <div class="text-white fs-5">{% trans "Derzeit hast du dich noch nicht mit anderen ausgetauscht." %}</div>
             </div>
         {% endif %}
     </div>

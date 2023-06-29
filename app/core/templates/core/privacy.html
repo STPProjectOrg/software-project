@@ -1,4 +1,4 @@
-{% extends 'core/clear_base.html' %}
+{% extends request.user.is_authenticated|yesno:'core/base.html,core/clear_base.html' %}
 {% load i18n %}
 {% comment %}
     For further information visit:

@@ -1,20 +1,19 @@
 {% load core_tags %}
 {% load i18n %}
 <form id="search-form"
-      method="GET"
+      method="get"
       action="{% url 'core:search_results' %}"
       class="inline my-auto mx-auto"
       style="max-width: {{ width }}%">
-  <div class="input-group">
-    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-    <input type="text"
-           name="username"
-           class="form-control"
-           placeholder="Suche"
-           aria-label="Suche"
-           aria-describedby="basic-addon1">
-    <button type="submit" class="btn btn-primary">{% trans "Suche" %}</button>
-  </div>
+    <div class="input-group">
+        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+        <input type="text"
+               name="username"
+               class="form-control"
+               placeholder="Suche"
+               aria-label="Suche">
+        <button type="submit" class="btn btn-outline-primary">{% trans "Suche" %}</button>
+    </div>
 </form>
 {% search_modal %}
 <script>

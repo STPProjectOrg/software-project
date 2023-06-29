@@ -11,8 +11,8 @@ def profile_image_modal(user):
 
 
 @register.inclusion_tag("modals/profile_banner_modal.html")
-def profile_banner_modal():
-    return
+def profile_banner_modal(user):
+    return {"user_id": user.id, 'profile_id': user.userprofileinfo.id}
 
 
 @register.inclusion_tag("modals/profile_following_modal.html")

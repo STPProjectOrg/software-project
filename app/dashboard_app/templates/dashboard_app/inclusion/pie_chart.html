@@ -1,33 +1,60 @@
 <script>
     var canvas = document.getElementById('pieChart');
-    var label = JSON.parse(document.getElementById('assetList').textContent);
-    var data = JSON.parse(document.getElementById('valueList').textContent);
 
-    var chartData = {
-        labels: label,
-        datasets: [{
-            label: 'My First Dataset',
-            data: data,
-            backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-            ]
-        }]
-    };
+    var parsed_data = {{ data }}
+    var parsed_labels = [{% for label in labels %}'{{ label }}',{% endfor %}]
+    var parsed_symbols = [{% for symbol in symbols %}'{{ symbol }}',{% endfor %}]
+    var inital_title = document.getElementById("pieTitle").innerHTML
+    var inital_value = document.getElementById("pieValue").innerHTML
 
     new Chart(canvas, {
-        type: 'pie',
-        data: chartData,
+        type: 'doughnut',
+        data: {
+            labels: parsed_labels,
+            datasets: [{
+                data: parsed_data,
+                backgroundColor: ["rgb(20, 24, 36)"],
+            }],
+            
+        }, 
         options: {
+            cutout: "65%",
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: false
+                },
+            },
+            onHover: pieHoverEvent,
             onClick: pieClickEvent
         }
     })
-    
-    function pieClickEvent(event, array){
-        if (array[0]){
-        var id = label[array[0].index]
-        document.location.href = "asset/" + id;
+
+    function pieHoverEvent(event, array) {
+        if (array.length > 0) {
+            document.getElementById("pieTitle").innerHTML = parsed_labels[array[0].index]
+            document.getElementById("pieValue").innerHTML = toLocalNumber(parsed_data[array[0].index])
+        } else {
+            document.getElementById("pieTitle").innerHTML = inital_title
+            document.getElementById("pieValue").innerHTML = inital_value
         }
+        
     }
+       
+    function pieClickEvent(event, array) {
+        if (array.length > 0) {
+            document.location.href = "asset/" + parsed_symbols[array[0].index];
+         }
+    }
+
+    function toLocalNumber(number) {
+        let local_number = '';
+        if (number !== null) {
+            local_number += new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(number);
+        }
+        return local_number;
+    }
+
 </script>

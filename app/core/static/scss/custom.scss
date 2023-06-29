@@ -243,4 +243,5 @@ $headings-color: #e3e6ed;
 ::-webkit-scrollbar-thumb {
     background-color: $body-tertiary-color-dark;
     border-radius: 0.375rem;
+    scrollbar-width: thin;
 }

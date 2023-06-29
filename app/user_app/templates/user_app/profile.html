@@ -1,7 +1,6 @@
 {% extends "core/base.html" %}
 {% load user_tags %}
 {% load community_tags %}
-
 {% load i18n %}
 {% block title %}
     | {{ profile_user.first_name }} {{ profile_user.last_name }}
@@ -11,7 +10,10 @@
         <div class="position-relative">
             <img class="card-img-top"
                  style="max-height: 25vh"
+                 {% comment %}
                  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fkbhxfkobabf11.png&f=1&nofb=1&ipt=7138a6d0e9e4fe655b60f911ce3bf0bbd7d3492d9c7edcf53ed436e1ae2c8c7b&ipo=images"
+                 {% endcomment %}
+                 src="{{ profile_user.userprofileinfo.get_profile_banner }}"
                  alt="Card image cap" />
             <div class="card-img-overlay d-flex flex-column justify-content-end align-items-center p-0">
                 <div class="h-75 mb-n4" style="z-index: 1000; position: relative">
@@ -133,24 +135,24 @@
         </div>
     </div>
     <div class="fst-italic">Hier kommt das Portfolio des Nutzers (Preview als Link)</div>
-            {# Create post #}
-            <div class="d-flex gap-2">
-              <button class="btn btn-outline-primary ms-auto"
-                      type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#postCreateModal">{% trans "Neuer Post" %}</button>
-            </div>
-            <div class="row">
-                <div class="col d-flex flex-column gap-3">
-                  {% for post in myposts %}
-                    {% entry request.user post %}
-                  {% endfor %}
-                </div>
-            </div>
+    {# Create post #}
+    <div class="d-flex gap-2">
+        <button class="btn btn-outline-primary ms-auto"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#postCreateModal">{% trans "Neuer Post" %}</button>
+    </div>
+    <div class="row">
+        <div class="col d-flex flex-column gap-3">
+            {% for post in myposts %}
+                {% entry request.user post %}
+            {% endfor %}
+        </div>
+    </div>
     {# Modals #}
     {% if is_user_profile %}
         {% profile_image_modal request.user %}
-        {% profile_banner_modal %}
+        {% profile_banner_modal request.user %}
         {# TODO: Bio Modal #}
         {% post_create_modal request.user postform %}
     {% endif %}

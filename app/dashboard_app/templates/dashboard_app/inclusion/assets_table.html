@@ -1,0 +1,47 @@
+{% load core_tags %}
+<div class="overflow-auto">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Icon</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Name</th>
+                <th scope="col" class="text-end">Stückzahl</th>
+                <th scope="col" class="text-end">Kaufpreis</th>
+                <th scope="col" class="text-end">Wert / Stück</th>
+                <th scope="col" class="text-end">Gesamtwert</th>
+                <th scope="col" class="text-end">Gewinn</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in assets %}
+                <tr class="align-middle">
+                    <td>
+                        IM CODE AUSGEBLENDET
+                        {% comment %} <img class="logo-fs-3"
+      src="https://www.cryptocompare.com{{ asset|get_asset_picture }}"> {% endcomment %}
+                    </td>
+                    <td>{{ asset.name }}</td>
+                    <td>{{ asset.coinName }}</td>
+                    <td class="text-end">{{ asset.amount }}</td>
+                    <td class="text-end">{{ asset.cost|to_locale_valuta }}</td>
+                    <td class="text-end">{{ asset.price|to_locale_valuta }}</td>
+                    <td class="text-end">{{ asset.total_value|to_locale_valuta }}</td>
+                    <td class="text-end">{{ asset.profit|to_locale_valuta }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" class="text-end">{{ kpi.cost|to_locale_valuta }}</th>
+                <th scope="col"></th>
+                <th scope="col" class="text-end">{{ kpi.total|to_locale_valuta }}</th>
+                <th scope="col" class="text-end">{{ kpi.profit|to_locale_valuta }}</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

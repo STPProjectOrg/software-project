@@ -6,49 +6,51 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="profileFollowingModalLabel">
-                    {{ profile_user.first_name }} {{ profile_user.last_name }} folgt {{ profile_following_list.count }} Personen
-                </h1>
+                <h1 class="modal-title fs-5" id="profileFollowingModalLabel">{{ profile_following_list.count }} Gefolgt</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="d-flex flex-column gap-2">
-                    {% for user in profile_following_list %}
-                        <div class="d-flex gap-2 bg-body-secondary p-2 border rounded">
-                            <div>
-                                <a class="btn btn-link text-start p-0 d-flex gap-2"
-                                   href="{% url 'user_app:profile' user.username %}">
-                                    <div class="my-auto">
-                                        <img class="logo-fs-3" src="{{ user.userprofileinfo.get_profile_pic }}">
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <small>u/{{ user.username }}</small>
+            {% if profile_following_list %}
+                <div class="modal-body">
+                    <div class="d-flex flex-column gap-2">
+                        {% for user in profile_following_list %}
+                            <div class="d-flex gap-2 bg-body-secondary p-2 border rounded">
+                                <div>
+                                    <a class="btn btn-link text-start p-0 d-flex gap-2"
+                                       href="{% url 'user_app:profile' user.username %}">
+                                        <div class="my-auto">
+                                            <img class="logo-fs-3" src="{{ user.userprofileinfo.get_profile_pic }}">
                                         </div>
-                                        <div>{{ user.first_name }} {{ user.last_name }}</div>
+                                        <div>
+                                            <div>
+                                                <small>u/{{ user.username }}</small>
+                                            </div>
+                                            <div>{{ user.first_name }} {{ user.last_name }}</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% if user.id in user_following_list %}
+                                    <div class="my-auto ms-auto">
+                                        <a class="btn btn-outline-primary"
+                                           href="{% url 'user_app:follow' user.username %}">Entfolgen</a>
                                     </div>
-                                </a>
+                                {% elif user.id != request.user.id %}
+                                    <div class="my-auto ms-auto">
+                                        <a class="btn btn-outline-primary"
+                                           href="{% url 'user_app:follow' user.username %}">Folgen</a>
+                                    </div>
+                                {% endif %}
                             </div>
-                            {% if user.id in user_following_list %}
-                                <div class="my-auto ms-auto">
-                                    <a class="btn btn-outline-primary"
-                                       href="{% url 'user_app:follow' user.username %}">Entfolgen</a>
-                                </div>
-                            {% elif user.id != request.user.id %}
-                                <div class="my-auto ms-auto">
-                                    <a class="btn btn-outline-primary"
-                                       href="{% url 'user_app:follow' user.username %}">Folgen</a>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary ms-auto" data-bs-dismiss="modal">Schließen</button>
+                <button type="button"
+                        class="btn btn-outline-primary ms-auto"
+                        data-bs-dismiss="modal">Schließen</button>
             </div>
         </div>
     </div>

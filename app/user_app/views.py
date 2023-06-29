@@ -53,19 +53,22 @@ def register(request):
             new_profile.save()
 
             registred = True
-            return redirect(reverse('core:index'))
+            return render(request, 'user_app/register/registration_success.html')
 
-        else:
-            print(user_form.errors, userprofile_form.errors)
-            
+        print(user_form.errors, userprofile_form.errors)
+
     else:
         user_form = UserRegistrationForm()
         userprofile_form = UserProfileInfoForm()
 
-    return render(request, 'user_app/registration.html',
+    return render(request, 'user_app/register/registration.html',
                   {'user_form': user_form,
                    'profile_form': userprofile_form,
                    'registred': registred})
+
+
+def register_success(request):
+    return render(request, 'user_app/register/registration_succsess.html')
 
 
 @login_required
@@ -100,7 +103,7 @@ def profile(request, username):
         following__following_user_id=profile_user.id).select_related("userprofileinfo")
     profile_following_list = CustomUser.objects.filter(
         followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
-    
+
     # Post-Section
     my_posts = post.get_by_user(request.user)
     postform = post.PostForm()
@@ -151,10 +154,47 @@ class ProfilePicUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('user_app:profile_redirect')
 
 
-@login_required    
+class ProfileBannerUpdateView(LoginRequiredMixin, UpdateView):
+    model = UserProfileInfo
+    fields = ['profile_banner']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('user_app:profile_redirect')
+
+
+@login_required
+def update_user_profile_pic(request, pk):
+    profile = UserProfileInfo.objects.get(id=pk)
+
+    if request.method == 'POST':
+        if 'profile_pic' in request.FILES:
+            profile.profile_pic = request.FILES['profile_pic']
+            profile.save()
+
+    return redirect(reverse('user_app:profile_redirect'))
+
+
+@login_required
+def update_user_profile_banner(request, pk):
+    profile = UserProfileInfo.objects.get(id=pk)
+
+    if request.method == 'POST':
+        if 'profile_banner' in request.FILES:
+            profile.profile_banner = request.FILES['profile_banner']
+            profile.profile_pic = profile.profile_pic
+            profile.save()
+
+    return redirect(reverse('user_app:profile_redirect'))
+
+
+@login_required
 def delete_profile_pic(request, pk):
     user_profile = get_object_or_404(UserProfileInfo, pk=pk)
-    
+
     if pk == request.user.userprofileinfo.id:
         user_profile.profile_pic.delete()
         # user_profile.delete_profile_pic()

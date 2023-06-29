@@ -32,7 +32,7 @@
                        href="{% url 'user_app:profile' request.user.username %}"><i class="bi bi-person-fill pe-2"></i>{% trans "Profil" %}</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-info-circle pe-2"></i>{% trans "Hilfe" %}</a>
+                    <a class="dropdown-item" href="{% url 'core:qaa' %}"><i class="bi bi-info-circle pe-2"></i>{% trans "Hilfe" %}</a>
                 </li>
                 <li>
                     <a class="dropdown-item" href="{% url 'settings_app:overview' %}"><i class="bi bi-gear pe-2"></i>{% trans "Einstellungen" %}</a>

@@ -7,61 +7,51 @@
         </td>
     </tr>
 {% endif %}
-{% for user in users %}
+{% if users %}
     <tr>
-        <td class="col-3">
-            <div class="d-flex align-items-center">
-                {% comment "" %} <img src="{{user|}}" class="rounded-circle border border-dark border-5" alt="Avatar" style="width: 45px; height: 45px"> {% endcomment %}
-                <img src="{{ user.userprofileinfo.get_profile_pic }}"
-                     class="rounded-circle border border-dark border-5"
-                     alt="Avatar"
-                     style="width: 45px;
-                            height: 45px">
-            </div>
-        </td>
-        <td class="col-3">
-            <div>
-                <a href="{% url 'user_app:profile' user.username %}">{{ user.username }}</a>
-            </div>
-        </td>
-        <td class="col-3">
-            <span class="badge rounded-pill text-bg-success">{% trans "Benutzer" %}</span>
-        </td>
-        <td class="col-3">
-            {% comment "" %} <i class="bi bi-person-fill-check"></i> {% endcomment %}
-            {% if user.id in followers %}
-                <a class="btn btn-outline-primary"
-                   href="{% url 'user_app:follow' user.username %}">{% trans "Entfolgen" %}</a>
-            {% elif user.id != request.user.id %}
-                <a class="btn btn-outline-primary"
-                   href="{% url 'user_app:follow' user.username %}">{% trans "Folgen" %}</a>
-            {% endif %}
-        </td>
+        <td class="border-0 fs-5 fw-semibold text-white">Nutzer</td>
     </tr>
-{% endfor %}
-{% for asset in assets %}
+    {% for user in users %}
+        <tr>
+            <td colspan="100" class="border-0">
+                <a class="btn btn-link text-start gap-2 w-100 d-flex bg-body-secondary p-2 border rounded"
+                   href="{% url 'user_app:profile' user.username %}">
+                    <div class="my-auto">
+                        <img class="logo-fs-3" src="{{ user.userprofileinfo.get_profile_pic }}">
+                    </div>
+                    <div>
+                        <div>
+                            <small>u/{{ user.username }}</small>
+                        </div>
+                        <div>{{ user.first_name }} {{ user.last_name }}</div>
+                    </div>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}
+{% if assets %}
     <tr>
-        <td class="col-3">
-            <div class="d-flex align-items-center">
-                <img src="https://www.cryptocompare.com{{ asset|get_asset_picture }}"
-                     class="rounded-circle border border-dark border-5"
-                     alt="Avatar"
-                     style="width: 45px;
-                            height: 45px">
-            </div>
-        </td>
-        <td class="col-3">
-            <div class="d-flex align-items-center">
-                <a href="{% url 'dashboard_app:asset' asset.name %}">{{ asset.coinName }} ({{ asset.name }})</a>
-            </div>
-        </td>
-        <td class="col-3">
-            <div class="d-flex align-items-center">
-                <span class="badge rounded-pill text-bg-light">Asset</span>
-            </div>
-        </td>
-        <td class="col-3">
-            <span>{{ asset|get_asset_value }}€</span>
-        </td>
+        <td class="border-0 fs-5 fw-semibold text-white">Assets</td>
     </tr>
-{% endfor %}
+    {% for asset in assets %}
+        <tr>
+            <td colspan="100" class="border-0">
+                <a href="{% url 'dashboard_app:asset' asset.name %}"
+                   class="btn btn-link text-start gap-2 w-100 d-flex bg-body-secondary p-2 border rounded">
+                    <div class="my-auto">
+                        <img class="logo-fs-3"
+                             src="https://www.cryptocompare.com{{ asset|get_asset_picture }}">
+                    </div>
+                    <div>
+                        <div>
+                            <small>{{ asset.name }}</small>
+                        </div>
+                        <div>{{ asset.coinName }}</div>
+                    </div>
+                    <div class="ms-auto my-auto">{{ asset|get_asset_value }}</div>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

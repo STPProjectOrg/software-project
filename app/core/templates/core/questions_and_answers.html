@@ -1,11 +1,55 @@
-{% extends "core/clear_base.html" %}
+{% extends request.user.is_authenticated|yesno:'core/base.html,core/clear_base.html' %}
 {% block content %}
     {# Title #}
     <div>
         <h1>Fragen und Antworten</h1>
+        <p>Hier finden Sie Antworten zu häufig gestellten Fragen.</p>
     </div>
     {# Content #}
     <div class="mt-4">
-        <h2>...</h2>
+        <div class="accordion" id="accordionQuestion1">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse1"
+                            aria-expanded="false"
+                            aria-controls="flush-collapse1">Wie kann ich Coins zu meinem Depot hinzufügen?</button>
+                </h2>
+                <div id="flush-collapse1"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#accordionQuestion1">
+                    <div class="accordion-body">
+                        <div>
+                            Coins können über die Suchleiste gefunden und aufgerufen werden.
+                            Über den Button <strong>[Button-Name]</strong> wird das Formular zum hinzufügen geöffnet.
+                            Hier können, neben dem Kaufdatum und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="accordion" id="accordionQuestion2">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapse2"
+                            aria-expanded="false"
+                            aria-controls="flush-collapse1">TODO: FRAGE 2</button>
+                </h2>
+                <div id="flush-collapse2"
+                     class="accordion-collapse collapse"
+                     data-bs-parent="#accordionQuestion2">
+                    <div class="accordion-body">
+                        <div>...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

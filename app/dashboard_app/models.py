@@ -1,6 +1,14 @@
 from django.db import models
+from django.db.models import F
 from api_app.models import Asset
 from user_app.models import CustomUser
+
+class TransactionManager(models.Manager):
+    
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).annotate(
+            invested=F('amount') * F('price')
+        )
 
 # Create your models here.
 class Transaction(models.Model):
@@ -12,6 +20,7 @@ class Transaction(models.Model):
     tax = models.FloatField()
     charge = models.FloatField()
     cost = models.FloatField()
+    objects = TransactionManager()
 
     def __str__(self):
         return self.asset

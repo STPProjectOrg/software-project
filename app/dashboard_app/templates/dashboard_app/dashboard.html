@@ -1,103 +1,153 @@
 {% extends "core/base.html" %}
 {% load dashboard_tags %}
+{% load core_tags %}
 {% block title %}
     | Dashboard
 {% endblock title %}
 {% block content %}
-    <div class="row bg-body-tertiary mx-n4 mt-n4 p-4">
-        <div class="col col-auto">
-            <canvas id="pieChart"></canvas>
-        </div>
-        <div class="col">
-            <div>[User]-Portfolio</div>
-            <div>Key Values</div>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Kursverlauf</div>
-                <div class="card-body">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <div id="range_selection"
-                             class="btn-group w-100 overflow-auto"
-                             role="group">
-                            <button type="submit"
-                                    name="complete"
-                                    class="btn btn-secondary border text-body">
-                                <div class="fw-semibold">Gesamt</div>
-                                <div class="fs-4 text-danger-emphasis" id="whole">-37,22%</div>
-                            </button>
-                            <button type="submit" name="year" class="btn btn-secondary border text-body">
-                                <div class="fw-semibold">Jahr</div>
-                                <div class="fs-4 text-danger-emphasis" id="year">-37,22%</div>
-                            </button>
-                            <button type="submit"
-                                    name="sixmonths"
-                                    class="btn btn-secondary border text-body">
-                                <div class="fw-semibold">6 Monate</div>
-                                <div class="fs-4 text-success-emphasis" id="sixmonths">+19,42%</div>
-                            </button>
-                            <button type="submit" name="month" class="btn btn-secondary border text-body">
-                                <div class="fw-semibold">Monat</div>
-                                <div class="fs-4 text-danger-emphasis" id="month">-37,22%</div>
-                            </button>
-                            <button type="submit" name="week" class="btn btn-secondary border text-body">
-                                <div class="fw-semibold">Woche</div>
-                                <div class="fs-4 text-danger-emphasis" id="week">-37,22%</div>
-                            </button>
-                        </div>
-                    </form>
-                    <div class="mt-4" style="height:40vh">
-                        <canvas id="lineChart" style="height:40vh"></canvas>
+    {% if not assets %}
+        <div class="row h-100">
+            <div class="col text-center h-100 d-flex">
+                <div class="m-auto">
+                    <div class="text-white fw-bold fs-3">Hier wird dein Dashboard angezeigt.</div>
+                    <div class="text-white fs-5">Füge Werte zu deinem Portfolio hinzu, damit diese angezeigt werden.</div>
+                    <div class="text-white fs-6">
+                        <a href="{% url "core:qaa" %}">Weitere Informationen findest du hier.</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">KPI</div>
-                <div class="card-body">
-                    <p id="totalWorth"></p>
-                    <p id="paid"></p>
-                    <p id="invested"></p>
-                    <p id="tax"></p>
-                    <p id="charges"></p>
-                    <p id="gains"></p>
-                    <p id="profit"></p>
-
+    {% else %}
+        {# Portfolio Overview #}
+        <div class="row bg-body-tertiary mx-n4 mt-n4 p-4">
+            <div class="col col-auto d-flex mx-auto">
+                <canvas id="pieChart" style="z-index: 100;"></canvas>
+                <div class="position-absolute d-flex" style="width: 300px; height: 300px">
+                    <div class="position-relative m-auto">
+                        <div class="text-center fw-semibold" id="pieTitle">Gesamtwert</div>
+                        <div class="text-center fs-3" id="pieValue">{{ kpi.total|to_locale_valuta }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 d-flex flex-column col-md">
+                {# User #}
+                <div class="row">
+                    <div class="col text-start gap-2 w-100 d-flex p-2">
+                        <div class="my-auto">
+                            <img class="logo-fs-3"
+                                 src="{{ request.user.userprofileinfo.get_profile_pic }}">
+                        </div>
+                        <div>
+                            <div>
+                                <small>u/{{ user.username }}</small>
+                            </div>
+                            <div>{{ user.first_name }} {{ user.last_name }}</div>
+                        </div>
+                    </div>
+                </div>
+                {# Value #}
+                <div class="row mt-auto">
+                    <div class="col d-flex flex-column mx-auto">
+                        <div class="fw-semibold mt-auto">Gesamtwert</div>
+                        <div class="fs-1 fw-semibold">{{ kpi.total|to_locale_valuta }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-12 fw-semibold border-bottom border-2 border-dark">Ausgaben</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">Investiert:</div>
+                                    <div class="col-auto">{{ kpi.invested|to_locale_valuta }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">Gebühren:</div>
+                                    <div class="col-auto">{{ kpi.charge|to_locale_valuta }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">Steuern:</div>
+                                    <div class="col-auto">{{ kpi.tax|to_locale_valuta }}</div>
+                                </div>
+                                <div class="row fw-semibold  border-top border-bottom border-2 border-dark mb-4">
+                                    <div class="col">Total</div>
+                                    <div class="col-auto">{{ kpi.cost|to_locale_valuta }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fw-semibold">Gewinn</div>
+                        <div class="fs-1 fw-semibold">{{ kpi.profit|to_locale_valuta }}</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
-            <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Assets</div>
-                <div class="card-body" id="assetsList">
+        {# Portfolio Chart #}
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fs-3 fw-semibold text-white">Kursverlauf</div>
+                    <div class="card-body">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div id="range_selection"
+                                 class="btn-group w-100 overflow-auto"
+                                 role="group">
+                                <button type="submit"
+                                        name="complete"
+                                        class="btn btn-secondary border text-body">
+                                    <div class="fw-semibold">Gesamt</div>
+                                    <div class="fs-4 text-danger-emphasis" id="whole">-37,22%</div>
+                                </button>
+                                <button type="submit" name="year" class="btn btn-secondary border text-body">
+                                    <div class="fw-semibold">Jahr</div>
+                                    <div class="fs-4 text-danger-emphasis" id="year">-37,22%</div>
+                                </button>
+                                <button type="submit"
+                                        name="sixmonths"
+                                        class="btn btn-secondary border text-body">
+                                    <div class="fw-semibold">6 Monate</div>
+                                    <div class="fs-4 text-success-emphasis" id="sixmonths">+19,42%</div>
+                                </button>
+                                <button type="submit" name="month" class="btn btn-secondary border text-body">
+                                    <div class="fw-semibold">Monat</div>
+                                    <div class="fs-4 text-danger-emphasis" id="month">-37,22%</div>
+                                </button>
+                                <button type="submit" name="week" class="btn btn-secondary border text-body">
+                                    <div class="fw-semibold">Woche</div>
+                                    <div class="fs-4 text-danger-emphasis" id="week">-37,22%</div>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="mt-4" style="height:40vh">
+                            <canvas id="lineChart" style="height:40vh"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {# Chart selection #}
-    {{ assetList|json_script:'assetList' }}
-    {{ values|json_script:'valueList' }}
-    {{ assetValues|json_script:'assetValues' }}
-    {{ amounts|json_script:'amounts' }}
-    {{ totalValue|json_script:'totalValue' }}
-    {{ investedVal|json_script:'investedVal' }}
-    {{ taxVal|json_script:'taxVal' }}
-    {{ chargesVal|json_script:'chargesVal' }}
-    {{ interval|json_script:'interval' }}
-    {{ dateValues|json_script:'dateValues' }}
-    {{ buttonValues|json_script:'buttonValues' }}
-    {# Charts JS-Script #}
-    {% include_chart %}
-    {% line_chart "Wert" %}
-    {% pie_chart %}
-    {% include_kpi %}
-    {% include_assets %}
-{% endblock content %}
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fs-3 fw-semibold text-white">Assets</div>
+                    <div class="card-body">{% assets_table %}</div>
+                    </div>
+                </div>
+            </div>
+            {# Chart selection #}
+            {{ assetList|json_script:'assetList' }}
+            {{ values|json_script:'valueList' }}
+            {{ assetValues|json_script:'assetValues' }}
+            {{ amounts|json_script:'amounts' }}
+            {{ totalValue|json_script:'totalValue' }}
+            {{ investedVal|json_script:'investedVal' }}
+            {{ taxVal|json_script:'taxVal' }}
+            {{ chargesVal|json_script:'chargesVal' }}
+            {{ interval|json_script:'interval' }}
+            {{ dateValues|json_script:'dateValues' }}
+            {{ buttonValues|json_script:'buttonValues' }}
+            {# Charts JS-Script #}
+            {% include_chart %}
+            {% line_chart "Wert" %}
+            {% pie_chart pie_data %}
+        {% endif %}
+    {% endblock content %}
