@@ -105,7 +105,7 @@ def profile(request, username):
         followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
 
     # Post-Section
-    my_posts = post.get_by_user(request.user)
+    my_posts = post.get_by_user(profile_user)
     postform = post.PostForm()
 
     return render(request, 'user_app/profile.html',
