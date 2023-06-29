@@ -48,7 +48,7 @@ class UserProfileInfo(models.Model):
         return self.profile_pic.url if self.profile_pic else settings.DEFAULT_IMAGE_URL
 
     def get_profile_banner(self):
-        return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
+        return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL 
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

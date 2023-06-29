@@ -146,7 +146,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "user_app/static"
 ]
 DEFAULT_IMAGE_URL = STATIC_URL + 'default_profile.png'
-
+DEFAULT_BANNER_URL = STATIC_URL + 'default_banner.png'
 # Media files (profile-pics)
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = '/media/'
