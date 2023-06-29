@@ -46,7 +46,7 @@ def inbox_chat(request, participant_req):
                 message=message,
                 message_read = False,
                 created_at=datetime.now(),
-                image = compress_image(d.get("image"))
+                image = d.get("image")
             )
             form = AddMessageForm()
     messages = []
