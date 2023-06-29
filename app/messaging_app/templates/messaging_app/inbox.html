@@ -114,6 +114,7 @@
                             {% csrf_token %}
                             {{ form.message }}
                             {{ form.image }}
+                            <img src="" id="preview_Upload_Image" style="width:400px;"/>
                             <button class="btn btn-outline-primary d-flex gap-2 ms-auto" type="submit">
                                 <div>{% trans "Senden" %}</div>
                                 <div class="my-auto">
@@ -131,4 +132,17 @@
             </div>
         {% endif %}
     </div>
+    
+    <script>
+        image_To_Upload = document.getElementById("image_To_Upload")
+        preview_Upload_Image = document.getElementById("preview_Upload_Image")
+        preview_Upload_Image.hidden = true
+        image_To_Upload.onchange = e => {
+            let [file] = image_To_Upload.files
+            if (file) {
+                preview_Upload_Image.hidden = false
+                preview_Upload_Image.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
 {% endblock content %}

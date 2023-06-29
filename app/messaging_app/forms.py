@@ -8,4 +8,6 @@ class AddMessageForm(forms.Form):
         'rows': '2',
     }),
         max_length=1000)
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(widget=forms.FileInput(attrs={
+        'id': "image_To_Upload",
+    }) ,required=False)

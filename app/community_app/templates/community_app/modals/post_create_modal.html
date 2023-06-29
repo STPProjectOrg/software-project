@@ -17,6 +17,7 @@
                 <form action="{% url 'community_app:post_create' %}" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <img src="" id="preview_Upload_Image" style="width:400px;"/>
                     <button type="Submit" name="comment">{% trans 'Post Erstellen' %}</button>
                 </form>
             </div>
@@ -26,3 +27,15 @@
         </div>
     </div>
 </div>
+<script>
+    image_To_Upload = document.getElementById("image_To_Upload")
+    preview_Upload_Image = document.getElementById("preview_Upload_Image")
+    preview_Upload_Image.hidden = true
+    image_To_Upload.onchange = e => {
+        let [file] = image_To_Upload.files
+        if (file) {
+            preview_Upload_Image.hidden = false
+            preview_Upload_Image.src = URL.createObjectURL(file)
+        }
+    }
+</script>
