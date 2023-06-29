@@ -1,7 +1,7 @@
 """ Main views for dashboard_app """
 
 from datetime import datetime, date, timedelta
-from django.db.models import Sum, Count, Max, F, Value, OuterRef, Subquery
+from django.db.models import Sum, F
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from api_app.models import Asset, AssetHistory
@@ -21,6 +21,19 @@ from dashboard_app.views.watchlist import get_watchlist
 @login_required
 def dashboard(request):
     """ Render the dashboard. """
+
+    # get querysets
+    transactions = Transaction.objects.filter(user=request.user.id)
+    assets = Asset.objects.filter(transaction__user=request.user).annotate(
+        amount=Sum("transaction__amount"),
+        cost=Sum("transaction__cost"),
+        total_value=F("amount") * F("price"),
+        profit=F("total_value") - F("cost")
+    ).distinct()
+
+    if not assets:
+        data = {"assets": None}
+        return render(request, "dashboard_app/dashboard.html", data)
 
     today = date.fromisoformat('2023-05-20')
 
@@ -46,15 +59,6 @@ def dashboard(request):
                     else:
                         chartData = getDataForLine(
                             request.user, date.min, relativedelta(days=1))
-
-    # get querysets
-    transactions = Transaction.objects.filter(user=request.user.id)
-    assets = Asset.objects.filter(transaction__user=request.user).annotate(
-        amount=Sum("transaction__amount"),
-        cost=Sum("transaction__cost"),
-        total_value=F("amount") * F("price"),
-        profit=F("total_value") - F("cost")
-    ).distinct()
 
     # get chart data
     line_data = None

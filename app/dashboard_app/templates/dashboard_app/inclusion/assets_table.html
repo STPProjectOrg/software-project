@@ -11,6 +11,7 @@
                 <th scope="col" class="text-end">Wert / Stück</th>
                 <th scope="col" class="text-end">Gesamtwert</th>
                 <th scope="col" class="text-end">Gewinn</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +29,26 @@
                     <td class="text-end">{{ asset.price|to_locale_valuta }}</td>
                     <td class="text-end">{{ asset.total_value|to_locale_valuta }}</td>
                     <td class="text-end">{{ asset.profit|to_locale_valuta }}</td>
+                    <td class="text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-primary"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="bi bi-gear"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">Kaufen</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Verkaufen</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
+                {% comment %} MODAL {% endcomment %}
             {% endfor %}
         </tbody>
         <tfoot>
@@ -41,6 +61,7 @@
                 <th scope="col"></th>
                 <th scope="col" class="text-end">{{ kpi.total|to_locale_valuta }}</th>
                 <th scope="col" class="text-end">{{ kpi.profit|to_locale_valuta }}</th>
+                <th></th>
             </tr>
         </tfoot>
     </table>
