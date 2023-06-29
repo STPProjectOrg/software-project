@@ -17,7 +17,7 @@
                 <form action="{% url 'community_app:post_create' %}" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <img src="" id="preview_Upload_Image" style="width:400px;"/>
+                    <img src="" id="preview_Upload_Image" style="width:300px; height:300px;"/>
                     <button type="Submit" name="comment">{% trans 'Post Erstellen' %}</button>
                 </form>
             </div>

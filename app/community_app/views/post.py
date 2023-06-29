@@ -20,7 +20,7 @@ def create(request):
             user_id=request.user.id,
             content=form_data.get("content"),
             created_at=datetime.now(),
-            image = compress_image(form_data.get("image")),
+            image = form_data.get("image"),
             tags=form_data.get("tags")
         )
         j = form_data.get("tags").split(",")
