@@ -1,14 +1,14 @@
 name: Continuous Integration and Delivery
 
 on: 
-  [merge, push]
+  [push]
 
 env:
   WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
 
 jobs:
   tests:
-      if: github.event.pull_request.merged == true
+      if: ${{ github.event.workflow_run.conclusion == 'success' && env.BRANCH_NAME == 'main' }}
       name: Run Tests
       runs-on: ubuntu-latest
       strategy:
