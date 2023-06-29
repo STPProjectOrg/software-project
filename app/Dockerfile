@@ -20,5 +20,3 @@ RUN pip install -r /usr/src/app/requirements.txt
 
 # copy project
 COPY . /usr/src/app/
-RUN python3.11 /usr/src/app/app/manage.py migrate
-RUN python3.11 /usr/src/app/app/manage.py makemigrations
