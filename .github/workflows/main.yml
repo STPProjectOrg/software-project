@@ -1,9 +1,7 @@
 name: Continuous Integration and Delivery
 
 on: 
-  pull_request:
-    types:
-      - closed
+  [merge, push]
 
 env:
   WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
