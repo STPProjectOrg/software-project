@@ -1,14 +1,12 @@
 name: Continuous Integration and Delivery
 
-on: 
-  [push]
+on: [push]
 
 env:
   WEB_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/web
 
 jobs:
   tests:
-      if: env.BRANCH_NAME == 'main'
       name: Run Tests
       runs-on: ubuntu-latest
       strategy:
