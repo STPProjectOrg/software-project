@@ -8,7 +8,7 @@ env:
 
 jobs:
   tests:
-      if: ${{ github.event.workflow_run.conclusion == 'success' && env.BRANCH_NAME == 'main' }}
+      if: env.BRANCH_NAME == 'main'
       name: Run Tests
       runs-on: ubuntu-latest
       strategy:
