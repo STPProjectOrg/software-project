@@ -1,15 +1,13 @@
 {% extends "core/base.html" %}
 {% load dashboard_tags %}
-{% load i18n %}
 {% block content %}
-    {% comment %}
     <div class="row">
         <div class="col">
-            <div>Zum Testen</div>
-            <div type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#transaction_buy_modal">Modal</div>
+            <div type="button"
+                 class="btn btn-outline-primary"
+                 data-bs-toggle="modal"
+                 data-bs-target="#transaction_buy_modal">Kaufen</div>
         </div>
     </div>
-    
-    {% transaction_buy_modal request.user asset %} 
-    {% endcomment %}
+    {% transaction_buy_modal request.user asset %}
 {% endblock content %}

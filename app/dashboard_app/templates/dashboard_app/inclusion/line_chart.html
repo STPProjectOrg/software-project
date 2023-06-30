@@ -7,22 +7,9 @@
     var data = JSON.parse(document.getElementById('dateValues').textContent);
     var buttonValues = JSON.parse(document.getElementById('buttonValues').textContent);
 
-    var whole = document.getElementById('whole');
-    var year = document.getElementById('year');
-    var sixmonths = document.getElementById('sixmonths');
-    var month = document.getElementById('month');
-    var week = document.getElementById('week');
-
     var gradient = ctx.createLinearGradient(0, 0, 0, 600); 
     gradient.addColorStop(0, 'rgb(49,55,74, 1)');   
     gradient.addColorStop(1, 'rgb(20,24,36, 0)');
-
-    //console.log(buttonValues)
-    whole.innerHTML = buttonValues[0];
-    year.innerHTML = buttonValues[1];
-    sixmonths.innerHTML = buttonValues[2];
-    month.innerHTML = buttonValues[3];
-    week.innerHTML = buttonValues[4];
 
     var chartData = {
         labels: label,

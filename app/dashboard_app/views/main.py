@@ -65,22 +65,10 @@ def view_dashboard(request):
     data = {
         "pie_data": chart.get_pie_data(assets),
         **chartData,
-        "line_data": chart.get_portfolio_line_data(),
+        "line_data": chart.get_portfolio_line_data(transactions, 7),
         "kpi": get_kpi(transactions, assets),
         "assets": assets}
     return render(request, 'dashboard_app/dashboard.html', data)
-
-
-@login_required
-def view_asset(request, name):
-    """ Render an asset. """
-
-    asset = Asset.objects.get(name=name)
-
-    data = {"asset": asset,
-            'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
-            "line_data": chart.get_asset_line_data(asset)}
-    return render(request, 'dashboard_app/asset.html', context=data)
 
 
 def get_kpi(transactions, assets):
@@ -99,6 +87,18 @@ def get_kpi(transactions, assets):
             "total": total,
             "cost": cost,
             "profit": profit}
+
+
+@login_required
+def view_asset(request, name):
+    """ Render an asset. """
+
+    asset = Asset.objects.get(name=name)
+
+    data = {"asset": asset,
+            'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
+            "line_data": chart.get_asset_line_data(asset)}
+    return render(request, 'dashboard_app/asset.html', context=data)
 
 
 def getDataForLine(user, dateFrom, timeInterval):
