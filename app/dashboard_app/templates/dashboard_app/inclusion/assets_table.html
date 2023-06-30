@@ -18,9 +18,7 @@
             {% for asset in assets %}
                 <tr class="align-middle">
                     <td>
-                        IM CODE AUSGEBLENDET
-                        {% comment %} <img class="logo-fs-3"
-      src="https://www.cryptocompare.com{{ asset|get_asset_picture }}"> {% endcomment %}
+                        <img class="logo-fs-3" src="{{ asset.imageUrl }}">
                     </td>
                     <td>{{ asset.name }}</td>
                     <td>{{ asset.coinName }}</td>

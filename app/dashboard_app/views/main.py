@@ -6,20 +6,19 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from api_app.models import Asset, AssetHistory
 from api_app.views import (getAssetFromDatabase, doesCoinExistInDatabase,
-                           getCoinInformation, getCryptoValuesFromDatabase,
-                           getCryptoValueFromDatabase)
+                           getCoinInformation, getCryptoValuesFromDatabase)
+import dashboard_app.views.charts as chart
 from user_app.views import getUser
 from dateutil.relativedelta import relativedelta
 from dashboard_app.models import Watchlist
 from dashboard_app.models import Transaction
-from dashboard_app.forms import AddToPortfolioForm2
 from dashboard_app.views.watchlist import get_watchlist
 
 # Create your views here.
 
 
 @login_required
-def dashboard(request):
+def view_dashboard(request):
     """ Render the dashboard. """
 
     # get querysets
@@ -64,19 +63,24 @@ def dashboard(request):
     line_data = None
 
     data = {
-        "pie_data": get_pie_data(assets),
+        "pie_data": chart.get_pie_data(assets),
         **chartData,
+        "line_data": chart.get_portfolio_line_data(),
         "kpi": get_kpi(transactions, assets),
         "assets": assets}
     return render(request, 'dashboard_app/dashboard.html', data)
 
 
-def get_pie_data(assets):
-    """ Return suitable Chart.js pie data from a Asset QuerySet. """
+@login_required
+def view_asset(request, name):
+    """ Render an asset. """
 
-    return {"data": list(assets.values_list("total_value", flat=True)),
-            "labels": list(assets.values_list("coinName", flat=True)),
-            "symbols": list(assets.values_list("name", flat=True))}
+    asset = Asset.objects.get(name=name)
+
+    data = {"asset": asset,
+            'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
+            "line_data": chart.get_asset_line_data(asset)}
+    return render(request, 'dashboard_app/asset.html', context=data)
 
 
 def get_kpi(transactions, assets):
@@ -95,14 +99,6 @@ def get_kpi(transactions, assets):
             "total": total,
             "cost": cost,
             "profit": profit}
-
-
-def getAllUniqueAssets(allAssets):
-    assetList = list()
-    for thisAsset in allAssets.all():
-        if thisAsset.asset not in assetList:
-            assetList.append(thisAsset.asset)
-    return assetList
 
 
 def getDataForLine(user, dateFrom, timeInterval):
@@ -155,12 +151,6 @@ def getDataForLine(user, dateFrom, timeInterval):
         return data
 
 
-def createButtonVal(buttonLabelDates, buttonLabelValues, beginning):
-    for buttonLabelDate in buttonLabelDates:
-        if buttonLabelDate == beginning:
-            buttonLabelValues
-
-
 def check_predates(start, date):
     return start if date < start else date
 
@@ -179,42 +169,6 @@ def getAssetValue(thisAsset, date):
     todaysHistory = AssetHistory.objects.get(name=thisAsset, date=date)
     currentVal = todaysHistory.value
     return currentVal
-
-
-# TODO verschiedene Zeiträume für Wertverlauf anzeigen lassen
-@login_required
-def asset(request, coin):
-    selectedCoin = coin.upper()
-    user = 1
-    message = ""
-    asset = Asset.objects.get(name=coin)
-    form = AddToPortfolioForm2(
-        initial={'user': user, 'assetDropdown': selectedCoin})
-    if request.method == 'POST':
-        form = AddToPortfolioForm2(request.POST)
-        if form.is_valid():
-            message = addToPortfolio(form.cleaned_data)
-
-    # TODO diesen Wert nehmen, wenn jeden Tag aktuelle Werte in die DB gespeichert werden
-    # todaysValue = getCryptoValueFromDatabase(selectedCoin,datetime.today().strftime('%Y-%m-%d'))
-    try:
-        todaysValue = getCryptoValueFromDatabase(
-            selectedCoin, datetime(2023, 4, 28))
-    except:
-        todaysValue = 0
-
-    try:
-        values = getCryptoValuesFromDatabase(selectedCoin, date(
-            year=2023, month=4, day=19), date(year=2023, month=5, day=16))
-    except:
-        values = [0, 0]
-    data = {'coinInfo': getCoinInformation(selectedCoin),
-            'todaysValue': todaysValue,
-            'values': values,
-            'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
-            'form': form,
-            'message': message}
-    return render(request, 'dashboard_app/asset.html', context=data)
 
 
 @login_required
