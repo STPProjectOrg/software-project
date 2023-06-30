@@ -9,11 +9,12 @@ invalid_login_msg = 'Bitte geben Sie einen korrekten Benutzernamen und ein korre
 invalid_password_match_msg = "Passwörter stimmen nicht überein! Versuchs nochmal."
 invalid_username_msg = "Benutzername ist bereits vergeben!"
 
+
 class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'id': 'username',
         'class': 'form-control',
-        'placeholder': 'Benutzername1',
+        'placeholder': 'Benutzername',
     }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -44,7 +45,7 @@ class UserRegistrationForm(forms.ModelForm):
         'id': 'email',
         'class': 'form-control',
         'placeholder': 'E-Mail',
-    }),error_messages={'invalid': invalid_email_msg})
+    }), error_messages={'invalid': invalid_email_msg})
 
     class Meta():
         model = CustomUser
@@ -68,8 +69,8 @@ class UserRegistrationForm(forms.ModelForm):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password2 = cleaned_data.get("password2")
-        #username = cleaned_data.get("username")
-        #if CustomUser.objects.filter(username = username).exists:
+        # username = cleaned_data.get("username")
+        # if CustomUser.objects.filter(username = username).exists:
         #    self.add_error("username", "Benutzername existiert bereits.")
         if password and password2 and password != password2:
             self.add_error("password2", invalid_password_match_msg)
@@ -93,6 +94,7 @@ class UserLoginForm(AuthenticationForm):
         'class': 'form-control',
         'placeholder': 'Passwort'
     }))
+
     def __init__(self, *args, **kwargs):
         self.error_messages['invalid_login'] = invalid_login_msg
         super().__init__(*args, **kwargs)
