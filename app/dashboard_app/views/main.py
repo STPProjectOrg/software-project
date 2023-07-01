@@ -47,7 +47,7 @@ def asset(request, name):
     data = {"asset": asset,
             'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
             "line_data": charts.get_asset_line_data(asset)}
-    return render(request, 'dashboard_app/asset.html', context=data)
+    return render(request, 'dashboard_app/asset.html', data)
 
 
 @login_required
@@ -55,3 +55,13 @@ def watchlist(request):
 
     data = {"watchlist": get_watchlist(request.user)}
     return render(request, 'dashboard_app/watchlist.html', context=data)
+
+
+@login_required
+def transactions(request):
+    """ Render the transactions page. """
+
+    data = {"transactions": Transaction.objects.filter(
+        user=request.user.id).order_by("purchaseDate")}
+
+    return render(request, 'dashboard_app/transactions.html', context=data)

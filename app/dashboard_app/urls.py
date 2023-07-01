@@ -1,11 +1,14 @@
-from django.urls import re_path, path
-from dashboard_app import views
+from django.urls import path
 from dashboard_app.views import main, transaction, watchlist
+
 
 app_name = 'dashboard_app'
 
 urlpatterns = [
+    # Overview
     path('overview/<int:timespan>', main.dashboard, name="dashboard"),
+
+    # Asset
     path('asset/<str:name>', main.asset, name="asset"),
 
     # Watchlist
@@ -16,5 +19,6 @@ urlpatterns = [
          watchlist.watchlist_update_asset_price_change, name="watchlist_update_asset_price_change"),
 
     # Transaction
+    path("transaction/list", main.transactions, name="transactions"),
     path("transaction/buy/<str:coin>", transaction.buy, name="transaction_buy")
 ]
