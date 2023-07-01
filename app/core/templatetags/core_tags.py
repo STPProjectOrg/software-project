@@ -104,5 +104,20 @@ def to_locale_valuta(value):
 
 
 @register.filter
+def to_percentage(value):
+    # Add thousands separators and format to 2 decimal places
+    formatted_value = f'{value * 100:,.2f}'
+    # Replace the decimal separator with a comma
+    formatted_value = formatted_value.replace(',', '#')
+    formatted_value = formatted_value.replace('.', ',')
+    formatted_value = formatted_value.replace('#', '.')
+
+    if value * 100 >= 0:
+        return "+" + formatted_value + "%"
+
+    return formatted_value + "%"
+
+
+@register.filter
 def get_asset_picture(asset):
     return getCoinInformation(asset.name).get("ImageUrl")

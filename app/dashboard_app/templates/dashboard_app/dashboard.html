@@ -20,15 +20,6 @@
     {% else %}
         {# Portfolio Overview #}
         <div class="row bg-body-tertiary mx-n4 mt-n4 p-4">
-            <div class="col col-auto d-flex mx-auto">
-                <canvas id="pieChart" style="z-index: 100;"></canvas>
-                <div class="position-absolute d-flex" style="width: 300px; height: 300px">
-                    <div class="position-relative m-auto">
-                        <div class="text-center fw-semibold" id="pieTitle">Gesamtwert</div>
-                        <div class="text-center fs-3" id="pieValue">{{ kpi.total|to_locale_valuta }}</div>
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-12 d-flex flex-column col-md">
                 {# User #}
                 <div class="row">
@@ -38,45 +29,54 @@
                                  src="{{ request.user.userprofileinfo.get_profile_pic }}">
                         </div>
                         <div>
-                            <div>
-                                <small>u/{{ user.username }}</small>
-                            </div>
-                            <div>{{ user.first_name }} {{ user.last_name }}</div>
+                            <div class="fs-5 fw-light">u/{{ user.username }}</div>
+                            <div class="fs-3 fw-semibold">{{ user.first_name }} {{ user.last_name }}</div>
                         </div>
                     </div>
                 </div>
                 {# Value #}
                 <div class="row mt-auto">
-                    <div class="col d-flex flex-column mx-auto">
-                        <div class="fw-semibold mt-auto">Gesamtwert</div>
-                        <div class="fs-1 fw-semibold">{{ kpi.total|to_locale_valuta }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-12 fw-semibold border-bottom border-2 border-dark">Ausgaben</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">Investiert:</div>
-                                    <div class="col-auto">{{ kpi.invested|to_locale_valuta }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">Gebühren:</div>
-                                    <div class="col-auto">{{ kpi.charge|to_locale_valuta }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">Steuern:</div>
-                                    <div class="col-auto">{{ kpi.tax|to_locale_valuta }}</div>
-                                </div>
-                                <div class="row fw-semibold  border-top border-bottom border-2 border-dark mb-4">
-                                    <div class="col">Total</div>
-                                    <div class="col-auto">{{ kpi.cost|to_locale_valuta }}</div>
+                    <div class="col-auto d-flex p-0 mt-3">
+                        <div class="mt-auto bg-body p-3 border rounded me-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col fw-semibold border-bottom border-2 border-dark">Ausgaben</div>
+                                        <div class="col-auto fw-semibold border-bottom border-2 border-dark">{{ kpi.cost|to_locale_valuta }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Investiert:</div>
+                                        <div class="col-auto">{{ kpi.invested|to_locale_valuta }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Gebühren:</div>
+                                        <div class="col-auto">{{ kpi.charge|to_locale_valuta }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Steuern:</div>
+                                        <div class="col-auto">{{ kpi.tax|to_locale_valuta }}</div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="fw-semibold mt-4">Gewinn</div>
+                            <div class="fs-1 fw-semibold">{{ kpi.profit|to_locale_valuta }}</div>
                         </div>
-                        <div class="fw-semibold">Gewinn</div>
-                        <div class="fs-1 fw-semibold">{{ kpi.profit|to_locale_valuta }}</div>
+                    </div>
+                    <div class="col-auto d-flex p-0 mt-4">
+                        <div class="mt-auto bg-body p-3 border rounded me-4">
+                            <div class="fw-semibold">Gesamtwert</div>
+                            <div class="fs-1 fw-semibold">{{ kpi.total|to_locale_valuta }}</div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+            <div class="col-auto d-flex mx-auto mt-auto p-0 pt-4">
+                <canvas id="pieChart" style="z-index: 100;"></canvas>
+                <div class="position-absolute d-flex" style="width: 300px; height: 300px">
+                    <div class="position-relative m-auto">
+                        <div class="text-center fw-semibold" id="pieTitle">Gesamtwert</div>
+                        <div class="text-center fs-3" id="pieValue">{{ kpi.total|to_locale_valuta }}</div>
                     </div>
                 </div>
             </div>
@@ -92,30 +92,36 @@
                             <div id="range_selection"
                                  class="btn-group w-100 overflow-auto"
                                  role="group">
-                                <button type="submit"
-                                        name="complete"
-                                        class="btn btn-secondary border text-body">
+                                <a href="{% url "dashboard_app:dashboard" 0 %}"
+                                   class="btn btn-secondary border text-body">
                                     <div class="fw-semibold">Gesamt</div>
-                                    <div class="fs-4 text-danger-emphasis" id="whole">-37,22%</div>
-                                </button>
-                                <button type="submit" name="year" class="btn btn-secondary border text-body">
+                                    <div class="fs-4 {% if line_data.button_values.all >= 0 %} text-success-emphasis {% else %} text-danger-emphasis {% endif %}"
+                                         id="whole">{{ line_data.button_values.all|to_percentage }}</div>
+                                </a>
+                                <a href="{% url "dashboard_app:dashboard" 365 %}"
+                                   class="btn btn-secondary border text-body">
                                     <div class="fw-semibold">Jahr</div>
-                                    <div class="fs-4 text-danger-emphasis" id="year">-37,22%</div>
-                                </button>
-                                <button type="submit"
-                                        name="sixmonths"
-                                        class="btn btn-secondary border text-body">
+                                    <div class="fs-4 {% if line_data.button_values.1year >= 0 %} text-success-emphasis {% else %} text-danger-emphasis {% endif %}"
+                                         id="year">{{ line_data.button_values.6month|to_percentage }}</div>
+                                </a>
+                                <a href="{% url "dashboard_app:dashboard" 186 %}"
+                                   class="btn btn-secondary border text-body">
                                     <div class="fw-semibold">6 Monate</div>
-                                    <div class="fs-4 text-success-emphasis" id="sixmonths">+19,42%</div>
-                                </button>
-                                <button type="submit" name="month" class="btn btn-secondary border text-body">
+                                    <div class="fs-4 {% if line_data.button_values.6month >= 0 %} text-success-emphasis {% else %} text-danger-emphasis {% endif %}"
+                                         id="sixmonths">{{ line_data.button_values.6month|to_percentage }}</div>
+                                </a>
+                                <a href="{% url "dashboard_app:dashboard" 31 %}"
+                                   class="btn btn-secondary border text-body">
                                     <div class="fw-semibold">Monat</div>
-                                    <div class="fs-4 text-danger-emphasis" id="month">-37,22%</div>
-                                </button>
-                                <button type="submit" name="week" class="btn btn-secondary border text-body">
+                                    <div class="fs-4 {% if line_data.button_values.1month >= 0 %} text-success-emphasis {% else %} text-danger-emphasis {% endif %}"
+                                         id="month">{{ line_data.button_values.1month|to_percentage }}</div>
+                                </a>
+                                <a href="{% url "dashboard_app:dashboard" 7 %}"
+                                   class="btn btn-secondary border text-body">
                                     <div class="fw-semibold">Woche</div>
-                                    <div class="fs-4 text-danger-emphasis" id="week">-37,22%</div>
-                                </button>
+                                    <div class="fs-4 {% if line_data.button_values.1week >= 0 %} text-success-emphasis {% else %} text-danger-emphasis {% endif %}"
+                                         id="week">{{ line_data.button_values.1week|to_percentage }}</div>
+                                </a>
                             </div>
                         </form>
                         <div class="mt-4" style="height:40vh">
@@ -133,21 +139,9 @@
                     </div>
                 </div>
             </div>
-            {# Chart selection #}
-            {{ assetList|json_script:'assetList' }}
-            {{ values|json_script:'valueList' }}
-            {{ assetValues|json_script:'assetValues' }}
-            {{ amounts|json_script:'amounts' }}
-            {{ totalValue|json_script:'totalValue' }}
-            {{ investedVal|json_script:'investedVal' }}
-            {{ taxVal|json_script:'taxVal' }}
-            {{ chargesVal|json_script:'chargesVal' }}
-            {{ interval|json_script:'interval' }}
-            {{ dateValues|json_script:'dateValues' }}
-            {{ buttonValues|json_script:'buttonValues' }}
             {# Charts JS-Script #}
             {% include_chart %}
-            {% line_chart "Wert" %}
+            {% line_chart line_data %}
             {% pie_chart pie_data %}
         {% endif %}
     {% endblock content %}

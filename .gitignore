@@ -6,6 +6,7 @@ __pycache__
 pycache
 *.sqlite3
 media
+db.sqlite3
 
 # Backup files # 
 *.bak 
@@ -143,3 +144,5 @@ env/
 # IDE Settings
 .idea/
 .vscode/
+.gitignore
+app/db.sqlite3

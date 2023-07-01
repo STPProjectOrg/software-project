@@ -3,16 +3,15 @@
 <ul class="nav nav-pills flex-column mb-auto">
     <div class="fw-semibold user-select-none">{% trans "Portfolio" %}</div>
     {% trans "Dashboard" as dashboard %}
-    {% navigation_button "Dashboard" "bi-pie-chart-fill" "dashboard_app:dashboard" %}
+    {% trans "Watchlist" as watchlist %}
+    {% navigation_button dashboard "bi-pie-chart-fill" "dashboard_app:dashboard" "0" %}
+    {% navigation_button watchlist "bi-star-fill" "dashboard_app:watchlist" %}
+    {% navigation_button "Trasaktionen" "bi-file-diff-fill" "dashboard_app:transactions" %}
     <div class="fw-semibold mt-4 user-select-none">{% trans "Sozial" %}</div>
     {% trans "Profil" as profil %}
     {% trans "Community" as community %}
     {% trans "Nachrichten" as messages %}
-    {% trans "Watchlist" as watchlist %}
-
     {% navigation_button profil "bi-person-fill" "user_app:profile" username %}
     {% navigation_button community "bi-share-fill" "community_app:community" "all" %}
     {% navigation_button messages "bi-chat-text-fill" "messaging_app:inbox" %}
-    {% navigation_button watchlist "bi-star-fill" "dashboard_app:watchlist" %}
 </ul>
-

@@ -40,8 +40,7 @@
                 <a href="{% url 'dashboard_app:asset' asset.name %}"
                    class="btn btn-link text-start gap-2 w-100 d-flex bg-body-secondary p-2 border rounded">
                     <div class="my-auto">
-                        <img class="logo-fs-3"
-                             src="https://www.cryptocompare.com{{ asset|get_asset_picture }}">
+                        <img class="logo-fs-3" src="{{ asset.imageUrl }}">
                     </div>
                     <div>
                         <div>
@@ -49,7 +48,7 @@
                         </div>
                         <div>{{ asset.coinName }}</div>
                     </div>
-                    <div class="ms-auto my-auto">{{ asset|get_asset_value }}</div>
+                    <div class="ms-auto my-auto">{{ asset.price|to_locale_valuta }}</div>
                 </a>
             </td>
         </tr>
