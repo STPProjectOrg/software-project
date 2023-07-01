@@ -5,8 +5,8 @@ from dashboard_app.views import main, transaction, watchlist
 app_name = 'dashboard_app'
 
 urlpatterns = [
-    re_path('dashboard', main.view_dashboard, name="dashboard"),
-    path('asset/<str:name>', main.view_asset, name="asset"),
+    path('overview/<int:timespan>', main.dashboard, name="dashboard"),
+    path('asset/<str:name>', main.asset, name="asset"),
 
     # Watchlist
     path('watchlist', main.watchlist, name="watchlist"),

@@ -1,21 +1,19 @@
 <script>
     
 
-    var canvas = document.getElementById('lineChart');
+    var canvas = document.getElementById('lineChart')
     var ctx = canvas.getContext("2d")
-    var label = JSON.parse(document.getElementById('interval').textContent);
-    var data = JSON.parse(document.getElementById('dateValues').textContent);
-    var buttonValues = JSON.parse(document.getElementById('buttonValues').textContent);
+    var parsed_labels = [{% for label in labels %}'{{ label }}',{% endfor %}]
+    var parsed_data = {{ data }}
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 600); 
     gradient.addColorStop(0, 'rgb(49,55,74, 1)');   
     gradient.addColorStop(1, 'rgb(20,24,36, 0)');
 
     var chartData = {
-        labels: label,
+        labels: parsed_labels,
         datasets: [{
-            label: "{{ chart_label }}",
-            data: data,
+            data: parsed_data,
             fill: false,
             lineTension: 0,
             borderWidth: 2,
@@ -86,15 +84,6 @@
                     grid: {
                         display: false,
                     },
-                    type: "time",
-                    time: {
-                        unit: "day",
-                        displayFormats: {
-                            day: "dd.MM.yyyy"
-                        },
-                        tooltipFormat: "dd.MM.yyyy",
-                        
-                    },            
                 },
                 
             },

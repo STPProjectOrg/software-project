@@ -1,8 +1,7 @@
+from datetime import date, timedelta
 from django.db.models import F, Subquery
 from api_app.models import Asset, AssetManager, AssetHistory
 from dashboard_app.models import TransactionManager, Transaction
-from datetime import datetime, date, timedelta
-from dateutil.relativedelta import relativedelta
 
 
 def get_pie_data(assets: AssetManager):
@@ -70,10 +69,11 @@ def get_line_button_values(data):
         data: The line data.
     """
 
-    value = data[-1:][0]
+    def calc_growth(start, end):
+        return (end - start) / start
 
-    return {"1week": (value - data[-7:][0]) / data[-7:][0],
-            "1month": (value - data[-31:][0]) / data[-31:][0],
-            "6month": (value - data[-186:][0]) / data[-186:][0],
-            "1year": (value - data[-365:][0]) / data[-365:][0],
-            "all": (value - data[0]) / data[0]}
+    return {"1week": calc_growth(data[-7:][0], data[-1:][0]),
+            "1month": calc_growth(data[-31:][0], data[-1:][0]),
+            "6month": calc_growth(data[-186:][0], data[-1:][0]),
+            "1year": calc_growth(data[-365:][0], data[-1:][0]),
+            "all": calc_growth(data[0], data[-1:][0])}

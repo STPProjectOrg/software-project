@@ -115,7 +115,7 @@ def to_percentage(value):
     if value * 100 >= 0:
         return "+" + formatted_value + "%"
 
-    return "-" + formatted_value + "%"
+    return formatted_value + "%"
 
 
 @register.filter
