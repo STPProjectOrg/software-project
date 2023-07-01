@@ -20,15 +20,6 @@
     {% else %}
         {# Portfolio Overview #}
         <div class="row bg-body-tertiary mx-n4 mt-n4 p-4">
-            <div class="col col-auto d-flex mx-auto">
-                <canvas id="pieChart" style="z-index: 100;"></canvas>
-                <div class="position-absolute d-flex" style="width: 300px; height: 300px">
-                    <div class="position-relative m-auto">
-                        <div class="text-center fw-semibold" id="pieTitle">Gesamtwert</div>
-                        <div class="text-center fs-3" id="pieValue">{{ kpi.total|to_locale_valuta }}</div>
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-12 d-flex flex-column col-md">
                 {# User #}
                 <div class="row">
@@ -38,45 +29,54 @@
                                  src="{{ request.user.userprofileinfo.get_profile_pic }}">
                         </div>
                         <div>
-                            <div>
-                                <small>u/{{ user.username }}</small>
-                            </div>
-                            <div>{{ user.first_name }} {{ user.last_name }}</div>
+                            <div class="fs-5 fw-light">u/{{ user.username }}</div>
+                            <div class="fs-3 fw-semibold">{{ user.first_name }} {{ user.last_name }}</div>
                         </div>
                     </div>
                 </div>
                 {# Value #}
                 <div class="row mt-auto">
-                    <div class="col d-flex flex-column mx-auto">
-                        <div class="fw-semibold mt-auto">Gesamtwert</div>
-                        <div class="fs-1 fw-semibold">{{ kpi.total|to_locale_valuta }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col-12 fw-semibold border-bottom border-2 border-dark">Ausgaben</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">Investiert:</div>
-                                    <div class="col-auto">{{ kpi.invested|to_locale_valuta }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">Gebühren:</div>
-                                    <div class="col-auto">{{ kpi.charge|to_locale_valuta }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">Steuern:</div>
-                                    <div class="col-auto">{{ kpi.tax|to_locale_valuta }}</div>
-                                </div>
-                                <div class="row fw-semibold  border-top border-bottom border-2 border-dark mb-4">
-                                    <div class="col">Total</div>
-                                    <div class="col-auto">{{ kpi.cost|to_locale_valuta }}</div>
+                    <div class="col-auto d-flex p-0 mt-3">
+                        <div class="mt-auto bg-body p-3 border rounded me-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col fw-semibold border-bottom border-2 border-dark">Ausgaben</div>
+                                        <div class="col-auto fw-semibold border-bottom border-2 border-dark">{{ kpi.cost|to_locale_valuta }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Investiert:</div>
+                                        <div class="col-auto">{{ kpi.invested|to_locale_valuta }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Gebühren:</div>
+                                        <div class="col-auto">{{ kpi.charge|to_locale_valuta }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Steuern:</div>
+                                        <div class="col-auto">{{ kpi.tax|to_locale_valuta }}</div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="fw-semibold mt-4">Gewinn</div>
+                            <div class="fs-1 fw-semibold">{{ kpi.profit|to_locale_valuta }}</div>
                         </div>
-                        <div class="fw-semibold">Gewinn</div>
-                        <div class="fs-1 fw-semibold">{{ kpi.profit|to_locale_valuta }}</div>
+                    </div>
+                    <div class="col-auto d-flex p-0 mt-4">
+                        <div class="mt-auto bg-body p-3 border rounded me-4">
+                            <div class="fw-semibold">Gesamtwert</div>
+                            <div class="fs-1 fw-semibold">{{ kpi.total|to_locale_valuta }}</div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+            <div class="col-auto d-flex mx-auto mt-auto p-0 pt-4">
+                <canvas id="pieChart" style="z-index: 100;"></canvas>
+                <div class="position-absolute d-flex" style="width: 300px; height: 300px">
+                    <div class="position-relative m-auto">
+                        <div class="text-center fw-semibold" id="pieTitle">Gesamtwert</div>
+                        <div class="text-center fs-3" id="pieValue">{{ kpi.total|to_locale_valuta }}</div>
                     </div>
                 </div>
             </div>
