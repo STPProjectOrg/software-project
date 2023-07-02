@@ -169,6 +169,18 @@ $headings-color: #e3e6ed;
     width: auto;
 }
 
+.logo-fs-2 {
+    border-radius: 50% !important;
+    height: calc((1.325rem + 0.9vw) * 1.5) !important;
+    width: auto;
+}
+
+.logo-fs-1 {
+    border-radius: 50% !important;
+    height: calc((1.375rem + 1.5vw) * 1.5) !important;
+    width: auto;
+}
+
 .text-gradient {
     background: linear-gradient(to right, #EB1260 0%, #FDB128 100%) !important;
     background-clip: initial;
