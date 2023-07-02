@@ -48,7 +48,7 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int):
             "labels": labels[-timespan:]}
 
 
-def get_asset_line_data(asset: Asset):
+def get_asset_line_data(asset: Asset, timespan: int):
     """
     Return data for an asset line chart.
 
@@ -56,9 +56,26 @@ def get_asset_line_data(asset: Asset):
         asset: The asset to be computed.
     """
 
-    # return data?, labels?, button_values?
-    # Button_values könnten dann nach bedarf genutzt werden und zum Beispiel in eine extra Komonente ausgelagert werden
-    return None
+    data = []
+    labels = []
+
+    history = AssetHistory.objects.filter(name=asset).order_by("date")
+    day = history.earliest("date").date
+    latest = history.latest("date").date
+
+    while day <= latest:
+
+        # Calculate the value for the current day
+        value = history.filter(date=day).values("value")[0]['value']
+
+        data.append(value)
+        labels.append(day.strftime("%d.%m.%Y"))
+
+        day += timedelta(days=1)
+
+    return {"button_values": get_line_button_values(data),
+            "data": data[-timespan:],
+            "labels": labels[-timespan:]}
 
 
 def get_line_button_values(data):
