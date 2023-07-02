@@ -62,6 +62,6 @@ def transactions(request):
     """ Render the transactions page. """
 
     data = {"transactions": Transaction.objects.filter(
-        user=request.user.id).order_by("purchaseDate")}
+        user=request.user.id).order_by("-purchaseDate")}
 
     return render(request, 'dashboard_app/transactions.html', context=data)

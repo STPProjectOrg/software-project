@@ -1,14 +1,73 @@
 {% extends "core/base.html" %}
+{% load core_tags %}
 {% block title %}
     | Transactions
 {% endblock title %}
 {% block content %}
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Transaktionen</div>
-                <div class="card-body">...</div>
+    {% if not transactions %}
+        <div class="row h-100">
+            <div class="col text-center h-100 d-flex">
+                <div class="m-auto">
+                    <div class="text-white fw-bold fs-3">Hier wird dein Transaktionen angezeigt.</div>
+                    <div class="text-white fs-5">Füge Transaktionen zu deinem Portfolio hinzu, damit diese angezeigt werden.</div>
+                    <div class="text-white fs-6">
+                        <a href="{% url "core:qaa" %}">Weitere Informationen findest du hier.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fs-3 fw-semibold text-white">Transaktionen</div>
+                    <div class="card-body">
+                        {% load core_tags %}
+                        <div class="overflow-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Icon</th>
+                                        <th scope="col">Symbol</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Datum</th>
+                                        <th scope="col" class="text-center">Anzahl</th>
+                                        <th scope="col" class="text-end">Preis / Stück</th>
+                                        <th scope="col" class="text-end">Steuern</th>
+                                        <th scope="col" class="text-end">Gebühren</th>
+                                        <th scope="col" class="text-end">Gesamtkosten</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transaction in transactions %}
+                                        <tr class="align-middle">
+                                            <td>
+                                                <img class="logo-fs-3" src="{{ transaction.asset.imageUrl }}">
+                                            </td>
+                                            <td>{{ transaction.asset.name }}</td>
+                                            <td>{{ transaction.asset.coinName }}</td>
+                                            <td>{{ transaction.purchaseDate }}</td>
+                                            <td class="text-center">{{ transaction.amount }}</td>
+                                            <td class="text-end">{{ transaction.price|divide:transaction.amount|to_locale_valuta }}</td>
+                                            <td class="text-end">{{ transaction.tax|to_locale_valuta }}</td>
+                                            <td class="text-end">{{ transaction.charge|to_locale_valuta }}</td>
+                                            <td class="text-end">{{ transaction.cost|to_locale_valuta }}</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-sm btn-outline-primary" type="button">
+                                                    <i class="bi bi-gear"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% comment %} MODAL {% endcomment %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+{% endif %}
 {% endblock content %}

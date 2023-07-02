@@ -119,5 +119,13 @@ def to_percentage(value):
 
 
 @register.filter
+def divide(value, arg):
+    try:
+        return int(value) / int(arg)
+    except (ValueError, ZeroDivisionError):
+        return None
+
+
+@register.filter
 def get_asset_picture(asset):
     return getCoinInformation(asset.name).get("ImageUrl")
