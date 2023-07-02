@@ -37,7 +37,7 @@
     {% for asset in assets %}
         <tr>
             <td colspan="100" class="border-0">
-                <a href="{% url 'dashboard_app:asset' asset.name %}"
+                <a href="{% url 'dashboard_app:asset' asset.name 0 %}"
                    class="btn btn-link text-start gap-2 w-100 d-flex bg-body-secondary p-2 border rounded">
                     <div class="my-auto">
                         <img class="logo-fs-3" src="{{ asset.imageUrl }}">

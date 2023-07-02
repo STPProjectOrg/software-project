@@ -6,10 +6,10 @@ app_name = 'dashboard_app'
 
 urlpatterns = [
     # Overview
-    path('overview/<int:timespan>', main.dashboard, name="dashboard"),
+    path('<int:timespan>', main.dashboard, name="dashboard"),
 
     # Asset
-    path('asset/<str:name>', main.asset, name="asset"),
+    path('asset/<str:name>/<int:timespan>', main.asset, name="asset"),
 
     # Watchlist
     path('watchlist', main.watchlist, name="watchlist"),

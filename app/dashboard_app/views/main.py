@@ -39,14 +39,14 @@ def dashboard(request, timespan):
 
 
 @login_required
-def asset(request, name):
+def asset(request, name, timespan):
     """ Render an asset. """
 
     asset = Asset.objects.get(name=name)
 
     data = {"asset": asset,
             'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
-            "line_data": charts.get_asset_line_data(asset)}
+            "line_data": charts.get_asset_line_data(asset, timespan)}
     return render(request, 'dashboard_app/asset.html', data)
 
 
