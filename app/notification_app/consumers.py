@@ -20,12 +20,12 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         self.group_name = "test"  # der kann raus
         await self.channel_layer.group_add(self.group_name, self.channel_name)
         await self.accept()
-        notifications = await database_sync_to_async(Notification.objects.filter(user=self.scope["user"]))
+        # notifications = await database_sync_to_async(Notification.objects.filter(user=self.scope["user"]))
 
         await self.send(
             json.dumps({
                 "type": "websocket.connected",
-                "text": notifications})
+                "text": "notifications"})
         )
 
     async def websocket_disconnect(self, message):
