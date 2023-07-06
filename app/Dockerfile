@@ -12,7 +12,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk del build-deps
-    && sudo apt-get install redis-server
+
 
 # install dependencies
 RUN pip install --upgrade pip

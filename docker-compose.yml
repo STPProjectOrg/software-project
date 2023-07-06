@@ -12,3 +12,5 @@ services:
     environment:
       - DEBUG=1
       - SECRET_KEY=foo
+  redis:
+    image: redis:latest
