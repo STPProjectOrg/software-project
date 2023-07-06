@@ -121,5 +121,4 @@ jobs:
             docker login ghcr.io -u $NAMESPACE -p $PERSONAL
             docker pull $WEB_IMAGE
             sudo docker-compose -f docker-compose.prod.yml up -d
-            sudo docker run -p 6379:6379 -d redis:5
           ENDSSH
