@@ -131,6 +131,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@${{ secrets.LINODE_IP_ADDRESS }} << 'ENDSSH'
             cd /app
             source .env
+            docker run -e SQL_ENGINE = $SQL_ENGINE -e SQL_USER = $SQL_USER -e SQL_DATABASE = $SQL_DATABASE -e SQL_PORT = $SQL_PORT -e SQL_HOST = $SQL_HOST -e SQL_PASSWORD = $SQL_PASSWORD
             docker login ghcr.io -u $NAMESPACE -p $PERSONAL
             docker pull $WEB_IMAGE
             sudo docker-compose -f docker-compose.prod.yml up -d
