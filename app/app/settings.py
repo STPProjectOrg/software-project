@@ -94,37 +94,27 @@ ASGI_APPLICATION = 'app.asgi.application'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
-'''
+
 DATABASES = {
 
     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
 
         'NAME': 'postgres',
 
-        'USER': 'postgres',
+        'USER': 'linpostgres',
 
-        'PASSWORD': 'PhilaDelpHia77',
+        'PASSWORD': '80xJjxDw,UNj3Ivr',
 
-        'HOST': 'localhost',
+        'HOST': 'lin-24622-9041-pgsql-primary.servers.linodedb.net',
 
         'PORT': '5432',
 
     }
 
 }
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': os.environ.get('SQL_USER', 'user'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'password'),
-        'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '5432'),
-    }
-}
+
 
 # Redis
 CHANNEL_LAYERS = {
