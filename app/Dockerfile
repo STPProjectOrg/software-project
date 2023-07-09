@@ -18,8 +18,8 @@ RUN apk update \
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements.txt
-RUN python /usr/src/app/manage.py migrate
-RUN python /usr/src/app/manage.py makemigrations
-RUN python /usr/src/app/manage.py migrate
+RUN python /usr/src/app/app/manage.py migrate
+RUN python /usr/src/app/app/manage.py makemigrations
+RUN python /usr/src/app/app/manage.py migrate
 # copy project
 COPY . /usr/src/app/
