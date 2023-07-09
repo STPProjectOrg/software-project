@@ -95,26 +95,34 @@ ASGI_APPLICATION = 'app.asgi.application'
 #    }
 #}
 
-DATABASES = {
+import sys
+TESTING = sys.argv[1:2] == ['test']
+if TESTING==False:
+    DATABASES = {
 
-    'default': {
+        'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'postgres',
+            'NAME': 'postgres',
 
-        'USER': 'linpostgres',
+            'USER': 'linpostgres',
 
-        'PASSWORD': '80xJjxDw,UNj3Ivr',
+            'PASSWORD': '80xJjxDw,UNj3Ivr',
 
-        'HOST': 'lin-24622-9041-pgsql-primary.servers.linodedb.net',
+            'HOST': 'lin-24622-9041-pgsql-primary.servers.linodedb.net',
 
-        'PORT': '5432',
-
+            'PORT': '5432',
+        }
     }
-
-}
-
+else:
+    DATABASES = {    
+        'default': {
+        "ENGINE": "django.db.backends.sqlite3",
+        "TEST": {
+            "NAME": ":memory:",
+        }
+    }}
 
 # Redis
 CHANNEL_LAYERS = {
