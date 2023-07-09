@@ -104,15 +104,15 @@ if TESTING==False:
 
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-            'NAME': 'postgres',
+            'NAME': os.environ.get('SQL_DATABASE'),
 
-            'USER': 'linpostgres',
+            'USER': os.environ.get('SQL_USER'),
 
-            'PASSWORD': '80xJjxDw,UNj3Ivr',
+            'PASSWORD': os.environ.get('SQL_PASSWORD'),
 
-            'HOST': 'lin-24622-9041-pgsql-primary.servers.linodedb.net',
+            'HOST': os.environ.get('SQL_HOST'),
 
-            'PORT': '5432',
+            'PORT': os.environ.get('SQL_PORT'),
         }
     }
 else:
