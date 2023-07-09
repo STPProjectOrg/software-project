@@ -1,0 +1,37 @@
+<div class="modal fade"
+     id="profileBiographyModal"
+     tabindex="-1"
+     aria-labelledby="profileBiographyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="profileBiographyModalLabel">Biogragfie anpassen</h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form action="{% url 'user_app:update_biography' %}" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-blockquote-right"></i>
+                        </div>
+                        <textarea class="form-control"
+                                  name="biography"
+                                  rows="3"
+                                  placeholder="Setze deine Biografie.">{% if user.userprofileinfo.biography%}{{user.userprofileinfo.biography}}{% endif %}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer pb-0">
+                    <button type="button"
+                            class="btn btn-secondary me-auto"
+                            data-bs-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-outline-primary">Änderungen speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
