@@ -94,7 +94,7 @@ ASGI_APPLICATION = 'app.asgi.application'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
-print(os.environ.get('SQL_ENGINE'))
+
 import sys
 TESTING = sys.argv[1:2] == ['test']
 if TESTING==False:
@@ -102,17 +102,17 @@ if TESTING==False:
 
         'default': {
 
-            'ENGINE': os.environ['SQL_ENGINE'],
+            'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
 
-            'NAME': os.environ['SQL_DATABASE'],
+            'NAME': os.environ.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
 
-            'USER': os.environ['SQL_USER'],
+            'USER': os.environ.get('SQL_USER'),
 
-            'PASSWORD': os.environ['SQL_PASSWORD'],
+            'PASSWORD': os.environ.get('SQL_PASSWORD'),
 
-            'HOST': os.environ['SQL_HOST'],
+            'HOST': os.environ.get('SQL_HOST'),
 
-            'PORT': os.environ['SQL_PORT'],
+            'PORT': os.environ.get('SQL_PORT'),
         }
     }
 else:
