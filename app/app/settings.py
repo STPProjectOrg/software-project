@@ -102,7 +102,7 @@ if TESTING==False:
 
         'default': {
 
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': os.environ.get('SQL_ENGINE'),
 
             'NAME': os.environ.get('SQL_DATABASE'),
 

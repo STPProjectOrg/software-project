@@ -70,7 +70,7 @@ jobs:
         run: |
           echo "DEBUG=0" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-          echo "SQL_ENGINE=django.db.backends.postgresql" >> .env
+          echo "SQL_ENGINE=django.db.backends.postgresql_psycopg2" >> .env
           echo "DATABASE=postgres" >> .env
           echo "SQL_DATABASE=${{ secrets.SQL_DATABASE }}" >> .env
           echo "SQL_USER=${{ secrets.SQL_USER }}" >> .env
