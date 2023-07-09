@@ -16,9 +16,10 @@ RUN apk update \
 
 # install dependencies
 RUN pip install --upgrade pip
-RUN pip install postgres
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements.txt
-
+RUN python /usr/src/app/manage.py migrate
+RUN python /usr/src/app/manage.py makemigrations
+RUN python /usr/src/app/manage.py migrate
 # copy project
 COPY . /usr/src/app/
