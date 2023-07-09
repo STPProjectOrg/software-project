@@ -10,7 +10,10 @@ services:
     env_file: .env
   redis:
     image: redis:latest
-
+  db:
+    image: postgres
+    restart: always
+    
 volumes:
   static_volume:
   media_volume:
