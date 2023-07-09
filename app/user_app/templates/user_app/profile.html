@@ -74,9 +74,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-2" id="bio">
-                {% if is_user_profile %}
-                    {# On Hover & Onclick -> Modal #}
+            {% if is_user_profile %}
+                <div class="row mt-2" id="bio">
                     <div class="col">
                         <div class="d-flex gap-2">
                             <div class="my-auto fs-5">
@@ -91,16 +90,23 @@
                             </div>
                         </div>
                     </div>
-                {% else %}
-                    {% if profile_user.userprofileinfo.biograpgy %}
+                </div>
+                <div class="row mt-2" id="newPost">
+                    <div class="col-auto ms-auto">
+                        <button class="btn btn-outline-primary ms-auto"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#postCreateModal">{% trans "Neuer Post" %}</button>
+                    </div>
+                </div>
+            {% else %}
+                {% if profile_user.userprofileinfo.biograpgy %}
+                    <div class="row mt-2" id="bio">
                         <div class="col">
                             <div>"Hier muss noch die Bio eingefügt werden"</div>
                         </div>
-                    {% endif %}
+                    </div>
                 {% endif %}
-                {# TODO: Bio #}
-            </div>
-            {% if not is_user_profile %}
                 <div class="row mt-2" id="buttons">
                     <div class="col-auto">
                         {% if is_user_following %}
@@ -142,12 +148,6 @@
     </div>
     <div class="fst-italic">Hier kommt das Portfolio des Nutzers (Preview als Link)</div>
     {# Create post #}
-    <div class="d-flex gap-2">
-        <button class="btn btn-outline-primary ms-auto"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#postCreateModal">{% trans "Neuer Post" %}</button>
-    </div>
     <div class="row">
         <div class="col d-flex flex-column gap-3">
             {% for post in myposts %}
@@ -159,7 +159,7 @@
     {% if is_user_profile %}
         {% profile_image_modal request.user %}
         {% profile_banner_modal request.user %}
-        {# TODO: Bio Modal #}
+        {% profile_biography_modal %}
         {% post_create_modal request.user postform %}
     {% endif %}
     {% profile_followers_modal request profile_user profile_followers_list user_following_list %}
