@@ -11,12 +11,16 @@ import time
 def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
-    addCoinToDatabase('BTC','Bitcoin','EUR')
-    addCoinToDatabase('ETH','Ethereum','EUR')
-    addCoinToDatabase('USDT','Tether','EUR')
-    addCoinToDatabase('XRP','XRP','EUR')
-    addCoinToDatabase('BNB', 'Binance Coin', 'EUR')
-    #saveDataFromApiToDatabase('BNB', 'EUR', datetime(2023,5,1), datetime(2023,5,31))
+    #addCoinToDatabase('BTC','Bitcoin','EUR')
+    #addCoinToDatabase('ETH','Ethereum','EUR')
+    #addCoinToDatabase('USDT','Tether','EUR')
+    #addCoinToDatabase('XRP','XRP','EUR')
+    #addCoinToDatabase('BNB', 'Binance Coin', 'EUR')
+    saveDataFromApiToDatabase('BTC', 'EUR', datetime(2023,1,1), datetime.date.today())
+    saveDataFromApiToDatabase('ETH', 'EUR', datetime(2023,1,1), datetime.date.today())
+    saveDataFromApiToDatabase('USDT', 'EUR', datetime(2023,1,1), datetime.date.today())
+    saveDataFromApiToDatabase('XRP', 'EUR', datetime(2023,1,1), datetime.date.today())
+    saveDataFromApiToDatabase('BNB', 'EUR', datetime(2023,1,1), datetime.date.today())
     values = 0
     #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
     message = ""

@@ -5,14 +5,14 @@ from .views import getAllCoinsFromDatabase, saveDataFromApiToDatabase
 
 
 # Der scheduler wird mit dieser Methode gestartet.
-# Die Funktion update_data() wird jeden Tag um 03:00 Uhr ausgeführt.
+# Die Funktion update_data() wird jeden Tag um 01:00 Uhr ausgeführt.
 def start_scheduler():
     scheduler = BackgroundScheduler(timezone=TIME_ZONE)
     scheduler.add_job(
         update_data,
         'cron',
         day_of_week="mon-sun",
-        hour=11,
+        hour=1,
     )
     try:
         scheduler.start()
