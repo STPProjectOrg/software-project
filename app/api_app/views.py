@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Asset, AssetHistory
-from datetime import datetime, timedelta
+import datetime
 from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
 from api_app.forms import MyForm
 import time
