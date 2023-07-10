@@ -1,9 +1,6 @@
 services:
   web:
     build: ./app
-    command: python manage.py migrate
-    command: python manage.py makemigrations
-    command: python manage.py migrate
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./app/:/usr/src/app/
