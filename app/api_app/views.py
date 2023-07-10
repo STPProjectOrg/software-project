@@ -11,11 +11,11 @@ import time
 def api(request):
     cryptoCurrencyString = ['BTC']
     currencyString = ['EUR']
-    #addCoinToDatabase('BTC','Bitcoin','EUR')
-    #addCoinToDatabase('ETH','Ethereum','EUR')
-    #addCoinToDatabase('USDT','Tether','EUR')
-    #addCoinToDatabase('XRP','XRP','EUR')
-    #addCoinToDatabase('BNB', 'Binance Coin', 'EUR')
+    addCoinToDatabase('BTC','Bitcoin','EUR')
+    addCoinToDatabase('ETH','Ethereum','EUR')
+    addCoinToDatabase('USDT','Tether','EUR')
+    addCoinToDatabase('XRP','XRP','EUR')
+    addCoinToDatabase('BNB', 'Binance Coin', 'EUR')
     #saveDataFromApiToDatabase('BNB', 'EUR', datetime(2023,5,1), datetime(2023,5,31))
     values = 0
     #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
@@ -66,10 +66,10 @@ def addCoinToDatabase(cryptoCurrencyString, coinName, currencyString):
         return print(f"{cryptoCurrencyString} already exists in database")
 
     asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName, imageUrl="https://www.cryptocompare.com"+getCoinInformation(cryptoCurrencyString)['ImageUrl'])[0]
-    currentDate = datetime.now()
-    date = datetime(currentDate.year,currentDate.month,currentDate.day)
-    currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]
-    AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
+    #currentDate = datetime.now()
+    #date = datetime(currentDate.year,currentDate.month,currentDate.day)
+    #currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]
+    #AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
 
         
 #Fügt der angegebenen Kryptowährungshistorie historische Daten hinzu
