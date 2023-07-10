@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Asset, AssetHistory
-import datetime
+from datetime import datetime, timedelta
 from .cryptoservice import getCurrentCryptoPrice, getHistoricalCryptoData, getAllCryptoData
 from api_app.forms import MyForm
 import time
@@ -16,11 +16,11 @@ def api(request):
     #addCoinToDatabase('USDT','Tether','EUR')
     #addCoinToDatabase('XRP','XRP','EUR')
     #addCoinToDatabase('BNB', 'Binance Coin', 'EUR')
-    saveDataFromApiToDatabase('BTC', 'EUR', datetime(2023,1,1), datetime.date.today())
-    saveDataFromApiToDatabase('ETH', 'EUR', datetime(2023,1,1), datetime.date.today())
-    saveDataFromApiToDatabase('USDT', 'EUR', datetime(2023,1,1), datetime.date.today())
-    saveDataFromApiToDatabase('XRP', 'EUR', datetime(2023,1,1), datetime.date.today())
-    saveDataFromApiToDatabase('BNB', 'EUR', datetime(2023,1,1), datetime.date.today())
+    saveDataFromApiToDatabase('BTC', 'EUR', datetime(2023,1,1), datetime(2023,7,10))
+    saveDataFromApiToDatabase('ETH', 'EUR', datetime(2023,1,1), datetime(2023,7,10))
+    saveDataFromApiToDatabase('USDT', 'EUR', datetime(2023,1,1), datetime(2023,7,10))
+    saveDataFromApiToDatabase('XRP', 'EUR', datetime(2023,1,1), datetime(2023,7,10))
+    saveDataFromApiToDatabase('BNB', 'EUR', datetime(2023,1,1), datetime(2023,7,10))
     values = 0
     #values = getCryptoValuesFromDatabase('BTC', 2022, 2022)
     message = ""
