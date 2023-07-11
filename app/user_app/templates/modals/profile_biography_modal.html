@@ -12,7 +12,9 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <form action="{% url 'user_app:update_biography' %}" method="post">
+            <form action="{% url 'user_app:update_biography' %}"
+                  method="post"
+                  class="m-0">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="input-group">
@@ -25,7 +27,7 @@
                                   placeholder="Setze deine Biografie.">{% if user.userprofileinfo.biography%}{{user.userprofileinfo.biography}}{% endif %}</textarea>
                     </div>
                 </div>
-                <div class="modal-footer pb-0">
+                <div class="modal-footer">
                     <button type="button"
                             class="btn btn-secondary me-auto"
                             data-bs-dismiss="modal">Abbrechen</button>

@@ -13,29 +13,105 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="{% url 'community_app:post_create' %}" method="post" enctype='multipart/form-data'>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <img src="" id="preview_Upload_Image" style="width:300px; height:300px;"/>
-                    <button type="Submit" name="comment">{% trans 'Post Erstellen' %}</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary ms-auto" data-bs-dismiss="modal">{% trans "Schließen" %}</button>
-            </div>
+            <form action="{% url 'community_app:post_create' %}"
+                  method="post"
+                  enctype='multipart/form-data'
+                  class="m-0">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div>
+                        <label for="{{ form.content.id_for_label }}" class="form-label">Inhalt</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-body-text"></i>
+                            </div>
+                            {{ form.content }}
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="{{ form.tags.id_for_label }}"
+                               class="form-label fst-italic d-flex gap-2">
+                            <div>Optional: Tags</div>
+                            <div class="d-flex" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-title="Werte durch Komma trennen.
+                                <br>
+                                Beispiel: Tag1, Tag2, usw.">
+                                <i class="bi bi-question-circle-fill my-auto"></i>
+                            </div>
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-tag-fill"></i>
+                            </div>
+                            {{ form.tags }}
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="accordion" id="accordion">
+                            <div class="accordion-item border-0">
+                                <div>
+                                    <label for="{{ form.image.id_for_label }}" class="form-label fst-italic">Optional: Bild</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="bi bi-image"></i>
+                                        </div>
+                                        {{ form.image }}
+                                        <span class="input-group-text d-flex">
+                                            <button class="accordion-button collapsed p-0 rounded bg-body-tertiary"
+                                                    type="button"
+                                                    style="width: auto"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseImage"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapseImage"></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="collapseImage"
+                                     class="accordion-collapse collapse"
+                                     data-bs-parent="#accordion"
+                                     style="">
+                                    <div class="accordion-body d-flex">
+                                        <div id="preview-text">Noch kein Bild hochgeladen.</div>
+                                        <img src=""
+                                             class="mx-auto"
+                                             id="preview_Upload_Image"
+                                             style="width:300px;
+                                                    height:300px" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-outline-secondary me-auto"
+                            data-bs-dismiss="modal">{% trans "Schließen" %}</button>
+                    <button type="submit" class="btn btn-outline-primary" name="comment">{% trans 'Post Erstellen' %}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 <script>
+    preview_text = document.getElementById("preview-text")
     image_To_Upload = document.getElementById("image_To_Upload")
     preview_Upload_Image = document.getElementById("preview_Upload_Image")
     preview_Upload_Image.hidden = true
     image_To_Upload.onchange = e => {
         let [file] = image_To_Upload.files
         if (file) {
+            preview_text.hidden = true
             preview_Upload_Image.hidden = false
             preview_Upload_Image.src = URL.createObjectURL(file)
+
+            var myCollapse = document.getElementsByClassName('collapse')[0];
+            var bsCollapse = new bootstrap.Collapse(myCollapse, {
+                toggle: true
+            });
         }
     }
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
