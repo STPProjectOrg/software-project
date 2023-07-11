@@ -9,6 +9,32 @@ from .models import Notification
 from asgiref.sync import sync_to_async
 
 
+@database_sync_to_async
+def get_user(pk):
+    """
+    This method is used to get a user.
+
+    :param pk: The primary key of the user.
+    """
+    return CustomUser.objects.get(pk=pk)
+
+
+@database_sync_to_async
+def get_notifications(user):
+    """
+    This method is used to get notifications from a user.
+
+    :param user: The user to get the notifications from.
+    """
+    try:
+        notifications = Notification.objects.filter(user=user).get()
+    except (Notification.DoesNotExist):
+        print("There where no notifications found.")
+    finally:
+        notifications = []
+    return notifications
+
+
 class NotificationConsumer(AsyncWebsocketConsumer):
     """
     This class represents a NotificationConsumer.
