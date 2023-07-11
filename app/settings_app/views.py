@@ -16,7 +16,7 @@ def settings(request):
     """
     Renders the settings overview page.
     """
-    return render(request, 'settings_app/settingsOverview.html')
+    return render(request, 'settings_app/settingsOverview.html', {"user": request.user})
 
 
 @login_required
