@@ -5,7 +5,8 @@ from django import template
 from django.urls import reverse
 from api_app.models import Asset
 
-from api_app.views import getCryptoValueFromDatabase, getCoinInformation
+from api_app.cryptoservice import getCoinInformation
+from api_app.databaseservice import getCryptoValueFromDatabase
 import cryptocompare
 
 register = template.Library()

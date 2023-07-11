@@ -1,7 +1,8 @@
-from django.urls import re_path
-from api_app import views
+from django.urls import path
+from api_app.views import addCoin, api
 app_name = 'api_app'
 
 urlpatterns = [
-    re_path('api', views.api)
+    path('api', api.api, name="api"),
+    path('api/addCoin', addCoin.addCoin, name="addCoin")
 ]

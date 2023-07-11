@@ -2,6 +2,7 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views
 from .forms import UserLoginForm, PasswordCustomResetForm, PasswordCustomSetForm
+from .views_new import biography
 
 app_name = 'user_app'
 
@@ -50,5 +51,9 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(
              template_name="user_app/password_recovery/reset_password_complete.html"),
-         name='password_reset_complete')
+         name='password_reset_complete'),
+
+    # Update User Information
+    path('update/biography', biography.update, name='update_biography'),
+
 ]

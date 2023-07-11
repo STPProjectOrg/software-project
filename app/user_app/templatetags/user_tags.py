@@ -23,3 +23,8 @@ def profile_following_modal(request, profile_user, profile_following_list, user_
 @register.inclusion_tag("modals/profile_followers_modal.html")
 def profile_followers_modal(request, profile_user, profile_followers_list, user_following_list):
     return {"request": request, "profile_user": profile_user, "profile_followers_list": profile_followers_list, "user_following_list": user_following_list}
+
+
+@register.inclusion_tag("modals/profile_biography_modal.html")
+def profile_biography_modal(user):
+    return {"user": user}

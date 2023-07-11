@@ -23,4 +23,3 @@ RUN pip install -r /usr/src/app/requirements.txt
 
 # copy project
 COPY . /usr/src/app/
-RUN python manage.py migrate

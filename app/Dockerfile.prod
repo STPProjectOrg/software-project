@@ -8,6 +8,15 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+#TODO Müssen noch unbedingt versteckt werden
+ENV SQL_ENGINE "django.db.backends.postgresql_psycopg2"
+ENV DATABASE "postgres"
+ENV SQL_DATABASE "postgres"
+ENV SQL_USER "linpostgres"
+ENV SQL_PASSWORD "80xJjxDw,UNj3Ivr"
+ENV SQL_HOST "lin-24622-9041-pgsql-primary.servers.linodedb.net"
+ENV SQL_PORT "5432"
+
 # install psycopg2
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
@@ -24,4 +33,3 @@ RUN pip install -r /usr/src/app/requirements.txt
 # copy project
 COPY . /usr/src/app/
 RUN python manage.py migrate
-

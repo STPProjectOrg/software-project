@@ -20,5 +20,6 @@ urlpatterns = [
 
     # Transaction
     path("transaction/list", main.transactions, name="transactions"),
-    path("transaction/buy/<str:coin>", transaction.buy, name="transaction_buy")
+    path("transaction/buy/<str:coin>", transaction.buy, name="transaction_buy"),
+    path("transaction/sekk/<str:coin>", transaction.sell, name="transaction_sell")
 ]
