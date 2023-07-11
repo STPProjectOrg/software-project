@@ -29,7 +29,8 @@
       <h4>Unterstützte Coins in Datenbank</h4>
         <div class="list-group overflow-auto" style="height:33vh;">
           {% for coin in coins %}
-            <p>{{ coin.name }} : {{ coin.coinName }}</p>
+            
+            <p><img src="{{coin.imageUrl}}" style="height:25px; width:25px;"> {{ coin.name }} : {{ coin.coinName }}</p>
           {% endfor %}
         </div>
       <h4 style="margin-top: 1vh;">Unterstützte Währungen</h4>
