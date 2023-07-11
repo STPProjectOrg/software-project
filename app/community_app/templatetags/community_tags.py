@@ -6,6 +6,7 @@ from django.template.defaultfilters import stringfilter
 from django.utils.html import mark_safe
 from user_app.models import CustomUser
 from api_app.models import Asset
+from community_app.views import post
 
 register = template.Library()
 
@@ -18,8 +19,10 @@ def entry(user, post):
 
 
 @register.inclusion_tag("community_app/modals/post_create_modal.html")
-def post_create_modal(user, form):
+def post_create_modal(user):
     """ Include a modal for post creation. """
+
+    form = post.PostForm()
 
     return {"user": user, "form": form}
 
@@ -46,22 +49,26 @@ def datetime_converter(entry_datetime: datetime):
 
     return f"{entry_datetime.day}.{entry_datetime.month}.{entry_datetime.year}"
 
+
 @register.inclusion_tag("community_app/modals/full_image_modal.html")
 def full_image_modal(post):
     """ Include a modal for post creation. """
 
     return {"post": post}
 
+
 @register.filter
 @stringfilter
-def tag(value : str):
+def tag(value: str):
     if "@" in value:
         cut = value.split(" ")
         for current in cut:
             if current[0] == "@":
                 if CustomUser.objects.filter(username=current[1:current.__len__()]).exists():
-                    value = value.replace(current, f'<a href="http://localhost:8000/auth/profile/{current[1:current.__len__()]}/">{current}</a>')
+                    value = value.replace(
+                        current, f'<a href="http://localhost:8000/auth/profile/{current[1:current.__len__()]}/">{current}</a>')
                 elif Asset.objects.filter(name=current[1:current.__len__()].upper()).exists():
-                    value = value.replace(current, f'<a href="http://localhost:8000/dashboard_app/asset/{current[1:current.__len__()].lower()}">{current}</a>')
+                    value = value.replace(
+                        current, f'<a href="http://localhost:8000/dashboard_app/asset/{current[1:current.__len__()].lower()}">{current}</a>')
 
     return mark_safe(value)
