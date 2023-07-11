@@ -105,7 +105,7 @@
             preview_Upload_Image.hidden = false
             preview_Upload_Image.src = URL.createObjectURL(file)
 
-            var myCollapse = document.getElementsByClassName('collapse')[0];
+            var myCollapse = document.getElementById('collapseImage');
             var bsCollapse = new bootstrap.Collapse(myCollapse, {
                 toggle: true
             });
