@@ -1,12 +1,13 @@
 from django import forms
-from datetime import datetime
+import datetime
+from .databaseservice import get_asset_choices
+
+asset_choices = get_asset_choices()
+currency_choices = [("USD","USD"), ("EUR","EUR"), ("GBP","GBP"), ("JPY","JPY"), ("KRW","KRW")]
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-class MyForm(forms.Form):
-    asset = forms.CharField(max_length=20, initial='BTC')
-    currency = forms.CharField(max_length=20, initial='EUR')
-    dateFrom = forms.DateField(widget=DateInput, initial=datetime.now)
-    dateTo = forms.DateField(widget=DateInput, initial=datetime.now)
+class AddAssetData(forms.Form):
+    asset = forms.CharField(label="Asset",widget=forms.Select(choices=asset_choices), initial="EUR", required=True)
+    currency = forms.CharField(label="Currency",widget=forms.Select(choices=currency_choices), initial="EUR", required=True)
+    dateFrom = forms.DateField(widget = forms.widgets.DateInput(attrs={'type': 'date', 'value': datetime.date.today()}), required=True)
+    dateTo = forms.DateField(widget = forms.widgets.DateInput(attrs={'type': 'date', 'value': datetime.date.today()}),required=True)
