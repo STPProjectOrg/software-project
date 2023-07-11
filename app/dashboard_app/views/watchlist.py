@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date 
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from dashboard_app.models import Watchlist, Transaction
@@ -22,9 +22,10 @@ def get_watchlist(user):
     assets = []
     for watchlist_asset in Watchlist.objects.filter(user=user):
         asset = Asset.objects.get(id=watchlist_asset.asset_id)
-        date="2023-05-20"
-        d=datetime.strptime(date, "%Y-%m-%d").date()
-        price = AssetHistory.objects.get(name_id=asset.id, date=date)
+        ##Muss zum testen auf "2023-05-20" geändert werden
+        today = str(date.today())
+        d=datetime.strptime(today, "%Y-%m-%d").date()
+        price = AssetHistory.objects.get(name_id=asset.id, date=today)
         try:
             pricediff = AssetHistory.objects.get(name_id=asset.id, date=d-timedelta(days=watchlist_asset.price_change))
         except:
