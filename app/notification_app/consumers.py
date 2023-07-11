@@ -47,17 +47,20 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             self.group_name = str(self.scope["user"].pk)
             await self.channel_layer.group_add(self.group_name, self.channel_name)
             await self.accept()
-            notifications = Notification.objects.afilter(
-                user=self.scope["user"])
-            notifications = await sync_to_async(
-                serializers.serialize('json', notifications))
 
             await self.send(
                 json.dumps({
-                    "type": "websocket.connected",
-                    "room": self.group_name,
-                    "text": "Successfully connected to websocket.",
-                    "notifications": notifications})
+                    "type": "websocket.connect",
+                    "group": self.group_name,
+                    "message": "Successfully connected to websocket."
+                })
+            )
+
+            await self.channel_layer.group_send(
+                "%s" % self.group_name,
+                {
+                    "type": "websocket.initial_notifications",
+                }
             )
 
     async def websocket_disconnect(self, message):
