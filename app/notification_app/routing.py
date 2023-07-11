@@ -7,6 +7,6 @@ from . import consumers
 
 
 websocket_urlpatterns = [
-    path('notifications/<str:group_name>/', consumers.NotificationConsumer.as_asgi(),
+    path('notifications/', consumers.NotificationConsumer.as_asgi(),
          name='notificationService')
 ]
