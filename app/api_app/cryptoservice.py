@@ -1,6 +1,6 @@
 import cryptocompare
 import time
-from datetime import timedelta
+import datetime
 from api_app.databaseservice import getAssetFromDatabase
 from api_app.models import Asset, AssetHistory
 
@@ -44,32 +44,40 @@ def getCoinInformation(asset: str):
 #Aktuell nur den Tageswert.
 #Beispielaufruf: saveYearlyDataToDatabase('BTC', 'EUR', dateFrom, dateTo)
 def saveDataFromApiToDatabase(cryptoCurrency: str, currency: str, dateFrom: str, dateTo: str) -> str:
-    message = ""
+    message = []
     dateDiff = dateTo - dateFrom 
     asset = Asset.objects.get(name=cryptoCurrency)
     for days in range(dateDiff.days + 1):
-        historicalDate = dateFrom + timedelta(days=days)
+        historicalDate = dateFrom + datetime.timedelta(days=days)
         if AssetHistory.objects.filter(date=historicalDate, name=asset).exists():
-            message += f"{historicalDate} value exists already\n"
+            message.append(f"{historicalDate} value exists already")
         else:
             historicalPrice = getHistoricalCryptoData(cryptoCurrency, currency, historicalDate)
             historicalPrice
             AssetHistory.objects.get_or_create(date=historicalDate, value=historicalPrice[cryptoCurrency][currency], name=asset)[0]
             time.sleep(0.33)
-            message += f'{historicalDate} wurde hinzugefügt.\n' 
+            message.append(f'{historicalDate} wurde hinzugefügt.') 
     return message
 
 #Fügt eine neue Kryptowährung der Datenbank hinzu 
 #und dessen dazugehörige Historie für den heutigen Tag
 #Beispielaufruf: addCoinToDatabase('BTC','Bitcoin','EUR')
-def addCoinToDatabase(cryptoCurrencyString: str, coinName: str, currencyString: str):
-    if not doesCoinExistInAPI(cryptoCurrencyString): 
-        return print(f"{cryptoCurrencyString} not supported from the API")
-    if getAssetFromDatabase(cryptoCurrencyString).name == cryptoCurrencyString: 
-        return print(f"{cryptoCurrencyString} already exists in database")
+def addCoinToDatabase(cryptoCurrency: str, currency: str):
+    if not doesCoinExistInAPI(cryptoCurrency): 
+        return print(f"{cryptoCurrency} not supported from the API")
+    if getAssetFromDatabase(cryptoCurrency).name == cryptoCurrency: 
+        return print(f"{cryptoCurrency} already exists in database")
 
-    asset = Asset.objects.get_or_create(name=cryptoCurrencyString, coinName=coinName, imageUrl="https://www.cryptocompare.com"+getCoinInformation(cryptoCurrencyString)['ImageUrl'])[0]
-    #currentDate = datetime.now()
-    #date = datetime(currentDate.year,currentDate.month,currentDate.day)
-    #currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrencyString)[cryptoCurrencyString][currencyString]
-    #AssetHistory.objects.get_or_create(date=date, value=currentCryptoPrice, name=asset)[0]
+    try:
+        coin = getCoinInformation(cryptoCurrency)
+        coinName = coin['CoinName']
+        image = "https://www.cryptocompare.com"+coin['ImageUrl']
+        asset = Asset.objects.get_or_create(name=cryptoCurrency, coinName=coinName, imageUrl=image)[0]
+        currentDate = datetime.date.today()
+        currentCryptoPrice = getCurrentCryptoPrice(cryptoCurrency)[cryptoCurrency][currency]
+        AssetHistory.objects.get_or_create(date=currentDate, value=currentCryptoPrice, name=asset)[0]
+        return f"{cryptoCurrency} wurde erfolgreich der Datenbank hinzugefügt!"
+    except:
+        return f"{cryptoCurrency} wird von dir API nicht unterstützt!"
+    
+
