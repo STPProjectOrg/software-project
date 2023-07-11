@@ -1,98 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% extends "core/base.html" %}
+{% load community_tags %}
+{% load i18n %}
+{% block title %}
+  | Community
+{% endblock title %}
+{% block content %}
 
-    <title>Document</title>
-</head>
-<body>
-    <h1>THIS IS THE API</h1>
-    <h2>Selected Crypto: {{ crypto|json_script:'crypto' }}</h2>
-    <h2>Selected Currency: {{ currency }}</h2>
-    <h2>Current Price of {{ crypto }} in {{ currency }}:</h2>
-    <h2>Historical Price of {{ crypto }} in {{ currency }} on {{ historicalDate }}: {{ historicalPrice }}</h2>
-    <h3>Download Data from API</h3> 
-    <form method="POST">
-      {% csrf_token %}
-      {{form.as_p}}
-      <button type="submit">Submit</button>
-    </form>
-    <h3>{{ message }}</h3>
 
-    <div style="width:50%;display: flex">
-        <canvas id="myChart" ></canvas>
-        {{ value|json_script:'value' }}
-        <div style="width:50%;">
-          <canvas id="myChart2" ></canvas>
-          <canvas id="myChart3" ></canvas>
+  <h1>API-Admin Panel</h1>
+  <div class="d-flex flex-row">
+    <div class="container">
+      <h4>Historische Coin Daten hinzufügen</h3>
+      <form method="POST">
+        {% csrf_token %}
+        {{addAssetDataForm.as_p}}
+        <button type="submit" class="btn btn-info">Anfrage Senden</button>
+      </form>
+    </div>
+    <div class="container">
+      <h4>Coin hinzufügen</h3>
+      <form action="{% url 'api_app:addCoin' %}" method="POST">
+        {% csrf_token %}
+        {{ addCoinForm.as_p }}
+        <button type="submit" class="btn btn-info">Anfrage Senden</button>
+      </form>
+    </div>
+    <div class="container">
+      <h4>Unterstützte Coins in Datenbank</h4>
+        <div class="list-group overflow-auto" style="height:33vh;">
+          {% for coin in coins %}
+            <p>{{ coin.name }} : {{ coin.coinName }}</p>
+          {% endfor %}
         </div>
+      <h4 style="margin-top: 1vh;">Unterstützte Währungen</h4>
+        <div class="list-group overflow-auto" style="height:33vh;">
+          <p>Euro : EUR</p>
+        </div>
+    </div>
+    <div class="container">
+      <h4>Währung hinzufügen Konsole</h4>
+      <div class="list-group overflow-auto" style="height:50vh;">
+        {% for message in addAssetDataMessages %}
+        <p style="margin: 0px;">{{ message }}</p>
+        {% endfor %}
       </div>
+    </div>
+  </div>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-      const ctx = document.getElementById('myChart');
-      const ctx2 = document.getElementById('myChart2');
-      const ctx3 = document.getElementById('myChart3');
-      var dataValues = JSON.parse(document.getElementById('value').textContent);
-      var cryptoName = JSON.parse(document.getElementById('crypto').textContent);
-
-      const labels = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
-        const data = {
-                        labels: labels,
-                        datasets: [{
-                            label: cryptoName,
-                            data: dataValues,
-                            fill: false,
-                            borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1
-                        }]
-                        };
-                        const config = {
-                  type: 'line',
-                  data: data,
-                };
-        new Chart(ctx, {
-          type: 'line',
-          data: data,
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            }
-          }
-        });
-
-          const data2 = {
-            labels: [
-              'Red',
-              'Blue',
-              'Yellow'
-            ],
-            datasets: [{
-              label: 'My First Dataset',
-              data: [300, 50, 100],
-              backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
-              ],
-              hoverOffset: 4
-            }]
-          };
-          new Chart(ctx2, {
-          type: 'doughnut',
-          data: data2,
-        })
-        new Chart(ctx3, {
-          type: 'pie',
-          data: data2,
-        })
-    </script>
-</body>
-</html>
+{% endblock content %}

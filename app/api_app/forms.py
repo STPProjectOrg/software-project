@@ -1,12 +1,17 @@
 from django import forms
-from datetime import datetime
+import datetime
+from .databaseservice import get_asset_choices
+
+asset_choices = get_asset_choices()
+currency_choices = [("USD","USD"), ("EUR","EUR"), ("GBP","GBP"), ("JPY","JPY"), ("KRW","KRW")]
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
+class AddAssetData(forms.Form):
+    asset = forms.CharField(label="Cryptocoin Symbol",widget=forms.Select(choices=asset_choices, attrs={"class": "form-control"}), initial="EUR", required=True)
+    currency = forms.CharField(label="Währung",widget=forms.Select(choices=currency_choices, attrs={"class": "form-control"}), initial="EUR", required=True)
+    dateFrom = forms.DateField(label="Von:", widget = forms.widgets.DateInput(attrs={'type': 'date', "class": "form-control",'value': datetime.date.today()}), required=True)
+    dateTo = forms.DateField(label="Bis:", widget = forms.widgets.DateInput(attrs={'type': 'date', "class": "form-control",'value': datetime.date.today()}),required=True)
 
-class MyForm(forms.Form):
-    asset = forms.CharField(max_length=20, initial='BTC')
-    currency = forms.CharField(max_length=20, initial='EUR')
-    dateFrom = forms.DateField(widget=DateInput, initial=datetime.now)
-    dateTo = forms.DateField(widget=DateInput, initial=datetime.now)
+class AddCoin(forms.Form):
+    asset = forms.CharField(label="Cryptocoin Symbol",widget=forms.TextInput(attrs={"class": "form-control"}), required=True)
+    currency = forms.CharField(label="Währung",widget=forms.Select(choices=currency_choices, attrs={"class": "form-control"}), initial="EUR", required=True)

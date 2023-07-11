@@ -1,8 +1,8 @@
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from app.settings import TIME_ZONE
-from .views import getAllCoinsFromDatabase, saveDataFromApiToDatabase
-
+from .databaseservice import getAllCoinsFromDatabase
+from .cryptoservice import saveDataFromApiToDatabase
 
 # Der scheduler wird mit dieser Methode gestartet.
 # Die Funktion update_data() wird jeden Tag um 01:00 Uhr ausgeführt.
