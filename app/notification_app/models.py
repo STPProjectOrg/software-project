@@ -15,7 +15,7 @@ class Notification(models.Model):
         CustomUser, on_delete=models.CASCADE)
     type = models.TextField(default="", max_length=20)
     message = models.TextField(default="")
-    status = models.CharField(default="UNREAD", max_length=20)
+    status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
