@@ -1,100 +1,6 @@
 import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
-from channels.db import database_sync_to_async
-# from django.core import serializers
-
-from user_app.models import CustomUser
-from .models import Notification
-
-
-@database_sync_to_async
-def get_user(user_id):
-    """
-    This method is used to get a user.
-
-    :param user_id: The primary key of the user.
-    """
-    return CustomUser.objects.get(pk=user_id)
-
-
-@database_sync_to_async
-def get_notifications(notification_id):
-    """
-    This method is used to get a notification.
-
-    :param notification_id: The primary key of the notification.
-    """
-    try:
-        notifications = Notification.objects.filter(id=notification_id).get()
-    except (Notification.DoesNotExist):
-        print("There where no notifications found.")
-    finally:
-        notifications = []
-    return notifications
-
-
-@database_sync_to_async
-def create_notification(user, notification_type, message):
-    """
-    Creates a notification.
-
-    """
-    notification = Notification.objects.get_or_create(
-        user=user,
-        type=notification_type,
-        message=message
-    )[0]
-
-    notification.save()
-    return notification
-
-
-@database_sync_to_async
-def delete_notification(notification_id):
-    """
-    Deletes a notification.
-
-    """
-    notification = Notification.objects.get(id=notification_id)
-    notification.delete()
-    return notification
-
-
-@database_sync_to_async
-def delete_all_notifications(user_id):
-    """
-    Deletes all notifications for the user.
-
-    """
-    notifications = Notification.objects.filter(user=user_id)
-    notifications.delete()
-    return notifications
-
-
-@database_sync_to_async
-def mark_as_read(notification_id):
-    """
-    Switches the status of a notification.
-    """
-
-    notification = Notification.objects.get(id=notification_id)
-    notification.status = not notification.status
-    notification.save()
-    return notification
-
-
-@database_sync_to_async
-def mark_all_as_read(notification_id):
-    """
-    Switches the status of all notifications.
-    """
-
-    notifications = Notification.objects.filter(user=notification_id)
-    for notification in notifications:
-        notification.status = not notification.status
-        notification.save()
-    return notifications
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
@@ -283,6 +189,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             {
                 "type": "websocket.notifications",
             }
+        )
 
     async def send_notification(self, event):
         """
