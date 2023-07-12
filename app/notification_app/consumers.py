@@ -20,19 +20,34 @@ def get_user(pk):
 
 
 @database_sync_to_async
-def get_notifications(user):
+def get_notifications(pk):
     """
-    This method is used to get notifications from a user.
+    This method is used to get notifications from a id.
 
     :param user: The user to get the notifications from.
     """
     try:
-        notifications = Notification.objects.filter(user=user).get()
+        notifications = Notification.objects.filter(id=pk).get()
     except (Notification.DoesNotExist):
         print("There where no notifications found.")
     finally:
         notifications = []
     return notifications
+
+
+@database_sync_to_async
+def create_notification(user, type, message):
+    """
+    Creates a notification.
+
+    """
+    notification = Notification.objects.get_or_create(
+        user=user,
+        type=type,
+        message=message
+    )[0]
+
+    notification.save()
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
@@ -57,9 +72,9 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             )
 
             await self.channel_layer.group_send(
-                "%s" % self.group_name,
+                f"{self.group_name}",
                 {
-                    "type": "websocket.initial_notifications",
+                    "type": "websocket.notifications",
                 }
             )
 
@@ -67,13 +82,72 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
     async def websocket_receive(self, message):
-        dddddd = database_sync_to_async(Notification.objects.create(
-            user=self.scope["user"], type=message["type"], message=message["text"]))
-        print(dddddd)
-        await self.send(json.dumps({
-            "type": "websocket.notification",
-            "data": message
-        }))
+        await self.send(
+            json.dumps({
+                "type": "websocket.receive",
+                "group": self.group_name,
+                "message": "Received message."
+            })
+        )
+
+        await self.channel_layer.group_send(
+            f"{self.group_name}",
+            {
+                "type": "websocket.create_notification",
+                "message": message
+            }
+        )
+
+    async def websocket_create_notification(self, message):
+        """
+        This method is used to create a notification.
+        """
+
+        data = message.get("data")
+
+        await create_notification(
+            data["user"],
+            data["type"],
+            data["message"]
+        )
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.create_notification",
+                "group": self.group_name,
+                "message": "Created notification."
+            })
+        )
+
+        await self.channel_layer.group_send(
+            f"{message['group']}",
+            {
+                "type": "websocket.notifications",
+                "group": self.group_name,
+            }
+        )
+
+    async def websocket_notifications(self):
+        """
+        This method is used to get all notifications.
+        """
+
+        notifications = await get_notifications(self.group_name)
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.notifications",
+                "group": self.group_name,
+                "notifications": notifications
+            })
+        )
+
+        await self.channel_layer.group_send(
+            f"{self.group_name}",
+            {
+                "notifications": notifications,
+            }
+        )
 
     async def send_notification(self, event):
         """
