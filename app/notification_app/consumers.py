@@ -50,6 +50,17 @@ def create_notification(user, type, message):
     notification.save()
 
 
+@database_sync_to_async
+def delete_notification(id):
+    """
+    Deletes a notification.
+
+    """
+    notification = Notification.objects.get(id=id)
+    notification.delete()
+    return notification
+
+
 class NotificationConsumer(AsyncWebsocketConsumer):
     """
     This class represents a NotificationConsumer.
@@ -78,9 +89,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 }
             )
 
-    async def websocket_disconnect(self, message):
-        await self.channel_layer.group_discard(self.group_name, self.channel_name)
-
     async def websocket_receive(self, message):
         await self.send(
             json.dumps({
@@ -97,6 +105,9 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 "message": message
             }
         )
+
+    async def websocket_disconnect(self, message):
+        await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
     async def websocket_create_notification(self, message):
         """
@@ -127,7 +138,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             }
         )
 
-    async def websocket_notifications(self):
+    async def websocket_notifications(self, message):
         """
         This method is used to get all notifications.
         """
@@ -142,10 +153,28 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             })
         )
 
+    async def delete_notification(self, message):
+        """
+        This method is used to delete a notification.
+        """
+
+        id = message.get("id")
+        removed_notification = await delete_notification(id)
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.delete_notification",
+                "group": self.group_name,
+                "message": "Removed notification.",
+                "notification": removed_notification
+            })
+        )
+
         await self.channel_layer.group_send(
-            f"{self.group_name}",
+            f"{message['group']}",
             {
-                "notifications": notifications,
+                "type": "websocket.notifications",
+                "group": self.group_name,
             }
         )
 
