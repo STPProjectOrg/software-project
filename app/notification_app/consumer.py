@@ -2,32 +2,31 @@ import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-from django.core import serializers
+# from django.core import serializers
 
 from user_app.models import CustomUser
 from .models import Notification
-from asgiref.sync import sync_to_async
 
 
 @database_sync_to_async
-def get_user(pk):
+def get_user(user_id):
     """
     This method is used to get a user.
 
-    :param pk: The primary key of the user.
+    :param user_id: The primary key of the user.
     """
-    return CustomUser.objects.get(pk=pk)
+    return CustomUser.objects.get(pk=user_id)
 
 
 @database_sync_to_async
-def get_notifications(pk):
+def get_notifications(notification_id):
     """
-    This method is used to get notifications from a id.
+    This method is used to get a notification.
 
-    :param user: The user to get the notifications from.
+    :param notification_id: The primary key of the notification.
     """
     try:
-        notifications = Notification.objects.filter(id=pk).get()
+        notifications = Notification.objects.filter(id=notification_id).get()
     except (Notification.DoesNotExist):
         print("There where no notifications found.")
     finally:
@@ -36,63 +35,64 @@ def get_notifications(pk):
 
 
 @database_sync_to_async
-def create_notification(user, type, message):
+def create_notification(user, notification_type, message):
     """
     Creates a notification.
 
     """
     notification = Notification.objects.get_or_create(
         user=user,
-        type=type,
+        type=notification_type,
         message=message
     )[0]
 
     notification.save()
+    return notification
 
 
 @database_sync_to_async
-def delete_notification(id):
+def delete_notification(notification_id):
     """
     Deletes a notification.
 
     """
-    notification = Notification.objects.get(id=id)
+    notification = Notification.objects.get(id=notification_id)
     notification.delete()
     return notification
 
 
 @database_sync_to_async
-def delete_all_notifications(user):
+def delete_all_notifications(user_id):
     """
     Deletes all notifications for the user.
 
     """
-    notifications = Notification.objects.filter(user=user)
+    notifications = Notification.objects.filter(user=user_id)
     notifications.delete()
     return notifications
 
 
 @database_sync_to_async
-def switch_notification_status(id):
+def mark_as_read(notification_id):
     """
     Switches the status of a notification.
     """
 
-    notification = Notification.objects.get(id=id)
-    notification.read = not notification.read
+    notification = Notification.objects.get(id=notification_id)
+    notification.status = not notification.status
     notification.save()
     return notification
 
 
 @database_sync_to_async
-def switch_all_notification_statuses(user):
+def mark_all_as_read(notification_id):
     """
     Switches the status of all notifications.
     """
 
-    notifications = Notification.objects.filter(user=user)
+    notifications = Notification.objects.filter(user=notification_id)
     for notification in notifications:
-        notification.read = not notification.read
+        notification.status = not notification.status
         notification.save()
     return notifications
 
@@ -194,8 +194,8 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         This method is used to delete a notification.
         """
 
-        id = message.get("id")
-        removed_notification = await delete_notification(id)
+        notification_id = message.get("id")
+        removed_notification = await delete_notification(notification_id)
 
         await self.send(
             json.dumps({
@@ -213,6 +213,76 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 "group": self.group_name,
             }
         )
+
+    async def delete_all_notifications(self, message):
+        """
+        This method is used to delete all notifications.
+        """
+
+        await delete_all_notifications(self.group_name)
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.delete_all_notifications",
+                "group": self.group_name,
+                "message": "Removed all notifications."
+            })
+        )
+
+        await self.channel_layer.group_send(
+            f"{message['group']}",
+            {
+                "type": "websocket.notifications",
+                "group": self.group_name,
+            }
+        )
+
+    async def mark_as_read(self, message):
+        """
+        This method is used to mark a notification as read.
+        """
+
+        notification_id = message.get("id")
+        notification = await mark_as_read(notification_id)
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.mark_as_read",
+                "group": self.group_name,
+                "message": "Marked notification as read.",
+                "notification": notification
+            })
+        )
+
+        await self.channel_layer.group_send(
+            f"{message['group']}",
+            {
+                "type": "websocket.notifications",
+                "group": self.group_name,
+            }
+        )
+
+    async def mark_all_as_read(self, message):
+        """
+        This method is used to mark all notifications as read.
+        """
+
+        notifications = await mark_all_as_read(self.group_name)
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.mark_all_as_read",
+                "group": self.group_name,
+                "message": "Marked all notifications as read.",
+                "notifications": notifications
+            })
+        )
+
+        await self.channel_layer.group_send(
+            f"{message['group']}",
+            {
+                "type": "websocket.notifications",
+            }
 
     async def send_notification(self, event):
         """
