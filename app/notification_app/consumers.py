@@ -61,6 +61,42 @@ def delete_notification(id):
     return notification
 
 
+@database_sync_to_async
+def delete_all_notifications(user):
+    """
+    Deletes all notifications for the user.
+
+    """
+    notifications = Notification.objects.filter(user=user)
+    notifications.delete()
+    return notifications
+
+
+@database_sync_to_async
+def switch_notification_status(id):
+    """
+    Switches the status of a notification.
+    """
+
+    notification = Notification.objects.get(id=id)
+    notification.read = not notification.read
+    notification.save()
+    return notification
+
+
+@database_sync_to_async
+def switch_all_notification_statuses(user):
+    """
+    Switches the status of all notifications.
+    """
+
+    notifications = Notification.objects.filter(user=user)
+    for notification in notifications:
+        notification.read = not notification.read
+        notification.save()
+    return notifications
+
+
 class NotificationConsumer(AsyncWebsocketConsumer):
     """
     This class represents a NotificationConsumer.
