@@ -6,9 +6,10 @@ from django.contrib.auth.decorators import login_required
 from api_app.models import Asset
 from dashboard_app.views import charts
 from dashboard_app.views import kpi
-from dashboard_app.models import Watchlist, WatchlistAsset
+from dashboard_app.models import Watchlist, WatchlistAsset, WatchlistLike
 from dashboard_app.models import Transaction
 from dashboard_app.views.watchlist import get_watchlist
+from user_app.models import CustomUser
 
 # Create your views here.
 
@@ -51,10 +52,17 @@ def asset(request, name, timespan):
 
 
 @login_required
-def watchlist(request):
-    watchlist = Watchlist.objects.get_or_create(user=request.user)
+def watchlist(request, username):
+    user = CustomUser.objects.get(username=username)
+    watchlist = Watchlist.objects.get_or_create(user=user)
     watchlist_id = watchlist[0].id
-    data = {"watchlist": get_watchlist(request.user, watchlist_id ), "watchlist_id": watchlist_id}
+    data = {
+            "watchlist": get_watchlist(user, watchlist_id ), 
+            "watchlist_id": watchlist_id, 
+            "username": user.username,
+            "watchlist_likes": WatchlistLike.objects.filter(watchlist=watchlist_id).count(),
+            "is_own_watchlist": request.user.username == username
+            }
     return render(request, 'dashboard_app/watchlist.html', context=data)
 
 
