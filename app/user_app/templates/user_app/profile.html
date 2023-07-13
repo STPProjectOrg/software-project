@@ -130,6 +130,17 @@
                     </div>
                     <div class="col-auto">
                         <a class="btn btn-outline-primary"
+                           href="{% url 'dashboard_app:watchlist' profile_user.username %}">
+                            <div class="d-flex gap-2">
+                                <div class="m-auto">
+                                    <i class="bi bi-chat-dots-fill"></i>
+                                </div>
+                                <div>Watchlist ansehen</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-outline-primary"
                            href="{% url 'user_app:follow' profile_user.username %}">
                             <div class="d-flex gap-2">
                                 {% if is_user_following %}
