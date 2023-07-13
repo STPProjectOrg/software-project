@@ -1,10 +1,18 @@
 """ view-functions related to community_app.comment """
 
 from datetime import datetime
+import json
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from notification_app.views import create_notification
+from notification_app.methods import get_notifications, send_notification
+from notification_app.consumer import NotificationConsumer
 from community_app.models import Comment, Post, CommentLike
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+from django.core import serializers
+
+
+channel_layer = get_channel_layer()
 
 
 def create(request, post_id):
@@ -14,16 +22,34 @@ def create(request, post_id):
     Keyword arguments:
         post_id: The id of the post to be commented.
     """
+    post = Post.objects.filter(id=post_id).get()
 
     Comment.objects.create(
         user=request.user,
-        post=Post.objects.filter(id=post_id).get(),
+        post=post,
         content=request.POST.get("post_comment"),
         created_at=datetime.now()
     )
 
-    #create_notification(request, "comment",
-    #                    "%s commented on your post.") % request.user.username
+    # send_notification(channel_layer, post.user, 'comment',
+    #                   f"{request.user.username} commented on your post.")
+    # ser = serializers.serialize('json', post.user, fields=(
+    #     'user', 'content', 'created_at', 'image'))
+
+    # Statt einen serializer zu benutzen kannst du auch einfach ein dict aus dem user erstellen
+    # und dann in der consumer.py die daten aus dem dict auslesen
+
+    async_to_sync(channel_layer.group_send)(
+        f"{post.user.id}",
+        {
+            "type": "websocket.send_notification",
+            "data": {
+                "user": post.user.id,
+                "type": "comment",
+                "message": f"{request.user.username} commented on your post."
+            }
+        }
+    )
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

@@ -3,10 +3,10 @@ This file is used to route the websocket to the consumer.
 """
 
 from django.urls import path
-from . import consumers
+from . import consumer
 
 
 websocket_urlpatterns = [
-    path('notifications/', consumers.NotificationConsumer.as_asgi(),
+    path('notifications/', consumer.NotificationConsumer.as_asgi(),
          name='notificationService')
 ]
