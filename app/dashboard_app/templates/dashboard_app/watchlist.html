@@ -7,17 +7,27 @@
 {% endblock title %}
 {% block content %}
     {% if not watchlist %}
-        <div class="row h-100">
-            <div class="col text-center h-100 d-flex">
-                <div class="m-auto">
-                    <div class="text-white fw-bold fs-3">Sie haben noch keine Assets Ihrer Watchlist hinzugefügt.</div>
-                    <div class="text-white fs-5">Um ein Asset Ihrer Watchlist hinzuzufügen, suchen Sie nach einem Asset in der Suche und drücken Sie auf den Stern.</div>
-                    <div class="text-white fs-6">
-                        <a href="{% url "core:qaa" %}">Weitere Informationen findest du hier.</a>
+        {% if is_own_watchlist %}
+            <div class="row h-100">
+                <div class="col text-center h-100 d-flex">
+                    <div class="m-auto">
+                        <div class="text-white fw-bold fs-3">Sie haben noch keine Assets Ihrer Watchlist hinzugefügt.</div>
+                        <div class="text-white fs-5">Um ein Asset Ihrer Watchlist hinzuzufügen, suchen Sie nach einem Asset in der Suche und drücken Sie auf den Stern.</div>
+                        <div class="text-white fs-6">
+                            <a href="{% url "core:qaa" %}">Weitere Informationen findest du hier.</a>
+                        </div>
                     </div>
                 </div>
             </div>
+        {% else %}
+        <div class="row h-100">
+            <div class="col text-center h-100 d-flex">
+                <div class="m-auto">
+                    <div class="text-white fw-bold fs-3">{{ username }} hat noch keine Assets zur Watchlist hinzugefügt.</div>
+                </div>
+            </div>
         </div>
+        {% endif %}
     {% else %}
     {% if not is_own_watchlist %}
     {# Likes #}
