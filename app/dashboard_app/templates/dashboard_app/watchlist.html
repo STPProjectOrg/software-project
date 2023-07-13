@@ -19,10 +19,23 @@
             </div>
         </div>
     {% else %}
+    {% if not is_own_watchlist %}
+    {# Likes #}
+    <a href="{% url 'dashboard_app:like_watchlist' watchlist_id %}"
+       class="btn btn-link p-0 fw-bold">
+        <small class="d-flex gap-1">
+            <div class="my-auto">
+                <i class="bi bi-heart-fill m-auto"></i>
+            </div>
+            <div class="my-auto">{{ watchlist_likes }}</div>
+            <div class="my-auto">{% trans "Likes" %}</div>
+        </small>
+    </a>
+    {% endif %}
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header fs-3 fw-semibold text-white">Watchlist</div>
+                    <div class="card-header fs-3 fw-semibold text-white">Watchlist von {{ username }}</div>
                     <div class="card-body">
                         {% load core_tags %}
                         <div class="overflow-auto">
