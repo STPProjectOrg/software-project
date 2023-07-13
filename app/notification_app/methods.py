@@ -17,7 +17,7 @@ def get_user(user_id):
 
 
 @database_sync_to_async
-def get_notifications(notification_id):
+def get_notifications(user_id):
     """
     This method is used to get a notification.
 
@@ -25,11 +25,10 @@ def get_notifications(notification_id):
     """
 
     try:
-        notifications = Notification.objects.filter(id=notification_id).get()
+        user = CustomUser.objects.get(pk=user_id)
+        notifications = Notification.objects.filter(user=user)
     except (Notification.DoesNotExist):
         print("There where no notifications found.")
-    finally:
-        notifications = []
     return notifications
 
 
@@ -44,13 +43,12 @@ def create_notification(user_id, notification_type, message):
     """
     user = CustomUser.objects.get(pk=user_id)
 
-    notification = Notification.objects.get_or_create(
+    notification = Notification.objects.create(
         user=user,
         type=notification_type,
         message=message
-    )[0]
+    )
 
-    notification.save()
     return notification
 
 
