@@ -1,5 +1,7 @@
 from channels.db import database_sync_to_async
 from notification_app.models import Notification
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 from user_app.models import CustomUser
 
@@ -40,9 +42,10 @@ def create_notification(user_id, notification_type, message):
     :param notification_type: The type of the notification.
     :param message: The message of the notification.
     """
+    user = CustomUser.objects.get(pk=user_id)
 
     notification = Notification.objects.get_or_create(
-        user=user_id,
+        user=user,
         type=notification_type,
         message=message
     )[0]
@@ -102,3 +105,25 @@ def mark_all_as_read(notification_id):
         notification.status = not notification.status
         notification.save()
     return notifications
+
+
+def send_notification(channel_layer, user_id, notification_type, message):
+    """
+    This method is used to send a notification to the user.
+
+    :param user_id: The primary key of the user.
+    :param notification_type: The type of the notification.
+    :param message: The message of the notification.
+    """
+
+    async_to_sync(channel_layer.group_send)(
+        "{}".format(user_id),
+        {
+            "type": "websocket.send_notification",
+            "data": {
+                "user": user_id,
+                "type": notification_type,
+                "message": message
+            }
+        }
+    )

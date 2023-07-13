@@ -1,6 +1,15 @@
 import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.exceptions import StopConsumer
+from notification_app.methods import (
+    create_notification,
+    delete_all_notifications,
+    delete_notification,
+    get_notifications,
+    mark_all_as_read,
+    mark_as_read
+)
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
@@ -50,6 +59,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     async def websocket_disconnect(self, message):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
+        raise StopConsumer()
 
     async def websocket_create_notification(self, message):
         """
@@ -68,15 +78,16 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             json.dumps({
                 "type": "websocket.create_notification",
                 "group": self.group_name,
-                "message": "Created notification."
+                "message": "Created notification.",
             })
         )
 
+        user = data["user"]
+
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{user}",
             {
                 "type": "websocket.notifications",
-                "group": self.group_name,
             }
         )
 
@@ -191,12 +202,15 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             }
         )
 
-    async def send_notification(self, event):
+    async def websocket_send_notification(self, message):
         """
         This method is used to send a notification to the user.
         """
 
-        await self.send(json.dumps({
-            "type": "websocket.notification",
-            "data": event
-        }))
+        await self.channel_layer.group_send(
+            f"{self.group_name}",
+            {
+                "type": "websocket.create_notification",
+                "data": message.get("data")
+            }
+        )
