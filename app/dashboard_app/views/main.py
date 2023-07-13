@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from api_app.models import Asset
 from dashboard_app.views import charts
 from dashboard_app.views import kpi
-from dashboard_app.models import Watchlist
+from dashboard_app.models import Watchlist, WatchlistAsset
 from dashboard_app.models import Transaction
 from dashboard_app.views.watchlist import get_watchlist
 
@@ -43,17 +43,18 @@ def asset(request, name, timespan):
     """ Render an asset. """
 
     asset = Asset.objects.get(name=name)
-
+    watchlist = Watchlist.objects.get(user=request.user)
     data = {"asset": asset,
-            'asset_in_watchlist': Watchlist.objects.filter(user=request.user, asset=asset).exists(),
+            'asset_in_watchlist': WatchlistAsset.objects.filter(watchlist=watchlist, asset=asset).exists(),
             "line_data": charts.get_asset_line_data(asset, timespan)}
     return render(request, 'dashboard_app/asset.html', data)
 
 
 @login_required
 def watchlist(request):
-
-    data = {"watchlist": get_watchlist(request.user)}
+    watchlist = Watchlist.objects.get_or_create(user=request.user)
+    watchlist_id = watchlist[0].id
+    data = {"watchlist": get_watchlist(request.user, watchlist_id ), "watchlist_id": watchlist_id}
     return render(request, 'dashboard_app/watchlist.html', context=data)
 
 
