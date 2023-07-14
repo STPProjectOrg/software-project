@@ -4,7 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from dashboard_app.models import Watchlist, Transaction, WatchlistLike, WatchlistAsset
 from api_app.models import Asset, AssetHistory
 
-
 def watchlist_add(request, asset_symbol):
     # Try deleting database entry
     asset = Asset.objects.get(name=asset_symbol)
