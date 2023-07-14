@@ -80,7 +80,6 @@ def transactions(request):
 @login_required
 def coin_overview(request):
     """ Render the coin overview page. """
-
     data = {"coins":get_coin_overview(request)}
 
     return render(request, 'dashboard_app/coins_overview.html', context=data)
