@@ -23,7 +23,7 @@ def get_watchlist(user, watchlist, sort_by):
     for watchlist_asset in WatchlistAsset.objects.filter(watchlist=watchlist):
         asset = Asset.objects.get(id=watchlist_asset.asset_id)
         ##Muss zum testen auf "2023-05-20" geändert werden
-        today = "2023-05-20"#str(date.today())
+        today = str(date.today())
         d=datetime.strptime(today, "%Y-%m-%d").date()
         price = AssetHistory.objects.get(name_id=asset.id, date=today)
         try:
