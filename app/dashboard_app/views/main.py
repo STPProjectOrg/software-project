@@ -53,16 +53,17 @@ def asset(request, name, timespan):
 
 
 @login_required
-def watchlist(request, username):
+def watchlist(request, username, sort_by):
     user = CustomUser.objects.get(username=username)
     watchlist = Watchlist.objects.get_or_create(user=user)
     watchlist_id = watchlist[0].id
     data = {
-            "watchlist": get_watchlist(user, watchlist_id ), 
+            "watchlist": get_watchlist(user, watchlist_id, sort_by), 
             "watchlist_id": watchlist_id, 
             "username": user.username,
             "watchlist_likes": WatchlistLike.objects.filter(watchlist=watchlist_id).count(),
-            "is_own_watchlist": request.user.username == username
+            "is_own_watchlist": request.user.username == username,
+            "sort_by": sort_by
             }
     return render(request, 'dashboard_app/watchlist.html', context=data)
 
@@ -86,7 +87,7 @@ def coin_overview(request):
 
 def get_coin_overview(request):
     assets = []
-    watchlist = Watchlist.objects.get(user=request.user)
+    watchlist = Watchlist.objects.get_or_create(user=request.user)[0]
     for coinasset in getAllCoinsFromDatabase():
         asset = Asset.objects.get(id=coinasset.id)
         data = {

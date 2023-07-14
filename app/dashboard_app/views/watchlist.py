@@ -18,7 +18,7 @@ def watchlist_add(request, asset_symbol):
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-def get_watchlist(user, watchlist):
+def get_watchlist(user, watchlist, sort_by):
     assets = []
     for watchlist_asset in WatchlistAsset.objects.filter(watchlist=watchlist):
         asset = Asset.objects.get(id=watchlist_asset.asset_id)
@@ -35,15 +35,38 @@ def get_watchlist(user, watchlist):
             "imageUrl": asset.imageUrl,
             "name": asset.name, 
             "coinName": asset.coinName, 
-            "price": price, 
-            "pricediff": pricediff, 
+            "price": price.value, 
+            "pricediff": pricediff.value, 
             "pricediffpercent":pricediffpercent,
             "added_at": watchlist_asset.added_at,
+            "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist,asset=asset).exists(),
             "isInPortfolio": Transaction.objects.filter(user=user, asset=asset).exists(),
             "price_change": watchlist_asset.price_change
             }
         assets.insert(0, data)
-    return assets
+
+    return handle_sort_by(assets, sort_by)
+
+def handle_sort_by(assets, sort_by):
+    match sort_by:
+        case "nameAsc": return sorted(assets, key=lambda item: item["name"])
+        case "nameDesc": return sorted(assets, key=lambda item: item["name"])[::-1]
+        case "coinNameAsc": return sorted(assets, key=lambda item: item["coinName"])
+        case "coinNameDesc": return sorted(assets, key=lambda item: item["coinName"])[::-1]
+        case "priceAsc": return sorted(assets, key=lambda item: item["price"])
+        case "priceDesc": return sorted(assets, key=lambda item: item["price"])[::-1]
+        case "pricediffAsc": return sorted(assets, key=lambda item: item["pricediff"])
+        case "pricediffDesc": return sorted(assets, key=lambda item: item["pricediff"])[::-1]
+        case "pricediffpercentAsc": return sorted(assets, key=lambda item: item["pricediffpercent"])
+        case "pricediffpercentDesc": return sorted(assets, key=lambda item: item["pricediffpercent"])[::-1]
+        case "added_atAsc": return sorted(assets, key=lambda item: item["added_at"])
+        case "added_atDesc": return sorted(assets, key=lambda item: item["added_at"])[::-1]
+        case "isInWatchlistAsc": return sorted(assets, key=lambda item: item["isInWatchlist"])
+        case "isInWatchlistDesc": return sorted(assets, key=lambda item: item["isInWatchlist"])[::-1]
+        case "isInPortfolioAsc": return sorted(assets, key=lambda item: item["isInPortfolio"])
+        case "isInPortfolioDesc": return sorted(assets, key=lambda item: item["isInPortfolio"])[::-1]
+        case _: return assets
+
 
 
 def watchlist_update_asset_price_change(request, asset_symbol, price_change):
@@ -72,3 +95,4 @@ def like_watchlist(request, watchlist_id):
                                    watchlist=Watchlist.objects.get(id=watchlist_id))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
