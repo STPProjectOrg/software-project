@@ -1,8 +1,9 @@
 {% load i18n %}
 <tr>
     <td class="text-center align-middle">
-        <img src="{{ asset.imageUrl }}" style="width:35px;">
-    </img>
+        <a href="{% url 'dashboard_app:asset' asset.name 0 %}">
+            <img src="{{ asset.imageUrl }}" style="width:35px;">
+        </a>
 </td>
 <td class="text-center align-middle">
     <a href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>

@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% load dashboard_tags %}
+{% load i18n %}
+{% load core_tags %}
+{% block title %}
+    | Watchlist
+{% endblock title %}
+{% block content %}
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fs-3 fw-semibold text-white">Coin Overview</div>
+                    <div class="card-body">
+                        <div class="overflow-auto">
+                            <table class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                      <th scope="col" class="text-center">Image</th>
+                                      <th scope="col" class="text-center">Symbol</th>
+                                      <th scope="col" class="text-center">Name</th>
+                                      <th scope="col" class="text-center">Watchlist</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for coin in coins %}
+                                      {% include_coin_overview_asset coin %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -10,6 +10,7 @@ from dashboard_app.models import Watchlist, WatchlistAsset, WatchlistLike
 from dashboard_app.models import Transaction
 from dashboard_app.views.watchlist import get_watchlist
 from user_app.models import CustomUser
+from api_app.databaseservice import getAllCoinsFromDatabase
 
 # Create your views here.
 
@@ -74,3 +75,25 @@ def transactions(request):
         user=request.user.id).order_by("-purchaseDate")}
 
     return render(request, 'dashboard_app/transactions.html', context=data)
+
+@login_required
+def coin_overview(request):
+    """ Render the coin overview page. """
+
+    data = {"coins":get_coin_overview(request)}
+
+    return render(request, 'dashboard_app/coins_overview.html', context=data)
+
+def get_coin_overview(request):
+    assets = []
+    watchlist = Watchlist.objects.get(user=request.user)
+    for coinasset in getAllCoinsFromDatabase():
+        asset = Asset.objects.get(id=coinasset.id)
+        data = {
+            "imageUrl": asset.imageUrl,
+            "name": asset.name, 
+            "coinName": asset.coinName, 
+            "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=asset).exists(),
+            }
+        assets.append(data)
+    return assets
