@@ -166,7 +166,9 @@
     <div class="row">
         <div class="col d-flex flex-column gap-3">
             {% for post in myposts %}
-                {% entry request.user post %}
+                {% if not post.privacy_settings == 'private' or post.user_id == request.user.id %}
+                    {% entry request.user post %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

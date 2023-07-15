@@ -7,11 +7,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from community_app.models import Post, PostLike, Tag
 from community_app.forms import PostForm
 from messaging_app.utils import compress_image
-
+from settings_app.models import Settings
 
 def create(request):
     """ Create a new 'Post' from PostForm(). """
-
+    settings = Settings.objects.get(user=request.user)
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
         form_data = form.cleaned_data
@@ -21,7 +21,8 @@ def create(request):
             content=form_data.get("content"),
             created_at=datetime.now(),
             image = form_data.get("image"),
-            tags=form_data.get("tags")
+            tags=form_data.get("tags"),
+            privacy_settings=settings.posts_privacy_settings
         )
         j = form_data.get("tags").split(",")
         for t in j:
