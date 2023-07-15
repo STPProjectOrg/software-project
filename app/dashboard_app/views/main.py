@@ -63,7 +63,8 @@ def watchlist(request, username, sort_by):
             "username": user.username,
             "watchlist_likes": WatchlistLike.objects.filter(watchlist=watchlist_id).count(),
             "is_own_watchlist": request.user.username == username,
-            "sort_by": sort_by
+            "sort_by": sort_by,
+            "watchlist_privacy_settings": watchlist[0].privacy_settings
             }
     return render(request, 'dashboard_app/watchlist.html', context=data)
 

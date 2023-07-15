@@ -11,6 +11,7 @@ from .forms import NotificationSettingsForm, UserSettingsForm, SecuritySettingsF
 from django.http import HttpResponseRedirect
 from django.utils import translation
 from community_app.models import Post
+from dashboard_app.models import Watchlist
 
 @login_required
 def settings(request):
@@ -51,7 +52,8 @@ def security_settings_update(request):
     form = SecuritySettingsForm(request.POST)
     if form.is_valid():
         form_data = form.cleaned_data
-        Settings.objects.filter(id=settings.id).update(posts_privacy_settings=form_data["posts_privacy_setting"])
+        Settings.objects.filter(id=settings.id).update(posts_privacy_settings=form_data["posts_privacy_setting"], watchlist_privacy_settings=form_data["watchlist_privacy_setting"])
+        Watchlist.objects.filter(user=request.user).update(privacy_settings=form_data["watchlist_privacy_setting"])
         Post.objects.filter(user=request.user).update(privacy_settings=form_data["posts_privacy_setting"])
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

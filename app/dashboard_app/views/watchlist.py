@@ -23,7 +23,7 @@ def get_watchlist(user, watchlist, sort_by):
     for watchlist_asset in WatchlistAsset.objects.filter(watchlist=watchlist):
         asset = Asset.objects.get(id=watchlist_asset.asset_id)
         ##Muss zum testen auf "2023-05-20" geändert werden
-        today = str(date.today())
+        today = "2023-05-20"#str(date.today())
         d=datetime.strptime(today, "%Y-%m-%d").date()
         price = AssetHistory.objects.get(name_id=asset.id, date=today)
         try:
@@ -41,7 +41,7 @@ def get_watchlist(user, watchlist, sort_by):
             "added_at": watchlist_asset.added_at,
             "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist,asset=asset).exists(),
             "isInPortfolio": Transaction.objects.filter(user=user, asset=asset).exists(),
-            "price_change": watchlist_asset.price_change
+            "price_change": watchlist_asset.price_change,
             }
         assets.insert(0, data)
 
