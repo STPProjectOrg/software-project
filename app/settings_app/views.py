@@ -7,9 +7,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from user_app.models import CustomUser
 from .models import Settings
-from .forms import NotificationSettingsForm, UserSettingsForm
+from .forms import NotificationSettingsForm, UserSettingsForm, SecuritySettingsForm
 from django.http import HttpResponseRedirect
 from django.utils import translation
+from community_app.models import Post
 
 @login_required
 def settings(request):
@@ -40,8 +41,19 @@ def security_settings(request):
     """
     Renders the security settings page.
     """
-    return render(request, 'settings_app/securitySettings.html')
+    form = SecuritySettingsForm()
+    data={"form":form}
+    return render(request, 'settings_app/securitySettings.html', context=data)
 
+@login_required
+def security_settings_update(request):
+    settings = Settings.objects.get_or_create(user=request.user)[0]
+    form = SecuritySettingsForm(request.POST)
+    if form.is_valid():
+        form_data = form.cleaned_data
+        Settings.objects.filter(id=settings.id).update(posts_privacy_settings=form_data["posts_privacy_setting"])
+        Post.objects.filter(user=request.user).update(privacy_settings=form_data["posts_privacy_setting"])
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def portfolio_settings(request):
