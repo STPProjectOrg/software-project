@@ -42,7 +42,8 @@ def security_settings(request):
     """
     Renders the security settings page.
     """
-    form = SecuritySettingsForm()
+    settings = Settings.objects.get(user=request.user)
+    form = SecuritySettingsForm(initial={"posts_privacy_setting": settings.posts_privacy_settings,"watchlist_privacy_setting": settings.watchlist_privacy_settings})
     data={"form":form}
     return render(request, 'settings_app/securitySettings.html', context=data)
 
