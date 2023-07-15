@@ -109,10 +109,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% if watchlist_privacy_settings == "all" or is_own_watchlist %}
                                     {% for asset in watchlist %}
                                       {% include_watchlist_asset asset %}
                                     {% comment %} MODAL {% endcomment %}
                                 {% endfor %}
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>

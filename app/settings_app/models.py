@@ -33,6 +33,9 @@ class Settings(models.Model):
     #Post Settings
     posts_privacy_settings = models.CharField(max_length=10, default="all")
 
+    # Watchlist Settings
+    watchlist_privacy_settings = models.CharField(max_length=10, default="all")
+
     # Displaysettings field's
     theme = models.CharField(max_length=30, blank=False, default="dark")
 
