@@ -22,14 +22,15 @@ RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add postgresql-dev \
     && pip install psycopg2 \
-    && apk del build-deps 
+    && apk del build-deps \
+    && apk add redis 
     
 
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements.txt
-
+RUN redis-cli -v
 # copy project
 COPY . /usr/src/app/
 RUN python manage.py migrate
