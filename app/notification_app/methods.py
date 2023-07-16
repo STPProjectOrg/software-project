@@ -59,7 +59,7 @@ def delete_notification(notification_id):
 
     :param notification_id: The primary key of the notification.
     """
-    notification = Notification.objects.get(id=notification_id)
+    notification = Notification.objects.filter(id=notification_id)
     notification.delete()
     return notification
 

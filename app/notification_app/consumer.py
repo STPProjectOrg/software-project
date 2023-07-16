@@ -68,7 +68,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
         data = message.get("data")
 
-        await create_notification(
+        notification = await create_notification(
             data["user"],
             data["type"],
             data["message"]
@@ -78,14 +78,16 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             json.dumps({
                 "type": "websocket.create_notification",
                 "group": self.group_name,
-                "message": "Created notification.",
+                "message": "Successfully created notification.",
+                "notification_id": notification.id,
+                "notification_type": notification.type,
+                "notification_message": notification.message,
+                "created_at": notification.created_at.strftime("%d/%m/%Y %H:%M:%S"),
             })
         )
 
-        user = data["user"]
-
         await self.channel_layer.group_send(
-            f"{user}",
+            f"{data.get('user')}",
             {
                 "type": "websocket.notifications",
             }
@@ -97,34 +99,46 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         """
 
         notifications = await get_notifications(self.group_name)
+        parsed_notifications = {}
+
+        async for notification in notifications:
+            new_notification = {
+                "id": notification.id,
+                "type": notification.type,
+                "message": notification.message,
+                "status": notification.status,
+                "created_at": notification.created_at.strftime("%d/%m/%Y %H:%M:%S"),
+            }
+            parsed_notifications[notification.id] = new_notification
 
         await self.send(
             json.dumps({
                 "type": "websocket.notifications",
                 "group": self.group_name,
-                "notifications": notifications
+                "notifications":
+                    {
+                        "notifications": parsed_notifications
+                    }
             })
         )
 
-    async def delete_notification(self, message):
+    async def websocket_delete_notification(self, message):
         """
         This method is used to delete a notification.
         """
-
-        notification_id = message.get("id")
-        removed_notification = await delete_notification(notification_id)
+        notification_id = message.get("notification_id")
+        await delete_notification(notification_id)
 
         await self.send(
             json.dumps({
                 "type": "websocket.delete_notification",
                 "group": self.group_name,
                 "message": "Removed notification.",
-                "notification": removed_notification
             })
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{message['data'].get('user')}",
             {
                 "type": "websocket.notifications",
                 "group": self.group_name,
