@@ -36,7 +36,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_send(
                 f"{self.group_name}",
                 {
-                    "type": "websocket.notifications",
+                    "type": "websocket.all_notifications",
                 }
             )
 
@@ -60,6 +60,32 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     async def websocket_disconnect(self, message):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
         raise StopConsumer()
+
+    async def websocket_all_notifications(self, message):
+        """
+        This method is used to get all notifications.
+        """
+
+        notifications = await get_notifications(self.group_name)
+        parsed_notifications = {}
+
+        async for notification in notifications:
+            new_notification = {
+                "id": notification.id,
+                "type": notification.type,
+                "message": notification.message,
+                "status": notification.status,
+                "created_at": notification.created_at.strftime("%d/%m/%Y %H:%M:%S"),
+            }
+            parsed_notifications[notification.id] = new_notification
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.all_notifications",
+                "group": self.group_name,
+                "notifications": parsed_notifications,
+            })
+        )
 
     async def websocket_create_notification(self, message):
         """
@@ -89,48 +115,14 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             f"{data.get('user')}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
             }
         )
 
-    async def websocket_send_notification(self, message):
+    async def websocket_persist_notification(self, message):
         """
-        This method is used to send a notification to the user.
+        This method is used to persist a notification.
         """
-
-        await self.channel_layer.group_send(
-            f"{self.group_name}",
-            {
-                "type": "websocket.create_notification",
-                "data": message.get("data")
-            }
-        )
-
-    async def websocket_notifications(self, message):
-        """
-        This method is used to get all notifications.
-        """
-
-        notifications = await get_notifications(self.group_name)
-        parsed_notifications = {}
-
-        async for notification in notifications:
-            new_notification = {
-                "id": notification.id,
-                "type": notification.type,
-                "message": notification.message,
-                "status": notification.status,
-                "created_at": notification.created_at.strftime("%d/%m/%Y %H:%M:%S"),
-            }
-            parsed_notifications[notification.id] = new_notification
-
-        await self.send(
-            json.dumps({
-                "type": "websocket.notifications",
-                "group": self.group_name,
-                "notifications": parsed_notifications,
-            })
-        )
 
     async def websocket_delete_notification(self, message):
         """
@@ -150,7 +142,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             f"{message['data'].get('user')}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
                 "group": self.group_name,
             }
         )
@@ -172,7 +164,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             f"{self.group_name}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
                 "group": self.group_name,
             }
         )
@@ -196,7 +188,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             f"{self.group_name}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
                 "group": self.group_name,
             }
         )
