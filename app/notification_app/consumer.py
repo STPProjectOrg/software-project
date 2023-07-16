@@ -36,7 +36,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             await self.channel_layer.group_send(
                 f"{self.group_name}",
                 {
-                    "type": "websocket.notifications",
+                    "type": "websocket.all_notifications",
                 }
             )
 
@@ -61,6 +61,32 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
         raise StopConsumer()
 
+    async def websocket_all_notifications(self, message):
+        """
+        This method is used to get all notifications.
+        """
+
+        notifications = await get_notifications(self.group_name)
+        parsed_notifications = {}
+
+        async for notification in notifications:
+            new_notification = {
+                "id": notification.id,
+                "type": notification.type,
+                "message": notification.message,
+                "status": notification.status,
+                "created_at": notification.created_at.strftime("%d/%m/%Y %H:%M:%S"),
+            }
+            parsed_notifications[notification.id] = new_notification
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.all_notifications",
+                "group": self.group_name,
+                "notifications": parsed_notifications,
+            })
+        )
+
     async def websocket_create_notification(self, message):
         """
         This method is used to create a notification.
@@ -68,7 +94,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
         data = message.get("data")
 
-        await create_notification(
+        notification = await create_notification(
             data["user"],
             data["type"],
             data["message"]
@@ -78,64 +104,53 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             json.dumps({
                 "type": "websocket.create_notification",
                 "group": self.group_name,
-                "message": "Created notification.",
+                "message": "Successfully created notification.",
+                "notification_id": notification.id,
+                "notification_type": notification.type,
+                "notification_message": notification.message,
+                "created_at": notification.created_at.strftime("%d/%m/%Y %H:%M:%S"),
             })
         )
 
-        user = data["user"]
-
         await self.channel_layer.group_send(
-            f"{user}",
+            f"{data.get('user')}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
             }
         )
 
-    async def websocket_notifications(self, message):
+    async def websocket_persist_notification(self, message):
         """
-        This method is used to get all notifications.
+        This method is used to persist a notification.
         """
 
-        notifications = await get_notifications(self.group_name)
-
-        await self.send(
-            json.dumps({
-                "type": "websocket.notifications",
-                "group": self.group_name,
-                "notifications": notifications
-            })
-        )
-
-    async def delete_notification(self, message):
+    async def websocket_delete_notification(self, message):
         """
         This method is used to delete a notification.
         """
-
-        notification_id = message.get("id")
-        removed_notification = await delete_notification(notification_id)
+        notification_id = message.get("notification_id")
+        await delete_notification(notification_id)
 
         await self.send(
             json.dumps({
                 "type": "websocket.delete_notification",
                 "group": self.group_name,
                 "message": "Removed notification.",
-                "notification": removed_notification
             })
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{message['data'].get('user')}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
                 "group": self.group_name,
             }
         )
 
-    async def delete_all_notifications(self, message):
+    async def websocket_delete_all_notifications(self, message):
         """
         This method is used to delete all notifications.
         """
-
         await delete_all_notifications(self.group_name)
 
         await self.send(
@@ -147,70 +162,55 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{self.group_name}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
                 "group": self.group_name,
             }
         )
 
-    async def mark_as_read(self, message):
+    async def websocket_mark_as_read(self, message):
         """
         This method is used to mark a notification as read.
         """
 
-        notification_id = message.get("id")
-        notification = await mark_as_read(notification_id)
+        notification_id = message.get("notification_id")
+        await mark_as_read(notification_id)
 
         await self.send(
             json.dumps({
                 "type": "websocket.mark_as_read",
                 "group": self.group_name,
                 "message": "Marked notification as read.",
-                "notification": notification
             })
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{self.group_name}",
             {
-                "type": "websocket.notifications",
+                "type": "websocket.all_notifications",
                 "group": self.group_name,
             }
         )
 
-    async def mark_all_as_read(self, message):
+    async def websocket_mark_all_as_read(self, message):
         """
         This method is used to mark all notifications as read.
         """
 
-        notifications = await mark_all_as_read(self.group_name)
+        await mark_all_as_read(self.group_name)
 
         await self.send(
             json.dumps({
                 "type": "websocket.mark_all_as_read",
                 "group": self.group_name,
                 "message": "Marked all notifications as read.",
-                "notifications": notifications
             })
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
-            {
-                "type": "websocket.notifications",
-            }
-        )
-
-    async def websocket_send_notification(self, message):
-        """
-        This method is used to send a notification to the user.
-        """
-
-        await self.channel_layer.group_send(
             f"{self.group_name}",
             {
-                "type": "websocket.create_notification",
-                "data": message.get("data")
+                "type": "websocket.notifications",
             }
         )

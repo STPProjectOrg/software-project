@@ -17,7 +17,7 @@ def get_user(user_id):
 
 
 @database_sync_to_async
-def get_notifications(notification_id):
+def get_notifications(user_id):
     """
     This method is used to get a notification.
 
@@ -25,11 +25,10 @@ def get_notifications(notification_id):
     """
 
     try:
-        notifications = Notification.objects.filter(id=notification_id).get()
+        user = CustomUser.objects.get(pk=user_id)
+        notifications = Notification.objects.filter(user=user)
     except (Notification.DoesNotExist):
         print("There where no notifications found.")
-    finally:
-        notifications = []
     return notifications
 
 
@@ -44,13 +43,12 @@ def create_notification(user_id, notification_type, message):
     """
     user = CustomUser.objects.get(pk=user_id)
 
-    notification = Notification.objects.get_or_create(
+    notification = Notification.objects.create(
         user=user,
         type=notification_type,
         message=message
-    )[0]
+    )
 
-    notification.save()
     return notification
 
 
@@ -61,7 +59,7 @@ def delete_notification(notification_id):
 
     :param notification_id: The primary key of the notification.
     """
-    notification = Notification.objects.get(id=notification_id)
+    notification = Notification.objects.filter(id=notification_id)
     notification.delete()
     return notification
 
@@ -70,7 +68,6 @@ def delete_notification(notification_id):
 def delete_all_notifications(user_id):
     """
     Deletes all notifications for the user.
-
 
     :param user_id: The primary key of the user.
     """
@@ -102,8 +99,9 @@ def mark_all_as_read(notification_id):
 
     notifications = Notification.objects.filter(user=notification_id)
     for notification in notifications:
-        notification.status = not notification.status
-        notification.save()
+        if notification.status is False:
+            notification.status = not notification.status
+            notification.save()
     return notifications
 
 
@@ -117,9 +115,9 @@ def send_notification(channel_layer, user_id, notification_type, message):
     """
 
     async_to_sync(channel_layer.group_send)(
-        "{}".format(user_id),
+        f"{user_id}",
         {
-            "type": "websocket.send_notification",
+            "type": "websocket.create_notification",
             "data": {
                 "user": user_id,
                 "type": notification_type,

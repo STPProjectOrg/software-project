@@ -31,25 +31,8 @@ def create(request, post_id):
         created_at=datetime.now()
     )
 
-    # send_notification(channel_layer, post.user, 'comment',
-    #                   f"{request.user.username} commented on your post.")
-    # ser = serializers.serialize('json', post.user, fields=(
-    #     'user', 'content', 'created_at', 'image'))
-
-    # Statt einen serializer zu benutzen kannst du auch einfach ein dict aus dem user erstellen
-    # und dann in der consumer.py die daten aus dem dict auslesen
-
-    async_to_sync(channel_layer.group_send)(
-        f"{post.user.id}",
-        {
-            "type": "websocket.send_notification",
-            "data": {
-                "user": post.user.id,
-                "type": "comment",
-                "message": f"{request.user.username} commented on your post."
-            }
-        }
-    )
+    send_notification(channel_layer, post.user.id, "comment",
+                      f"{request.user.username} commented on your post.")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -63,6 +46,7 @@ def delete(request, comment_id):
     """
 
     Comment.objects.filter(id=comment_id).delete()
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

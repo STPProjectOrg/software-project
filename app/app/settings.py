@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import sys
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,16 +89,15 @@ ASGI_APPLICATION = 'app.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
-import sys
 TESTING = sys.argv[1:2] == ['test']
-if TESTING==False:
+if TESTING == False:
     DATABASES = {
 
         'default': {
@@ -116,21 +116,21 @@ if TESTING==False:
         }
     }
 else:
-    DATABASES = {    
+    DATABASES = {
         'default': {
-        "ENGINE": "django.db.backends.sqlite3",
-        "TEST": {
-            "NAME": ":memory:",
-        }
-    }}
+            "ENGINE": "django.db.backends.sqlite3",
+            "TEST": {
+                "NAME": ":memory:",
+            }
+        }}
 
 # Redis
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-            # "hosts": [("139.144.176.245", 6379)],
+            # "hosts": [("127.0.0.1", 6379)],
+            "hosts": [("139.144.176.245", 6379)],
         },
     },
 }
