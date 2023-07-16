@@ -115,9 +115,9 @@ def send_notification(channel_layer, user_id, notification_type, message):
     """
 
     async_to_sync(channel_layer.group_send)(
-        "{}".format(user_id),
+        f"{user_id}",
         {
-            "type": "websocket.send_notification",
+            "type": "websocket.create_notification",
             "data": {
                 "user": user_id,
                 "type": notification_type,
