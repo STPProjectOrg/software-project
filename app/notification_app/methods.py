@@ -69,7 +69,6 @@ def delete_all_notifications(user_id):
     """
     Deletes all notifications for the user.
 
-
     :param user_id: The primary key of the user.
     """
     notifications = Notification.objects.filter(user=user_id)
@@ -100,8 +99,9 @@ def mark_all_as_read(notification_id):
 
     notifications = Notification.objects.filter(user=notification_id)
     for notification in notifications:
-        notification.status = not notification.status
-        notification.save()
+        if notification.status is False:
+            notification.status = not notification.status
+            notification.save()
     return notifications
 
 

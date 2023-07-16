@@ -93,6 +93,19 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             }
         )
 
+    async def websocket_send_notification(self, message):
+        """
+        This method is used to send a notification to the user.
+        """
+
+        await self.channel_layer.group_send(
+            f"{self.group_name}",
+            {
+                "type": "websocket.create_notification",
+                "data": message.get("data")
+            }
+        )
+
     async def websocket_notifications(self, message):
         """
         This method is used to get all notifications.
@@ -115,10 +128,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             json.dumps({
                 "type": "websocket.notifications",
                 "group": self.group_name,
-                "notifications":
-                    {
-                        "notifications": parsed_notifications
-                    }
+                "notifications": parsed_notifications,
             })
         )
 
@@ -145,11 +155,10 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             }
         )
 
-    async def delete_all_notifications(self, message):
+    async def websocket_delete_all_notifications(self, message):
         """
         This method is used to delete all notifications.
         """
-
         await delete_all_notifications(self.group_name)
 
         await self.send(
@@ -161,70 +170,55 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{self.group_name}",
             {
                 "type": "websocket.notifications",
                 "group": self.group_name,
             }
         )
 
-    async def mark_as_read(self, message):
+    async def websocket_mark_as_read(self, message):
         """
         This method is used to mark a notification as read.
         """
 
-        notification_id = message.get("id")
-        notification = await mark_as_read(notification_id)
+        notification_id = message.get("notification_id")
+        await mark_as_read(notification_id)
 
         await self.send(
             json.dumps({
                 "type": "websocket.mark_as_read",
                 "group": self.group_name,
                 "message": "Marked notification as read.",
-                "notification": notification
             })
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
+            f"{self.group_name}",
             {
                 "type": "websocket.notifications",
                 "group": self.group_name,
             }
         )
 
-    async def mark_all_as_read(self, message):
+    async def websocket_mark_all_as_read(self, message):
         """
         This method is used to mark all notifications as read.
         """
 
-        notifications = await mark_all_as_read(self.group_name)
+        await mark_all_as_read(self.group_name)
 
         await self.send(
             json.dumps({
                 "type": "websocket.mark_all_as_read",
                 "group": self.group_name,
                 "message": "Marked all notifications as read.",
-                "notifications": notifications
             })
         )
 
         await self.channel_layer.group_send(
-            f"{message['group']}",
-            {
-                "type": "websocket.notifications",
-            }
-        )
-
-    async def websocket_send_notification(self, message):
-        """
-        This method is used to send a notification to the user.
-        """
-
-        await self.channel_layer.group_send(
             f"{self.group_name}",
             {
-                "type": "websocket.create_notification",
-                "data": message.get("data")
+                "type": "websocket.notifications",
             }
         )

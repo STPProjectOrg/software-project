@@ -57,15 +57,9 @@ def delete(request, comment_id):
     Comment.objects.filter(id=comment_id).delete()
 
     # async_to_sync(channel_layer.group_send)(
-    #     f"{1}",
+    #     "1",
     #     {
-    #         "type": "websocket.delete_notification",
-    #         "notification_id": 3,
-    #         "data": {
-    #             "user": request.user.id,
-    #             "type": "delete",
-    #             "message": f"{request.user.username} deleted a notification."
-    #         }
+    #         "type": "websocket.mark_all_as_read",
     #     }
     # )
 
