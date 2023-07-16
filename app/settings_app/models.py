@@ -36,6 +36,9 @@ class Settings(models.Model):
     # Watchlist Settings
     watchlist_privacy_settings = models.CharField(max_length=10, default="all")
 
+    # Dashboard Settings
+    dashboard_privacy_settings = models.CharField(max_length=10, default="all")
+
     # Displaysettings field's
     theme = models.CharField(max_length=30, blank=False, default="dark")
 

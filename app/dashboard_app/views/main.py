@@ -33,8 +33,8 @@ def dashboard(request, timespan):
         return render(request, "dashboard_app/dashboard.html", data)
 
     data = {
-        "pie_data": charts.get_pie_data(assets),
-        "line_data": charts.get_portfolio_line_data(transactions, timespan),
+        "pie_data": charts.get_pie_data(assets, False),
+        "line_data": charts.get_portfolio_line_data(transactions, timespan, False),
         "kpi": kpi.get_kpi(transactions, assets),
         "assets": assets}
     return render(request, 'dashboard_app/dashboard.html', data)
