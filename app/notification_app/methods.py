@@ -113,15 +113,35 @@ def send_notification(channel_layer, user_id, notification_type, message):
     :param notification_type: The type of the notification.
     :param message: The message of the notification.
     """
-
-    async_to_sync(channel_layer.group_send)(
-        f"{user_id}",
-        {
-            "type": "websocket.create_notification",
-            "data": {
-                "user": user_id,
-                "type": notification_type,
-                "message": message
+    user = CustomUser.objects.get(pk=user_id)
+    if user.ws_state:
+        async_to_sync(channel_layer.group_send)(
+            f"{user_id}",
+            {
+                "type": "websocket.create_notification",
+                "data": {
+                    "user": user_id,
+                    "type": notification_type,
+                    "message": message
+                }
             }
-        }
-    )
+        )
+    else:
+        Notification.objects.create(
+            user=user,
+            type=notification_type,
+            message=message
+        )
+
+
+@database_sync_to_async
+def switch_user_state(user_id):
+    """
+    This method is used to switch the user state.
+    """
+    user = CustomUser.objects.get(pk=user_id)
+
+    if not user.ws_state:
+        user.ws_state = not user.ws_state
+
+    user.save()
