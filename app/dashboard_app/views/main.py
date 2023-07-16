@@ -10,6 +10,7 @@ from dashboard_app.models import Watchlist, WatchlistAsset, WatchlistLike
 from dashboard_app.models import Transaction
 from dashboard_app.views.watchlist import get_watchlist
 from user_app.models import CustomUser
+from api_app.databaseservice import getAllCoinsFromDatabase
 
 # Create your views here.
 
@@ -52,16 +53,18 @@ def asset(request, name, timespan):
 
 
 @login_required
-def watchlist(request, username):
+def watchlist(request, username, sort_by):
     user = CustomUser.objects.get(username=username)
     watchlist = Watchlist.objects.get_or_create(user=user)
     watchlist_id = watchlist[0].id
     data = {
-            "watchlist": get_watchlist(user, watchlist_id ), 
+            "watchlist": get_watchlist(user, watchlist_id, sort_by), 
             "watchlist_id": watchlist_id, 
             "username": user.username,
             "watchlist_likes": WatchlistLike.objects.filter(watchlist=watchlist_id).count(),
-            "is_own_watchlist": request.user.username == username
+            "is_own_watchlist": request.user.username == username,
+            "sort_by": sort_by,
+            "watchlist_privacy_settings": watchlist[0].privacy_settings
             }
     return render(request, 'dashboard_app/watchlist.html', context=data)
 
@@ -74,3 +77,24 @@ def transactions(request):
         user=request.user.id).order_by("-purchaseDate")}
 
     return render(request, 'dashboard_app/transactions.html', context=data)
+
+@login_required
+def coin_overview(request):
+    """ Render the coin overview page. """
+    data = {"coins":get_coin_overview(request)}
+
+    return render(request, 'dashboard_app/coins_overview.html', context=data)
+
+def get_coin_overview(request):
+    assets = []
+    watchlist = Watchlist.objects.get_or_create(user=request.user)[0]
+    for coinasset in getAllCoinsFromDatabase():
+        asset = Asset.objects.get(id=coinasset.id)
+        data = {
+            "imageUrl": asset.imageUrl,
+            "name": asset.name, 
+            "coinName": asset.coinName, 
+            "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=asset).exists(),
+            }
+        assets.append(data)
+    return assets

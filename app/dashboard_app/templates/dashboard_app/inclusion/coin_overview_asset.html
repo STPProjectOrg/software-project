@@ -1,0 +1,21 @@
+{% load i18n %}
+<tr>
+    <td class="text-center align-middle">
+        <a href="{% url 'dashboard_app:asset' asset.name 0 %}">
+            <img src="{{ asset.imageUrl }}" style="width:35px;">
+        </a>
+    </img>
+</td>
+<td class="text-center align-middle">
+    <a href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
+</td>
+<td class="text-center align-middle">{{ asset.coinName }}</td>
+{% if asset.isInWatchlist %}
+<td class="text-center align-middle">
+    <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
+</td>
+{% else %}
+<td class="text-center align-middle">
+    <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star" style="font-size: 1rem;"></i></a>
+</td>
+{% endif %}

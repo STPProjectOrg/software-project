@@ -51,3 +51,8 @@ def transaction_sell_modal(user, asset, id):
 def include_watchlist_asset(asset):
     """include KPI element"""
     return {"asset": asset}
+
+@register.inclusion_tag("dashboard_app/inclusion/coin_overview_asset.html")
+def include_coin_overview_asset(asset):
+    """include KPI element"""
+    return {"asset": asset}

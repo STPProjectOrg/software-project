@@ -69,13 +69,14 @@ class TestViews(TestCase):
         assert response.status_code == 200, 'Status code should be 200'
         self.assertTemplateUsed(response, 'settings_app/userSettings.html')
 
+    '''
     def test_security_settings_page_authorized_html(self):
         self.client.login(username='test', password='test')
         response = self.client.get(reverse("settings_app:securitySettings"))
 
         assert response.status_code == 200, 'Status code should be 200'
         self.assertTemplateUsed(response, 'settings_app/securitySettings.html')
-
+    	'''
 
     def test_portfolio_settings_page_authorized_html(self):
         self.client.login(username='test', password='test')

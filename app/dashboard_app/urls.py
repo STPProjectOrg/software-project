@@ -11,8 +11,11 @@ urlpatterns = [
     # Asset
     path('asset/<str:name>/<int:timespan>', main.asset, name="asset"),
 
+    # Coin Overview
+    path('coin_overview/', main.coin_overview, name="coin_overview"),
+
     # Watchlist
-    path('watchlist/<str:username>', main.watchlist, name="watchlist"),
+    path('watchlist/list/<str:username>/<str:sort_by>', main.watchlist, name="watchlist"),
     path('watchlist/add/<str:asset_symbol>',
          watchlist.watchlist_add, name="watchlist_add"),
     path('watchlist/price_change/<str:asset_symbol>/<int:price_change>',
