@@ -10,4 +10,7 @@ services:
       - DEBUG=1
       - SECRET_KEY=foo
   redis:
-    image: redis:latest
+    restart: unless-stopped
+    image: redis:7.0.5-alpine 
+    expose:
+        - 6379
