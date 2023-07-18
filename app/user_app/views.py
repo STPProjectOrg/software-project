@@ -137,8 +137,6 @@ def profile(request, username, timespan):
         kpi_total = kpi.get_kpi(transactions, assets)["total"]
         has_transactions = True
 
-    
-
     if portfolio_privacy_setting == "without values":
         kpi_total = 0
         anonymize = True

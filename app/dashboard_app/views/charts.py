@@ -29,7 +29,7 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int, ano
     data = []
     labels = []
     # muss zum testen zu date.fromisoformat('2023-05-20')  geändert werden
-    today = date.fromisoformat('2023-05-20')
+    today = date.today()
     day = transactions.earliest('purchaseDate').purchaseDate
 
     while day <= today:
