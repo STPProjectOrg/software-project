@@ -8,7 +8,8 @@ from notification_app.methods import (
     delete_notification,
     get_notifications,
     mark_all_as_read,
-    mark_as_read
+    mark_as_read,
+    switch_user_state
 )
 
 
@@ -23,6 +24,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         else:
             self.group_name = str(self.scope["user"].pk)
             await self.channel_layer.group_add(self.group_name, self.channel_name)
+            await switch_user_state(self.group_name)
             await self.accept()
 
             await self.send(
@@ -58,6 +60,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         )
 
     async def websocket_disconnect(self, message):
+        await switch_user_state(self.group_name)
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
         raise StopConsumer()
 
@@ -118,11 +121,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 "type": "websocket.all_notifications",
             }
         )
-
-    async def websocket_persist_notification(self, message):
-        """
-        This method is used to persist a notification.
-        """
 
     async def websocket_delete_notification(self, message):
         """
