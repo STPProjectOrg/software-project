@@ -103,9 +103,9 @@ def profile(request, username, timespan):
         "following_user_id", flat=True)
     is_user_profile = request.user.username == profile_user.username
     is_user_following = profile_user.userprofileinfo.id in user_following_list
-    portfolio_privacy_setting = Settings.objects.filter(
-        user_id = profile_user.id
-    )[:1].get_or_create(user=profile_user)[0].dashboard_privacy_settings
+
+    portfolio_privacy_setting = Settings.objects.get_or_create(user=profile_user)[0].dashboard_privacy_settings
+
 
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
