@@ -29,7 +29,7 @@
                 </li>
                 <li>
                     <a class="dropdown-item"
-                       href="{% url 'user_app:profile' request.user.username %}"><i class="bi bi-person-fill pe-2"></i>{% trans "Profil" %}</a>
+                       href="{% url 'user_app:profile' request.user.username 0 %}"><i class="bi bi-person-fill pe-2"></i>{% trans "Profil" %}</a>
                 </li>
                 <li>
                     <a class="dropdown-item" href="{% url 'core:qaa' %}"><i class="bi bi-info-circle pe-2"></i>{% trans "Hilfe" %}</a>

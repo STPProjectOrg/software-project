@@ -15,7 +15,7 @@
         <tr>
             <td colspan="100" class="border-0">
                 <a class="btn btn-link text-start gap-2 w-100 d-flex bg-body-secondary p-2 border rounded"
-                   href="{% url 'user_app:profile' user.username %}">
+                   href="{% url 'user_app:profile' user.username 0 %}">
                     <div class="my-auto">
                         <img class="logo-fs-3" src="{{ user.userprofileinfo.get_profile_pic }}">
                     </div>

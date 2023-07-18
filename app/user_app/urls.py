@@ -8,7 +8,7 @@ app_name = 'user_app'
 
 urlpatterns = [
     path('profile-redirect/', views.profile_redirect, name='profile_redirect'),
-    path('profile/<str:username>/', views.profile, name='profile'),
+    path('profile/<str:username>/<int:timespan>/', views.profile, name='profile'),
     path('update/userprofile/<int:pk>',
          views.update_user_profile_pic, name='update_userprofile'),
     path('update/userbanner/<int:pk>',

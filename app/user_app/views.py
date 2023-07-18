@@ -3,13 +3,18 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from user_app.models import CustomUser, UserProfileInfo, UserFollowing
+from settings_app.models import Settings
 from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
+from dashboard_app.views import charts
+from api_app.models import Asset
+from dashboard_app.models import Transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from PIL import Image
 from django.conf import settings
-
+from django.db.models import Sum, F
+from dashboard_app.views import kpi
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
 from community_app.views import post
@@ -47,6 +52,7 @@ def register(request):
             # to the previous user table
             new_profile = userprofile_form.save(commit=False)
             new_profile.user = new_user
+            Settings.objects.get_or_create(user=new_user)
 
             if 'profile_pic' in request.FILES:
                 new_profile.profile_pic = request.FILES['profile_pic']
@@ -74,12 +80,12 @@ def register_success(request):
 @login_required
 def profile_redirect(request):
     username = request.user.username
-    profile_url = reverse('user_app:profile', kwargs={'username': username})
+    profile_url = reverse('user_app:profile', kwargs={'username': username, 'timespan': 0})
     return redirect(profile_url)
 
 
 @login_required
-def profile(request, username):
+def profile(request, username, timespan):
     """ 
     Render a user-profile.
 
@@ -97,6 +103,9 @@ def profile(request, username):
         "following_user_id", flat=True)
     is_user_profile = request.user.username == profile_user.username
     is_user_following = profile_user.userprofileinfo.id in user_following_list
+    portfolio_privacy_setting = Settings.objects.filter(
+        user_id = profile_user.id
+    )[:1].get().dashboard_privacy_settings
 
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
@@ -108,16 +117,48 @@ def profile(request, username):
     my_posts = post.get_by_user(profile_user)
     postform = post.PostForm()
 
+    # Chart Data
+
+    transactions = Transaction.objects.filter(user=profile_user.id)
+    assets = Asset.objects.filter(transaction__user=profile_user.id).annotate(
+        amount=Sum("transaction__amount"),
+        cost=Sum("transaction__cost"),
+        total_value=F("amount") * F("price"),
+        profit=F("total_value") - F("cost")
+    ).distinct()
+
+    if not assets:
+        data = {"assets": None}
+
+    has_transactions = False
+    kpi_total = 0
+    
+    if transactions:
+        kpi_total = kpi.get_kpi(transactions, assets)["total"]
+        has_transactions = True
+
+    if portfolio_privacy_setting == "without values":
+        kpi_total = 0
+        anonymize = True
+    else:
+        anonymize = False
+
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
                    'user_profile_id': profile_user.userprofileinfo.id,
                    "is_user_profile": is_user_profile,
                    "is_user_following": is_user_following,
+                   "portfolio_privacy_setting": portfolio_privacy_setting,
                    "profile_followers_list": profile_followers_list,
                    "profile_following_list": profile_following_list,
                    "user_following_list": user_following_list,
                    "postform": postform,
                    "myposts": my_posts,
+                   "pie_data": charts.get_pie_data(assets, anonymize),
+                    "line_data": charts.get_portfolio_line_data(transactions, timespan, anonymize),
+                    "assets": assets,
+                    "kpi_total": kpi_total,
+                    "has_transactions":has_transactions
                    })
 
 
