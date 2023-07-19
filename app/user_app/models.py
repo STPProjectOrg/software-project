@@ -38,26 +38,39 @@ class UserProfileInfo(models.Model):
 
     # additional attributes for user
     profile_pic = models.ImageField(
-        upload_to='profile_pics',
-        blank=True,
-        null=True)
-    profile_banner = models.ImageField(
-        upload_to='banner_pics',
-        blank=True,
-        null=True)
-    biography = models.TextField(
-        blank=True,
-        null=True
-    )
+        upload_to='profile_pics', blank=True, null=True)
+    
+    class BannerChoices(models.TextChoices):
+        BANNER_1 = settings.BANNER_1_URL
+        BANNER_2 = settings.BANNER_2_URL
+
+    profile_banner = models.CharField(max_length=255,
+                                      choices=BannerChoices.choices,
+                                      default=BannerChoices.BANNER_1)
+    
+    # BANNER_CHOICES = [
+    #     (settings.BANNER_1_URL, 'Banner 1'),
+    #     (settings.BANNER_2_URL, 'Banner 2'),
+    # ]
+
+    # profile_banner = models.CharField(max_length=255, 
+    #                                   choices=BANNER_CHOICES, 
+    #                                   default=settings.BANNER_1_URL)
+    # profile_banner = models.ImageField(
+    #     upload_to='banner_pics', blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
+    
+    def get_test(self):
+        return self.BannerChoices(self.profile_banner).name
 
     def get_profile_pic(self):
         return self.profile_pic.url if self.profile_pic else settings.DEFAULT_IMAGE_URL
 
     def get_profile_banner(self):
-        return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
+        # return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
+        return self.profile_banner
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
