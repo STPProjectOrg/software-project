@@ -70,6 +70,13 @@ jobs:
         run: |
           echo "DEBUG=0" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+          echo "SQL_ENGINE=django.db.backends.postgresql_psycopg2" >> .env
+          echo "DATABASE=postgres" >> .env
+          echo "SQL_DATABASE=${{ secrets.SQL_DATABASE }}" >> .env
+          echo "SQL_USER=${{ secrets.SQL_USER }}" >> .env
+          echo "SQL_PASSWORD=${{ secrets.SQL_PASSWORD }}" >> .env
+          echo "SQL_HOST=${{ secrets.SQL_HOST }}" >> .env
+          echo "SQL_PORT=${{ secrets.SQL_PORT }}" >> .env
       - name: Set environment variables
         run: |
           echo "WEB_IMAGE=$(echo ${{env.WEB_IMAGE}} )" >> $GITHUB_ENV
@@ -97,11 +104,17 @@ jobs:
       - name: Add environment variables to .env
         run: |
           echo "DEBUG=0" >> .env
-          echo "SQL_ENGINE=django.db.backends.sqlite3" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
           echo "WEB_IMAGE=${{ env.WEB_IMAGE }}" >> .env
           echo "NAMESPACE=${{ secrets.NAMESPACE }}" >> .env
           echo "PERSONAL=${{ secrets.PERSONAL }}" >> .env
+          echo "SQL_ENGINE=django.db.backends.postgresql_psycopg2" >> .env
+          echo "DATABASE=postgres" >> .env
+          echo "SQL_DATABASE=${{ secrets.SQL_DATABASE }}" >> .env
+          echo "SQL_USER=${{ secrets.SQL_USER }}" >> .env
+          echo "SQL_PASSWORD=${{ secrets.SQL_PASSWORD }}" >> .env
+          echo "SQL_HOST=${{ secrets.SQL_HOST }}" >> .env
+          echo "SQL_PORT=${{ secrets.SQL_PORT }}" >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock

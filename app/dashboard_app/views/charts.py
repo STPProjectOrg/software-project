@@ -4,20 +4,32 @@ from api_app.models import Asset, AssetManager, AssetHistory
 from dashboard_app.models import TransactionManager, Transaction
 
 
-def get_pie_data(assets: AssetManager):
+def get_pie_data(assets: AssetManager, anonymize: bool):
     """ Return suitable Chart.js pie data from a Asset QuerySet. """
+    data = list(assets.values_list("total_value", flat=True))
 
-    return {"data": list(assets.values_list("total_value", flat=True)),
+    if anonymize:
+        smallest_val = min(data)
+        anonymous_data = []
+        for val in data:
+            anonymous_data.append(val/smallest_val)
+        data = anonymous_data
+
+    return {"data": data,
             "labels": list(assets.values_list("coinName", flat=True)),
             "symbols": list(assets.values_list("name", flat=True))}
 
 
-def get_portfolio_line_data(transactions: TransactionManager, timespan: int):
+def get_portfolio_line_data(transactions: TransactionManager, timespan: int, anonymize: bool):
     """ Return data for a portfolio line chart based on a given transaction QuerySet. """
-
+    if not transactions:
+        return {"button_values": [],
+            "data": [],
+            "labels": []}
     data = []
     labels = []
-    today = date.fromisoformat('2023-05-20')  # TODO: ANPASSEN!
+    # muss zum testen zu date.fromisoformat('2023-05-20')  geändert werden
+    today = date.today()
     day = transactions.earliest('purchaseDate').purchaseDate
 
     while day <= today:
@@ -42,6 +54,13 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int):
         labels.append(day.strftime("%d.%m.%Y"))
 
         day += timedelta(days=1)
+
+    if anonymize:
+        smallest_val = min(data)
+        anonymous_data = []
+        for val in data:
+            anonymous_data.append(val/smallest_val)
+        data = anonymous_data
 
     return {"button_values": get_line_button_values(data),
             "data": data[-timespan:],

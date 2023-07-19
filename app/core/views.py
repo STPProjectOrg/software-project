@@ -23,7 +23,7 @@ def index(request):
     """
 
     if request.user.is_authenticated:
-        return user_views.profile(request, request.user.username)
+        return user_views.profile(request, request.user.username, 0)
 
     return render(request, 'core/landing.html')
 

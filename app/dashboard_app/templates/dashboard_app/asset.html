@@ -45,7 +45,7 @@
                     <div type="button"
                          class="btn btn-outline-primary"
                          data-bs-toggle="modal"
-                         data-bs-target="#transaction_buy_modal">Kaufen</div>
+                         data-bs-target="#transaction_buy_modal_0">Kaufen</div>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
         </div>
     </div>
     {# Modals #}
-    {% transaction_buy_modal request.user asset %}
+    {% transaction_buy_modal request.user asset 0 %}
     {% include_chart %}
     {% line_chart line_data %}
 {% endblock content %}

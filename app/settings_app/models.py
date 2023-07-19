@@ -30,6 +30,15 @@ class Settings(models.Model):
     hasNewComment = models.BooleanField(default=True)
     hasSharedPost = models.BooleanField(default=True)
 
+    #Post Settings
+    posts_privacy_settings = models.CharField(max_length=10, default="all")
+
+    # Watchlist Settings
+    watchlist_privacy_settings = models.CharField(max_length=10, default="all")
+
+    # Dashboard Settings
+    dashboard_privacy_settings = models.CharField(max_length=10, default="all")
+
     # Displaysettings field's
     theme = models.CharField(max_length=30, blank=False, default="dark")
 

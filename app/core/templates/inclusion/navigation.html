@@ -1,17 +1,19 @@
 {% load core_tags %}
 {% load i18n %}
 <ul class="nav nav-pills flex-column mb-auto">
+    {% trans "Coin Overview" as coin_overview %}
+    {% navigation_button coin_overview "bi-pie-chart-fill" "dashboard_app:coin_overview" %}
     <div class="fw-semibold user-select-none">{% trans "Portfolio" %}</div>
     {% trans "Dashboard" as dashboard %}
     {% trans "Watchlist" as watchlist %}
     {% navigation_button dashboard "bi-pie-chart-fill" "dashboard_app:dashboard" "0" %}
-    {% navigation_button watchlist "bi-star-fill" "dashboard_app:watchlist" %}
+    {% navigation_button watchlist "bi-star-fill" "dashboard_app:watchlist" username "no_sort" %}
     {% navigation_button "Transaktionen" "bi-file-diff-fill" "dashboard_app:transactions" %}
     <div class="fw-semibold mt-4 user-select-none">{% trans "Sozial" %}</div>
     {% trans "Profil" as profil %}
     {% trans "Community" as community %}
     {% trans "Nachrichten" as messages %}
-    {% navigation_button profil "bi-person-fill" "user_app:profile" username %}
+    {% navigation_button profil "bi-person-fill" "user_app:profile" username 0 %}
     {% navigation_button community "bi-share-fill" "community_app:community" "all" %}
     {% navigation_button messages "bi-chat-text-fill" "messaging_app:inbox" %}
 </ul>

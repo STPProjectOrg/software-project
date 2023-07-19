@@ -2,12 +2,13 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views
 from .forms import UserLoginForm, PasswordCustomResetForm, PasswordCustomSetForm
+from .views_new import biography
 
 app_name = 'user_app'
 
 urlpatterns = [
     path('profile-redirect/', views.profile_redirect, name='profile_redirect'),
-    path('profile/<str:username>/', views.profile, name='profile'),
+    path('profile/<str:username>/<int:timespan>/', views.profile, name='profile'),
     path('update/userprofile/<int:pk>',
          views.update_user_profile_pic, name='update_userprofile'),
     path('update/userbanner/<int:pk>',
@@ -50,5 +51,9 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(
              template_name="user_app/password_recovery/reset_password_complete.html"),
-         name='password_reset_complete')
+         name='password_reset_complete'),
+
+    # Update User Information
+    path('update/biography', biography.update, name='update_biography'),
+
 ]

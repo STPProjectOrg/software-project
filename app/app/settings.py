@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import sys
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,12 +26,15 @@ SECRET_KEY = 'django-insecure-hzdef6(rps5z3=$s0o_qizd74g*osd&rl^dbai!c*74rx4q_e6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['139.144.176.245', '0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['https://websocketking.com',
+                 '139.144.176.245', '0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -79,16 +83,56 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'app.wsgi.application'
+ASGI_APPLICATION = 'app.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+# }
+
+TESTING = sys.argv[1:2] == ['test']
+if TESTING == False:
+    DATABASES = {
+
+        'default': {
+
+            'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.sqlite3'),
+
+            'NAME': os.environ.get('SQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+
+            'USER': os.environ.get('SQL_USER'),
+
+            'PASSWORD': os.environ.get('SQL_PASSWORD'),
+
+            'HOST': os.environ.get('SQL_HOST'),
+
+            'PORT': os.environ.get('SQL_PORT'),
+        }
     }
+else:
+    DATABASES = {
+        'default': {
+            "ENGINE": "django.db.backends.sqlite3",
+            "TEST": {
+                "NAME": ":memory:",
+            }
+        }}
+
+# Redis
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            # "hosts": [("127.0.0.1", 6379)],
+            "hosts": [("139.144.176.245", 6379)],
+        },
+    },
 }
 
 
@@ -133,8 +177,9 @@ TIME_ZONE = 'CET'
 
 USE_I18N = True
 
-#USE_TZ = True
+# USE_TZ = True
 
+USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

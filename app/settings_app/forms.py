@@ -51,3 +51,8 @@ class NotificationSettingsForm(forms.ModelForm):
             'hasNewComment': _("Benachrichtigung wenn jemand ein Kommentar von dir kommentiert"),
             'hasSharedPost': _("Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat")
         }
+
+class SecuritySettingsForm(forms.Form):
+    posts_privacy_setting = forms.CharField(label="Posts Privacy Setting",widget=forms.Select(choices=[("all","all"),("private","private")], attrs={"class": "form-control"}), required=True)
+    watchlist_privacy_setting = forms.CharField(label="Watchlist Privacy Setting",widget=forms.Select(choices=[("all","all"),("private","private")], attrs={"class": "form-control"}), required=True)
+    dashboard_privacy_setting = forms.CharField(label="Dashboard Privacy Setting",widget=forms.Select(choices=[("all","all"),("without values","without values"),("private","private")], attrs={"class": "form-control"}), required=True)

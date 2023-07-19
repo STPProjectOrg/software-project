@@ -9,7 +9,7 @@ class Post(models.Model):
     created_at = models.DateTimeField()
     tags = models.CharField(max_length=100)
     image = models.ImageField(upload_to='post_images/', blank=True)
-    # privacySettings = models.CharField()
+    privacy_settings = models.CharField(max_length=10, default="all")
 
     def __str__(self):
         return self.content

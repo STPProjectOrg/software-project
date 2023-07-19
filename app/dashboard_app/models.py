@@ -27,6 +27,14 @@ class Transaction(models.Model):
 
 class Watchlist(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    privacy_settings = models.CharField(max_length=10, default="all")
+
+class WatchlistAsset(models.Model):
+    watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     added_at = models.DateTimeField()
     price_change = models.IntegerField(default=30)
+
+class WatchlistLike(models.Model):
+    watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
