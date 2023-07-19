@@ -24,12 +24,14 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int, ano
     """ Return data for a portfolio line chart based on a given transaction QuerySet. """
     if not transactions:
         return {"button_values": [],
-            "data": [],
-            "labels": []}
+                "data": [],
+                "labels": []}
     data = []
     labels = []
-    # muss zum testen zu date.fromisoformat('2023-05-20')  geändert werden
-    today = date.today()
+
+    # today = date.today() # For live-server
+    today = date.fromisoformat('2023-05-20')  # For development
+
     day = transactions.earliest('purchaseDate').purchaseDate
 
     while day <= today:

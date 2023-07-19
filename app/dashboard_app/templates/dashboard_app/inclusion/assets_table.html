@@ -21,7 +21,10 @@
                     <td>
                         <img class="logo-fs-3" src="{{ asset.imageUrl }}">
                     </td>
-                    <td>{{ asset.name }}</td>
+                    <td>
+                        <a class="btn btn-link p-0"
+                           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
+                    </td>
                     <td>{{ asset.coinName }}</td>
                     <td class="text-end">{{ asset.amount }}</td>
                     <td class="text-end">{{ asset.cost|to_locale_valuta }}</td>
@@ -38,10 +41,16 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transaction_buy_modal_{{forloop.counter0}}">Kaufen</a>
+                                    <a class="dropdown-item"
+                                       href="#"
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#transaction_buy_modal_{{ forloop.counter0 }}">Kaufen</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#transaction_sell_modal_{{forloop.counter0}}">Verkaufen</a>
+                                    <a class="dropdown-item"
+                                       href="#"
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#transaction_sell_modal_{{ forloop.counter0 }}">Verkaufen</a>
                                 </li>
                             </ul>
                         </div>
