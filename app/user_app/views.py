@@ -2,7 +2,7 @@ import os
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
-from user_app.models import CustomUser, UserProfileInfo, UserFollowing
+from user_app.models import CustomUser, UserProfileInfo, UserFollowing, ProfileBanner
 from settings_app.models import Settings
 from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
 from dashboard_app.views import charts
@@ -57,6 +57,9 @@ def register(request):
             if 'profile_pic' in request.FILES:
                 new_profile.profile_pic = request.FILES['profile_pic']
             new_profile.save()
+
+            # Create new ProfileBanner instance 
+            ProfileBanner.objects.create(user=new_user)
 
             registred = True
             return render(request, 'user_app/register/registration_success.html')
@@ -159,7 +162,6 @@ def profile(request, username, timespan):
                     "assets": assets,
                     "kpi_total": kpi_total,
                     "has_transactions":has_transactions,
-                    "banner_choices": UserProfileInfo.BannerChoices.choices 
                    })
 
 
@@ -222,12 +224,12 @@ def update_user_profile_pic(request, pk):
 
 @login_required
 def update_user_profile_banner(request, pk):
-    profile = UserProfileInfo.objects.get(id=pk)
+    profile = ProfileBanner.objects.get(id=pk)
 
     if request.method == 'POST':
         new_banner = request.POST.get('profile_banner')
         
-        profile.profile_banner = getattr(UserProfileInfo.BannerChoices, new_banner, None)
+        profile.profile_banner = getattr(ProfileBanner.BannerChoices, new_banner, None)
         profile.save()
         # if 'profile_banner' in request.FILES:
         #     profile.profile_banner = request.FILES['profile_banner']
