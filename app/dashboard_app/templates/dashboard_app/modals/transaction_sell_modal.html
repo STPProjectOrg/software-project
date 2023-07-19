@@ -1,18 +1,18 @@
 <div class="modal fade"
-     id="transaction_sell_modal_{{id}}"
+     id="transaction_sell_modal_{{ id }}"
      tabindex="-1"
      aria-labelledby="transaction_sell_modal_Label"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="transaction_sell_modal_Label">{{asset.name}} Entfernen</h1>
+                <h1 class="modal-title fs-5" id="transaction_sell_modal_Label">{{ asset.name }} Entfernen</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <p>{{asset.name}}</p>
+            <p>{{ asset.name }}</p>
             <form action="{% url "dashboard_app:transaction_sell" asset.name %}"
                   method="post">
                 {% csrf_token %}
