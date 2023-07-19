@@ -17,6 +17,15 @@
                   enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
+                    {% for banner in banners %}
+                    <div class="form-check">
+                            <input class="form-check-input" type="radio" name="profile_banner" id="{{ banner }}" value="{{ banner }}">
+                            <label class="form-check-label" for="{{ banner }}">
+                                {{ banner }}
+                            </label>
+                    {% endfor %}
+                    </div>
+                    {% comment "" %}
                     <div class="input-group">
                         <input type="file"
                                class="form-control"
@@ -25,6 +34,7 @@
                                aria-label="Upload"
                                name="profile_banner" />
                     </div>
+                    {% endcomment %}
                 </div>
                 <div class="modal-footer pb-0">
                     <button type="button"

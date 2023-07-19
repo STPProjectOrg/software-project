@@ -158,7 +158,8 @@ def profile(request, username, timespan):
                     "line_data": charts.get_portfolio_line_data(transactions, timespan, anonymize),
                     "assets": assets,
                     "kpi_total": kpi_total,
-                    "has_transactions":has_transactions
+                    "has_transactions":has_transactions,
+                    "banner_choices": UserProfileInfo.BannerChoices.choices 
                    })
 
 
@@ -224,10 +225,14 @@ def update_user_profile_banner(request, pk):
     profile = UserProfileInfo.objects.get(id=pk)
 
     if request.method == 'POST':
-        if 'profile_banner' in request.FILES:
-            profile.profile_banner = request.FILES['profile_banner']
-            profile.profile_pic = profile.profile_pic
-            profile.save()
+        new_banner = request.POST.get('profile_banner')
+        
+        profile.profile_banner = getattr(UserProfileInfo.BannerChoices, new_banner, None)
+        profile.save()
+        # if 'profile_banner' in request.FILES:
+        #     profile.profile_banner = request.FILES['profile_banner']
+        #     profile.profile_pic = profile.profile_pic
+        #     profile.save()
 
     return redirect(reverse('user_app:profile_redirect'))
 

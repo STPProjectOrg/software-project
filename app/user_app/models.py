@@ -30,15 +30,9 @@ class UserFollowing(models.Model):
     def __str__(self):
         return f'{self.follower_user.username} follows {self.following_user.username}'
 
-
-class UserProfileInfo(models.Model):
-
+class ProfileBanner(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    # additional attributes for user
-    profile_pic = models.ImageField(
-        upload_to='profile_pics', blank=True, null=True)
     
     class BannerChoices(models.TextChoices):
         BANNER_1 = settings.BANNER_1_URL
@@ -62,8 +56,12 @@ class UserProfileInfo(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
     
+    def get_banner_choices(self):
+        return self.BannerChoices.names
+    
     def get_test(self):
-        return self.BannerChoices(self.profile_banner).name
+        # return self.BannerChoices(self.profile_banner).name
+        return getattr(self.BannerChoices, "BANNER_1", None)
 
     def get_profile_pic(self):
         return self.profile_pic.url if self.profile_pic else settings.DEFAULT_IMAGE_URL
