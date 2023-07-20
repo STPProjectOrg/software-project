@@ -30,6 +30,31 @@ class UserFollowing(models.Model):
     def __str__(self):
         return f'{self.follower_user.username} follows {self.following_user.username}'
 
+class ProfileBanner(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    
+    class BannerChoices(models.TextChoices):
+        BANNER_1 = settings.BANNER_1_URL
+        BANNER_2 = settings.BANNER_2_URL
+
+    profile_banner = models.CharField(max_length=255,
+                                      choices=BannerChoices.choices,
+                                      default=BannerChoices.BANNER_1)
+    
+    def __str__(self):
+        return f'{self.user.username} Banner'
+    
+    def get_banner_choices(self):
+        return self.BannerChoices.names
+    
+    def get_test(self):
+        # return self.BannerChoices(self.profile_banner).name
+        return getattr(self.BannerChoices, "BANNER_1", None)
+    
+    def get_profile_banner(self):
+        # return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
+        return self.profile_banner
 
 class UserProfileInfo(models.Model):
 
@@ -38,59 +63,28 @@ class UserProfileInfo(models.Model):
 
     # additional attributes for user
     profile_pic = models.ImageField(
-        upload_to='profile_pics',
-        blank=True,
-        null=True)
-    profile_banner = models.ImageField(
-        upload_to='banner_pics',
-        blank=True,
-        null=True)
-    biography = models.TextField(
-        blank=True,
-        null=True
-    )
-
+        upload_to='profile_pics', blank=True, null=True)
+    
     def __str__(self):
         return f'{self.user.username} Profile'
-
+    
     def get_profile_pic(self):
         return self.profile_pic.url if self.profile_pic else settings.DEFAULT_IMAGE_URL
 
-    def get_profile_banner(self):
-        return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
-
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        is_profile_pic_changed = self.has_changed('profile_pic')
-        is_profile_banner_changed = self.has_changed('profile_banner')
 
-        if is_profile_pic_changed:
-            if self.profile_pic and self.profile_pic.path != settings.DEFAULT_IMAGE_URL:
-                # resize the image
-                img = Image.open(self.profile_pic.path)
-                if img.height > 300 or img.width > 300:
-                    output_size = (300, 300)
-                    # create a thumbnail
-                    img = img.resize(output_size, Image.Resampling.LANCZOS)
-                    # overwrite the larger image
-                    img.save(self.profile_pic.path)
+        if self.profile_pic and self.profile_pic.path != settings.DEFAULT_IMAGE_URL:
+            # resize the image
+            img = Image.open(self.profile_pic.path)
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                # create a thumbnail
+                img = img.resize(output_size, Image.Resampling.LANCZOS)
+                # overwrite the larger image
+                img.save(self.profile_pic.path)
 
-        if is_profile_banner_changed:
-            if self.profile_banner and self.profile_banner.path != settings.DEFAULT_BANNER_URL:
-                img = Image.open(self.profile_banner.path)
-                if img.height > 800 or img.width > 1200:
-                    output_size = (1200, 800)
-                    img = img.resize(output_size, Image.LANCZOS)
-                    img.save(self.profile_banner.path)
 
-    def has_changed(self, field_name):
-        if self.pk is None:
-            return True
-
-        old_value = self.__class__._default_manager.filter(
-            pk=self.pk).values(field_name).get()[field_name]
-        new_value = getattr(self, field_name)
-        return old_value != new_value
 
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)

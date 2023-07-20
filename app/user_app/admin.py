@@ -1,5 +1,5 @@
 from django.contrib import admin
-from user_app.models import UserProfileInfo, CustomUser, UserFollowing
+from user_app.models import UserProfileInfo, CustomUser, UserFollowing, ProfileBanner
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
@@ -14,3 +14,4 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(UserProfileInfo)
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(UserFollowing)
+admin.site.register(ProfileBanner)
