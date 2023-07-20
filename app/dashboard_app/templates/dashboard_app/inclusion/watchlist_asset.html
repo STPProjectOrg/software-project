@@ -4,57 +4,58 @@
         <a href="{% url 'dashboard_app:asset' asset.name 0 %}">
             <img src="{{ asset.imageUrl }}" style="width:35px;">
         </a>
-</td>
-<td class="text-center align-middle">
-    <a href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
-</td>
-<td class="text-center align-middle">{{ asset.coinName }}</td>
-<td class="text-center align-middle">{{ asset.price }}</td>
-<td class="text-center align-middle">{{ asset.pricediff }}</td>
-{% if asset.pricediffpercent > 0 %}
-    <td class="text-center align-middle" style="color: green">+{{ asset.pricediffpercent }}</td>
-{% else %}
-    <td class="text-center align-middle" style="color: red">{{ asset.pricediffpercent }}</td>
-{% endif %}
-{# Dropdown price_change #}
-<td class="text-center">
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">{{ asset.price_change }}</button>
-        <ul class="dropdown-menu">
-            <li>
-                <a class="dropdown-item"
-                   href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 1 %}">1</a>
-            </li>
-            <li>
-                <a class="dropdown-item"
-                   href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 7 %}">7</a>
-            </li>
-            <li>
-                <a class="dropdown-item"
-                   href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 30 %}">30</a>
-            </li>
-            <li>
-                <a class="dropdown-item"
-                   href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 90 %}">90</a>
-            </li>
-            <li>
-                <a class="dropdown-item"
-                   href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 180 %}">180</a>
-            </li>
-        </ul>
-    </div>
-</td>
-<td class="text-center align-middle">{{ asset.added_at }}</td>
-<td class="text-center align-middle">
-    <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
-</td>
-<td class="text-center align-middle">{{ asset.isInPortfolio }}</td>
-{% if asset.isInPortfolio %}
-    <td class="text-center align-middle">Kaufen / Verkaufen</td>
-{% else %}
-    <td class="text-center align-middle">Kaufen</td>
-{% endif %}
+    </td>
+    <td class="text-center align-middle">
+        <a class="btn btn-link"
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
+    </td>
+    <td class="text-center align-middle">{{ asset.coinName }}</td>
+    <td class="text-center align-middle">{{ asset.price }}</td>
+    <td class="text-center align-middle">{{ asset.pricediff }}</td>
+    {% if asset.pricediffpercent > 0 %}
+        <td class="text-center align-middle" style="color: green">+{{ asset.pricediffpercent }}</td>
+    {% else %}
+        <td class="text-center align-middle" style="color: red">{{ asset.pricediffpercent }}</td>
+    {% endif %}
+    {# Dropdown price_change #}
+    <td class="text-center">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">{{ asset.price_change }}</button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item"
+                       href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 1 %}">1</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 7 %}">7</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 30 %}">30</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 90 %}">90</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       href="{% url 'dashboard_app:watchlist_update_asset_price_change' asset.name 180 %}">180</a>
+                </li>
+            </ul>
+        </div>
+    </td>
+    <td class="text-center align-middle">{{ asset.added_at }}</td>
+    <td class="text-center align-middle">
+        <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
+    </td>
+    <td class="text-center align-middle">{{ asset.isInPortfolio }}</td>
+    {% if asset.isInPortfolio %}
+        <td class="text-center align-middle">Kaufen / Verkaufen</td>
+    {% else %}
+        <td class="text-center align-middle">Kaufen</td>
+    {% endif %}
 </tr>

@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load core_tags %}
+{% load dashboard_tags %}
 {% block title %}
     | Transactions
 {% endblock title %}
@@ -45,7 +46,10 @@
                                             <td>
                                                 <img class="logo-fs-3" src="{{ transaction.asset.imageUrl }}">
                                             </td>
-                                            <td>{{ transaction.asset.name }}</td>
+                                            <td>
+                                                <a class="btn btn-link p-0"
+                                                   href="{% url 'dashboard_app:asset' transaction.asset.name 0 %}">{{ transaction.asset.name }}</a>
+                                            </td>
                                             <td>{{ transaction.asset.coinName }}</td>
                                             <td>{{ transaction.purchaseDate }}</td>
                                             <td class="text-center">{{ transaction.amount }}</td>
@@ -54,13 +58,33 @@
                                             <td class="text-end">{{ transaction.charge|to_locale_valuta }}</td>
                                             <td class="text-end">{{ transaction.cost|to_locale_valuta }}</td>
                                             <td class="text-center">
-                                                <button class="btn btn-sm btn-outline-primary" type="button">
-                                                    <i class="bi bi-gear"></i>
-                                                </button>
+                                                <div class="dropstart">
+                                                    <button class="btn btn-sm btn-outline-primary"
+                                                            type="button"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                        <i class="bi bi-gear"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               href="#"
+                                                               data-bs-toggle="modal"
+                                                               data-bs-target="#transaction_update_modal_{{ transaction.id }}">Bearbeiten</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               href="#"
+                                                               data-bs-toggle="modal"
+                                                               data-bs-target="#transaction_delete_modal_{{ transaction.id }}">Löschen</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    {% comment %} MODAL {% endcomment %}
+                                    {% transaction_update_modal transaction %}
+                                    {% transaction_delete_modal transaction.id %}
                                 {% endfor %}
                             </tbody>
                         </table>

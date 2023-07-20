@@ -1,7 +1,8 @@
 """ Custom Tags for the dashboard_app """
 
 from django import template
-from dashboard_app.forms import TransactionBuyForm, TransactionSellForm
+from dashboard_app.models import Transaction
+from dashboard_app.forms import TransactionBuyForm, TransactionSellForm, TransactionUpdateForm
 
 register = template.Library()
 
@@ -38,19 +39,42 @@ def assets_table(context):
 def transaction_buy_modal(user, asset, id):
     """ Include a modal for creating a buy-transaction. """
 
-    return {"user": user, "asset": asset, "id":id, "form": TransactionBuyForm()}
+    return {"user": user, "asset": asset, "id": id, "form": TransactionBuyForm()}
+
 
 @register.inclusion_tag("dashboard_app/modals/transaction_sell_modal.html")
 def transaction_sell_modal(user, asset, id):
     """ Include a modal for creating a buy-transaction. """
 
-    return {"user": user, "asset": asset, "id":id, "form": TransactionSellForm()}
+    return {"user": user, "asset": asset, "id": id, "form": TransactionSellForm()}
+
+
+@register.inclusion_tag("dashboard_app/modals/transaction_update_modal.html")
+def transaction_update_modal(transaction: Transaction):
+    """ Include a modal for updating a transaction. """
+
+    return {
+        "form": TransactionUpdateForm(
+            initial={"amount": transaction.amount,
+                     "date": str(transaction.purchaseDate),
+                     "price": transaction.price,
+                     "charge": transaction.charge,
+                     "tax": transaction.tax}),
+        "transaction": transaction}
+
+
+@register.inclusion_tag("dashboard_app/modals/transaction_delete_modal.html")
+def transaction_delete_modal(id):
+    """ Include a modal for deleteing a transaction. """
+
+    return {"id": id}
 
 
 @register.inclusion_tag("dashboard_app/inclusion/watchlist_asset.html")
 def include_watchlist_asset(asset):
     """include KPI element"""
     return {"asset": asset}
+
 
 @register.inclusion_tag("dashboard_app/inclusion/coin_overview_asset.html")
 def include_coin_overview_asset(asset):

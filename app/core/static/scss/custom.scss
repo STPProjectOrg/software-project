@@ -113,6 +113,63 @@ $headings-color: #e3e6ed;
     --bs-btn-bg: #0F111A;
 }
 
+.btn-outline-secondary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: #9fa6bc;
+    --bs-btn-border-color: #31374a;
+    --bs-btn-hover-color: #cbd0dd;
+    --bs-btn-hover-bg: #222834;
+    --bs-btn-hover-border-color: #31374a;
+    --bs-btn-focus-shadow-rgb: 200, 204, 213;
+    --bs-btn-active-color: #9fa6bc;
+    --bs-btn-active-bg: #222834;
+    --bs-btn-active-border-color: #e6e9ef;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0);
+    --bs-btn-disabled-color: #000000;
+    --bs-btn-disabled-bg: #f5f7fa;
+    --bs-btn-disabled-border-color: #e3e6ed;
+    --bs-gradient: none;
+    --bs-btn-bg: #0F111A;
+}
+
+.btn-outline-success {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: #90d67f;
+    --bs-btn-border-color: #31374a;
+    --bs-btn-hover-color: #90d67f;
+    --bs-btn-hover-bg: #222834;
+    --bs-btn-hover-border-color: #31374a;
+    --bs-btn-focus-shadow-rgb: 199, 222, 202;
+    --bs-btn-active-color: #25b003;
+    --bs-btn-active-bg: #222834;
+    --bs-btn-active-border-color: #e6e9ef;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0);
+    --bs-btn-disabled-color: #000000;
+    --bs-btn-disabled-bg: #f5f7fa;
+    --bs-btn-disabled-border-color: #e3e6ed;
+    --bs-gradient: none;
+    --bs-btn-bg: #0F111A;
+}
+
+.btn-outline-danger {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: #f48270;
+    --bs-btn-border-color: #31374a;
+    --bs-btn-hover-color: #f48270;
+    --bs-btn-hover-bg: #222834;
+    --bs-btn-hover-border-color: #31374a;
+    --bs-btn-focus-shadow-rgb: 229, 200, 201;
+    --bs-btn-active-color: #ed2000;
+    --bs-btn-active-bg: #222834;
+    --bs-btn-active-border-color: #e6e9ef;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0);
+    --bs-btn-disabled-color: #000000;
+    --bs-btn-disabled-bg: #f5f7fa;
+    --bs-btn-disabled-border-color: #e3e6ed;
+    --bs-gradient: none;
+    --bs-btn-bg: #0F111A;
+}
+
 .btn-link {
     --bs-btn-font-weight: 600;
     text-decoration: none;
