@@ -19,7 +19,7 @@
                             <div class="d-flex gap-2 bg-body-secondary p-2 border rounded">
                                 <div>
                                     <a class="btn btn-link text-start p-0 d-flex gap-2"
-                                       href="{% url 'user_app:profile' user.username %}">
+                                       href="{% url 'user_app:profile' user.username 0 %}">
                                         <div class="my-auto">
                                             <img class="logo-fs-3" src="{{ user.userprofileinfo.get_profile_pic }}">
                                         </div>

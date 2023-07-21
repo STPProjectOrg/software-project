@@ -1,19 +1,28 @@
-{% extends "core/base.html" %}
+{% extends "settings_app/settingsOverview.html" %}
 {% load i18n %}
-{% block content %}
-    <h1 class="text-center mb-1">{% trans "Profileinstellungen" %}</h1>
-    <div class="card">
-        <div class="card-body">
-            <form method="post" class="pt-2 pb-2 ps-5 pe-5">
-                <div class="d-flex flex-column gap-2">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <div class="d-flex justify-content-end gap-3">
-                        <button type="submit" class="btn btn-success">{% trans "Speichern" %}</button>
-                        <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">{% trans "Zurück" %}</a>
-                    </div>
-                </div>
-            </form>
+{% block settings_title %}
+    {% trans "Profileinstellungen" %}
+{% endblock settings_title %}
+{% block class_selector_user %}
+    chat-user-entry-selected
+{% endblock class_selector_user %}
+{% block settings %}
+    <div class="d-flex gap-3">
+        <div class="w-100">
+            <label for="{{ form.first_name.id_for_label }}" class="form-label">Vorname</label>
+            {{ form.first_name }}
+        </div>
+        <div class="w-100">
+            <label for="{{ form.last_name.id_for_label }}" class="form-label">Nachname</label>
+            {{ form.last_name }}
         </div>
     </div>
-{% endblock content %}
+    <div>
+        <label for="{{ form.email.id_for_label }}" class="form-label">E-Mail</label>
+        {{ form.email }}
+    </div>
+    <div>
+        <label for="{{ form.username.id_for_label }}" class="form-label">Benutzername</label>
+        {{ form.username }}
+    </div>
+{% endblock settings %}

@@ -13,6 +13,7 @@ from django.utils import translation
 from community_app.models import Post
 from dashboard_app.models import Watchlist
 
+
 @login_required
 def settings(request):
     """
@@ -43,9 +44,11 @@ def security_settings(request):
     Renders the security settings page.
     """
     settings = Settings.objects.get(user=request.user)
-    form = SecuritySettingsForm(initial={"posts_privacy_setting": settings.posts_privacy_settings,"watchlist_privacy_setting": settings.watchlist_privacy_settings, "dashboard_privacy_setting": settings.dashboard_privacy_settings})
-    data={"form":form}
+    form = SecuritySettingsForm(initial={"posts_privacy_setting": settings.posts_privacy_settings,
+                                "watchlist_privacy_setting": settings.watchlist_privacy_settings, "dashboard_privacy_setting": settings.dashboard_privacy_settings})
+    data = {"form": form}
     return render(request, 'settings_app/securitySettings.html', context=data)
+
 
 @login_required
 def security_settings_update(request):
@@ -53,26 +56,28 @@ def security_settings_update(request):
     form = SecuritySettingsForm(request.POST)
     if form.is_valid():
         form_data = form.cleaned_data
-        Settings.objects.filter(id=settings.id).update(posts_privacy_settings=form_data["posts_privacy_setting"], watchlist_privacy_settings=form_data["watchlist_privacy_setting"], dashboard_privacy_settings=form_data["dashboard_privacy_setting"])
-        Watchlist.objects.filter(user=request.user).update(privacy_settings=form_data["watchlist_privacy_setting"])
-        Post.objects.filter(user=request.user).update(privacy_settings=form_data["posts_privacy_setting"])
+        Settings.objects.filter(id=settings.id).update(posts_privacy_settings=form_data["posts_privacy_setting"], watchlist_privacy_settings=form_data[
+            "watchlist_privacy_setting"], dashboard_privacy_settings=form_data["dashboard_privacy_setting"])
+        Watchlist.objects.filter(user=request.user).update(
+            privacy_settings=form_data["watchlist_privacy_setting"])
+        Post.objects.filter(user=request.user).update(
+            privacy_settings=form_data["posts_privacy_setting"])
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required
 def portfolio_settings(request):
     """
     Renders the portfolio settings page.
     """
+
     if request.method == "POST":
-        setting = Settings.objects.get_or_create(user=request.user)
+        Settings.objects.filter(user=request.user).update(
+            dateTimeFormat=request.POST["dateTimeFormat"],
+            currency=request.POST["currencySelector"]
+        )
 
-        setting.dateTimeFormat = request.POST["dateTimeFormat"]
-        setting.currency = request.POST["currencySelector"]
-        setting.save()
-
-        return render(request, 'settings_app/settingsOverview.html')
-    else:
-        return render(request, 'settings_app/portfolioSettings.html')
+    return render(request, 'settings_app/portfolioSettings.html')
 
 
 @login_required
@@ -112,6 +117,7 @@ def view_settings(request):
     Renders the view settings page.
     """
     return render(request, 'settings_app/viewSettings.html')
+
 
 def language_change(request, language_code):
     translation.activate(language_code)

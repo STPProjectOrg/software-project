@@ -16,6 +16,23 @@ class UserSettingsForm(forms.ModelForm):
     """
     This class represents the user settings form.
     """
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        "id": "first_name",
+        "class": "form-control",
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        "id": "last_name",
+        "class": "form-control",
+    }))
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        "id": "username",
+        "class": "form-control",
+    }))
+    email = forms.CharField(widget=forms.TextInput(attrs={
+        "id": "email",
+        "class": "form-control",
+    }))
+
     class Meta:
         model = CustomUser
         fields = ["username", "email", "first_name", "last_name"]
@@ -24,18 +41,63 @@ class UserSettingsForm(forms.ModelForm):
             "email": _("Email"),
             "first_name": _("Vorname"),
             "last_name": _("Name")
-            }
-        
+        }
 
-class PortfolioSettingsForm(forms.Form):
+
+class PortfolioSettingsForm(forms.ModelForm):
     """
     This class represents the portfolio settings form.
     """
+    date_format_choices = (
+        ("DD.MM.YYYY HH:mm", "DD.MM.YYYY HH:mm"),
+        ("MM/DD/YYYY HH:mm", "MM/DD/YYYY HH:mm"),
+        ("YYYY-MM-DD HH:mm", "YYYY-MM-DD HH:mm")
+    )
+
+    dateTimeFormat = forms.ChoiceField(widget=forms.Select(
+        attrs={
+            "id": "dateTimeFormat",
+            "class": "form-control"
+        }),
+        choices=date_format_choices)
+
     class Meta:
         model = Settings
         fields = ["dateTimeFormat", "currency", "theme"]
 
+
 class NotificationSettingsForm(forms.ModelForm):
+    hasAssetAmountChanged = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        "id": "hasAssetAmountChanged",
+        "role": "switch",
+        "class": "form-check-input"
+    }))
+    hasNewFollower = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        "id": "hasNewFollower",
+        "role": "switch",
+        "class": "form-check-input"
+    }))
+    hasLikedPost = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        "id": "hasLikedPost",
+        "role": "switch",
+        "class": "form-check-input"
+    }))
+    hasLikedComment = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        "id": "hasLikedComment",
+        "role": "switch",
+        "class": "form-check-input"
+    }))
+    hasNewComment = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        "id": "hasNewComment",
+        "role": "switch",
+        "class": "form-check-input"
+    }))
+    hasSharedPost = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={
+        "id": "hasSharedPost",
+        "role": "switch",
+        "class": "form-check-input"
+    }))
+
     """
     This class represents the notification settings form.
     """
@@ -43,16 +105,22 @@ class NotificationSettingsForm(forms.ModelForm):
         model = Settings
         fields = ["hasAssetAmountChanged", "hasNewFollower", "hasLikedPost",
                   "hasLikedComment", "hasNewComment", "hasSharedPost"]
-        labels = {
-            'hasAssetAmountChanged': _("Benachrichtigung bei Veränderung der Assetmenge"),
-            'hasNewFollower': _("Benachrichtigung wenn ihnen jemand folgt"),
-            'hasLikedPost': _("Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat"),
-            'hasLikedComment': _("Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat"),
-            'hasNewComment': _("Benachrichtigung wenn jemand ein Kommentar von dir kommentiert"),
-            'hasSharedPost': _("Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat")
-        }
+
 
 class SecuritySettingsForm(forms.Form):
-    posts_privacy_setting = forms.CharField(label="Posts Privacy Setting",widget=forms.Select(choices=[("all","all"),("private","private")], attrs={"class": "form-control"}), required=True)
-    watchlist_privacy_setting = forms.CharField(label="Watchlist Privacy Setting",widget=forms.Select(choices=[("all","all"),("private","private")], attrs={"class": "form-control"}), required=True)
-    dashboard_privacy_setting = forms.CharField(label="Dashboard Privacy Setting",widget=forms.Select(choices=[("all","all"),("without values","without values"),("private","private")], attrs={"class": "form-control"}), required=True)
+    posts_privacy_setting = forms.CharField(label="Posts Privacy Setting", widget=forms.Select(
+        choices=[("all", "all"), ("private", "private")],
+        attrs={"class": "form-control",
+               "id": "posts_privacy_setting"}),
+        required=True)
+    watchlist_privacy_setting = forms.CharField(label="Watchlist Privacy Setting", widget=forms.Select(
+        choices=[("all", "all"), ("private", "private")],
+        attrs={"class": "form-control",
+               "id": "watchlist_privacy_setting"}),
+        required=True)
+    dashboard_privacy_setting = forms.CharField(label="Dashboard Privacy Setting", widget=forms.Select(
+        choices=[(
+            "all", "all"), ("without values", "without values"), ("private", "private")],
+        attrs={"class": "form-control",
+               "id": "dashboard_privacy_setting"}),
+        required=True)

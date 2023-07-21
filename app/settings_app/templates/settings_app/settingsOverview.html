@@ -1,32 +1,49 @@
 {% extends "core/base.html" %}
 {% load i18n %}
+{% block title %}
+    | Einstellungen
+{% endblock title %}
 {% block content %}
-    <div class="container" style="width: 100%; height: 100%">
-        <div class="d-flex flex-column justify-content-center"
-             style="width: 100%;
-                    height: 100%">
-            <h1 style="margin-bottom: 2rem">{% trans "Einstellungsübersicht" %}</h1>
-            <div class="d-flex flex-column gap-3 flex-wrap justify-items-center">
-                <a href="{% url 'settings_app:userSettings' %}"
-                   class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">{% trans "Profileinstellungen" %}</a>
-                <a href="{% url 'settings_app:portfolioSettings' %}"
-                   class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">{% trans "Portfolioeinstellungen" %}</a>
-                <a href="{% url 'settings_app:securitySettings' %}"
-                   class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">{% trans "Sicherheitseinstellungen" %}</a>
-                <a href="{% url 'settings_app:notificationSettings' %}"
-                   class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">{% trans "Benachrichtigungseinstellungen" %}</a>
-                <a href="{% url 'settings_app:viewSettings' %}"
-                   class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">{% trans "Anzeigeeinstellungen" %}</a>
-               {% if user.is_superuser == 1 %}
-                <a href="{% url 'api_app:api' %}"
-                   class="btn btn-outline-light btn-lg flex-fill me-2"
-                   role="button">{% trans "API-Admin Panel" %}</a>
-               {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <h1>Einstellungen</h1>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-auto gap-2 d-flex flex-column">
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_user %}chat-user-entry{% endblock class_selector_user %}"
+               href="{% url 'settings_app:userSettings' %}">{% trans "Profileinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_portfolio %}chat-user-entry{% endblock class_selector_portfolio %}"
+               href="{% url 'settings_app:portfolioSettings' %}">{% trans "Portfolioeinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_security %}chat-user-entry{% endblock class_selector_security %}"
+               href="{% url 'settings_app:securitySettings' %}">{% trans "Sicherheitseinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_notification %}chat-user-entry{% endblock class_selector_notification %}"
+               href="{% url 'settings_app:notificationSettings' %}">{% trans "Benachrichtigungseinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_view %}chat-user-entry{% endblock class_selector_view %}"
+               href="{% url 'settings_app:viewSettings' %}">{% trans "Anzeigeeinstellungen" %}</a>
+            {% if user.is_superuser == 1 %}
+                <a class="d-flex gap-2 p-2 rounded border {% block class_selector_admin %}chat-user-entry{% endblock class_selector_admin %}"
+                   href="{% url 'api_app:api' %}">{% trans "API-Admin Panel" %}</a>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex">
+                    <div class="fs-3">
+                        {% block settings_title %}
+                        {% endblock settings_title %}
+                    </div>
+                </div>
+                <form class="m-0" method="post">
+                    {% csrf_token %}
+                    <div class="card-body d-flex gap-3 flex-column">
+                        {% block settings %}
+                        {% endblock settings %}
+                    </div>
+                    <div class="card-footer d-flex">
+                        <button class="btn btn-outline-success ms-auto" type="submit">Speichern</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
