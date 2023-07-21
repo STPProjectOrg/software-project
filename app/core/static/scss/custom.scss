@@ -49,6 +49,10 @@ $font-family-sans-serif: "Source Sans Pro",
 $headings-font-weight: 600;
 $headings-color: #e3e6ed;
 
+// Tables
+$table-hover-color: #004dff;
+$table-hover-bg:rgba( 0, 60, 199, 0.07 );;
+
 
 // 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
 @import "../bootstrap/scss/variables";

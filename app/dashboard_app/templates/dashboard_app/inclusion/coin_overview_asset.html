@@ -1,21 +1,25 @@
 {% load i18n %}
-<tr>
-    <td class="text-center align-middle">
+<tr class="align-middle">
+    <td class="text-center">
         <a href="{% url 'dashboard_app:asset' asset.name 0 %}">
-            <img src="{{ asset.imageUrl }}" style="width:35px;">
+            <img src="{{ asset.imageUrl }}" class="logo-fs-3" />
         </a>
-    </img>
-</td>
-<td class="text-center align-middle">
-    <a href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
-</td>
-<td class="text-center align-middle">{{ asset.coinName }}</td>
-{% if asset.isInWatchlist %}
-<td class="text-center align-middle">
-    <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
-</td>
-{% else %}
-<td class="text-center align-middle">
-    <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star" style="font-size: 1rem;"></i></a>
-</td>
-{% endif %}
+    </td>
+    <td class="text-start">
+        <a class="btn btn-link p-0"
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
+    </td>
+    <td class="text-start">
+        <a class="btn btn-link p-0"
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.coinName }}</a>
+    </td>
+    <td class="text-center">
+        <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">
+            {% if asset.isInWatchlist %}
+                <i class="bi bi-star-fill"></i>
+            {% else %}
+                <i class="bi bi-star"></i>
+            {% endif %}
+        </a>
+    </td>
+</tr>

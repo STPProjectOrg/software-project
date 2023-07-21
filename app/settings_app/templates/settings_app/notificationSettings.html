@@ -1,19 +1,35 @@
-{% extends "core/base.html" %}
+{% extends "settings_app/settingsOverview.html" %}
 {% load i18n %}
-{% block content %}
-    <div class="container">
-        <h1 class="text-center mb-5">{% trans "Benachrichtigungseinstellungen" %}</h1>
-        <div class="card">
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <div class="d-flex justify-content-end gap-3">
-                        <button type="submit" class="btn btn-success">{% trans "Speichern" %}</button>
-                        <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">{% trans "Zurück" %}</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+{% block settings_title %}
+    {% trans "Benachrichtigungseinstellungen" %}
+{% endblock settings_title %}
+{% block class_selector_notification %}
+    chat-user-entry-selected
+{% endblock class_selector_notification %}
+{% block settings %}
+    <div class="form-check form-switch">
+        <label for="{{ form.hasAssetAmountChanged.id_for_label }}"
+               class="form-label ms-2">Veränderung der Assetmenge</label>
+        {{ form.hasAssetAmountChanged }}
     </div>
-{% endblock content %}
+    <div class="form-check form-switch">
+        <label for="{{ form.hasNewFollower.id_for_label }}" class="form-label ms-2">Neuer Follower</label>
+        {{ form.hasNewFollower }}
+    </div>
+    <div class="form-check form-switch">
+        <label for="{{ form.hasLikedPost.id_for_label }}" class="form-label ms-2">Beitrags Like</label>
+        {{ form.hasLikedPost }}
+    </div>
+    <div class="form-check form-switch">
+        <label for="{{ form.hasLikedComment.id_for_label }}" class="form-label ms-2">Kommentar Like</label>
+        {{ form.hasLikedComment }}
+    </div>
+    <div class="form-check form-switch">
+        <label for="{{ form.hasNewComment.id_for_label }}" class="form-label ms-2">Neuer Kommentar</label>
+        {{ form.hasNewComment }}
+    </div>
+    <div class="form-check form-switch">
+        <label for="{{ form.hasSharedPost.id_for_label }}" class="form-label ms-2">Beitrag geteilt</label>
+        {{ form.hasSharedPost }}
+    </div>
+{% endblock settings %}

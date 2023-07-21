@@ -1,38 +1,27 @@
-{% extends "core/base.html" %}
+{% extends "settings_app/settingsOverview.html" %}
 {% load i18n %}
-{% block content %}
-    <div class="container">
-        <h1 class="text-center mb-5">{% trans "Portfolioeinstellungen" %}</h1>
-        <div class="card">
-            <div class="card-body">
-                <form method="post" class="ps-5 pe-5 pt-2">
-                    {% csrf_token %}
-                    <div class="form-group mb-3">
-                        <label for="dateTimeFormat">{% trans "Datums- und Zeitformat" %}</label>
-                        <select name="dateTimeFormat" class="form-control" id="dateTimeFormat">
-                            <option>DD.MM.YYYY HH:mm</option>
-                            <option>MM/DD/YYYY HH:mm</option>
-                            <option>YYYY-MM-DD HH:mm</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-3 mt-2">
-                        <label for="currencySelector">{% trans "Währung" %}</label>
-                        <select name="currencySelector"
-                                class="form-control"
-                                id="currencySelector"
-                                style="width: 20%">
-                            <option>{% trans "Euro" %}</option>
-                            <option>{% trans "USD" %}</option>
-                            <option>{% trans "Pfund" %}</option>
-                            <option>{% trans "Rubel" %}</option>
-                        </select>
-                    </div>
-                    <div class="d-flex justify-content-end gap-3">
-                        <button type="submit" class="btn btn-success">{% trans "Speichern" %}</button>
-                        <a href="{% url 'settings_app:overview' %}" class="btn btn-danger">{% trans "Zurück" %}</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+{% block settings_title %}
+    {% trans "Portfolioeinstellungen" %}
+{% endblock settings_title %}
+{% block class_selector_portfolio %}
+    chat-user-entry-selected
+{% endblock class_selector_portfolio %}
+{% block settings %}
+    <div>
+        <label for="dateTimeFormat" class="form-label">{% trans "Datums- und Zeitformat" %}</label>
+        <select name="dateTimeFormat" class="form-control" id="dateTimeFormat">
+            <option>DD.MM.YYYY HH:mm</option>
+            <option>MM/DD/YYYY HH:mm</option>
+            <option>YYYY-MM-DD HH:mm</option>
+        </select>
     </div>
-{% endblock content %}
+    <div>
+        <label for="currencySelector" class="form-label">{% trans "Währung" %}</label>
+        <select name="currencySelector" class="form-control" id="currencySelector">
+            <option>{% trans "Euro" %}</option>
+            <option>{% trans "USD" %}</option>
+            <option>{% trans "Pfund" %}</option>
+            <option>{% trans "Rubel" %}</option>
+        </select>
+    </div>
+{% endblock settings %}
