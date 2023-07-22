@@ -1,11 +1,7 @@
 """ Views for the core_app """
 
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
-from django.template.loader import render_to_string
-from api_app.models import Asset
-from user_app.models import CustomUser
-from django.db.models import Q
+from django.shortcuts import render
+
 from user_app import views as user_views
 
 
@@ -67,22 +63,3 @@ def question_and_answers(request):
     """ Render the questions and answers page. """
 
     return render(request, 'core/questions_and_answers.html')
-
-
-def search_results(request):
-    # Get the search value from the request
-    search_value = request.GET.get('username', '')
-
-    # Search for users and assets with a similar search value 
-    user_results = CustomUser.objects.filter(username__icontains=search_value)
-    asset_results = Asset.objects.filter(Q(name__icontains=search_value) | Q(coinName__icontains=search_value))
-
-    # Get the following-list by the signed user 
-    user_following_list = request.user.following.values_list(
-        "following_user_id", flat=True)
-    
-    # Create the result dictionary with the corresponding lists and hand them over to the template 'search_result.html'
-    results = {'users': user_results, 'assets': asset_results, 'followers': user_following_list}
-    response = [render_to_string('inclusion/search_result.html', results)]
-
-    return JsonResponse({'results': response})

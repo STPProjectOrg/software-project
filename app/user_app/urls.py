@@ -1,33 +1,34 @@
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
-from . import views
+from . import views_old
 from .forms import UserLoginForm, PasswordCustomResetForm, PasswordCustomSetForm
-from .views_new import biography
+from .views import biography
 
 app_name = 'user_app'
 
 urlpatterns = [
-    path('profile-redirect/', views.profile_redirect, name='profile_redirect'),
-    path('profile/<str:username>/<int:timespan>/', views.profile, name='profile'),
+    path('profile-redirect/', views_old.profile_redirect, name='profile_redirect'),
+    path('profile/<str:username>/<int:timespan>/',
+         views_old.profile, name='profile'),
     path('update/userprofile/<int:pk>',
-         views.update_user_profile_pic, name='update_userprofile'),
+         views_old.update_user_profile_pic, name='update_userprofile'),
     path('update/userbanner/<int:pk>',
-         views.update_user_profile_banner, name='update_userbanner'),
+         views_old.update_user_profile_banner, name='update_userbanner'),
     #     path('update/userprofile/<int:pk>',
     #          views.ProfilePicUpdateView.as_view(), name='update_userprofile'),
     #     path('update/userbanner/<int:pk>',
     #          views.ProfileBannerUpdateView.as_view(), name='update_userbanner'),
     path('delete/userprofile/<int:pk>',
-         views.delete_profile_pic, name='delete_userprofile'),
-    path('follow/<str:username>', views.toggle_follow, name='follow'),
+         views_old.delete_profile_pic, name='delete_userprofile'),
+    path('follow/<str:username>', views_old.toggle_follow, name='follow'),
     path('follower_list/<str:username>',
-         views.follower_list, name='follower_list'),
+         views_old.follower_list, name='follower_list'),
 
     # Registration
-    path('register', views.register, name='register'),
-    path('register/success', views.register_success, name='register_success'),
+    path('register', views_old.register, name='register'),
+    path('register/success', views_old.register_success, name='register_success'),
 
-    # Login
+    # Auth
     path('login', auth_views.LoginView.as_view(
         template_name='user_app/login.html', authentication_form=UserLoginForm), name='login'),
     path('logout', auth_views.LogoutView.as_view(
@@ -35,7 +36,7 @@ urlpatterns = [
 
     # Password reset
     path('password-reset/',
-         views.ResetPasswordView.as_view(
+         views_old.ResetPasswordView.as_view(
              template_name="user_app/password_recovery/reset_password.html",
              form_class=PasswordCustomResetForm),
          name='reset_password'),
@@ -44,7 +45,7 @@ urlpatterns = [
              template_name="user_app/password_recovery/reset_password_sent.html"),
          name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/',
-         views.ConfirmResetPasswordView.as_view(
+         views_old.ConfirmResetPasswordView.as_view(
              template_name="user_app/password_recovery/reset_password_confirm.html",
              form_class=PasswordCustomSetForm),
          name='password_reset_confirm'),

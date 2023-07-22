@@ -1,14 +1,14 @@
 {% load core_tags %}
 {% load i18n %}
 {% if not users and not assets %}
-    <tr class="text-center">
-        <td>
+    <tr>
+        <td class="border-0">
             <span>{% trans "Keine Ergebnisse gefunden!" %}</span>
         </td>
     </tr>
 {% endif %}
 {% if users %}
-    <tr>
+    <tr class="border-0">
         <td class="border-0 fs-5 fw-semibold text-white">Nutzer</td>
     </tr>
     {% for user in users %}
