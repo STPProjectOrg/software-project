@@ -16,12 +16,12 @@ services:
         ports:
             - 6379:6379
     worker_channels:
-        build: ./
+        build: ./app/
         command: python manage.py runworker -v2
         links:
             - redis
     channels:
-        build: ./
+        build: ./app/
         command: daphne -b 0.0.0.0 -p 8001 app.asgi:application
         ports:
             - 8001:8001
