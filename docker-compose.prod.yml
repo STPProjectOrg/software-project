@@ -1,7 +1,8 @@
 services:
   web:
     image: "${WEB_IMAGE}"
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    #command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
