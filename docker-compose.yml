@@ -12,5 +12,6 @@ services:
   redis:
     restart: unless-stopped
     image: redis:7.0.5-alpine 
+    command: redis-server
     expose:
         - 6379
