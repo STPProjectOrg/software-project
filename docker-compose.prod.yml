@@ -15,24 +15,6 @@ services:
         command: redis-server
         expose:
             - 6379
-        #ports:
-        #   - 6379:6379
-
-    # worker_channels:
-    #     build: ./app
-    #     command: python manage.py runworker
-    #     volumes:
-    #         - ./app:/app
-    #     links:
-    #         - redis
-
-    # channels:
-    #     image: "${WEB_IMAGE}"
-    #     command: daphne -b 0.0.0.0 -p 8001 app.asgi:application
-    #     ports:
-    #         - 8001:8001
-    #     links:
-    #         - redis
 
 volumes:
     static_volume:
