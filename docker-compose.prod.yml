@@ -15,11 +15,15 @@ services:
         command: redis-server
         ports:
             - 6379:6379
+
     worker_channels:
-        image: "${WEB_IMAGE}"
-        command: python manage.py runworker -v2
+        build: ./app
+        command: python manage.py runworker
+        volumes:
+            - ./app:/app
         links:
             - redis
+
     channels:
         image: "${WEB_IMAGE}"
         command: daphne -b 0.0.0.0 -p 8001 app.asgi:application
