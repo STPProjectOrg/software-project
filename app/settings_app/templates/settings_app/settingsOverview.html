@@ -23,7 +23,7 @@
                href="{% url 'settings_app:viewSettings' %}">{% trans "Anzeigeeinstellungen" %}</a>
             {% if user.is_superuser == 1 %}
                 <a class="d-flex gap-2 p-2 rounded border {% block class_selector_admin %}chat-user-entry{% endblock class_selector_admin %}"
-                   href="{% url 'api_app:api' %}">{% trans "API-Admin Panel" %}</a>
+                   href="{% url 'api_app:api_admin_panel' %}">{% trans "API-Admin Panel" %}</a>
             {% endif %}
         </div>
         <div class="col">

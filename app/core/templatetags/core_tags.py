@@ -5,8 +5,8 @@ from django import template
 from django.urls import reverse
 from api_app.models import Asset
 
-from api_app.cryptoservice import getCoinInformation
-from api_app.databaseservice import getCryptoValueFromDatabase
+from api_app.cryptoservice import get_asset_information
+from api_app.databaseservice import get_asset_value_from_database
 import cryptocompare
 
 register = template.Library()
@@ -129,4 +129,4 @@ def divide(value, arg):
 
 @register.filter
 def get_asset_picture(asset):
-    return getCoinInformation(asset.name).get("ImageUrl")
+    return get_asset_information(asset.name).get("ImageUrl")
