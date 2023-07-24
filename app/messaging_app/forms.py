@@ -1,5 +1,4 @@
 from django import forms
-from PIL import Image
 
 class AddMessageForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea(attrs={

@@ -16,7 +16,8 @@
                             {% if entry.unread_messages > 0 %}
                                 {# If Bedinung ändern #}
                                 <div class="ms-auto d-md-none">
-                                    <span class="badge chat-badge">{{ entry.last_message_sent_at }}</span> {# Nachrichten Anzahl einfügen #}
+                                    <span class="badge chat-badge">{{ entry.last_message_sent_at }}</span>
+                                    <span class="badge chat-badge">{{ entry.unread_messages }}</span>
                                 </div>
                             {% endif %}
                         </div>
@@ -109,6 +110,7 @@
                     </div>
                     <div class="card-footer">
                         <form class="my-2 d-flex flex-column gap-2"
+                                action="{% url 'messaging_app:create_message' participant %}"
                               method="post"
                               enctype='multipart/form-data'>
                             {% csrf_token %}
