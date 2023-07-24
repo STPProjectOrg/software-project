@@ -11,17 +11,17 @@
   <div class="d-flex flex-row">
     <div class="container">
       <h4>Historische Coin Daten hinzufügen</h3>
-      <form method="POST">
+      <form action="{% url 'api_app:add_asset_data' %}" method="POST">
         {% csrf_token %}
-        {{addAssetDataForm.as_p}}
+        {{add_asset_data_form.as_p}}
         <button type="submit" class="btn btn-info">Anfrage Senden</button>
       </form>
     </div>
     <div class="container">
       <h4>Coin hinzufügen</h3>
-      <form action="{% url 'api_app:addCoin' %}" method="POST">
+      <form action="{% url 'api_app:add_coin' %}" method="POST">
         {% csrf_token %}
-        {{ addCoinForm.as_p }}
+        {{ add_coin_form.as_p }}
         <button type="submit" class="btn btn-info">Anfrage Senden</button>
       </form>
     </div>
@@ -37,14 +37,6 @@
         <div class="list-group overflow-auto" style="height:33vh;">
           <p>Euro : EUR</p>
         </div>
-    </div>
-    <div class="container">
-      <h4>Währung hinzufügen Konsole</h4>
-      <div class="list-group overflow-auto" style="height:50vh;">
-        {% for message in addAssetDataMessages %}
-        <p style="margin: 0px;">{{ message }}</p>
-        {% endfor %}
-      </div>
     </div>
   </div>
 
