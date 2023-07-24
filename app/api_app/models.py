@@ -1,6 +1,5 @@
 from django.db import models
-from django.db.models import F, Value, OuterRef, Subquery
-from django.db.models.functions import FirstValue
+from django.db.models import OuterRef, Subquery
 
 class AssetManager(models.Manager):
     
@@ -9,7 +8,6 @@ class AssetManager(models.Manager):
         return super().get_queryset().annotate(
             price=Subquery(price_history_subquery.values('value')[:1]))
 
-# Create your models here.
 class Asset(models.Model):
     name = models.CharField(max_length=30, blank=False, unique=True)
     coinName = models.CharField(max_length=30, blank=False)
