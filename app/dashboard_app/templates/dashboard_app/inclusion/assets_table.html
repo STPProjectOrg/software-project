@@ -37,33 +37,19 @@
                     <td class="text-end">{{ asset.total_value|to_locale_valuta }}</td>
                     <td class="text-end">{{ asset.profit|to_locale_valuta }}</td>
                     <td class="text-center">
-                        <div class="dropstart">
+                        <div class="add_button">
                             <button class="btn btn-sm btn-outline-primary"
                                     type="button"
-                                    data-bs-toggle="dropdown"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#transaction_add_modal_{{ forloop.counter0 }}"
                                     aria-expanded="false">
                                 <i class="bi bi-gear"></i>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item"
-                                       href="#"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#transaction_buy_modal_{{ forloop.counter0 }}">Kaufen</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                       href="#"
-                                       data-bs-toggle="modal"
-                                       data-bs-target="#transaction_sell_modal_{{ forloop.counter0 }}">Verkaufen</a>
-                                </li>
-                            </ul>
                         </div>
                     </td>
                 </tr>
                 {% comment %} MODAL {% endcomment %}
-                {% transaction_buy_modal request.user asset forloop.counter0 %}
-                {% transaction_sell_modal request.user asset forloop.counter0 %}
+                {% transaction_add_modal request.user asset forloop.counter0 %}
             {% endfor %}
         </tbody>
         <tfoot>

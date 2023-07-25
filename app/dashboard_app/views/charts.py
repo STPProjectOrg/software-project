@@ -41,16 +41,26 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int, ano
             purchaseDate__lte=day).values('asset').distinct()
 
         # Calculate the value for the current day
-        value = sum(
-            Transaction.objects.filter(asset=asset['asset'], purchaseDate__lte=day).annotate(
-                invested=F('amount') *
-                Subquery(
-                    AssetHistory.objects.filter(
-                        name=asset['asset'], date=day).values('value')[:1]
-                )
-            ).values('invested')[0]['invested']
-            for asset in assets
-        )
+        value = 0
+        for asset in assets:
+            assetVal= AssetHistory.objects.filter(
+                name=asset['asset'], date=day).values('value')[:1].get()['value']
+
+            asset_transactions =  Transaction.objects.filter(asset=asset['asset'], purchaseDate__lte=day)
+            for transaction in asset_transactions:
+                value += transaction.amount*assetVal
+
+     
+        #value = sum(
+        #    Transaction.objects.filter(asset=asset['asset'], purchaseDate__lte=day).annotate(
+        #        invested=F('amount') *
+        #        Subquery(
+        #            AssetHistory.objects.filter(
+        #                name=asset['asset'], date=day).values('value')[:1]
+        #        )
+        #    ).values('invested')[0]['invested']
+        #    for asset in assets
+        #)
 
         data.append(value)
         labels.append(day.strftime("%d.%m.%Y"))
