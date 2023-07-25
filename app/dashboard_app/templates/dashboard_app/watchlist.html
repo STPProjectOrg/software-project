@@ -29,19 +29,6 @@
         </div>
         {% endif %}
     {% else %}
-    {% if not is_own_watchlist %}
-    {# Likes #}
-    <a href="{% url 'dashboard_app:like_watchlist' watchlist_id %}"
-       class="btn btn-link p-0 fw-bold">
-        <small class="d-flex gap-1">
-            <div class="my-auto">
-                <i class="bi bi-heart-fill m-auto"></i>
-            </div>
-            <div class="my-auto">{{ watchlist_likes }}</div>
-            <div class="my-auto">{% trans "Likes" %}</div>
-        </small>
-    </a>
-    {% endif %}
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -89,7 +76,7 @@
                                         {% endif %}
                                       </th>
 
-                                      <th scope="col" class="text-center">price_change</th>
+                                      <th scope="col" class="text-center">Preis Change</th>
                                       {% if is_own_watchlist %}
                                       <th scope="col" class="text-center">
                                         {% if sort_by == "added_atAsc" %}
@@ -110,7 +97,6 @@
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolioAsc' %}">Portfolio <i class="bi bi-funnel-fill"></i></a>
                                         {% endif %}
                                       </th>
-                                      <th scope="col" class="text-center">Transactions</th>
                                       {% endif %}
                                     </tr>
                                 </thead>

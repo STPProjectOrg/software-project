@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, date
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from dashboard_app.models import Watchlist, Transaction, WatchlistLike, WatchlistAsset
+from dashboard_app.models import Watchlist, Transaction, WatchlistAsset
 from api_app.models import Asset, AssetHistory
 
 
@@ -84,22 +84,3 @@ def watchlist_update_asset_price_change(request, asset_symbol, price_change):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def like_watchlist(request, watchlist_id):
-    """
-    Toggles a 'WatchlistLikes' entrie by a given watchlist_id and the requesting user.
-
-    Keyword arguments:
-        watchlist_id: The id of the 'Watchlist' to be liked.
-    """
-
-    # Try deleting database entry
-    try:
-        WatchlistLike.objects.filter(
-            user=request.user.id, watchlist=watchlist_id).get().delete()
-
-    # Else create new entry
-    except ObjectDoesNotExist:
-        WatchlistLike.objects.create(user=request.user,
-                                     watchlist=Watchlist.objects.get(id=watchlist_id))
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
