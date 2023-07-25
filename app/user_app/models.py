@@ -37,6 +37,8 @@ class ProfileBanner(models.Model):
     class BannerChoices(models.TextChoices):
         BANNER_1 = settings.BANNER_1_URL
         BANNER_2 = settings.BANNER_2_URL
+        BANNER_3 = settings.BANNER_3_URL
+        BANNER_4 = settings.BANNER_4_URL
 
     profile_banner = models.CharField(max_length=255,
                                       choices=BannerChoices.choices,
