@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from api_app.models import Asset
 from dashboard_app.views import charts
 from dashboard_app.views import kpi
-from dashboard_app.models import Watchlist, WatchlistAsset, WatchlistLike
+from dashboard_app.models import Watchlist, WatchlistAsset
 from dashboard_app.models import Transaction
 from dashboard_app.views.watchlist import get_watchlist
 from user_app.models import CustomUser
@@ -61,7 +61,6 @@ def watchlist(request, username, sort_by):
             "watchlist": get_watchlist(user, watchlist_id, sort_by), 
             "watchlist_id": watchlist_id, 
             "username": user.username,
-            "watchlist_likes": WatchlistLike.objects.filter(watchlist=watchlist_id).count(),
             "is_own_watchlist": request.user.username == username,
             "sort_by": sort_by,
             "watchlist_privacy_settings": watchlist[0].privacy_settings

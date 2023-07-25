@@ -34,7 +34,3 @@ class WatchlistAsset(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     added_at = models.DateTimeField()
     price_change = models.IntegerField(default=30)
-
-class WatchlistLike(models.Model):
-    watchlist = models.ForeignKey(Watchlist, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
