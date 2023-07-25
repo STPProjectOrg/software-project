@@ -76,7 +76,7 @@
                                         {% endif %}
                                       </th>
 
-                                      <th scope="col" class="text-center">price_change</th>
+                                      <th scope="col" class="text-center">Preis Change</th>
                                       {% if is_own_watchlist %}
                                       <th scope="col" class="text-center">
                                         {% if sort_by == "added_atAsc" %}
@@ -97,7 +97,6 @@
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolioAsc' %}">Portfolio <i class="bi bi-funnel-fill"></i></a>
                                         {% endif %}
                                       </th>
-                                      <th scope="col" class="text-center">Transactions</th>
                                       {% endif %}
                                     </tr>
                                 </thead>
