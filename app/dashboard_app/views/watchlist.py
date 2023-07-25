@@ -26,7 +26,7 @@ def get_watchlist(user, watchlist, sort_by):
         asset = Asset.objects.get(id=watchlist_asset.asset_id)
 
         today = str(date.today()) # For live-server
-        # today = str("2023-05-20")  # For development
+        #today = str("2023-05-20")  # For development
 
         d = datetime.strptime(today, "%Y-%m-%d").date()
         price = AssetHistory.objects.get(name_id=asset.id, date=today)
