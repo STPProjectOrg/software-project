@@ -2,7 +2,7 @@ import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.exceptions import StopConsumer
-from notification_app.methods.notification_methods import (
+from app.notification_app.methods.notification_methods import (
     create_notification,
     delete_all_notifications,
     delete_notification,
