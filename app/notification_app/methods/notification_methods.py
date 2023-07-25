@@ -1,9 +1,7 @@
 from channels.db import database_sync_to_async
-from notification_app.models import Notification
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
-
 from user_app.models import CustomUser
+from notification_app.models import Notification
+from asgiref.sync import async_to_sync
 
 
 @database_sync_to_async

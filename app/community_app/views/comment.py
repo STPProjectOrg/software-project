@@ -1,15 +1,11 @@
 """ view-functions related to community_app.comment """
 
 from datetime import datetime
-import json
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from notification_app.methods import get_notifications, send_notification
-from notification_app.consumer import NotificationConsumer
+from notification_app.methods.notification_methods import send_notification
 from community_app.models import Comment, Post, CommentLike
 from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
-from django.core import serializers
 
 
 channel_layer = get_channel_layer()
