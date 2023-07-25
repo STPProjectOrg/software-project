@@ -3,7 +3,7 @@
      tabindex="-1"
      aria-labelledby="profileBannerModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="profileBannerModalLabel">Banner anpassen</h1>
@@ -18,9 +18,13 @@
                 <div class="modal-body">
                     {% for banner in banners %}
                     <div class="form-check">
-                            <input class="form-check-input" type="radio" name="profile_banner" id="{{ banner }}" value="{{ banner }}">
-                            <label class="form-check-label" for="{{ banner }}">
-                                {{ banner }}
+                            <input class="form-check-input" type="radio" 
+                                {% if banner.0 == current_banner %}
+                                    checked
+                                {% endif %}
+                                name="profile_banner" id="{{ banner.1 }}" value="{{ banner.0 }}">
+                            <label class="form-check-label" for="{{ banner.1 }}">
+                                <img src="{{ banner.0 }}" class="img-fluid">
                             </label>
                     {% endfor %}
                     </div>
