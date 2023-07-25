@@ -193,6 +193,8 @@ STATICFILES_DIRS = [
 DEFAULT_IMAGE_URL = STATIC_URL + 'default_profile.png'
 BANNER_1_URL = STATIC_URL + 'banner_1.png'
 BANNER_2_URL = STATIC_URL + 'banner_2.png'
+BANNER_3_URL = STATIC_URL + 'banner_3.png'
+BANNER_4_URL = STATIC_URL + 'banner_4.png'
 
 # Media files (profile-pics)
 MEDIA_ROOT = BASE_DIR / "media"
