@@ -44,7 +44,7 @@ def create_message(from_user, to_user_username, message, image):
     """
 
     to_user = CustomUser.objects.get(username=to_user_username)
-    data = Message.objects.create(
+    createdMessage = Message.objects.create(
         from_user=from_user,
         to_user=to_user,
         message=message,
@@ -58,7 +58,46 @@ def create_message(from_user, to_user_username, message, image):
     create_or_update_inbox_participant(
         to_user, from_user, message)
 
-    return data
+    return createdMessage
+
+
+@database_sync_to_async
+def get_chat_messages(user, chat_participant):
+    """
+    Get a list of all chat 'Messages' between the user and the chat participant.
+
+    Keyword arguments:
+        user:               The user that is signed in.
+        chat_participant:   The chat participant.
+    """
+
+    chat_messages_user_logged_in = Message.objects.filter(
+        from_user=user, to_user=chat_participant)
+
+    chat_messages_participant = Message.objects.filter(
+        from_user=chat_participant, to_user=user)
+
+    chat_messages_combined = (chat_messages_user_logged_in |
+                              chat_messages_participant).order_by('created_at')
+
+    update_message_read(chat_messages_combined, chat_participant)
+
+    return reversed(chat_messages_combined)
+
+
+def update_message_read(messages, chat_participant):
+    """
+    Update all 'Message' and set 'message_read = True'.
+
+    Keyword arguments:
+        messages:           All messages between the users.
+        chat_participant:   The chat participant.
+    """
+
+    for mes in messages:
+        if mes.message_read == False:
+            Message.objects.filter(
+                id=mes.id, from_user=chat_participant).update(message_read=True)
 
 
 @database_sync_to_async

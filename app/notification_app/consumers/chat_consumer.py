@@ -3,7 +3,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.exceptions import StopConsumer
 
-from notification_app.methods.chat_methods import create_or_update_inbox_participant, get_participants, remove_channel_layer, save_channel_layer
+from notification_app.methods.chat_methods import create_message, create_or_update_inbox_participant, get_chat_messages, get_participants, remove_channel_layer, save_channel_layer
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -54,6 +54,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await remove_channel_layer(self.scope["user"].id)
         raise StopConsumer()
 
+    async def websocket_create_message(self, message):
+        """
+        This method is used to create a 'Message'.
+        """
+        data = message.get("data")
+
+        message = await create_message(
+            data["from_user"],
+            data["to_user"],
+            data["message"],
+            data["image"]
+        )
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.create_message",
+                "consumer": "chat_consumer",
+                "message": message,
+            })
+        )
+
     async def websocket_inbox_messages(self, message):
         """
         This method is used to send all messages of an inbox to the user.
@@ -66,6 +87,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "type": "websocket.inbox_messages",
                 "consumer": "chat_consumer",
                 "participants": participants,
+            })
+        )
+
+    async def websocket_chat_messages(self, message):
+        """
+        """
+        messages = await get_chat_messages(
+            self.scope["user"], message["chat_participant"])
+
+        await self.send(
+            json.dumps({
+                "type": "websocket.chat_messages",
+                "consumer": "chat_consumer",
+                "messages": messages,
             })
         )
 
