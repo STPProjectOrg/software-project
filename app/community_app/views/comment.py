@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from channels.layers import get_channel_layer
 from community_app.models import Comment, Post, CommentLike
-from app.notification_app.methods.notification_methods import send_notification
+from notification_app.methods.notification_methods import send_notification
 
 
 channel_layer = get_channel_layer()
