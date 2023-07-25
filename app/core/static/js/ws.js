@@ -3,7 +3,7 @@
     if (loc.protocol == "https:"){
         wsStart = "wss://"
     }
-    var webSocketEndpoint =  wsStart + loc.host + '/notifications/'  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
+    var webSocketEndpoint =  wsStart + loc.host + '/chat/'  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
 
 
     var socket = new WebSocket(webSocketEndpoint) // Creating a new Web Socket Connection

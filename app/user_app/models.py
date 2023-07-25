@@ -13,6 +13,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=30, blank=False)
     email = models.EmailField(unique=True, blank=False)
     ws_state = models.BooleanField(default=False)
+    channel_name = models.CharField(max_length=255, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
@@ -30,10 +31,11 @@ class UserFollowing(models.Model):
     def __str__(self):
         return f'{self.follower_user.username} follows {self.following_user.username}'
 
+
 class ProfileBanner(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+
     class BannerChoices(models.TextChoices):
         BANNER_1 = settings.BANNER_1_URL
         BANNER_2 = settings.BANNER_2_URL
@@ -41,20 +43,21 @@ class ProfileBanner(models.Model):
     profile_banner = models.CharField(max_length=255,
                                       choices=BannerChoices.choices,
                                       default=BannerChoices.BANNER_1)
-    
+
     def __str__(self):
         return f'{self.user.username} Banner'
-    
+
     def get_banner_choices(self):
         return self.BannerChoices.names
-    
+
     def get_test(self):
         # return self.BannerChoices(self.profile_banner).name
         return getattr(self.BannerChoices, "BANNER_1", None)
-    
+
     def get_profile_banner(self):
         # return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
         return self.profile_banner
+
 
 class UserProfileInfo(models.Model):
 
@@ -64,10 +67,10 @@ class UserProfileInfo(models.Model):
     # additional attributes for user
     profile_pic = models.ImageField(
         upload_to='profile_pics', blank=True, null=True)
-    
+
     def __str__(self):
         return f'{self.user.username} Profile'
-    
+
     def get_profile_pic(self):
         return self.profile_pic.url if self.profile_pic else settings.DEFAULT_IMAGE_URL
 
@@ -83,8 +86,6 @@ class UserProfileInfo(models.Model):
                 img = img.resize(output_size, Image.Resampling.LANCZOS)
                 # overwrite the larger image
                 img.save(self.profile_pic.path)
-
-
 
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)
