@@ -2,7 +2,7 @@
 
 from django import template
 from dashboard_app.models import Transaction
-from dashboard_app.forms import TransactionBuyForm, TransactionSellForm, TransactionUpdateForm
+from dashboard_app.forms import TransactionAddForm, TransactionUpdateForm
 
 register = template.Library()
 
@@ -35,18 +35,11 @@ def assets_table(context):
             "kpi": context["kpi"]}
 
 
-@register.inclusion_tag("dashboard_app/modals/transaction_buy_modal.html")
-def transaction_buy_modal(user, asset, id):
+@register.inclusion_tag("dashboard_app/modals/transaction_add_modal.html")
+def transaction_add_modal(user, asset, id):
     """ Include a modal for creating a buy-transaction. """
 
-    return {"user": user, "asset": asset, "id": id, "form": TransactionBuyForm()}
-
-
-@register.inclusion_tag("dashboard_app/modals/transaction_sell_modal.html")
-def transaction_sell_modal(user, asset, id):
-    """ Include a modal for creating a buy-transaction. """
-
-    return {"user": user, "asset": asset, "id": id, "form": TransactionSellForm()}
+    return {"user": user, "asset": asset, "id": id, "form": TransactionAddForm()}
 
 
 @register.inclusion_tag("dashboard_app/modals/transaction_update_modal.html")
@@ -71,9 +64,9 @@ def transaction_delete_modal(id):
 
 
 @register.inclusion_tag("dashboard_app/inclusion/watchlist_asset.html")
-def include_watchlist_asset(asset):
+def include_watchlist_asset(asset, is_own_watchlist):
     """include KPI element"""
-    return {"asset": asset}
+    return {"asset": asset, "is_own_watchlist": is_own_watchlist}
 
 
 @register.inclusion_tag("dashboard_app/inclusion/coin_overview_asset.html")

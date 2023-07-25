@@ -29,19 +29,6 @@
         </div>
         {% endif %}
     {% else %}
-    {% if not is_own_watchlist %}
-    {# Likes #}
-    <a href="{% url 'dashboard_app:like_watchlist' watchlist_id %}"
-       class="btn btn-link p-0 fw-bold">
-        <small class="d-flex gap-1">
-            <div class="my-auto">
-                <i class="bi bi-heart-fill m-auto"></i>
-            </div>
-            <div class="my-auto">{{ watchlist_likes }}</div>
-            <div class="my-auto">{% trans "Likes" %}</div>
-        </small>
-    </a>
-    {% endif %}
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -80,6 +67,7 @@
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffAsc' %}">Preis vor X Tagen  <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                       </th>
+
                                       <th scope="col" class="text-center">
                                         {% if sort_by == "pricediffpercentAsc" %}
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffpercentDesc' %}">Differenz in %  <i class="bi bi-sort-numeric-down"></i></a>
@@ -87,7 +75,9 @@
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffpercentAsc' %}">Differenz in %  <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                       </th>
-                                      <th scope="col" class="text-center">price_change</th>
+
+                                      <th scope="col" class="text-center">Preis Change</th>
+                                      {% if is_own_watchlist %}
                                       <th scope="col" class="text-center">
                                         {% if sort_by == "added_atAsc" %}
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'added_atDesc' %}">Hinzugefügt am <i class="bi bi-sort-numeric-down"></i></a>
@@ -95,9 +85,11 @@
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'added_atAsc' %}">Hinzugefügt am <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                       </th>
+                                      {% endif %}
                                       <th scope="col" class="text-center">
                                             Watchlist
                                       </th>
+                                      {% if is_own_watchlist %}
                                       <th scope="col" class="text-center">
                                         {% if sort_by == "isInPortfolioAsc" %}
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolioDesc' %}">Portfolio <i class="bi bi-funnel"></i></a>
@@ -105,13 +97,13 @@
                                             <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolioAsc' %}">Portfolio <i class="bi bi-funnel-fill"></i></a>
                                         {% endif %}
                                       </th>
-                                      <th scope="col" class="text-center">Transactions</th>
+                                      {% endif %}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% if watchlist_privacy_settings == "all" or is_own_watchlist %}
                                     {% for asset in watchlist %}
-                                      {% include_watchlist_asset asset %}
+                                      {% include_watchlist_asset asset is_own_watchlist %}
                                     {% comment %} MODAL {% endcomment %}
                                 {% endfor %}
                                 {% endif %}

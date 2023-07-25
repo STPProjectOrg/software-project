@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 
-from user_app import views as user_views
+from user_app.views import profile
 
 
 def debug(request):
@@ -19,7 +19,7 @@ def index(request):
     """
 
     if request.user.is_authenticated:
-        return user_views.profile(request, request.user.username, 0)
+        return profile.profile(request, request.user.username, 0)
 
     return render(request, 'core/landing.html')
 

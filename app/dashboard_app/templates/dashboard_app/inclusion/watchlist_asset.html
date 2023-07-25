@@ -48,14 +48,13 @@
             </ul>
         </div>
     </td>
-    <td class="text-center align-middle">{{ asset.added_at }}</td>
-    <td class="text-center align-middle">
-        <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
-    </td>
-    <td class="text-center align-middle">{{ asset.isInPortfolio }}</td>
-    {% if asset.isInPortfolio %}
-        <td class="text-center align-middle">Kaufen / Verkaufen</td>
-    {% else %}
-        <td class="text-center align-middle">Kaufen</td>
+    {% if is_own_watchlist %}
+        <td class="text-center align-middle">{{ asset.added_at }}</td>
+    {% endif %}
+        <td class="text-center align-middle">
+            <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"><i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
+        </td>
+    {% if is_own_watchlist %}
+        <td class="text-center align-middle">{{ asset.isInPortfolio }}</td>
     {% endif %}
 </tr>

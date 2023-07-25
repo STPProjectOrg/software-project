@@ -15,7 +15,7 @@
             </div>
             <div>
                 <a class="btn btn-link text-start p-0 text-body"
-                   href="{% url 'user_app:profile' post.user.username %}">
+                   href="{% url 'user_app:profile' post.user.username 0 %}">
                     <div class="fw-semibold text-white fs-5">{{ post.user.first_name }} {{ post.user.last_name }}</div>
                 </a>
                 <div>
