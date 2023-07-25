@@ -64,9 +64,9 @@ def transaction_delete_modal(id):
 
 
 @register.inclusion_tag("dashboard_app/inclusion/watchlist_asset.html")
-def include_watchlist_asset(asset):
+def include_watchlist_asset(asset, is_own_watchlist):
     """include KPI element"""
-    return {"asset": asset}
+    return {"asset": asset, "is_own_watchlist": is_own_watchlist}
 
 
 @register.inclusion_tag("dashboard_app/inclusion/coin_overview_asset.html")
