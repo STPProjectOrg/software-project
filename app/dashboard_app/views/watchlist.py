@@ -48,7 +48,7 @@ def convert_watchlist(watchlist, sort_by_attribute, direction):
             "coinName": watchlist_asset.asset.coinName,
             "price": current_price.value,
             "pricediff": price_difference.value,
-            "pricediffpercent": round(((current_price.value / price_difference.value) - 1) * 100, 4),
+            "pricediffpercent": round(((current_price.value / price_difference.value) - 1) * 100, 2),
             "added_at": watchlist_asset.added_at,
             "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=watchlist_asset.asset).exists(),
             "isInPortfolio": Transaction.objects.filter(user=watchlist.user, asset=watchlist_asset.asset).exists(),
