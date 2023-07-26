@@ -32,10 +32,12 @@ def get_watchlist(user, watchlist, sort_by):
         price = AssetHistory.objects.get(name_id=asset.id, date=today)
         try:
             pricediff = AssetHistory.objects.get(
-                name_id=asset.id, date=d-timedelta(days=watchlist_asset.price_change))
+                name_id=asset.id, 
+                date=d-timedelta(days=watchlist_asset.price_change))
         except:
             pricediff = AssetHistory.objects.get(
-                name_id=asset.id, date=d-timedelta(days=0))
+                name_id=asset.id, 
+                date=d-timedelta(days=0))
         pricediffpercent = round((price.value / pricediff.value) - 1, 4)
         data = {
             "imageUrl": asset.imageUrl,
@@ -76,10 +78,9 @@ def handle_sort_by(assets, sort_by):
 
 
 def watchlist_update_asset_price_change(request, asset_symbol, price_change):
-    asset = Asset.objects.get(name=asset_symbol)
-    watchlist = Watchlist.objects.get(user=request.user)
     WatchlistAsset.objects.filter(
-        watchlist=watchlist, asset=asset).update(price_change=price_change)
+        watchlist=Watchlist.objects.get(user=request.user), 
+        asset=Asset.objects.get(name=asset_symbol)).update(price_change=price_change)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

@@ -42,7 +42,7 @@ def dashboard(request, timespan):
 
 @login_required
 def asset(request, name, timespan):
-    """ Render an asset. """
+    """ Render the asset page. """
 
     asset = Asset.objects.get(name=name)
     watchlist = Watchlist.objects.get(user=request.user)
@@ -54,6 +54,8 @@ def asset(request, name, timespan):
 
 @login_required
 def watchlist(request, username, sort_by):
+    """ Render the watchlist page. """
+    
     user = CustomUser.objects.get(username=username)
     watchlist = Watchlist.objects.get_or_create(user=user)
     watchlist_id = watchlist[0].id
