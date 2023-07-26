@@ -4,7 +4,14 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.exceptions import StopConsumer
 from user_app.models import CustomUser
 
-from notification_app.methods.chat_methods import create_message, create_or_update_inbox_participant, get_chat_messages, get_participants, remove_channel_layer, save_channel_layer
+from notification_app.methods.chat_methods import (
+    create_message,
+    create_or_update_inbox_participant,
+    get_chat_messages,
+    get_participants,
+    remove_channel_layer,
+    save_channel_layer
+)
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -47,6 +54,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.add(
             {
                 "type": "websocket.create_message",
+                "consumer": "chat_consumer",
                 "message": message
             }
         )
@@ -60,7 +68,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         This method is used to create a 'Message'.
         """
         data = message.get("data")
-        receiver = CustomUser.objects.get(id=data["to_user"]).channel_name
 
         message = await create_message(
             data["from_user"],
@@ -77,8 +84,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             })
         )
 
-        # Es müssen hierbei nachrichten an beide channel_layer gesendet werden
-        # Empfänger und Sender
         self.channel_layer.send(
             {
                 "type": "websocket.create_or_update_inbox_participant",
@@ -112,6 +117,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         """
         messages = await get_chat_messages(
             self.scope["user"], message["chat_participant"])
+
+        # Hier muss gesagt werden dass die Nachrichten als gelesen gelten
 
         await self.send(
             json.dumps({
@@ -170,9 +177,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )
 
-        receiver.send(
-            json.dumps({
+        self.channel_layer.send(
+            receiver,
+            {
                 "type": "websocket.chat_and_inbox_messages",
                 "consumer": "chat_consumer",
-            })
+            }
         )

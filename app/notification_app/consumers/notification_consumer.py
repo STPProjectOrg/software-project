@@ -30,6 +30,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             await self.send(
                 json.dumps({
                     "type": "websocket.connect",
+                    "consumer": "notification_consumer",
                     "group": self.group_name,
                     "message": "Successfully connected to websocket."
                 })
@@ -39,6 +40,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                 f"{self.group_name}",
                 {
                     "type": "websocket.all_notifications",
+                    "consumer": "notification_consumer",
                 }
             )
 
@@ -46,6 +48,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.receive",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "message": "Received message."
             })
@@ -55,6 +58,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f"{self.group_name}",
             {
                 "type": "websocket.create_notification",
+                "consumer": "notification_consumer",
                 "message": message
             }
         )
@@ -85,6 +89,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.all_notifications",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "notifications": parsed_notifications,
             })
@@ -106,6 +111,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.create_notification",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "message": "Successfully created notification.",
                 "notification_id": notification.id,
@@ -119,6 +125,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f"{data.get('user')}",
             {
                 "type": "websocket.all_notifications",
+                "consumer": "notification_consumer",
             }
         )
 
@@ -132,6 +139,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.delete_notification",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "message": "Removed notification.",
             })
@@ -141,6 +149,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f"{message['data'].get('user')}",
             {
                 "type": "websocket.all_notifications",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
             }
         )
@@ -154,6 +163,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.delete_all_notifications",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "message": "Removed all notifications."
             })
@@ -163,6 +173,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f"{self.group_name}",
             {
                 "type": "websocket.all_notifications",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
             }
         )
@@ -178,6 +189,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.mark_as_read",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "message": "Marked notification as read.",
             })
@@ -187,6 +199,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f"{self.group_name}",
             {
                 "type": "websocket.all_notifications",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
             }
         )
@@ -201,6 +214,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         await self.send(
             json.dumps({
                 "type": "websocket.mark_all_as_read",
+                "consumer": "notification_consumer",
                 "group": self.group_name,
                 "message": "Marked all notifications as read.",
             })
@@ -210,5 +224,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f"{self.group_name}",
             {
                 "type": "websocket.notifications",
+                "consumer": "notification_consumer",
             }
         )

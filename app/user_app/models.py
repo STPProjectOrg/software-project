@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=30, blank=False)
     email = models.EmailField(unique=True, blank=False)
     ws_state = models.BooleanField(default=False)
-    channel_layer = models.CharField(max_length=255, blank=True)
+    channel_name = models.CharField(max_length=255, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
