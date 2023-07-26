@@ -4,8 +4,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from dashboard_app.models import Watchlist, Transaction, WatchlistAsset
 from api_app.models import Asset, AssetHistory
 
-
 def watchlist_add(request, asset_symbol):
+    """
+    Add a 'WatchlistAsset' to the logged in users 'Watchlist'.
+
+    Keyword arguments:
+        asset_symbol:       The 'Asset' given as symbol.
+    """
+        
     # Try deleting database entry
     asset = Asset.objects.get(name=asset_symbol)
     watchlist = Watchlist.objects.get(user=request.user)
@@ -20,66 +26,85 @@ def watchlist_add(request, asset_symbol):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-def get_watchlist(user, watchlist, sort_by):
+def convert_watchlist(watchlist, sort_by_attribute, direction):
+    """
+    Convert the 'Watchlist' of the provided user to a custom dictionary.
+
+    Keyword arguments:
+        watchlist:          The 'Watchlist' to convert.
+        sort_by_attribute:  The attribute to be sorted by.
+        direction:          The sorting direction - Ascending 'asc' or Descending 'desc'.
+    """
+        
     assets = []
     for watchlist_asset in WatchlistAsset.objects.filter(watchlist=watchlist):
-        asset = Asset.objects.get(id=watchlist_asset.asset_id)
 
-        today = str(date.today()) # For live-server
-        #today = str("2023-05-20")  # For development
+        current_price = calculate_price_difference(watchlist_asset.asset.id, 0)
+        price_difference = calculate_price_difference(watchlist_asset.asset.id, watchlist_asset.price_change)
 
-        d = datetime.strptime(today, "%Y-%m-%d").date()
-        price = AssetHistory.objects.get(name_id=asset.id, date=today)
-        try:
-            pricediff = AssetHistory.objects.get(
-                name_id=asset.id, date=d-timedelta(days=watchlist_asset.price_change))
-        except:
-            pricediff = AssetHistory.objects.get(
-                name_id=asset.id, date=d-timedelta(days=0))
-        pricediffpercent = round((price.value / pricediff.value) - 1, 4)
         data = {
-            "imageUrl": asset.imageUrl,
-            "name": asset.name,
-            "coinName": asset.coinName,
-            "price": price.value,
-            "pricediff": pricediff.value,
-            "pricediffpercent": pricediffpercent,
+            "imageUrl": watchlist_asset.asset.imageUrl,
+            "name": watchlist_asset.asset.name,
+            "coinName": watchlist_asset.asset.coinName,
+            "price": current_price.value,
+            "pricediff": price_difference.value,
+            "pricediffpercent": round(((current_price.value / price_difference.value) - 1) * 100, 4),
             "added_at": watchlist_asset.added_at,
-            "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=asset).exists(),
-            "isInPortfolio": Transaction.objects.filter(user=user, asset=asset).exists(),
+            "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=watchlist_asset.asset).exists(),
+            "isInPortfolio": Transaction.objects.filter(user=watchlist.user, asset=watchlist_asset.asset).exists(),
             "price_change": watchlist_asset.price_change,
         }
         assets.insert(0, data)
 
-    return handle_sort_by(assets, sort_by)
+    return sort_watchlist_by(assets, sort_by_attribute, direction)
+
+def calculate_price_difference(asset_id, price_change):
+    """
+    Calculates the price difference of an asset by the provided time and todays date.
+
+    Keyword arguments:
+        asset_id:           ID of the asset.
+        price_change:       The price_change in days that is saved in the 'WatchlistAsset'.
+    """
+    today = date.today()
+    # today = date.fromisoformat('2023-05-20')
+    try:
+        return AssetHistory.objects.get(
+            name_id=asset_id, 
+            date=today - timedelta(days=price_change))
+    except:
+        return AssetHistory.objects.filter(
+            name_id=asset_id).order_by('-date')[0]
 
 
-def handle_sort_by(assets, sort_by):
-    match sort_by:
-        case "nameAsc": return sorted(assets, key=lambda item: item["name"])
-        case "nameDesc": return sorted(assets, key=lambda item: item["name"])[::-1]
-        case "coinNameAsc": return sorted(assets, key=lambda item: item["coinName"])
-        case "coinNameDesc": return sorted(assets, key=lambda item: item["coinName"])[::-1]
-        case "priceAsc": return sorted(assets, key=lambda item: item["price"])
-        case "priceDesc": return sorted(assets, key=lambda item: item["price"])[::-1]
-        case "pricediffAsc": return sorted(assets, key=lambda item: item["pricediff"])
-        case "pricediffDesc": return sorted(assets, key=lambda item: item["pricediff"])[::-1]
-        case "pricediffpercentAsc": return sorted(assets, key=lambda item: item["pricediffpercent"])
-        case "pricediffpercentDesc": return sorted(assets, key=lambda item: item["pricediffpercent"])[::-1]
-        case "added_atAsc": return sorted(assets, key=lambda item: item["added_at"])
-        case "added_atDesc": return sorted(assets, key=lambda item: item["added_at"])[::-1]
-        case "isInWatchlistAsc": return sorted(assets, key=lambda item: item["isInWatchlist"])
-        case "isInWatchlistDesc": return sorted(assets, key=lambda item: item["isInWatchlist"])[::-1]
-        case "isInPortfolioAsc": return sorted(assets, key=lambda item: item["isInPortfolio"])
-        case "isInPortfolioDesc": return sorted(assets, key=lambda item: item["isInPortfolio"])[::-1]
-        case _: return assets
+def sort_watchlist_by(assets, sort_by_attribute, direction):
+    """
+    Simply handles the sorting of a 'Watchlist'.
 
+    Keyword arguments:
+        sort_by_attribute: The attribute to be sorted by.
+        direction:         The sorting direction - Ascending 'asc' or Descending 'desc'.
+    """
 
-def watchlist_update_asset_price_change(request, asset_symbol, price_change):
-    asset = Asset.objects.get(name=asset_symbol)
-    watchlist = Watchlist.objects.get(user=request.user)
+    if direction == 'asc':
+        return sorted(assets, key=lambda item: item[sort_by_attribute])
+    elif direction == 'desc':
+        return sorted(assets, key=lambda item: item[sort_by_attribute])[::-1]
+    else:
+        return assets
+
+def watchlist_update_asset_price_change(request, asset_symbol, price_change_time):
+    """
+    Update the 'price_change' attribute of an 'WatchlistAsset'-Entry.
+
+    Keyword arguments:
+        asset_symbol:       The Asset in Watchlist to be updated.
+        price_change_time:  The price_change_time to be updated in days given by dropdown-menu in watchlist.
+    """
+
     WatchlistAsset.objects.filter(
-        watchlist=watchlist, asset=asset).update(price_change=price_change)
+        watchlist=Watchlist.objects.get(user=request.user), 
+        asset=Asset.objects.get(name=asset_symbol)).update(price_change=price_change_time)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

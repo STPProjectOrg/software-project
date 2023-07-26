@@ -8,12 +8,9 @@ from dashboard_app.views import charts
 from dashboard_app.views import kpi
 from dashboard_app.models import Watchlist, WatchlistAsset
 from dashboard_app.models import Transaction
-from dashboard_app.views.watchlist import get_watchlist
+from dashboard_app.views.watchlist import convert_watchlist
 from user_app.models import CustomUser
-from api_app.databaseservice import get_all_assets_from_database
-
-# Create your views here.
-
+from dashboard_app.views.coin_overview import get_coin_overview
 
 @login_required
 def dashboard(request, timespan):
@@ -42,29 +39,35 @@ def dashboard(request, timespan):
 
 @login_required
 def asset(request, name, timespan):
-    """ Render an asset. """
+    """ Render the asset page. """
 
     asset = Asset.objects.get(name=name)
     watchlist = Watchlist.objects.get(user=request.user)
+
     data = {"asset": asset,
             'asset_in_watchlist': WatchlistAsset.objects.filter(watchlist=watchlist, asset=asset).exists(),
             "line_data": charts.get_asset_line_data(asset, timespan)}
+    
     return render(request, 'dashboard_app/asset.html', data)
 
 
 @login_required
-def watchlist(request, username, sort_by):
+def watchlist(request, username, sort_by_attribute, direction):
+    """ Render the watchlist page. """
+    
     user = CustomUser.objects.get(username=username)
-    watchlist = Watchlist.objects.get_or_create(user=user)
-    watchlist_id = watchlist[0].id
+    watchlist = Watchlist.objects.get_or_create(user=user)[0]
+
     data = {
-            "watchlist": get_watchlist(user, watchlist_id, sort_by), 
-            "watchlist_id": watchlist_id, 
+            "watchlist": convert_watchlist(watchlist, sort_by_attribute, direction), 
+            "watchlist_id": watchlist.id, 
             "username": user.username,
             "is_own_watchlist": request.user.username == username,
-            "sort_by": sort_by,
-            "watchlist_privacy_settings": watchlist[0].privacy_settings
+            "sort_by_attribute": sort_by_attribute,
+            "direction": direction,
+            "watchlist_privacy_settings": watchlist.privacy_settings
             }
+    
     return render(request, 'dashboard_app/watchlist.html', context=data)
 
 
@@ -80,20 +83,8 @@ def transactions(request):
 @login_required
 def coin_overview(request):
     """ Render the coin overview page. """
+
     data = {"coins":get_coin_overview(request)}
 
     return render(request, 'dashboard_app/coins_overview.html', context=data)
 
-def get_coin_overview(request):
-    assets = []
-    watchlist = Watchlist.objects.get_or_create(user=request.user)[0]
-    for coinasset in get_all_assets_from_database():
-        asset = Asset.objects.get(id=coinasset.id)
-        data = {
-            "imageUrl": asset.imageUrl,
-            "name": asset.name, 
-            "coinName": asset.coinName, 
-            "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=asset).exists(),
-            }
-        assets.append(data)
-    return assets

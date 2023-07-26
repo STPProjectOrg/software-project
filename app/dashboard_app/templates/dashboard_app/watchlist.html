@@ -41,48 +41,48 @@
                                     <tr class=" text-decoration-none text-muted">
                                       <th scope="col" class="text-center">Image</th>
                                       <th scope="col" class="text-center">
-                                        {% if sort_by == "nameAsc" %}
-                                            <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'nameDesc' %}">Symbol <i class="bi bi-sort-alpha-down"></i></a>
+                                        {% if sort_by_attribute == "name" and direction == "asc" %}
+                                            <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'name' 'desc' %}">Symbol <i class="bi bi-sort-alpha-down"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'nameAsc' %}">Symbol <i class="bi bi-sort-alpha-up"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'name' 'asc' %}">Symbol <i class="bi bi-sort-alpha-up"></i></a>
                                         {% endif %}
                                     </th>
                                       <th scope="col" class="text-center">
-                                        {% if sort_by == "coinNameAsc" %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'coinNameDesc' %}">Name <i class="bi bi-sort-alpha-down"></i></a>
+                                        {% if sort_by_attribute == "coinName" and direction == "asc" %}
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'coinName' 'desc' %}">Name <i class="bi bi-sort-alpha-down"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'coinNameAsc' %}">Name <i class="bi bi-sort-alpha-up"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'coinName' 'asc' %}">Name <i class="bi bi-sort-alpha-up"></i></a>
                                         {% endif %}
                                       </th>
                                       <th scope="col" class="text-center">                                        
-                                        {% if sort_by == "priceAsc" %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'priceDesc' %}">Preis Heute <i class="bi bi-sort-numeric-down"></i></a>
+                                        {% if sort_by_attribute == "price" and direction == "asc" %}
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'price' 'desc' %}">Preis Heute <i class="bi bi-sort-numeric-down"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'priceAsc' %}">Preis Heute <i class="bi bi-sort-numeric-up"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'price' 'asc' %}">Preis Heute <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}</th>
                                       <th scope="col" class="text-center">
-                                        {% if sort_by == "pricediffAsc" %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffDesc' %}">Preis vor X Tagen  <i class="bi bi-sort-numeric-down"></i></a>
+                                        {% if sort_by_attribute == "pricediff" and direction == "asc" %}
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediff' 'desc' %}">Preis vor X Tagen  <i class="bi bi-sort-numeric-down"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffAsc' %}">Preis vor X Tagen  <i class="bi bi-sort-numeric-up"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediff' 'asc' %}">Preis vor X Tagen  <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                       </th>
 
                                       <th scope="col" class="text-center">
-                                        {% if sort_by == "pricediffpercentAsc" %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffpercentDesc' %}">Differenz in %  <i class="bi bi-sort-numeric-down"></i></a>
+                                        {% if sort_by_attribute == "pricediffpercent" and direction == "asc" %}
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffpercent' 'desc' %}">Differenz in %  <i class="bi bi-sort-numeric-down"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffpercentAsc' %}">Differenz in %  <i class="bi bi-sort-numeric-up"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'pricediffpercent' 'asc' %}">Differenz in %  <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                       </th>
 
                                       <th scope="col" class="text-center">Preis Change</th>
                                       {% if is_own_watchlist %}
                                       <th scope="col" class="text-center">
-                                        {% if sort_by == "added_atAsc" %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'added_atDesc' %}">Hinzugefügt am <i class="bi bi-sort-numeric-down"></i></a>
+                                        {% if sort_by_attribute == "added_at" and direction == "asc" %}
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'added_at' 'desc' %}">Hinzugefügt am <i class="bi bi-sort-numeric-down"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'added_atAsc' %}">Hinzugefügt am <i class="bi bi-sort-numeric-up"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'added_at' 'asc' %}">Hinzugefügt am <i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                       </th>
                                       {% endif %}
@@ -91,10 +91,10 @@
                                       </th>
                                       {% if is_own_watchlist %}
                                       <th scope="col" class="text-center">
-                                        {% if sort_by == "isInPortfolioAsc" %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolioDesc' %}">Portfolio <i class="bi bi-funnel"></i></a>
+                                        {% if sort_by_attribute == "isInPortfolio" and direction == "asc" %}
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolio' 'desc' %}">Portfolio <i class="bi bi-funnel"></i></a>
                                         {% else %}
-                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolioAsc' %}">Portfolio <i class="bi bi-funnel-fill"></i></a>
+                                            <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:watchlist' username 'isInPortfolio' 'asc' %}">Portfolio <i class="bi bi-funnel-fill"></i></a>
                                         {% endif %}
                                       </th>
                                       {% endif %}
