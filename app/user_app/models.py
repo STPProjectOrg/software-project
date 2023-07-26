@@ -37,6 +37,8 @@ class ProfileBanner(models.Model):
     class BannerChoices(models.TextChoices):
         BANNER_1 = settings.BANNER_1_URL
         BANNER_2 = settings.BANNER_2_URL
+        BANNER_3 = settings.BANNER_3_URL
+        BANNER_4 = settings.BANNER_4_URL
 
     profile_banner = models.CharField(max_length=255,
                                       choices=BannerChoices.choices,
@@ -46,11 +48,12 @@ class ProfileBanner(models.Model):
         return f'{self.user.username} Banner'
     
     def get_banner_choices(self):
-        return self.BannerChoices.names
+        # return self.BannerChoices.names
+        return self.BannerChoices.choices
     
     def get_test(self):
-        # return self.BannerChoices(self.profile_banner).name
-        return getattr(self.BannerChoices, "BANNER_1", None)
+        return self.BannerChoices.choices
+        # return getattr(self.BannerChoices, "BANNER_1", None)
     
     def get_profile_banner(self):
         # return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
@@ -84,33 +87,3 @@ class UserProfileInfo(models.Model):
                 # overwrite the larger image
                 img.save(self.profile_pic.path)
 
-
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-
-    #     if self.profile_pic and self.profile_pic.path != settings.DEFAULT_IMAGE_URL:
-    #         # resize the image
-    #         img = Image.open(self.profile_pic.path)
-    #         if img.height > 300 or img.width > 300:
-    #             output_size = (300, 300)
-    #             # create a thumbnail
-    #             img = img.resize(output_size, Image.Resampling.LANCZOS)
-    #             # overwrite the larger image
-    #             img.save(self.profile_pic.path)
-
-    # OLD #
-    '''
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        if self.profile_pic and self.profile_pic.path != settings.DEFAULT_IMAGE_URL:
-            # resize the image
-            img = Image.open(self.profile_pic.path)
-            if img.height > 300 or img.width > 300:
-                output_size = (300, 300)
-                # create a thumbnail
-                img = img.resize(output_size, Image.Resampling.LANCZOS)
-                # overwrite the larger image
-                img.save(self.profile_pic.path)
-    '''

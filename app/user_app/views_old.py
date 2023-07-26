@@ -229,7 +229,8 @@ def update_user_profile_banner(request, pk):
     if request.method == 'POST':
         new_banner = request.POST.get('profile_banner')
         
-        profile.profile_banner = getattr(ProfileBanner.BannerChoices, new_banner, None)
+        # profile.profile_banner = getattr(ProfileBanner.BannerChoices, new_banner, None)
+        profile.profile_banner = new_banner
         profile.save()
         # if 'profile_banner' in request.FILES:
         #     profile.profile_banner = request.FILES['profile_banner']
