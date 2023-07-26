@@ -66,11 +66,12 @@ def calculate_price_difference(asset_id, price_change):
         asset_id:           ID of the asset.
         price_change:       The price_change in days that is saved in the 'WatchlistAsset'.
     """
-        
+    today = date.today()
+    # today = date.fromisoformat('2023-05-20')
     try:
         return AssetHistory.objects.get(
             name_id=asset_id, 
-            date=date.today() - timedelta(days=price_change))
+            date=today - timedelta(days=price_change))
     except:
         return AssetHistory.objects.filter(
             name_id=asset_id).order_by('-date')[0]
