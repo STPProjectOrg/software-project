@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=30, blank=False)
     email = models.EmailField(unique=True, blank=False)
     ws_state = models.BooleanField(default=False)
-    channel_name = models.CharField(max_length=255, blank=True)
+    channel_layer = models.CharField(max_length=255, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
@@ -52,11 +52,11 @@ class ProfileBanner(models.Model):
     def get_banner_choices(self):
         # return self.BannerChoices.names
         return self.BannerChoices.choices
-    
+
     def get_test(self):
         return self.BannerChoices.choices
         # return getattr(self.BannerChoices, "BANNER_1", None)
-    
+
     def get_profile_banner(self):
         # return self.profile_banner.url if self.profile_banner else settings.DEFAULT_BANNER_URL
         return self.profile_banner
@@ -89,4 +89,3 @@ class UserProfileInfo(models.Model):
                 img = img.resize(output_size, Image.Resampling.LANCZOS)
                 # overwrite the larger image
                 img.save(self.profile_pic.path)
-

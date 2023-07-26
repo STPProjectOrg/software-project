@@ -17,7 +17,7 @@ def save_channel_layer(user_pk, channel_layer):
         channel_layer: The channel layer.
     """
     user = CustomUser.objects.get(id=user_pk)
-    user.channel_name = channel_layer
+    user.channel_layer = channel_layer
     user.save()
 
 
@@ -30,7 +30,7 @@ def remove_channel_layer(user_pk):
         user_pk: The primary key of the user.
     """
     user = CustomUser.objects.get(id=user_pk)
-    user.channel_name = ""
+    user.channel_layer = ""
     user.save()
 
 
