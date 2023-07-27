@@ -9,21 +9,28 @@
            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.name }}</a>
     </td>
     <td class="text-center align-middle">
-        <a class="btn btn-link p-0">{{ asset.coinName }}</a>
+        <a class="btn btn-link p-0"
+            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.coinName }}</a>
     </td>
     <td class="text-center align-middle">
-        <a class="btn btn-link p-0">{{ asset.price }}</a>
+        <a class="btn btn-link p-0" 
+            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.price }}</a>
     </td>
     <td class="text-center align-middle">
-        <a class="btn btn-link p-0">{{ asset.pricediff }}</a>
+        <a class="btn btn-link p-0" 
+            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.pricediff }}</a>
     </td>
     {% if asset.pricediffpercent > 0 %}
         <td class="text-center align-middle">
-            <a class="btn btn-link p-0" style="color: green">+{{ asset.pricediffpercent }}</a>
+            <a  class="btn btn-link p-0" 
+                style="color: green"
+                href="{% url 'dashboard_app:asset' asset.name 0 %}">+{{ asset.pricediffpercent }}</a>
         </td>
     {% else %}
         <td class="text-center align-middle">
-            <a class="btn btn-link p-0" style="color: red">{{ asset.pricediffpercent }}</a>
+            <a  class="btn btn-link p-0" 
+                style="color: red"
+                href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.pricediffpercent }}</a>
         </td>
     {% endif %}
     {# Dropdown price_change #}
@@ -59,7 +66,8 @@
     </td>
     {% if is_own_watchlist %}
         <td class="text-center align-middle">
-            <a class="btn btn-link p-0">{{ asset.added_at }}</a>
+            <a class="btn btn-link p-0"
+                href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.added_at }}</a>
         </td>
     {% endif %}
         <td class="text-center align-middle">
@@ -68,7 +76,8 @@
         </td>
     {% if is_own_watchlist %}
         <td class="text-center align-middle">
-            <a class="btn btn-link p-0">{{ asset.isInPortfolio }}</a>
+            <a class="btn btn-link p-0"
+                href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.isInPortfolio }}</a>
         </td>
     {% endif %}
 </tr>
