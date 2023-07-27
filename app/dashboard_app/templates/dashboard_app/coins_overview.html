@@ -16,9 +16,29 @@
                             <thead>
                                 <tr>
                                     <th scope="col-auto" class="text-center">Icon</th>
-                                    <th scope="col" class="text-start">Symbol</th>
-                                    <th scope="col" class="text-start">Name</th>
-                                    <th scope="col" class="text-start">Preis Heute</th>
+                                    
+                                    <th scope="col" class="text-start">Symbol
+                                    {% if sort_by_attribute == "name" and direction == "asc" %}
+                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'name' 'desc' %}">Symbol<i class="bi bi-sort-alpha-down"></i></a>
+                                    {% else %}
+                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'name' 'asc' %}">Symbol<i class="bi bi-sort-alpha-up"></i></a>
+                                    {% endif %}
+                                    </th>
+
+                                    <th scope="col" class="text-start">
+                                        {% if sort_by_attribute == "coinName" and direction == "asc" %}
+                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'coinName' 'desc' %}">Name<i class="bi bi-sort-alpha-down"></i></a>
+                                        {% else %}
+                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'coinName' 'asc' %}">Name<i class="bi bi-sort-alpha-up"></i></a>
+                                        {% endif %}
+                                    </th>
+                                    <th scope="col" class="text-start">
+                                        {% if sort_by_attribute == "price" and direction == "asc" %}
+                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'price' 'desc' %}">Preis Heute<i class="bi bi-sort-numeric-down"></i></a>
+                                        {% else %}
+                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'price' 'asc' %}">Preis Heute<i class="bi bi-sort-numeric-up"></i></a>
+                                        {% endif %}
+                                    </th>
                                     <th scope="col-auto" class="text-center">Watchlist</th>
                                 </tr>
                             </thead>
