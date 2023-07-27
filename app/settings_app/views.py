@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.utils import translation
 from community_app.models import Post
 from dashboard_app.models import Watchlist
-
+from app.settings import LANGUAGE_CODE
 
 @login_required
 def settings(request):
@@ -118,7 +118,8 @@ def view_settings(request):
     """
     return render(request, 'settings_app/viewSettings.html')
 
-
+@login_required
 def language_change(request, language_code):
-    translation.activate(language_code)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    translation.activate(language=language_code)
+    print("LANGUAGEEEEEEE"+translation.get_language())
+    return render(request, 'settings_app/viewSettings.html')
