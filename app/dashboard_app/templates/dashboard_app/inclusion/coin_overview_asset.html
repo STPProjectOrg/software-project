@@ -13,6 +13,10 @@
         <a class="btn btn-link p-0"
            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.coinName }}</a>
     </td>
+    <td class="text-start">
+        <a class="btn btn-link p-0"
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.price }}</a>
+    </td>
     <td class="text-center">
         <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">
             {% if asset.isInWatchlist %}
