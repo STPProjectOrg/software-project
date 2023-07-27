@@ -12,7 +12,7 @@ urlpatterns = [
     path('asset/<str:name>/<int:timespan>', main.asset, name="asset"),
 
     # Coin Overview
-    path('coin_overview/', main.coin_overview, name="coin_overview"),
+    path('coin_overview/<str:sort_by_attribute>/<str:direction>', main.coin_overview, name="coin_overview"),
 
     # Watchlist
     path('watchlist/list/<str:username>/<str:sort_by_attribute>/<str:direction>',

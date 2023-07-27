@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from dashboard_app.models import Watchlist, Transaction, WatchlistAsset
 from api_app.models import Asset, AssetHistory
+from dashboard_app.views.utils import sort_assetlist_by
+
 
 def watchlist_add(request, asset_symbol):
     """
@@ -56,7 +58,7 @@ def convert_watchlist(watchlist, sort_by_attribute, direction):
         }
         assets.insert(0, data)
 
-    return sort_watchlist_by(assets, sort_by_attribute, direction)
+    return sort_assetlist_by(assets, sort_by_attribute, direction)
 
 def calculate_price_difference(asset_id, price_change):
     """
@@ -66,32 +68,15 @@ def calculate_price_difference(asset_id, price_change):
         asset_id:           ID of the asset.
         price_change:       The price_change in days that is saved in the 'WatchlistAsset'.
     """
-    today = date.today()
-    # today = date.fromisoformat('2023-05-20')
+
     try:
         return AssetHistory.objects.get(
             name_id=asset_id, 
-            date=today - timedelta(days=price_change))
+            date=date.today() - timedelta(days=price_change))
     except:
         return AssetHistory.objects.filter(
             name_id=asset_id).order_by('-date')[0]
 
-
-def sort_watchlist_by(assets, sort_by_attribute, direction):
-    """
-    Simply handles the sorting of a 'Watchlist'.
-
-    Keyword arguments:
-        sort_by_attribute: The attribute to be sorted by.
-        direction:         The sorting direction - Ascending 'asc' or Descending 'desc'.
-    """
-
-    if direction == 'asc':
-        return sorted(assets, key=lambda item: item[sort_by_attribute])
-    elif direction == 'desc':
-        return sorted(assets, key=lambda item: item[sort_by_attribute])[::-1]
-    else:
-        return assets
 
 def watchlist_update_asset_price_change(request, asset_symbol, price_change_time):
     """

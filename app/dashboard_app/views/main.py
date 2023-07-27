@@ -81,10 +81,12 @@ def transactions(request):
     return render(request, 'dashboard_app/transactions.html', context=data)
 
 @login_required
-def coin_overview(request):
+def coin_overview(request, sort_by_attribute, direction):
     """ Render the coin overview page. """
 
-    data = {"coins":get_coin_overview(request)}
+    data = {"coins":get_coin_overview(request, sort_by_attribute, direction),
+            "sort_by_attribute": sort_by_attribute,
+            "direction": direction}
 
     return render(request, 'dashboard_app/coins_overview.html', context=data)
 

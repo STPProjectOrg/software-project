@@ -2,8 +2,9 @@ from dashboard_app.models import Watchlist, WatchlistAsset
 from api_app.models import AssetHistory
 from datetime import date
 from api_app.databaseservice import get_all_assets_from_database
+from dashboard_app.views.utils import sort_assetlist_by
 
-def get_coin_overview(request):
+def get_coin_overview(request, sort_by_attribute, direction):
     '''
     Get the currently supported coins and convert them 
     into a custom dictionary to display them easier.
@@ -21,7 +22,7 @@ def get_coin_overview(request):
                 "isInWatchlist": WatchlistAsset.objects.filter(watchlist=watchlist, asset=coinasset).exists(),
                 }
         assets.append(data)
-    return assets
+    return sort_assetlist_by(assets, sort_by_attribute, direction)
 
 def get_asset_value(asset):
     '''
@@ -29,7 +30,7 @@ def get_asset_value(asset):
     If it can't find todays value it returns the last 'AssetHistory'-Entry
     of the 'Asset'.
     '''
-    
+
     try:
         return AssetHistory.objects.get(
             name=asset, date=date.today())
