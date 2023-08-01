@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=30, blank=False)
     last_name = models.CharField(max_length=30, blank=False)
     email = models.EmailField(unique=True, blank=False)
+    biography = models.TextField(blank=True)
     ws_state = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']

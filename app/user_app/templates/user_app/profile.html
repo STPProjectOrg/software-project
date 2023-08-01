@@ -85,8 +85,8 @@
                                 </div>
                             </div>
                             <div>
-                                {% if profile_user.userprofileinfo.biography %}
-                                    {{ profile_user.userprofileinfo.biography|linebreaks }}
+                                {% if profile_user.biography %}
+                                    {{ profile_user.biography|linebreaks }}
                                 {% else %}
                                     <i>Keine Biografie gesetzt.</i>
                                 {% endif %}
@@ -103,14 +103,14 @@
                     </div>
                 </div>
             {% else %}
-                {% if profile_user.userprofileinfo.biography %}
+                {% if profile_user.biography %}
                     <div class="row mt-2" id="bio">
                         <div class="col fs-5">
                             <div class="d-flex gap-2">
                                 <div class="mb-auto pt-1">
                                     <i class="bi bi-blockquote-right"></i>
                                 </div>
-                                <div>{{ profile_user.userprofileinfo.biography }}</div>
+                                <div>{{ profile_user.biography }}</div>
                             </div>
                         </div>
                     </div>

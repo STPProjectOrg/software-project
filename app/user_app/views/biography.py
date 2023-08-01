@@ -3,7 +3,7 @@
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from user_app.models import UserProfileInfo
+from user_app.models import UserProfileInfo, CustomUser
 
 
 @login_required
@@ -11,7 +11,7 @@ def update(request):
     """ Update a users biography. """
 
     if request.method == 'POST':
-        information = UserProfileInfo.objects.get(id=request.user.id)
+        information = CustomUser.objects.get(username=request.user.username)
 
         information.biography = request.POST["biography"]
         information.save()

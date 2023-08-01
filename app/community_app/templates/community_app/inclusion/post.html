@@ -5,13 +5,8 @@
         {# User information #}
         <div id="user_information" class="text-start p-0 d-flex gap-2 ">
             <div class="my-auto">
-                {% if post.user.userprofileinfo.profile_pic %}
-                    <img class="logo-fs-3"
-                         src="{{ post.user.userprofileinfo.profile_pic.url }}">
-                {% else %}
-                    <img class="logo-fs-3"
-                         src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                {% endif %}
+                <img class="logo-fs-3"
+                    src="{{ post.user.userprofileinfo.get_profile_pic }}">
             </div>
             <div>
                 <a class="btn btn-link text-start p-0 text-body"
@@ -104,19 +99,14 @@
             {% for comment in post.comment_set.all %}
                 <div class="d-flex gap-2 mb-3">
                     <div>
-                        {% if comment.user.userprofileinfo.profile_pic %}
-                            <img class="logo-fs-3 mt-1"
-                                 src="{{ comment.user.userprofileinfo.profile_pic.url }}">
-                        {% else %}
-                            <img class="logo-fs-3 mt-1"
-                                 src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                        {% endif %}
+                        <img class="logo-fs-3 mt-1"
+                            src="{{ comment.user.userprofileinfo.get_profile_pic }}">
                     </div>
                     <div>
                         {# Header #}
                         <div class="d-flex gap-2">
                             <a class="btn btn-link text-start p-0 text-body"
-                               href="{% url 'user_app:profile' comment.user.username %}">
+                               href="{% url 'user_app:profile' comment.user.username 0 %}">
                                 <div>
                                     <small>u/{{ comment.user.username }}</small>
                                 </div>
