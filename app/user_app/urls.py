@@ -2,14 +2,16 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views_old
 from .forms import UserLoginForm, PasswordCustomResetForm, PasswordCustomSetForm
-from .views import biography
+from .views import biography, profile
 
 app_name = 'user_app'
 
 urlpatterns = [
-    path('profile-redirect/', views_old.profile_redirect, name='profile_redirect'),
+    # Loading and redirecting to profile page 
+    path('profile-redirect/', profile.profile_redirect, name='profile_redirect'),
     path('profile/<str:username>/<int:timespan>/',
-         views_old.profile, name='profile'),
+         profile.profile, name='profile'),
+         
     path('update/userprofile/<int:pk>',
          views_old.update_user_profile_pic, name='update_userprofile'),
     path('update/userbanner/<int:pk>',

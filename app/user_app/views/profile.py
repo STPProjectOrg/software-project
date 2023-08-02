@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 from settings_app.models import Settings
 from dashboard_app.views import charts
 from user_app.models import CustomUser
@@ -10,63 +11,54 @@ from dashboard_app.views import kpi
 from community_app.views import post
 
 @login_required
+def profile_redirect(request):
+    """ 
+    Gets the username from the request parameter to build the redirect url to
+    the profile page
+
+    Keyword arguments:
+        request: The http request
+    """
+    username = request.user.username
+    profile_url = reverse('user_app:profile', kwargs={'username': username, 'timespan': 0})
+    return redirect(profile_url)
+
+
+@login_required
 def profile(request, username, timespan):
     """ 
     Render a user-profile.
 
     Keyword arguments:
         request: The http request
-        username: The profile user's username
+        username (str): The profile user's username
+        timespan (int): The time span for the portfolio line chart data.
     """
-
     # Get profile user
     profile_user = get_object_or_404(
         CustomUser.objects.select_related("userprofileinfo"), username=username)
 
     # Declare common variables
-    user_following_list = request.user.following.values_list(
-        "following_user_id", flat=True)
     is_user_profile = request.user.username == profile_user.username
-    is_user_following = profile_user.userprofileinfo.id in user_following_list
-
     portfolio_privacy_setting = Settings.objects.get_or_create(user=profile_user)[0].dashboard_privacy_settings
-
 
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
         following__following_user_id=profile_user.id).select_related("userprofileinfo")
     profile_following_list = CustomUser.objects.filter(
         followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
+    
+    # Get follower list of the signed user 
+    user_following_list = request.user.following.values_list(
+        "following_user_id", flat=True)
+    is_user_following = profile_user.userprofileinfo.id in user_following_list 
 
     # Post-Section
     my_posts = post.get_by_user(profile_user)
     postform = post.PostForm()
 
     # Chart Data
-
-    transactions = Transaction.objects.filter(user=profile_user.id)
-    assets = Asset.objects.filter(transaction__user=profile_user.id).annotate(
-        amount=Sum("transaction__amount"),
-        cost=Sum("transaction__cost"),
-        total_value=F("amount") * F("price"),
-        profit=F("total_value") - F("cost")
-    ).distinct()
-
-    if not assets:
-        data = {"assets": None}
-
-    has_transactions = False
-    kpi_total = 0
-    
-    if transactions:
-        kpi_total = kpi.get_kpi(transactions, assets)["total"]
-        has_transactions = True
-
-    if portfolio_privacy_setting == "without values":
-        kpi_total = 0
-        anonymize = True
-    else:
-        anonymize = False
+    chart_data = get_chart_data(profile_user.id, portfolio_privacy_setting, timespan)
 
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
@@ -79,9 +71,55 @@ def profile(request, username, timespan):
                    "user_following_list": user_following_list,
                    "postform": postform,
                    "myposts": my_posts,
-                   "pie_data": charts.get_pie_data(assets, anonymize),
-                    "line_data": charts.get_portfolio_line_data(transactions, timespan, anonymize),
-                    "assets": assets,
-                    "kpi_total": kpi_total,
-                    "has_transactions":has_transactions,
+                   "pie_data": chart_data["pie_data"],
+                    "line_data": chart_data["line_data"],
+                    "assets": chart_data["assets"],
+                    "kpi_total": chart_data["kpi_total"],
+                    "has_transactions": chart_data["has_transactions"],
+                    # "test": test
                    })
+
+
+def get_chart_data(user_id, privacy_setting, timespan):
+    """
+    Get chart data for a user's portfolio.
+
+    Parameters:
+        user_id (int): The ID of the user.
+        privacy_setting (str): The privacy setting for displaying asset values.
+        timespan (int): The time span for the portfolio line chart data.
+
+    Returns:
+        dict: A dictionary containing the following chart data:
+              - "assets": QuerySet of assets associated with the user's transactions.
+              - "pie_data": Data for a pie chart.
+              - "line_data": Data for a portfolio line chart over the specified timespan.
+              - "has_transactions": A boolean indicating whether the user has any transactions.
+              - "kpi_total": The total Key Performance Indicator (KPI) for the user's portfolio.
+              - "anonymize": A boolean indicating whether asset values should be anonymized based
+                              on the privacy setting.
+    """
+    transactions = Transaction.objects.filter(user=user_id)
+    
+    assets = Asset.objects.filter(transaction__user=user_id).annotate(
+        amount=Sum("transaction__amount"),
+        cost=Sum("transaction__cost"),
+        total_value=F("amount") * F("price"),
+        profit=F("total_value") - F("cost")
+    ).distinct()
+
+    has_transactions = bool(transactions)
+    kpi_total = kpi.get_kpi(transactions, assets)["total"] if has_transactions else 0
+    anonymize = True if privacy_setting == "without values" else False    
+
+    pie_data = charts.get_pie_data(assets, anonymize)
+    line_data = charts.get_portfolio_line_data(transactions, timespan, anonymize)
+    
+    return {
+        "assets": assets,
+        "pie_data": pie_data,
+        "line_data": line_data,
+        "has_transactions": has_transactions,
+        "kpi_total": kpi_total,
+        "anonymize": anonymize,
+    }
