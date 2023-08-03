@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from user_app.models import CustomUser, UserProfileInfo, UserFollowing, ProfileBanner
 from settings_app.models import Settings
-from user_app.forms import UserRegistrationForm, UserProfileInfoForm, UserLoginForm
+from user_app.forms import UserRegistrationForm, UserLoginForm
 from dashboard_app.views import charts
 from api_app.models import Asset
 from dashboard_app.models import Transaction
@@ -20,149 +20,149 @@ from django.contrib.messages.views import SuccessMessageMixin
 from community_app.views import post
 
 
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'users/password_reset.html'
-    email_template_name = "user_app/password_recovery/reset_password_email.html",
-    subject_template_name = "user_app/password_recovery/reset_password_email_subject",
-    success_url = reverse_lazy('user_app:password_reset_done')
+# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+#     template_name = 'users/password_reset.html'
+#     email_template_name = "user_app/password_recovery/reset_password_email.html",
+#     subject_template_name = "user_app/password_recovery/reset_password_email_subject",
+#     success_url = reverse_lazy('user_app:password_reset_done')
 
 
-class ConfirmResetPasswordView(PasswordResetConfirmView):
-    success_url = reverse_lazy('user_app:password_reset_complete')
+# class ConfirmResetPasswordView(PasswordResetConfirmView):
+#     success_url = reverse_lazy('user_app:password_reset_complete')
 
 # Create your views here.
 
 
-def register(request):
-    registred = False
+# def register(request):
+#     registred = False
 
-    if request.method == "POST":
-        # Get the form data of the POST-method
-        user_form = UserRegistrationForm(data=request.POST)
-        userprofile_form = UserProfileInfoForm(data=request.POST)
+#     if request.method == "POST":
+#         # Get the form data of the POST-method
+#         user_form = UserRegistrationForm(data=request.POST)
+#         userprofile_form = UserProfileInfoForm(data=request.POST)
 
-        if user_form.is_valid() and userprofile_form.is_valid():
+#         if user_form.is_valid() and userprofile_form.is_valid():
 
-            # Save the user registration data from POST-form to the database and hash the password
-            new_user = user_form.save()
-            new_user.set_password(new_user.password)
-            new_user.save()
+#             # Save the user registration data from POST-form to the database and hash the password
+#             new_user = user_form.save()
+#             new_user.set_password(new_user.password)
+#             new_user.save()
 
-            # Save the user-info registration data from POST-form to the database and connect them
-            # to the previous user table
-            new_profile = userprofile_form.save(commit=False)
-            new_profile.user = new_user
-            Settings.objects.get_or_create(user=new_user)
+#             # Save the user-info registration data from POST-form to the database and connect them
+#             # to the previous user table
+#             new_profile = userprofile_form.save(commit=False)
+#             new_profile.user = new_user
+#             Settings.objects.get_or_create(user=new_user)
 
-            if 'profile_pic' in request.FILES:
-                new_profile.profile_pic = request.FILES['profile_pic']
-            new_profile.save()
+#             if 'profile_pic' in request.FILES:
+#                 new_profile.profile_pic = request.FILES['profile_pic']
+#             new_profile.save()
 
-            # Create new ProfileBanner instance 
-            ProfileBanner.objects.create(user=new_user)
+#             # Create new ProfileBanner instance 
+#             ProfileBanner.objects.create(user=new_user)
 
-            registred = True
-            return render(request, 'user_app/register/registration_success.html')
+#             registred = True
+#             return render(request, 'user_app/register/registration_success.html')
 
-        print(user_form.errors, userprofile_form.errors)
+#         print(user_form.errors, userprofile_form.errors)
 
-    else:
-        user_form = UserRegistrationForm()
-        userprofile_form = UserProfileInfoForm()
+#     else:
+#         user_form = UserRegistrationForm()
+#         userprofile_form = UserProfileInfoForm()
 
-    return render(request, 'user_app/register/registration.html',
-                  {'user_form': user_form,
-                   'profile_form': userprofile_form,
-                   'registred': registred})
-
-
-def register_success(request):
-    return render(request, 'user_app/register/registration_succsess.html')
+#     return render(request, 'user_app/register/registration.html',
+#                   {'user_form': user_form,
+#                    'profile_form': userprofile_form,
+#                    'registred': registred})
 
 
-@login_required
-def profile_redirect(request):
-    username = request.user.username
-    profile_url = reverse('user_app:profile', kwargs={'username': username, 'timespan': 0})
-    return redirect(profile_url)
+# def register_success(request):
+#     return render(request, 'user_app/register/registration_succsess.html')
 
 
-@login_required
-def profile(request, username, timespan):
-    """ 
-    Render a user-profile.
-
-    Keyword arguments:
-        request: The http request
-        username: The profile user's username
-    """
-
-    # Get profile user
-    profile_user = get_object_or_404(
-        CustomUser.objects.select_related("userprofileinfo"), username=username)
-
-    # Declare common variables
-    user_following_list = request.user.following.values_list(
-        "following_user_id", flat=True)
-    is_user_profile = request.user.username == profile_user.username
-    is_user_following = profile_user.userprofileinfo.id in user_following_list
-
-    portfolio_privacy_setting = Settings.objects.get_or_create(user=profile_user)[0].dashboard_privacy_settings
+# @login_required
+# def profile_redirect(request):
+#     username = request.user.username
+#     profile_url = reverse('user_app:profile', kwargs={'username': username, 'timespan': 0})
+#     return redirect(profile_url)
 
 
-    # Get profile user's follow-lists
-    profile_followers_list = CustomUser.objects.filter(
-        following__following_user_id=profile_user.id).select_related("userprofileinfo")
-    profile_following_list = CustomUser.objects.filter(
-        followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
+# @login_required
+# def profile(request, username, timespan):
+#     """ 
+#     Render a user-profile.
 
-    # Post-Section
-    my_posts = post.get_by_user(profile_user)
-    postform = post.PostForm()
+#     Keyword arguments:
+#         request: The http request
+#         username: The profile user's username
+#     """
 
-    # Chart Data
+#     # Get profile user
+#     profile_user = get_object_or_404(
+#         CustomUser.objects.select_related("userprofileinfo"), username=username)
 
-    transactions = Transaction.objects.filter(user=profile_user.id)
-    assets = Asset.objects.filter(transaction__user=profile_user.id).annotate(
-        amount=Sum("transaction__amount"),
-        cost=Sum("transaction__cost"),
-        total_value=F("amount") * F("price"),
-        profit=F("total_value") - F("cost")
-    ).distinct()
+#     # Declare common variables
+#     user_following_list = request.user.following.values_list(
+#         "following_user_id", flat=True)
+#     is_user_profile = request.user.username == profile_user.username
+#     is_user_following = profile_user.userprofileinfo.id in user_following_list
 
-    if not assets:
-        data = {"assets": None}
+#     portfolio_privacy_setting = Settings.objects.get_or_create(user=profile_user)[0].dashboard_privacy_settings
 
-    has_transactions = False
-    kpi_total = 0
+
+#     # Get profile user's follow-lists
+#     profile_followers_list = CustomUser.objects.filter(
+#         following__following_user_id=profile_user.id).select_related("userprofileinfo")
+#     profile_following_list = CustomUser.objects.filter(
+#         followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
+
+#     # Post-Section
+#     my_posts = post.get_by_user(profile_user)
+#     postform = post.PostForm()
+
+#     # Chart Data
+
+#     transactions = Transaction.objects.filter(user=profile_user.id)
+#     assets = Asset.objects.filter(transaction__user=profile_user.id).annotate(
+#         amount=Sum("transaction__amount"),
+#         cost=Sum("transaction__cost"),
+#         total_value=F("amount") * F("price"),
+#         profit=F("total_value") - F("cost")
+#     ).distinct()
+
+#     if not assets:
+#         data = {"assets": None}
+
+#     has_transactions = False
+#     kpi_total = 0
     
-    if transactions:
-        kpi_total = kpi.get_kpi(transactions, assets)["total"]
-        has_transactions = True
+#     if transactions:
+#         kpi_total = kpi.get_kpi(transactions, assets)["total"]
+#         has_transactions = True
 
-    if portfolio_privacy_setting == "without values":
-        kpi_total = 0
-        anonymize = True
-    else:
-        anonymize = False
+#     if portfolio_privacy_setting == "without values":
+#         kpi_total = 0
+#         anonymize = True
+#     else:
+#         anonymize = False
 
-    return render(request, 'user_app/profile.html',
-                  {"profile_user": profile_user,
-                   'user_profile_id': profile_user.userprofileinfo.id,
-                   "is_user_profile": is_user_profile,
-                   "is_user_following": is_user_following,
-                   "portfolio_privacy_setting": portfolio_privacy_setting,
-                   "profile_followers_list": profile_followers_list,
-                   "profile_following_list": profile_following_list,
-                   "user_following_list": user_following_list,
-                   "postform": postform,
-                   "myposts": my_posts,
-                   "pie_data": charts.get_pie_data(assets, anonymize),
-                    "line_data": charts.get_portfolio_line_data(transactions, timespan, anonymize),
-                    "assets": assets,
-                    "kpi_total": kpi_total,
-                    "has_transactions":has_transactions,
-                   })
+#     return render(request, 'user_app/profile.html',
+#                   {"profile_user": profile_user,
+#                    'user_profile_id': profile_user.userprofileinfo.id,
+#                    "is_user_profile": is_user_profile,
+#                    "is_user_following": is_user_following,
+#                    "portfolio_privacy_setting": portfolio_privacy_setting,
+#                    "profile_followers_list": profile_followers_list,
+#                    "profile_following_list": profile_following_list,
+#                    "user_following_list": user_following_list,
+#                    "postform": postform,
+#                    "myposts": my_posts,
+#                    "pie_data": charts.get_pie_data(assets, anonymize),
+#                     "line_data": charts.get_portfolio_line_data(transactions, timespan, anonymize),
+#                     "assets": assets,
+#                     "kpi_total": kpi_total,
+#                     "has_transactions":has_transactions,
+#                    })
 
 
 @login_required

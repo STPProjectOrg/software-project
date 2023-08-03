@@ -1,7 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
-from django.contrib.auth.models import User
-from user_app.models import UserProfileInfo
 from .models import CustomUser
 
 invalid_email_msg = 'Email ist bereits vergeben oder falsch.'
@@ -69,18 +67,9 @@ class UserRegistrationForm(forms.ModelForm):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password2 = cleaned_data.get("password2")
-        # username = cleaned_data.get("username")
-        # if CustomUser.objects.filter(username = username).exists:
-        #    self.add_error("username", "Benutzername existiert bereits.")
         if password and password2 and password != password2:
             self.add_error("password2", invalid_password_match_msg)
         self.set_form_control()
-
-
-class UserProfileInfoForm(forms.ModelForm):
-    class Meta():
-        model = UserProfileInfo
-        fields = ('profile_pic',)
 
 
 class UserLoginForm(AuthenticationForm):

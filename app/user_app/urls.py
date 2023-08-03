@@ -2,7 +2,7 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from . import views_old
 from .forms import UserLoginForm, PasswordCustomResetForm, PasswordCustomSetForm
-from .views import biography, profile
+from .views import biography, profile, auth
 
 app_name = 'user_app'
 
@@ -27,8 +27,8 @@ urlpatterns = [
          views_old.follower_list, name='follower_list'),
 
     # Registration
-    path('register', views_old.register, name='register'),
-    path('register/success', views_old.register_success, name='register_success'),
+    path('register', auth.register, name='register'),
+    path('register/success', auth.register_success, name='register_success'),
 
     # Auth
     path('login', auth_views.LoginView.as_view(
@@ -38,7 +38,7 @@ urlpatterns = [
 
     # Password reset
     path('password-reset/',
-         views_old.ResetPasswordView.as_view(
+         auth.ResetPasswordView.as_view(
              template_name="user_app/password_recovery/reset_password.html",
              form_class=PasswordCustomResetForm),
          name='reset_password'),
@@ -47,7 +47,7 @@ urlpatterns = [
              template_name="user_app/password_recovery/reset_password_sent.html"),
          name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/',
-         views_old.ConfirmResetPasswordView.as_view(
+         auth.ConfirmResetPasswordView.as_view(
              template_name="user_app/password_recovery/reset_password_confirm.html",
              form_class=PasswordCustomSetForm),
          name='password_reset_confirm'),

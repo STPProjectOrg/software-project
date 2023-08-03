@@ -1,11 +1,68 @@
 """ Functions related to the user authentification. """
 
-from django.contrib.auth import logout as django_logout
+from django.urls import reverse_lazy
 from django.shortcuts import render
+from user_app.models import UserProfileInfo, ProfileBanner
+from user_app.forms import UserRegistrationForm
+from settings_app.models import Settings
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.contrib.messages.views import SuccessMessageMixin
 
 
-def logout(request):
-    """ Logout the current user and redirect to home view. """
+def register(request):
+    """
+    View function for user registration.
 
-    django_logout(request)
-    return render(request, "core:landing")
+    This function handles user registration by processing the form data submitted via POST request.
+    If the form data is valid, a new user is created and saved to the database.
+    If the registration is successful, the user is redirected to a success page.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the form data.
+
+    Returns:
+        HttpResponse: A rendered HTML template with user registration form or a success page.
+    """
+    if request.method == "POST":
+        # Get the form data of the POST-method
+        user_form = UserRegistrationForm(data=request.POST)
+
+        if user_form.is_valid():
+
+            # Save the user registration data from POST-form to the database and hash the password
+            new_user = user_form.save()
+            new_user.set_password(new_user.password)
+            new_user.save()
+
+            # Create new model instances for ProfileInfo, Settings and Banner and asign
+            # the new created CustomUser instance as foreign key  
+            UserProfileInfo.objects.create(user=new_user)
+            Settings.objects.create(user=new_user)
+            ProfileBanner.objects.create(user=new_user)
+
+            # Render the success page
+            return render(request, 'user_app/register/registration_success.html')
+
+    else:
+        # Get the blank Registration Form
+        user_form = UserRegistrationForm()
+
+    # Render the registration Page 
+    return render(request, 'user_app/register/registration.html',
+                  {'user_form': user_form})
+
+
+def register_success(request):
+    """ View function to render the registration success page."""
+    return render(request, 'user_app/register/registration_succsess.html')
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'users/password_reset.html'
+    email_template_name = "user_app/password_recovery/reset_password_email.html",
+    subject_template_name = "user_app/password_recovery/reset_password_email_subject",
+    success_url = reverse_lazy('user_app:password_reset_done')
+
+
+class ConfirmResetPasswordView(PasswordResetConfirmView):
+    success_url = reverse_lazy('user_app:password_reset_complete')
