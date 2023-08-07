@@ -134,7 +134,7 @@ class PasswordCustomResetForm(PasswordResetForm):
             The field is also marked as required, ensuring that the user must provide an 
             email address for the password reset request.
     """
-    email = forms.EmailField(widget=forms.EmailInput(attrs={
+     email = forms.EmailField(widget=forms.EmailInput(attrs={
         'id': 'id_email',
         'class': 'form-control',
         'placeholder': 'E-Mail'
@@ -156,13 +156,13 @@ class PasswordCustomSetForm(SetPasswordForm):
             The field is also marked as required, ensuring that the user must 
             confirm the new password by entering it again.
     """
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+     new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'id': 'id_new_password1',
         'class': 'form-control',
         'placeholder': 'Passwort',
     }), required=True)
 
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+     new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'id': 'id_new_password2',
         'class': 'form-control',
         'placeholder': 'Passwort',
