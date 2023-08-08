@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import sys
 from pathlib import Path
 import os
+import tempfile
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -197,7 +198,11 @@ BANNER_3_URL = STATIC_URL + 'banner_3.png'
 BANNER_4_URL = STATIC_URL + 'banner_4.png'
 
 # Media files (profile-pics)
-MEDIA_ROOT = BASE_DIR / "media"
+if not 'test' in sys.argv:
+    MEDIA_ROOT = BASE_DIR / "media"
+else:
+    MEDIA_ROOT = tempfile.mkdtemp()
+
 MEDIA_URL = '/media/'
 
 # Login URL

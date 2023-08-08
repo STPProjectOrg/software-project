@@ -76,7 +76,6 @@ def profile(request, username, timespan):
                     "assets": chart_data["assets"],
                     "kpi_total": chart_data["kpi_total"],
                     "has_transactions": chart_data["has_transactions"],
-                    # "test": test
                    })
 
 
