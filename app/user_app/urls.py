@@ -1,8 +1,7 @@
-from django.urls import include, path
+from django.urls import path
 from django.contrib.auth import views as auth_views
-from . import views_old
 from .forms import UserLoginForm, PasswordCustomResetForm, PasswordCustomSetForm
-from .views import biography, profile, auth
+from .views import profile, auth, profile_edit
 
 app_name = 'user_app'
 
@@ -11,20 +10,19 @@ urlpatterns = [
     path('profile-redirect/', profile.profile_redirect, name='profile_redirect'),
     path('profile/<str:username>/<int:timespan>/',
          profile.profile, name='profile'),
-         
+
+    # Following 
+    path('follow/<str:username>', profile.toggle_follow, name='follow'),
+
+    # Update Routes       
     path('update/userprofile/<int:pk>',
-         views_old.update_user_profile_pic, name='update_userprofile'),
+          profile_edit.ProfilePicUpdateView.as_view(), name='update_userprofile'),   
     path('update/userbanner/<int:pk>',
-         views_old.update_user_profile_banner, name='update_userbanner'),
-    #     path('update/userprofile/<int:pk>',
-    #          views.ProfilePicUpdateView.as_view(), name='update_userprofile'),
-    #     path('update/userbanner/<int:pk>',
-    #          views.ProfileBannerUpdateView.as_view(), name='update_userbanner'),
+          profile_edit.ProfileBannerUpdateView.as_view(), name='update_userbanner'),
+    path("update/biography", 
+         profile_edit.BiographyUpdateView.as_view(), name="update_biography"),
     path('delete/userprofile/<int:pk>',
-         views_old.delete_profile_pic, name='delete_userprofile'),
-    path('follow/<str:username>', views_old.toggle_follow, name='follow'),
-    path('follower_list/<str:username>',
-         views_old.follower_list, name='follower_list'),
+         profile_edit.delete_profile_pic, name='delete_userprofile'),
 
     # Registration
     path('register', auth.register, name='register'),
@@ -55,8 +53,4 @@ urlpatterns = [
          auth_views.PasswordResetCompleteView.as_view(
              template_name="user_app/password_recovery/reset_password_complete.html"),
          name='password_reset_complete'),
-
-    # Update User Information
-    path('update/biography', biography.update, name='update_biography'),
-
 ]

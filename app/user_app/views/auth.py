@@ -58,6 +58,19 @@ def register_success(request):
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    """
+    View class to handle the password reset process.
+
+    Inherits from:
+        SuccessMessageMixin: Mixin to display a success message after password reset.
+        PasswordResetView: Built-in view class for password reset.
+
+    Attributes:
+        template_name (str): HTML template for displaying the password reset form.
+        email_template_name (str): HTML email template for the password reset email.
+        subject_template_name (str): Subject template for the password reset email.
+        success_url (str): URL to redirect after a successful password reset.
+    """
     template_name = 'users/password_reset.html'
     email_template_name = "user_app/password_recovery/reset_password_email.html",
     subject_template_name = "user_app/password_recovery/reset_password_email_subject",
@@ -65,4 +78,14 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 
 
 class ConfirmResetPasswordView(PasswordResetConfirmView):
+    """
+    View class to confirm the password reset process.
+
+    Inherits from:
+        PasswordResetConfirmView: Built-in view class for confirming password reset.
+
+    Attributes:
+        success_url (str): URL to redirect after successfully confirming password reset.
+
+    """
     success_url = reverse_lazy('user_app:password_reset_complete')

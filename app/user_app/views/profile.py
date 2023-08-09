@@ -1,8 +1,10 @@
+""" Functions related to the user profile. """
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from settings_app.models import Settings
 from dashboard_app.views import charts
-from user_app.models import CustomUser
+from user_app.models import CustomUser, UserFollowing
 from api_app.models import Asset
 from dashboard_app.models import Transaction
 from django.contrib.auth.decorators import login_required
@@ -122,3 +124,35 @@ def get_chart_data(user_id, privacy_setting, timespan):
         "kpi_total": kpi_total,
         "anonymize": anonymize,
     }
+
+
+@login_required
+def toggle_follow(request, username):
+    """
+    Toggle the follow status between the logged-in user and another user.
+    It allows a logged-in user to follow or unfollow another user's profile.
+    The follow status is toggled based on whether the logged-in user is already 
+    following the other user.
+
+    Keyword arguments:
+        request (HttpRequest): The HTTP request object.
+        username (str): The username of the user to follow or unfollow.
+    """
+    # Get the profile of the logged-in user and the profile of the other user
+    profile_user = CustomUser.objects.get(username=request.user.username)
+    other_user = get_object_or_404(CustomUser, username=username)
+
+    # Check if the logged-in user is not the same as the other user
+    if profile_user != other_user:
+        # Check if the logged-in user is already following the other use
+        if profile_user.following.all().filter(following_user=other_user).exists():
+            # Unfollow the other user by deleting the UserFollowing relationship
+            UserFollowing.objects.filter(
+                follower_user=profile_user, following_user=other_user).delete()
+        else:
+            # Follow the other user by creating a new UserFollowing relationship
+            UserFollowing.objects.create(
+                follower_user=profile_user, following_user=other_user)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
