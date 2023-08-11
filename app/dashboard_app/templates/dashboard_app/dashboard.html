@@ -1,6 +1,7 @@
 {% extends "core/base.html" %}
 {% load dashboard_tags %}
 {% load core_tags %}
+{% load i18n %}
 {% block title %}
     | Dashboard
 {% endblock title %}
@@ -9,7 +10,7 @@
         <div class="row h-100">
             <div class="col text-center h-100 d-flex">
                 <div class="m-auto">
-                    <div class="text-white fw-bold fs-3">Hier wird dein Dashboard angezeigt.</div>
+                    <div class="text-white fw-bold fs-3">{% trans "Hier wird dein Dashboard angezeigt." %}</div>
                     <div class="text-white fs-5">Füge Werte zu deinem Portfolio hinzu, damit diese angezeigt werden.</div>
                     <div class="text-white fs-6">
                         <a href="{% url "core:qaa" %}">Weitere Informationen findest du hier.</a>
@@ -41,11 +42,11 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="row">
-                                        <div class="col fw-semibold border-bottom border-2 border-dark">Ausgaben</div>
+                                        <div class="col fw-semibold border-bottom border-2 border-dark">{% trans "Ausgaben:" %}</div>
                                         <div class="col-auto fw-semibold border-bottom border-2 border-dark">{{ kpi.cost|to_locale_valuta }}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col">Investiert:</div>
+                                        <div class="col">{% trans "Investiert:" %}</div>
                                         <div class="col-auto">{{ kpi.invested|to_locale_valuta }}</div>
                                     </div>
                                     <div class="row">

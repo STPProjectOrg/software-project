@@ -29,6 +29,7 @@ urlpatterns = [
     path('settings/', include('settings_app.urls')),
     path('community/', include('community_app.urls')),
     path('messaging/', include('messaging_app.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
 
 if settings.DEBUG:

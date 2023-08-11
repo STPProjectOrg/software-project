@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import sys
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,12 +58,16 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    
 ]
+
 
 ROOT_URLCONF = 'app.urls'
 
@@ -173,6 +178,15 @@ AUTH_USER_MODEL = 'user_app.CustomUser'
 
 LANGUAGE_CODE = 'de'
 
+LANGUAGES = [
+   ('de', 'German'), 
+   ('en-us', 'English')
+]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'dashboard_app/locale'),
+    os.path.join(BASE_DIR, 'settings_app/locale')
+)
 TIME_ZONE = 'CET'
 
 USE_I18N = True
