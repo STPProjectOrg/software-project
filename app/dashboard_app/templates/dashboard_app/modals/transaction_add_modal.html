@@ -6,7 +6,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="transaction_add_modal_Label">{{asset.name}} Transaktion hinzufügen</h1>
+                <h1 class="modal-title fs-5" id="transaction_add_modal_Label">{{asset.name}} {% trans "Transaktion hinzufügen" %}</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
@@ -19,8 +19,8 @@
                 <div class="modal-footer pb-0">
                     <button type="button"
                             class="btn btn-secondary me-auto"
-                            data-bs-dismiss="modal">Schließen</button>
-                    <button type="submit" class="btn btn-outline-primary">Speichern</button>
+                            data-bs-dismiss="modal">{% trans "Schließen" %}</button>
+                    <button type="submit" class="btn btn-outline-primary">{% trans "Speichern" %}</button>
                 </div>
             </form>
         </div>

@@ -2,8 +2,8 @@
 {% block content %}
     {# Title #}
     <div>
-        <h1>Fragen und Antworten</h1>
-        <p>Hier finden Sie Antworten zu häufig gestellten Fragen.</p>
+        <h1>{% trans "Fragen und Antworten" %}</h1>
+        <p>{% trans "Hier finden Sie Antworten zu häufig gestellten Fragen." %}</p>
     </div>
     {# Content #}
     <div class="mt-4">
@@ -15,16 +15,16 @@
                             data-bs-toggle="collapse"
                             data-bs-target="#flush-collapse1"
                             aria-expanded="false"
-                            aria-controls="flush-collapse1">Wie kann ich Coins zu meinem Depot hinzufügen?</button>
+                            aria-controls="flush-collapse1">{% trans "Wie kann ich Coins zu meinem Depot hinzufügen?" %}</button>
                 </h2>
                 <div id="flush-collapse1"
                      class="accordion-collapse collapse"
                      data-bs-parent="#accordionQuestion1">
                     <div class="accordion-body">
                         <div>
-                            Coins können über die Suchleiste gefunden und aufgerufen werden.
-                            Über den Button <strong>[Button-Name]</strong> wird das Formular zum hinzufügen geöffnet.
-                            Hier können, neben dem Kaufdatum und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden.
+                            {% trans "Coins können über die Suchleiste gefunden und aufgerufen werden.
+                            Über den Button " %}<strong>[Button-Name]</strong> {% trans "wird das Formular zum hinzufügen geöffnet.
+                            Hier können, neben dem Kaufdatum und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden." %}
                         </div>
                     </div>
                 </div>

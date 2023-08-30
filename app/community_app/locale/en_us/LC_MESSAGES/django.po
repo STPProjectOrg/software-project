@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 14:01+0200\n"
+"POT-Creation-Date: 2023-08-30 16:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,52 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\community_app\templates\community_app\community.html:29
+#: .\templates\community_app\community.html:29
 msgid "Neuer Post"
 msgstr "New Post"
 
-#: .\community_app\templates\community_app\inclusion\post.html:36
+#: .\templates\community_app\inclusion\post.html:31
 msgid "Bearbeiten"
 msgstr "Edit"
 
-#: .\community_app\templates\community_app\inclusion\post.html:39
-#: .\community_app\templates\community_app\inclusion\post.html:131
+#: .\templates\community_app\inclusion\post.html:34
+#: .\templates\community_app\inclusion\post.html:124
 msgid "Löschen"
 msgstr "Delete"
 
-#: .\community_app\templates\community_app\inclusion\post.html:77
-#: .\community_app\templates\community_app\inclusion\post.html:147
+#: .\templates\community_app\inclusion\post.html:75
+#: .\templates\community_app\inclusion\post.html:140
 msgid "Likes"
 msgstr "Likes"
 
-#: .\community_app\templates\community_app\inclusion\post.html:92
+#: .\templates\community_app\inclusion\post.html:90
 msgid "Kommentare"
 msgstr "Comments"
 
-#: .\community_app\templates\community_app\inclusion\post.html:165
+#: .\templates\community_app\inclusion\post.html:158
 msgid "Kommentieren"
 msgstr "comment"
 
-#: .\community_app\templates\community_app\modals\post_create_modal.html:10
+#: .\templates\community_app\modals\post_create_modal.html:10
 msgid "Post erstellen"
 msgstr "Create Post"
 
-#: .\community_app\templates\community_app\modals\post_create_modal.html:20
-msgid "Post Erstellen"
-msgstr "Create Post"
+#: .\templates\community_app\modals\post_create_modal.html:23
+msgid "Inhalt"
+msgstr "Content"
 
-#: .\community_app\templates\community_app\modals\post_create_modal.html:24
+#: .\templates\community_app\modals\post_create_modal.html:52
+msgid "Optional: Bild"
+msgstr "Optional: Picture"
+
+#: .\templates\community_app\modals\post_create_modal.html:74
+msgid "Noch kein Bild hochgeladen."
+msgstr "No Picture uploaded"
+
+#: .\templates\community_app\modals\post_create_modal.html:89
 msgid "Schließen"
 msgstr "Close"
+
+#: .\templates\community_app\modals\post_create_modal.html:90
+msgid "Post Erstellen"
+msgstr "Create Post"

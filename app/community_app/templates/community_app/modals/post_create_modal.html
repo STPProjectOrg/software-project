@@ -20,7 +20,7 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <div>
-                        <label for="{{ form.content.id_for_label }}" class="form-label">Inhalt</label>
+                        <label for="{{ form.content.id_for_label }}" class="form-label">{% trans "Inhalt" %}</label>
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="bi bi-body-text"></i>
@@ -49,7 +49,7 @@
                         <div class="accordion" id="accordion">
                             <div class="accordion-item border-0">
                                 <div>
-                                    <label for="{{ form.image.id_for_label }}" class="form-label fst-italic">Optional: Bild</label>
+                                    <label for="{{ form.image.id_for_label }}" class="form-label fst-italic">{% trans "Optional: Bild" %}</label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="bi bi-image"></i>
@@ -71,7 +71,7 @@
                                      data-bs-parent="#accordion"
                                      style="">
                                     <div class="accordion-body d-flex">
-                                        <div id="preview-text">Noch kein Bild hochgeladen.</div>
+                                        <div id="preview-text">{% trans "Noch kein Bild hochgeladen." %}</div>
                                         <img src=""
                                              class="mx-auto"
                                              id="preview_Upload_Image"

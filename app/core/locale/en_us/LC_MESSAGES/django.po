@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-22 12:14+0200\n"
+"POT-Creation-Date: 2023-08-30 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,6 +117,225 @@ msgstr ""
 msgid "Datenschutz"
 msgstr "Privacy"
 
+#: .\templates\core\privacy.html:18
+msgid "Die"
+msgstr "The"
+
+#: .\templates\core\privacy.html:18
+msgid "Verantwortlichen"
+msgstr "ones responsible"
+
+#: .\templates\core\privacy.html:18
+msgid ""
+"im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler "
+"Datenschutzgesetze sind alle im"
+msgstr "regarding the General Data Protection Regulation (GDPR) and other national "
+"Data Protection Regulations are all"
+
+#: .\templates\core\privacy.html:18
+msgid "aufgeführten Personen."
+msgstr "people listed."
+
+#: .\templates\core\privacy.html:20
+msgid "Angabe der Rechtsgrundlage"
+msgstr "Legal Basis"
+
+#: .\templates\core\privacy.html:21
+msgid "Insofern wir für die Verarbeitung der personenbezogenen Daten eine"
+msgstr "Should processing personal data need "
+
+#: .\templates\core\privacy.html:21
+msgid "Einwilligung"
+msgstr "Consent"
+
+#: .\templates\core\privacy.html:21
+msgid ""
+" der betroffenen Person eingeholt haben, gilt Artikel 6 Absatz 1 Unterabsatz "
+"1a der DSGVO als rechtliche Grundlage."
+msgstr " from the affected person, article 6 paragraph 1 , 1a (GDPR) will pose as legal basis "
+
+#: .\templates\core\privacy.html:22
+msgid "Ist die Verarbeitung personenbezogener Daten für die "
+msgstr "Should the processing of personal Data be necessary for "
+
+#: .\templates\core\privacy.html:22
+msgid "Erfüllung eines Vertrags"
+msgstr "fulfilling a Contract"
+
+#: .\templates\core\privacy.html:22
+msgid "mit der betroffenen Person oder für "
+msgstr "with the affected Person or for "
+
+#: .\templates\core\privacy.html:22
+msgid "vorvertragliche Maßnahmen "
+msgstr "pre-contract measures "
+
+#: .\templates\core\privacy.html:22
+msgid ""
+"erforderlich, die durch die betroffene Person veranlasst wurden, dient "
+"Artikel 6 Absatz 1 Unterabsatz 1b (DSGVO) als Rechtsgrundlage."
+msgstr "made necessary by the affected person, article 6 paragraph 1 , 1b (GDPR) will pose as legal basis "
+
+#: .\templates\core\privacy.html:23
+msgid "Ist die Datenverarbeitung das Resultat einer "
+msgstr "Should the processing of data abe a result of an"
+
+#: .\templates\core\privacy.html:23
+msgid "rechtlichen Verpflichtung"
+msgstr "obligation by law"
+
+#: .\templates\core\privacy.html:23
+msgid ""
+"der wir unterliegen, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1c "
+"der DSGVO als rechtliche Basis."
+msgstr "article 6 paragraph 1 , 1c (GDPR) will pose as legal basis"
+
+#: .\templates\core\privacy.html:24
+msgid "Erfolgt die Verarbeitung personenbezogener Daten, um "
+msgstr "Should the processing of personal data be made necessary to protect "
+
+#: .\templates\core\privacy.html:24
+msgid "lebenswichtige Interessen"
+msgstr "vital interests"
+
+#: .\templates\core\privacy.html:24
+msgid ""
+" der betroffenen Person oder einer anderen natürlichen Person zu schützen, "
+"dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage."
+msgstr " of the affected Person or any other natural person, "
+" article 6 paragraph 1 , 1d (GDPR) will pose as legal basis"
+
+#: .\templates\core\privacy.html:25
+msgid "Dient die Datenverarbeitung einer Aufgabe, die im "
+msgstr "Should the processing of data facilitate a matter of "
+
+#: .\templates\core\privacy.html:25
+msgid "öffentlichen Interesse"
+msgstr "public interest"
+
+#: .\templates\core\privacy.html:25
+msgid "liegt oder in "
+msgstr "or happen in the scope of the"
+
+#: .\templates\core\privacy.html:25
+msgid "Ausübung öffentlicher Gewalt"
+msgstr "exercise of public authority"
+
+#: .\templates\core\privacy.html:25
+msgid ""
+"erfolgt, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1e der DSGVO."
+msgstr "article 6 paragraph 1 , 1e (GDPR) will pose as legal basis"
+
+#: .\templates\core\privacy.html:26
+msgid "Insofern die Verarbeitung personenbezogener Daten erforderlich ist, um "
+msgstr "Should the processing of personal data be necessary to protect "
+
+#: .\templates\core\privacy.html:26
+msgid "berechtigte Interessen des Verantwortlichen"
+msgstr "legitimate interests of the responsible "
+
+#: .\templates\core\privacy.html:26
+msgid "oder "
+msgstr "or "
+
+#: .\templates\core\privacy.html:26
+msgid "eines Dritten"
+msgstr "a third party"
+
+#: .\templates\core\privacy.html:26
+msgid ""
+"zu wahren – ohne dabei die Interessen, Grundrechte oder Grundfreiheiten der "
+"betroffenen Person zu gefährden –, gilt Artikel 6 Absatz 1 Unterabsatz 1f "
+"(DSGVO) als Rechtsgrundlage."
+msgstr " without risking interests, rights or freedoms of the affected person, "
+"article 6 paragraph 1 , 1f (GDPR) will pose as legal basis"
+
+#: .\templates\core\privacy.html:28
+msgid "Angabe des Datenverarbeitungszwecks"
+msgstr "Indication of the purpose of data processing"
+
+#: .\templates\core\privacy.html:31
+msgid "Angabe der Datenspeicherungsdauer"
+msgstr "Indication of the data retention period "
+
+#: .\templates\core\privacy.html:34
+msgid "Betroffenenrechte"
+msgstr "data subject rights"
+
+#: .\templates\core\privacy.html:35
+msgid ""
+"Im Sinne der DSGVO zählen Sie als Betroffener, wenn personenbezogene Daten, "
+"die Sie betreffen, von uns verarbeitet werden. Aus diesem Grund können Sie "
+"von verschiedenen Betroffenenrechten Gebrauch machen, die in der Datenschutz-"
+"Grundverordnung verankert sind. Hierbei handelt es sich um das "
+msgstr "In the scope of the GDPR, you are a subject as soon as personal data regarding"
+"you is processed by us. Due to that fact, you can take advantage of several subject rights,"
+"which are set in the GDPR. There is the "
+
+#: .\templates\core\privacy.html:35
+msgid "Auskunftsrecht"
+msgstr "Right of providing information "
+
+#: .\templates\core\privacy.html:35
+msgid " (Artikel 15 DSGVO), das "
+msgstr "(aricle 15 GDPR), the "
+
+#: .\templates\core\privacy.html:35
+msgid "Recht auf Berichtigung"
+msgstr "Right to Rectification "
+
+#: .\templates\core\privacy.html:35
+msgid " (Artikel 16 DSGVO), das "
+msgstr "(aricle 16 GDPR), the "
+
+#: .\templates\core\privacy.html:35
+msgid "Recht auf Löschung"
+msgstr "Right to Deletion"
+
+#: .\templates\core\privacy.html:35
+msgid "(Artikel 17 DSGVO), das "
+msgstr "(aricle 17 GDPR), the "
+
+#: .\templates\core\privacy.html:35
+msgid "Recht auf Einschränkung der Verarbeitung"
+msgstr "Right to restriction of processing "
+
+#: .\templates\core\privacy.html:35
+msgid "(Artikel 18 DSGVO), das "
+msgstr "(aricle 18 GDPR), the "
+
+#: .\templates\core\privacy.html:35
+msgid "Widerspruchsrecht"
+msgstr "Right to object"
+
+#: .\templates\core\privacy.html:35
+msgid "(Artikel 21 DSGVO), das "
+msgstr "(aricle 21 GDPR), the "
+
+#: .\templates\core\privacy.html:35
+msgid "Recht auf Beschwerde bei einer Aufsichtsbehörde"
+msgstr "Right to complain to a supervising agency"
+
+#: .\templates\core\privacy.html:35
+msgid "(Artikel 77 DSGVO) sowie das Recht auf "
+msgstr "(aricle 77 GDPR), as well as the  "
+
+#: .\templates\core\privacy.html:35
+msgid "Datenübertragbarkeit"
+msgstr "Right to transfer data"
+
+#: .\templates\core\questions_and_answers.html:5
+msgid "Fragen und Antworten"
+msgstr "Questions and Answers"
+
+#: .\templates\core\questions_and_answers.html:6
+msgid "Hier finden Sie Antworten zu häufig gestellten Fragen."
+msgstr "Here you can find answers to the most common questions"
+
+#: .\templates\core\questions_and_answers.html:18
+msgid "Wie kann ich Coins zu meinem Depot hinzufügen?"
+msgstr "How can i add coins to my Portfolio"
+
 #: .\templates\inclusion\navigation.html:4
 msgid "Portfolio"
 msgstr "Portfolio"
@@ -125,46 +344,52 @@ msgstr "Portfolio"
 msgid "Dashboard"
 msgstr "Dashboard"
 
+#: .\templates\inclusion\navigation.html:6
+msgid "Watchlist"
+msgstr "Watchlist"
+
 #: .\templates\inclusion\navigation.html:7
+msgid "Coin Übersicht"
+msgstr "Coin overview"
+
+#: .\templates\inclusion\navigation.html:8
+msgid "Transaktionen"
+msgstr "Transactions"
+
+#: .\templates\inclusion\navigation.html:13
 msgid "Sozial"
 msgstr "Social"
 
-#: .\templates\inclusion\navigation.html:8
+#: .\templates\inclusion\navigation.html:14
 #: .\templates\inclusion\user_menu.html:32
 msgid "Profil"
 msgstr "Profile"
 
-#: .\templates\inclusion\navigation.html:9
+#: .\templates\inclusion\navigation.html:15
 msgid "Community"
 msgstr "Community"
 
-#: .\templates\inclusion\navigation.html:10
+#: .\templates\inclusion\navigation.html:16
 msgid "Nachrichten"
 msgstr "Messages"
 
-#: .\templates\inclusion\search.html:16
-msgid "Suche"
-msgstr "Search"
-
-#: .\templates\inclusion\search_modal.html:6
+#: .\templates\inclusion\search_modal.html:10
 msgid "Suchergebnisse"
 msgstr "Search results"
+
+#: .\templates\inclusion\search_modal.html:28
+msgid "Schließen"
+msgstr "Close"
 
 #: .\templates\inclusion\search_result.html:6
 msgid "Keine Ergebnisse gefunden!"
 msgstr "No results found!"
 
-#: .\templates\inclusion\search_result.html:28
-msgid "Benutzer"
+#: .\templates\inclusion\search_result.html:12
+#, fuzzy
+#| msgid "Benutzer"
+msgid "Nutzer"
 msgstr "User"
-
-#: .\templates\inclusion\search_result.html:34
-msgid "Entfolgen"
-msgstr "Unfollow"
-
-#: .\templates\inclusion\search_result.html:37
-msgid "Folgen"
-msgstr "Follow"
 
 #: .\templates\inclusion\user_menu.html:35
 msgid "Hilfe"
@@ -177,3 +402,12 @@ msgstr "Settings"
 #: .\templates\inclusion\user_menu.html:45
 msgid "Abmelden"
 msgstr "Sign out"
+
+#~ msgid "Suche"
+#~ msgstr "Search"
+
+#~ msgid "Entfolgen"
+#~ msgstr "Unfollow"
+
+#~ msgid "Folgen"
+#~ msgstr "Follow"
