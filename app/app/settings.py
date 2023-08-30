@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-hzdef6(rps5z3=$s0o_qizd74g*osd&rl^dbai!c*74rx4q_e6
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://websocketking.com',
-                 '139.144.178.254', '0.0.0.0', 'localhost', '127.0.0.1']
+                 '172.105.79.23', '0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
