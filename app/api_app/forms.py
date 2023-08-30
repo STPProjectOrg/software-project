@@ -14,7 +14,7 @@ class AddAssetDataForm(forms.Form):
                             initial='EUR',
                             required=True,
                             widget=forms.Select(
-                                choices=[],#get_asset_choices(), 
+                                choices=get_asset_choices(), 
                                 attrs={'class': 'form-control'}))
     
     currency = forms.CharField(label='Währung',

@@ -9,8 +9,8 @@ def get_asset_choices() -> list[(str,str)]:
     """
         
     asset_choices = []
-    #for asset in get_all_assets_from_database():
-    #    asset_choices.append((asset.name,asset.coinName))
+    for asset in get_all_assets_from_database():
+        asset_choices.append((asset.name,asset.coinName))
     return asset_choices
 
 def get_all_assets_from_database() -> list[Asset]:
