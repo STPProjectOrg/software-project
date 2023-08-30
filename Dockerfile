@@ -6,8 +6,8 @@ COPY app/requirements.txt /app
 RUN pip install -r requirements.txt
 COPY . /app 
 ENTRYPOINT ["python3"] 
-CMD ["app/manage.py", "runserver", "139.144.176.245:8000"]
+CMD ["app/manage.py", "runserver", "143.42.31.113:8000"]
 
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
-CMD ["app/manage.py", "runserver", "139.144.176.245:8000"]
+CMD ["app/manage.py", "runserver", "143.42.31.113:8000"]
