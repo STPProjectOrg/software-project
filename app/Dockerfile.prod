@@ -13,8 +13,8 @@ ENV SQL_ENGINE "django.db.backends.postgresql_psycopg2"
 ENV DATABASE "postgres"
 ENV SQL_DATABASE "postgres"
 ENV SQL_USER "linpostgres"
-ENV SQL_PASSWORD "80xJjxDw,UNj3Ivr"
-ENV SQL_HOST "lin-24622-9041-pgsql-primary.servers.linodedb.net"
+ENV SQL_PASSWORD "RBiw^1Gn9chb1LkA"
+ENV SQL_HOST "lin-28072-11297-pgsql-primary.servers.linodedb.net"
 ENV SQL_PORT "5432"
 
 # install psycopg2
