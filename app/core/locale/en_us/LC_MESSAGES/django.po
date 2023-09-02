@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 14:10+0200\n"
+"POT-Creation-Date: 2023-09-02 19:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,8 @@ msgstr "ones responsible"
 msgid ""
 "im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler "
 "Datenschutzgesetze sind alle im"
-msgstr "regarding the General Data Protection Regulation (GDPR) and other national "
+msgstr ""
+"regarding the General Data Protection Regulation (GDPR) and other national "
 "Data Protection Regulations are all"
 
 #: .\templates\core\privacy.html:18
@@ -152,7 +153,9 @@ msgstr "Consent"
 msgid ""
 " der betroffenen Person eingeholt haben, gilt Artikel 6 Absatz 1 Unterabsatz "
 "1a der DSGVO als rechtliche Grundlage."
-msgstr " from the affected person, article 6 paragraph 1 , 1a (GDPR) will pose as legal basis "
+msgstr ""
+" from the affected person, article 6 paragraph 1 , 1a (GDPR) will pose as "
+"legal basis "
 
 #: .\templates\core\privacy.html:22
 msgid "Ist die Verarbeitung personenbezogener Daten für die "
@@ -174,7 +177,9 @@ msgstr "pre-contract measures "
 msgid ""
 "erforderlich, die durch die betroffene Person veranlasst wurden, dient "
 "Artikel 6 Absatz 1 Unterabsatz 1b (DSGVO) als Rechtsgrundlage."
-msgstr "made necessary by the affected person, article 6 paragraph 1 , 1b (GDPR) will pose as legal basis "
+msgstr ""
+"made necessary by the affected person, article 6 paragraph 1 , 1b (GDPR) "
+"will pose as legal basis "
 
 #: .\templates\core\privacy.html:23
 msgid "Ist die Datenverarbeitung das Resultat einer "
@@ -199,11 +204,17 @@ msgid "lebenswichtige Interessen"
 msgstr "vital interests"
 
 #: .\templates\core\privacy.html:24
+#, fuzzy
+#| msgid ""
+#| " der betroffenen Person oder einer anderen natürlichen Person zu "
+#| "schützen, dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als "
+#| "Rechtsgrundlage."
 msgid ""
-" der betroffenen Person oder einer anderen natürlichen Person zu schützen, "
+"der betroffenen Person oder einer anderen natürlichen Person zu schützen, "
 "dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage."
-msgstr " of the affected Person or any other natural person, "
-" article 6 paragraph 1 , 1d (GDPR) will pose as legal basis"
+msgstr ""
+" of the affected Person or any other natural person,  article 6 paragraph "
+"1 , 1d (GDPR) will pose as legal basis"
 
 #: .\templates\core\privacy.html:25
 msgid "Dient die Datenverarbeitung einer Aufgabe, die im "
@@ -247,7 +258,8 @@ msgid ""
 "zu wahren – ohne dabei die Interessen, Grundrechte oder Grundfreiheiten der "
 "betroffenen Person zu gefährden –, gilt Artikel 6 Absatz 1 Unterabsatz 1f "
 "(DSGVO) als Rechtsgrundlage."
-msgstr " without risking interests, rights or freedoms of the affected person, "
+msgstr ""
+" without risking interests, rights or freedoms of the affected person, "
 "article 6 paragraph 1 , 1f (GDPR) will pose as legal basis"
 
 #: .\templates\core\privacy.html:28
@@ -268,9 +280,10 @@ msgid ""
 "die Sie betreffen, von uns verarbeitet werden. Aus diesem Grund können Sie "
 "von verschiedenen Betroffenenrechten Gebrauch machen, die in der Datenschutz-"
 "Grundverordnung verankert sind. Hierbei handelt es sich um das "
-msgstr "In the scope of the GDPR, you are a subject as soon as personal data regarding"
-"you is processed by us. Due to that fact, you can take advantage of several subject rights,"
-"which are set in the GDPR. There is the "
+msgstr ""
+"In the scope of the GDPR, you are a subject as soon as personal data "
+"regardingyou is processed by us. Due to that fact, you can take advantage of "
+"several subject rights,which are set in the GDPR. There is the "
 
 #: .\templates\core\privacy.html:35
 msgid "Auskunftsrecht"
@@ -349,8 +362,8 @@ msgid "Watchlist"
 msgstr "Watchlist"
 
 #: .\templates\inclusion\navigation.html:7
-msgid "Coin Übersicht"
-msgstr "Coin overview"
+msgid "Coin Overview"
+msgstr ""
 
 #: .\templates\inclusion\navigation.html:8
 msgid "Transaktionen"
@@ -372,6 +385,10 @@ msgstr "Community"
 #: .\templates\inclusion\navigation.html:16
 msgid "Nachrichten"
 msgstr "Messages"
+
+#: .\templates\inclusion\search.html:3
+msgid "Suche"
+msgstr "Search"
 
 #: .\templates\inclusion\search_modal.html:10
 msgid "Suchergebnisse"
@@ -403,8 +420,8 @@ msgstr "Settings"
 msgid "Abmelden"
 msgstr "Sign out"
 
-#~ msgid "Suche"
-#~ msgstr "Search"
+#~ msgid "Coin Übersicht"
+#~ msgstr "Coin overview"
 
 #~ msgid "Entfolgen"
 #~ msgstr "Unfollow"

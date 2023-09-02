@@ -9,27 +9,27 @@
 {% block settings %}
     <div class="form-check form-switch">
         <label for="{{ form.hasAssetAmountChanged.id_for_label }}"
-               class="form-label ms-2">Veränderung der Assetmenge</label>
+               class="form-label ms-2">{% trans "Veränderung der Assetmenge" %}</label>
         {{ form.hasAssetAmountChanged }}
     </div>
     <div class="form-check form-switch">
-        <label for="{{ form.hasNewFollower.id_for_label }}" class="form-label ms-2">Neuer Follower</label>
+        <label for="{{ form.hasNewFollower.id_for_label }}" class="form-label ms-2">{% trans "Neuer Follower" %}</label>
         {{ form.hasNewFollower }}
     </div>
     <div class="form-check form-switch">
-        <label for="{{ form.hasLikedPost.id_for_label }}" class="form-label ms-2">Beitrags Like</label>
+        <label for="{{ form.hasLikedPost.id_for_label }}" class="form-label ms-2">{% trans "Beitrags Like" %}</label>
         {{ form.hasLikedPost }}
     </div>
     <div class="form-check form-switch">
-        <label for="{{ form.hasLikedComment.id_for_label }}" class="form-label ms-2">Kommentar Like</label>
+        <label for="{{ form.hasLikedComment.id_for_label }}" class="form-label ms-2">{% trans "Kommentar Like" %}</label>
         {{ form.hasLikedComment }}
     </div>
     <div class="form-check form-switch">
-        <label for="{{ form.hasNewComment.id_for_label }}" class="form-label ms-2">Neuer Kommentar</label>
+        <label for="{{ form.hasNewComment.id_for_label }}" class="form-label ms-2">{% trans "Neuer Kommentar" %}</label>
         {{ form.hasNewComment }}
     </div>
     <div class="form-check form-switch">
-        <label for="{{ form.hasSharedPost.id_for_label }}" class="form-label ms-2">Beitrag geteilt</label>
+        <label for="{{ form.hasSharedPost.id_for_label }}" class="form-label ms-2">{% trans "Beitrag geteilt" %}</label>
         {{ form.hasSharedPost }}
     </div>
 {% endblock settings %}

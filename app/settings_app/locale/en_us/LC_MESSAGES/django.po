@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-10 22:39+0200\n"
+"POT-Creation-Date: 2023-09-02 17:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\forms.py:40
+#: .\forms.py:40 .\templates\settings_app\userSettings.html:25
 msgid "Benutzername"
 msgstr "Username"
 
@@ -25,7 +25,7 @@ msgstr "Username"
 msgid "Email"
 msgstr "Email"
 
-#: .\forms.py:42
+#: .\forms.py:42 .\templates\settings_app\userSettings.html:12
 msgid "Vorname"
 msgstr "Firstname"
 
@@ -35,11 +35,37 @@ msgstr "Lastname"
 
 #: .\templates\settings_app\notificationSettings.html:4
 #: .\templates\settings_app\settingsOverview.html:21
+#: .\templates\settings_app\viewSettings.html:21
 msgid "Benachrichtigungseinstellungen"
 msgstr "Notification Settings"
 
+#: .\templates\settings_app\notificationSettings.html:12
+msgid "Veränderung der Assetmenge"
+msgstr "Notification of change in asset quantity"
+
+#: .\templates\settings_app\notificationSettings.html:16
+msgid "Neuer Follower"
+msgstr "New Follower"
+
+#: .\templates\settings_app\notificationSettings.html:20
+msgid "Beitrags Like"
+msgstr "Liked Post"
+
+#: .\templates\settings_app\notificationSettings.html:24
+msgid "Kommentar Like"
+msgstr "Liked Comment"
+
+#: .\templates\settings_app\notificationSettings.html:28
+msgid "Neuer Kommentar"
+msgstr "New Comment"
+
+#: .\templates\settings_app\notificationSettings.html:32
+msgid "Beitrag geteilt"
+msgstr "Shared Post"
+
 #: .\templates\settings_app\portfolioSettings.html:4
 #: .\templates\settings_app\settingsOverview.html:17
+#: .\templates\settings_app\viewSettings.html:17
 msgid "Portfolioeinstellungen"
 msgstr "Portfolio Settings"
 
@@ -69,53 +95,62 @@ msgstr "Ruble"
 
 #: .\templates\settings_app\securitySettings.html:4
 #: .\templates\settings_app\settingsOverview.html:19
+#: .\templates\settings_app\viewSettings.html:19
 msgid "Sicherheitseinstellungen"
 msgstr "Security Settings"
 
+#: .\templates\settings_app\settingsOverview.html:9
+#: .\templates\settings_app\viewSettings.html:4
+#: .\templates\settings_app\viewSettings.html:9
+#, fuzzy
+#| msgid "Profileinstellungen"
+msgid "Einstellungen"
+msgstr "Profile Settings"
+
 #: .\templates\settings_app\settingsOverview.html:15
 #: .\templates\settings_app\userSettings.html:4
+#: .\templates\settings_app\viewSettings.html:15
 msgid "Profileinstellungen"
 msgstr "Profile Settings"
 
 #: .\templates\settings_app\settingsOverview.html:23
-#: .\templates\settings_app\viewSettings.html:5
+#: .\templates\settings_app\viewSettings.html:23
 msgid "Anzeigeeinstellungen"
 msgstr "Display Settings"
 
 #: .\templates\settings_app\settingsOverview.html:26
+#: .\templates\settings_app\viewSettings.html:26
 msgid "API-Admin Panel"
-msgstr ""
+msgstr "API-Admin Panel"
 
-#: .\templates\settings_app\viewSettings.html:12
-msgid "Theme"
-msgstr "Theme"
+#: .\templates\settings_app\settingsOverview.html:44
+#: .\templates\settings_app\viewSettings.html:53
+msgid "Speichern"
+msgstr "Save"
 
-#: .\templates\settings_app\viewSettings.html:14
-msgid "Hell"
-msgstr "Light"
+#: .\templates\settings_app\userSettings.html:16
+msgid "Nachname"
+msgstr "Lastname"
 
-#: .\templates\settings_app\viewSettings.html:15
-msgid "Dunkel"
-msgstr "Dark"
+#: .\templates\settings_app\userSettings.html:21
+msgid "E-Mail"
+msgstr "E-Mail"
 
-#: .\templates\settings_app\viewSettings.html:19
+#: .\templates\settings_app\viewSettings.html:39
 msgid "Sprache"
-msgstr ""
+msgstr "Language"
 
-#: .\templates\settings_app\viewSettings.html:21
-msgid "Deutsch"
-msgstr ""
+#~ msgid "Theme"
+#~ msgstr "Theme"
 
-#: .\templates\settings_app\viewSettings.html:22
-msgid "Englisch"
-msgstr ""
+#~ msgid "Hell"
+#~ msgstr "Light"
 
-#: .\templates\settings_app\viewSettings.html:54
-msgid "test"
-msgstr "I am translated"
+#~ msgid "Dunkel"
+#~ msgstr "Dark"
 
-#~ msgid "Benachrichtigung bei Veränderung der Assetmenge"
-#~ msgstr "Notification of change in asset quantity"
+#~ msgid "test"
+#~ msgstr "I am translated"
 
 #~ msgid "Benachrichtigung wenn ihnen jemand folgt"
 #~ msgstr "Notification when someone follows you"
@@ -131,9 +166,6 @@ msgstr "I am translated"
 
 #~ msgid "Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat"
 #~ msgstr "Notification when someone has shared one of your posts"
-
-#~ msgid "Speichern"
-#~ msgstr "Save"
 
 #~ msgid "Zurück"
 #~ msgstr "Back"

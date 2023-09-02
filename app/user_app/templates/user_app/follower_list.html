@@ -1,7 +1,8 @@
 {% extends "core/base.html" %}
+{% load i18n %}
 {% block content %}
-    <h1>Follower Liste</h1>
-    <h2>Dir folgt:</h2>
+    <h1>{% trans "Follower Liste" %}</h1>
+    <h2>{% trans "Dir folgt:" %}</h2>
     <div class="container mt-5">
         <div class="d-flex justify-content-center row">
             <div class="col-md-5">
@@ -12,20 +13,20 @@
                                 <img class="rounded-circle" src="{{ follower.user_picture }}" width="55">
                                 <div class="d-flex flex-column align-items-start ml-3">
                                     <a href="{% url 'user_app:profile' follower.username %}">{{ follower.username }}</a>
-                                    <span class="followers">Follower: <a href="{% url 'user_app:follower_list' follower.username %}">{{ follower.followers }}</a></span>
+                                    <span class="followers">{% trans "Follower:" %} <a href="{% url 'user_app:follower_list' follower.username %}">{{ follower.followers }}</a></span>
                                 </div>
                             </div>
                             {% if follower.is_following %}
                                 <a href="{% url 'user_app:follow' follower.username %}">
                                     <div class="d-flex flex-row align-items-center mt-2">
-                                        <button class="btn btn-outline-primary btn-sm" type="button">Unfollow</button>
+                                        <button class="btn btn-outline-primary btn-sm" type="button">{% trans "Entfolgen" %}</button>
                                     </div>
                                 </a>
-                                {% comment "" %}<button class="btn btn-outline-danger mt-3">Unfollow</button>{% endcomment %}
+                                {% comment "" %}<button class="btn btn-outline-danger mt-3">{% trans "Entfolgen" %}</button>{% endcomment %}
                             {% else %}
                                 <a href="{% url 'user_app:follow' follower.username %}">
                                     <div class="d-flex flex-row align-items-center mt-2">
-                                        <button class="btn btn-outline-primary btn-sm" type="button">Follow</button>
+                                        <button class="btn btn-outline-primary btn-sm" type="button">{% trans "Folgen" %}</button>
                                     </div>
                                 </a>
                             {% endif %}

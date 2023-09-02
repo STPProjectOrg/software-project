@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-30 16:04+0200\n"
+"POT-Creation-Date: 2023-09-02 19:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,11 @@ msgstr "Likes"
 msgid "Kommentare"
 msgstr "Comments"
 
-#: .\templates\community_app\inclusion\post.html:158
+#: .\templates\community_app\inclusion\post.html:149
+msgid "Schreibe einen Kommentar..."
+msgstr "Write a comment..."
+
+#: .\templates\community_app\inclusion\post.html:159
 msgid "Kommentieren"
 msgstr "comment"
 

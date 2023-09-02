@@ -1,21 +1,22 @@
 {% extends "core/clear_base.html" %}
+{% load i18n %}
 {% load core_tags %}
 {% block title %}
-    | Registrierung
+    | {% trans "Registrierung" %}
 {% endblock title %}
 {% block content %}
     <div class="row h-100 m-auto">
         <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-4 m-auto">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center">Registrierung</h1>
+                    <h1 class="text-center">{% trans "Registrierung" %}</h1>
                     <form action="{% url 'user_app:register' %}"
                           method="post"
                           enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12 col-md-6 mt-4">
-                                <label for="{{ user_form.first_name.id_for_label }}" class="form-label">Vorname</label>
+                                <label for="{{ user_form.first_name.id_for_label }}" class="form-label">{% trans "Vorname" %}</label>
                                 <div class="input-group">
                                     <div class="input-group-text">
                                         <i class="bi bi-1-circle-fill"></i>
@@ -27,7 +28,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-12 col-md-6 mt-4">
-                                <label for="{{ user_form.last_name.id_for_label }}" class="form-label">Nachname</label>
+                                <label for="{{ user_form.last_name.id_for_label }}" class="form-label">{% trans "Nachname" %}</label>
                                 <div class="input-group">
                                     <div class="input-group-text">
                                         <i class="bi bi-2-circle-fill"></i>
@@ -40,7 +41,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <label for="{{ user_form.email.id_for_label }}" class="form-label">E-Mail</label>
+                            <label for="{{ user_form.email.id_for_label }}" class="form-label">{% trans "E-Mail" %}</label>
                             <div class="input-group">
                                 <div class="input-group-text">
                                     <i class="bi bi-envelope-fill"></i>
@@ -52,7 +53,7 @@
                             {% endif %}
                         </div>
                         <div class="mt-4">
-                            <label for="{{ user_form.username.id_for_label }}" class="form-label">Benutzername</label>
+                            <label for="{{ user_form.username.id_for_label }}" class="form-label">{% trans "Benutzername" %}</label>
                             <div class="input-group">
                                 <div class="input-group-text">
                                     <i class="bi bi-person-fill"></i>
@@ -65,7 +66,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6 mt-4">
-                                <label for="{{ user_form.password.id_for_label }}" class="form-label">Passwort</label>
+                                <label for="{{ user_form.password.id_for_label }}" class="form-label">{% trans "Passwort" %}</label>
                                 <div class="input-group">
                                     <div class="input-group-text">
                                         <i class="bi bi-key-fill"></i>
@@ -77,7 +78,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-12 col-md-6 mt-4">
-                                <label for="{{ user_form.password2.id_for_label }}" class="form-label">Passwort bestätigen</label>
+                                <label for="{{ user_form.password2.id_for_label }}" class="form-label">{% trans "Passwort bestätigen" %}</label>
                                 <div class="input-group">
                                     <div class="input-group-text">
                                         <i class="bi bi-key-fill"></i>
@@ -89,7 +90,8 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <input class="btn btn-primary mt-4 w-100" type="submit" value="Registrieren">
+                        {% trans "Registrieren" as sign_up_placeholder %}
+                        <input class="btn btn-primary mt-4 w-100" type="submit" value="{{sign_up_placeholder}}">
                     </form>
                 </div>
             </div>

@@ -146,6 +146,7 @@
         </div>
         {# Add comment #}
         <div>
+            {% trans "Schreibe einen Kommentar..." as comment_annotation %}
             <form class="my-2 d-flex gap-2"
                   method="post"
                   action="{% url 'community_app:comment_create' post.id %}">
@@ -153,7 +154,7 @@
                 <textarea class="form-control"
                           name="post_comment"
                           rows="1"
-                          placeholder="Schreibe einen Kommentar..."></textarea>
+                          placeholder="{{comment_annotation}}"></textarea>
                 <button class="btn btn-outline-primary d-flex gap-2 m-auto" type="submit">
                     <div>{% trans "Kommentieren" %}</div>
                 </button>

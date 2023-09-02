@@ -1,6 +1,7 @@
 {% extends "core/clear_base.html" %}
+{% load i18n %}
 {% block title %}
-    | Registrierung
+    | {% trans "Registrierung" %}
 {% endblock title %}
 {% block content %}
     <div class="row h-100 m-auto">
@@ -8,15 +9,15 @@
             <div class="card">
                 <div class="card-body">
                     {# Title #}
-                    <h1 class="text-center">Registrierung</h1>
+                    <h1 class="text-center">{% trans "Registrierung" %}</h1>
                     {# Description #}
-                    <p class="text-center fw-bold">Benutzer wurde erfolgreich erstellt.</p>
+                    <p class="text-center fw-bold">{% trans "Benutzer wurde erfolgreich erstellt." %}</p>
                     <div class="fs-1 text-center text-succsess-emphasis my-4">
                         <i class="bi bi-check-circle"></i>
                     </div>
-                    <p class="text-center">Sie können sich nun mit Ihren Zugangsdaten anmelden.</p>
+                    <p class="text-center">{% trans "Sie können sich nun mit Ihren Zugangsdaten anmelden." %}</p>
                     {# Login button #}
-                    <a class="btn btn-primary mt-4 w-100" href="{% url 'user_app:login' %}">Anmelden</a>
+                    <a class="btn btn-primary mt-4 w-100" href="{% url 'user_app:login' %}">{% trans "Anmelden" %}</a>
                 </div>
             </div>
         </div>
