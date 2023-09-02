@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-02 19:52+0200\n"
+"POT-Creation-Date: 2023-09-02 20:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,11 +204,6 @@ msgid "lebenswichtige Interessen"
 msgstr "vital interests"
 
 #: .\templates\core\privacy.html:24
-#, fuzzy
-#| msgid ""
-#| " der betroffenen Person oder einer anderen natürlichen Person zu "
-#| "schützen, dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als "
-#| "Rechtsgrundlage."
 msgid ""
 "der betroffenen Person oder einer anderen natürlichen Person zu schützen, "
 "dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage."
@@ -337,17 +332,35 @@ msgstr "(aricle 77 GDPR), as well as the  "
 msgid "Datenübertragbarkeit"
 msgstr "Right to transfer data"
 
-#: .\templates\core\questions_and_answers.html:5
+#: .\templates\core\questions_and_answers.html:6
 msgid "Fragen und Antworten"
 msgstr "Questions and Answers"
 
-#: .\templates\core\questions_and_answers.html:6
+#: .\templates\core\questions_and_answers.html:7
 msgid "Hier finden Sie Antworten zu häufig gestellten Fragen."
 msgstr "Here you can find answers to the most common questions"
 
-#: .\templates\core\questions_and_answers.html:18
+#: .\templates\core\questions_and_answers.html:19
 msgid "Wie kann ich Coins zu meinem Depot hinzufügen?"
 msgstr "How can i add coins to my Portfolio"
+
+#: .\templates\core\questions_and_answers.html:26
+msgid ""
+"Coins können über die Suchleiste gefunden und aufgerufen werden. Über den "
+"Button "
+msgstr "Coins can be found through the search bar and the Button "
+
+#: .\templates\core\questions_and_answers.html:26
+#, fuzzy
+#| msgid "Transaktionen"
+msgid "Transaktion hinzufügen"
+msgstr "Transactions"
+
+#: .\templates\core\questions_and_answers.html:27
+msgid ""
+"wird das Formular zum hinzufügen geöffnet. Hier können, neben dem Kaufdatum "
+"und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden."
+msgstr "opens the Form to add the coin to your Portfolio. Here you can state the purchase date, the amount you bought, the price, taxes and charges."
 
 #: .\templates\inclusion\navigation.html:4
 msgid "Portfolio"

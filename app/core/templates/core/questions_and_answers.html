@@ -1,4 +1,5 @@
 {% extends request.user.is_authenticated|yesno:'core/base.html,core/clear_base.html' %}
+{% load i18n %}
 {% block content %}
     {# Title #}
     <div>
@@ -22,9 +23,8 @@
                      data-bs-parent="#accordionQuestion1">
                     <div class="accordion-body">
                         <div>
-                            {% trans "Coins können über die Suchleiste gefunden und aufgerufen werden.
-                            Über den Button " %}<strong>[Button-Name]</strong> {% trans "wird das Formular zum hinzufügen geöffnet.
-                            Hier können, neben dem Kaufdatum und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden." %}
+                           {% trans "Coins können über die Suchleiste gefunden und aufgerufen werden. Über den Button " %}<strong>{% trans "Transaktion hinzufügen" %}</strong> 
+                           {% trans "wird das Formular zum hinzufügen geöffnet. Hier können, neben dem Kaufdatum und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden." %}
                         </div>
                     </div>
                 </div>
