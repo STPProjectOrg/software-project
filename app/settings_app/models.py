@@ -42,5 +42,8 @@ class Settings(models.Model):
     # Displaysettings field's
     theme = models.CharField(max_length=30, blank=False, default="dark")
 
+    # View Setting Language
+    language = models.CharField(max_length=30, blank=False, default="de")
+    
     def __str__(self):
         return self.user.username + "'s settings"

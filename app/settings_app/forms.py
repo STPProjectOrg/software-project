@@ -124,3 +124,10 @@ class SecuritySettingsForm(forms.Form):
         attrs={"class": "form-control",
                "id": "dashboard_privacy_setting"}),
         required=True)
+
+class LanguageSettingsForm(forms.Form):
+    language_setting = forms.CharField(label="Language", widget=forms.Select(
+        choices=[("de", "de"), ("en-us", "en-us")],
+        attrs={"class": "form-control",
+               "id": "language_setting"}),
+        required=True)

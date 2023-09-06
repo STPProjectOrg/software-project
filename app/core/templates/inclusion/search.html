@@ -1,5 +1,6 @@
 {% load core_tags %}
 {% load i18n %}
+{% trans "Suche" as search_placeholder %}
 <form id="search-form"
       method="get"
       action="{% url 'core:search_results' %}">
@@ -20,7 +21,7 @@
                    id="search_input"
                    autocomplete="off"
                    class="form-control"
-                   placeholder="Suche"
+                   placeholder="{{search_placeholder}}"
                    aria-label="Suche"
                    oninput="search()">
         </div>

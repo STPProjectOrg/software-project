@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from user_app.models import CustomUser
 from .models import Settings
-from .forms import NotificationSettingsForm, UserSettingsForm, SecuritySettingsForm
+from .forms import NotificationSettingsForm, UserSettingsForm, SecuritySettingsForm, LanguageSettingsForm
 from django.http import HttpResponseRedirect
 from django.utils import translation
 from community_app.models import Post
@@ -116,10 +116,11 @@ def view_settings(request):
     """
     Renders the view settings page.
     """
-    return render(request, 'settings_app/viewSettings.html')
+    form = LanguageSettingsForm(initial={"language_setting": translation.get_language})
+    data = {"form": form}
+    if request.method == "POST":
+        return HttpResponseRedirect("/i18n/setlang/en-us")
+    return render(request, 'settings_app/viewSettings.html',context=data)
 
-@login_required
-def language_change(request, language_code):
-    translation.activate(language=language_code)
-    print("LANGUAGEEEEEEE"+translation.get_language())
-    return render(request, 'settings_app/viewSettings.html')
+
+

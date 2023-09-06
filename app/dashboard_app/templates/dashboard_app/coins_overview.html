@@ -3,43 +3,43 @@
 {% load i18n %}
 {% load core_tags %}
 {% block title %}
-    | Übersicht
+    | {% trans "Übersicht" %}
 {% endblock title %}
 {% block content %}
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Übersicht</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Übersicht" %}</div>
                 <div class="card-body">
                     <div class="overflow-auto">
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col-auto" class="text-center">Icon</th>
+                                    <th scope="col-auto" class="text-center">{% trans "Icon" %}</th>
                                     
-                                    <th scope="col" class="text-start">Symbol
+                                    <th scope="col" class="text-start">
                                     {% if sort_by_attribute == "name" and direction == "asc" %}
-                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'name' 'desc' %}">Symbol<i class="bi bi-sort-alpha-down"></i></a>
+                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'name' 'desc' %}">{% trans "Symbol" %}<i class="bi bi-sort-alpha-down"></i></a>
                                     {% else %}
-                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'name' 'asc' %}">Symbol<i class="bi bi-sort-alpha-up"></i></a>
+                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'name' 'asc' %}">{% trans "Symbol" %}<i class="bi bi-sort-alpha-up"></i></a>
                                     {% endif %}
                                     </th>
 
                                     <th scope="col" class="text-start">
                                         {% if sort_by_attribute == "coinName" and direction == "asc" %}
-                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'coinName' 'desc' %}">Name<i class="bi bi-sort-alpha-down"></i></a>
+                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'coinName' 'desc' %}">{% trans "Name" %}<i class="bi bi-sort-alpha-down"></i></a>
                                         {% else %}
-                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'coinName' 'asc' %}">Name<i class="bi bi-sort-alpha-up"></i></a>
+                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'coinName' 'asc' %}">{% trans "Name" %}<i class="bi bi-sort-alpha-up"></i></a>
                                         {% endif %}
                                     </th>
                                     <th scope="col" class="text-start">
                                         {% if sort_by_attribute == "price" and direction == "asc" %}
-                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'price' 'desc' %}">Preis Heute<i class="bi bi-sort-numeric-down"></i></a>
+                                        <a  class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'price' 'desc' %}">{% trans "Preis Heute" %}<i class="bi bi-sort-numeric-down"></i></a>
                                         {% else %}
-                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'price' 'asc' %}">Preis Heute<i class="bi bi-sort-numeric-up"></i></a>
+                                        <a class="text-decoration-none text-muted" href="{% url 'dashboard_app:coin_overview' 'price' 'asc' %}">{% trans "Preis Heute" %}<i class="bi bi-sort-numeric-up"></i></a>
                                         {% endif %}
                                     </th>
-                                    <th scope="col-auto" class="text-center">Watchlist</th>
+                                    <th scope="col-auto" class="text-center">{% trans "Watchlist" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
