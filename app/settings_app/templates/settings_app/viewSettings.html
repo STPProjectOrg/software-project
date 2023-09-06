@@ -1,36 +1,70 @@
-{% extends "settings_app/settingsOverview.html" %}
+{% extends "core/base.html" %}
 {% load i18n %}
-{% block settings_title %}
-    {% trans "Anzeigeeinstellungen" %}
-{% endblock settings_title %}
-{% block class_selector_view %}
-    chat-user-entry-selected
-{% endblock class_selector_view %}
-{% block settings %}
-    <div>
-        <label for="themeSelector" class="form-label">{% trans "Theme" %}</label>
-        <select class="form-control" id="themeSelector">
-            <option>{% trans "Hell" %}</option>
-            <option>{% trans "Dunkel" %}</option>
-        </select>
+{% block title %}
+    | {% trans "Einstellungen" %}
+{% endblock title %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Einstellungen" %}</h1>
+        </div>
     </div>
-    <div>
-        <label for="language" class="form-label">{% trans "Sprache" %}</label>
-        <select class="form-control" id="language">
-            <option>{% trans "Deutsch" %}</option>
-            <option>{% trans "Englisch" %}</option>
-        </select>
+    <div class="row mt-3">
+        <div class="col-auto gap-2 d-flex flex-column">
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_user %}chat-user-entry{% endblock class_selector_user %}"
+               href="{% url 'settings_app:userSettings' %}">{% trans "Profileinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_portfolio %}chat-user-entry{% endblock class_selector_portfolio %}"
+               href="{% url 'settings_app:portfolioSettings' %}">{% trans "Portfolioeinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_security %}chat-user-entry{% endblock class_selector_security %}"
+               href="{% url 'settings_app:securitySettings' %}">{% trans "Sicherheitseinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_notification %}chat-user-entry{% endblock class_selector_notification %}"
+               href="{% url 'settings_app:notificationSettings' %}">{% trans "Benachrichtigungseinstellungen" %}</a>
+            <a class="d-flex gap-2 p-2 rounded border {% block class_selector_view %}chat-user-entry{% endblock class_selector_view %}"
+               href="{% url 'settings_app:viewSettings' %}">{% trans "Anzeigeeinstellungen" %}</a>
+            {% if user.is_superuser == 1 %}
+                <a class="d-flex gap-2 p-2 rounded border {% block class_selector_admin %}chat-user-entry{% endblock class_selector_admin %}"
+                   href="{% url 'api_app:api_admin_panel' %}">{% trans "API-Admin Panel" %}</a>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex">
+                    <div class="fs-3">
+                        {% block settings_title %}
+                        {% endblock settings_title %}
+                    </div>
+                </div>
+                <form class="m-0" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <div class="card-body d-flex gap-3 flex-column">
+                        {% trans "Sprache" %}
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                        <label for = "language" class="form-label">Sprache</label>
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="card-footer d-flex">
+                        <button class="btn btn-outline-success ms-auto" type="submit">{% trans "Speichern" %}</button>
+                    </div>
+                </form>
+                <!-- <form class="m-0" method="post">
+                    {% csrf_token %}
+                    <div class="card-body d-flex gap-3 flex-column">
+                        {% block settings %}
+                        {% endblock settings %}
+                    </div>
+                    <div class="card-footer d-flex">
+                        <button class="btn btn-outline-success ms-auto" type="submit">Speichern</button>
+                    </div>
+                </form> -->
+            </div>
+        </div>
     </div>
-    {# Temporäres Dropdown Menü Sprache #}
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Sprache</button>
-        <ul class="dropdown-menu">
-            <li>
-                <a class="dropdown-item" href="{% url 'settings_app:language_change' 'en_us' %}">Englisch</a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{% url 'settings_app:language_change' 'de' %}">Deutsch</a>
-            </li>
-        </ul>
-    </div>
-{% endblock settings %}
+{% endblock content %}
+

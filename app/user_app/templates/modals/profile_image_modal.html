@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="modal fade"
      id="profileImageModal"
      tabindex="-1"
@@ -6,7 +7,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="profileImageModalLabel">Profilbild anpassen</h1>
+                <h1 class="modal-title fs-5" id="profileImageModalLabel">{% trans "Profilbild anpassen" %}</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
@@ -29,10 +30,10 @@
                 <div class="modal-footer pb-0">
                     <button type="button"
                             class="btn btn-outline-secondary me-auto"
-                            data-bs-dismiss="modal">Abbrechen</button>
+                            data-bs-dismiss="modal">{% trans "Abbrechen" %}</button>
                     <a href="{% url 'user_app:delete_userprofile' profile_id %}"
-                       class="btn btn-outline-danger">Profilbild löschen</a>
-                    <button type="submit" class="btn btn-outline-primary">Änderungen speichern</button>
+                       class="btn btn-outline-danger">{% trans "Profilbild löschen" %}</a>
+                    <button type="submit" class="btn btn-outline-primary">{% trans "Änderungen speichern" %}</button>
                 </div>
             </form>
         </div>

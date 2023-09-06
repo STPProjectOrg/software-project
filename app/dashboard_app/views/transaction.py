@@ -22,8 +22,8 @@ def add(request, coin):
         price = form_data.get('price')
         message = 'gekauft'
         if sell:
-            amount = -amount
-            price = -price
+            amount = - amount
+            price = - price
             message = 'verkauft'
         buyCost =  price + \
             form_data.get('tax') + form_data.get('charge')
@@ -44,7 +44,7 @@ def add(request, coin):
             amount=amount,
             tax=form_data.get('tax'),
             charge=form_data.get('charge'),
-            price=form_data.get('price'),
+            price=price,
             cost=buyCost
         )
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

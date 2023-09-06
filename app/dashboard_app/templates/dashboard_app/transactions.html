@@ -1,18 +1,19 @@
 {% extends "core/base.html" %}
 {% load core_tags %}
 {% load dashboard_tags %}
+{% load i18n %}
 {% block title %}
-    | Transactions
+    | {% trans "Transaktionen" %}
 {% endblock title %}
 {% block content %}
     {% if not transactions %}
         <div class="row h-100">
             <div class="col text-center h-100 d-flex">
                 <div class="m-auto">
-                    <div class="text-white fw-bold fs-3">Hier wird dein Transaktionen angezeigt.</div>
-                    <div class="text-white fs-5">Füge Transaktionen zu deinem Portfolio hinzu, damit diese angezeigt werden.</div>
+                    <div class="text-white fw-bold fs-3">{% trans "Hier wird dein Transaktionen angezeigt." %}</div>
+                    <div class="text-white fs-5">{% trans "Füge Transaktionen zu deinem Portfolio hinzu, damit diese angezeigt werden." %}</div>
                     <div class="text-white fs-6">
-                        <a href="{% url "core:qaa" %}">Weitere Informationen findest du hier.</a>
+                        <a href="{% url "core:qaa" %}">{% trans "Weitere Informationen findest du hier." %}</a>
                     </div>
                 </div>
             </div>
@@ -21,22 +22,22 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header fs-3 fw-semibold text-white">Transaktionen</div>
+                    <div class="card-header fs-3 fw-semibold text-white">{% trans "Transaktionen" %}</div>
                     <div class="card-body">
                         {% load core_tags %}
                         <div class="overflow-auto">
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col-auto" class="text-center">Icon</th>
-                                        <th scope="col">Symbol</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Datum</th>
-                                        <th scope="col" class="text-center">Anzahl</th>
-                                        <th scope="col" class="text-end">Preis / Stück</th>
-                                        <th scope="col" class="text-end">Steuern</th>
-                                        <th scope="col" class="text-end">Gebühren</th>
-                                        <th scope="col" class="text-end">Gesamtkosten</th>
+                                        <th scope="col-auto" class="text-center">{% trans "Icon" %}</th>
+                                        <th scope="col">{% trans "Symbol" %}</th>
+                                        <th scope="col">{% trans "Name" %}</th>
+                                        <th scope="col">{% trans "Datum" %}</th>
+                                        <th scope="col" class="text-center">{% trans "Anzahl" %}</th>
+                                        <th scope="col" class="text-end">{% trans "Preis / Stück" %}</th>
+                                        <th scope="col" class="text-end">{% trans "Steuern" %}</th>
+                                        <th scope="col" class="text-end">{% trans "Gebühren" %}</th>
+                                        <th scope="col" class="text-end">{% trans "Gesamtkosten" %}</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -75,13 +76,13 @@
                                                             <a class="dropdown-item"
                                                                href="#"
                                                                data-bs-toggle="modal"
-                                                               data-bs-target="#transaction_update_modal_{{ transaction.id }}">Bearbeiten</a>
+                                                               data-bs-target="#transaction_update_modal_{{ transaction.id }}">{% trans "Bearbeiten" %}</a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item"
                                                                href="#"
                                                                data-bs-toggle="modal"
-                                                               data-bs-target="#transaction_delete_modal_{{ transaction.id }}">Löschen</a>
+                                                               data-bs-target="#transaction_delete_modal_{{ transaction.id }}">{% trans "Löschen" %}</a>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 14:01+0200\n"
+"POT-Creation-Date: 2023-09-02 17:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,123 +17,158 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\settings_app\forms.py:23
+#: .\forms.py:40 .\templates\settings_app\userSettings.html:25
 msgid "Benutzername"
 msgstr "Username"
 
-#: .\settings_app\forms.py:24
+#: .\forms.py:41
 msgid "Email"
 msgstr "Email"
 
-#: .\settings_app\forms.py:25
+#: .\forms.py:42 .\templates\settings_app\userSettings.html:12
 msgid "Vorname"
 msgstr "Firstname"
 
-#: .\settings_app\forms.py:26
+#: .\forms.py:43
 msgid "Name"
 msgstr "Lastname"
 
-#: .\settings_app\forms.py:47
-msgid "Benachrichtigung bei Veränderung der Assetmenge"
-msgstr "Notification of change in asset quantity"
-
-#: .\settings_app\forms.py:48
-msgid "Benachrichtigung wenn ihnen jemand folgt"
-msgstr "Notification when someone follows you"
-
-#: .\settings_app\forms.py:49
-msgid "Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat"
-msgstr "Notification when someone has liked one of your posts"
-
-#: .\settings_app\forms.py:50
-msgid "Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat"
-msgstr "Notification when someone has liked one of your comments"
-
-#: .\settings_app\forms.py:51
-msgid "Benachrichtigung wenn jemand ein Kommentar von dir kommentiert"
-msgstr "Notification when someone has commented your posts"
-
-#: .\settings_app\forms.py:52
-msgid "Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat"
-msgstr "Notification when someone has shared one of your posts"
-
-#: .\settings_app\templates\settings_app\notificationSettings.html:5
-#: .\settings_app\templates\settings_app\settingsOverview.html:21
+#: .\templates\settings_app\notificationSettings.html:4
+#: .\templates\settings_app\settingsOverview.html:21
+#: .\templates\settings_app\viewSettings.html:21
 msgid "Benachrichtigungseinstellungen"
 msgstr "Notification Settings"
 
-#: .\settings_app\templates\settings_app\notificationSettings.html:12
-#: .\settings_app\templates\settings_app\portfolioSettings.html:31
-#: .\settings_app\templates\settings_app\securitySettings.html:12
-#: .\settings_app\templates\settings_app\userSettings.html:12
-#: .\settings_app\templates\settings_app\viewSettings.html:19
-msgid "Speichern"
-msgstr "Save"
+#: .\templates\settings_app\notificationSettings.html:12
+msgid "Veränderung der Assetmenge"
+msgstr "Notification of change in asset quantity"
 
-#: .\settings_app\templates\settings_app\notificationSettings.html:13
-#: .\settings_app\templates\settings_app\portfolioSettings.html:32
-#: .\settings_app\templates\settings_app\securitySettings.html:13
-#: .\settings_app\templates\settings_app\userSettings.html:13
-#: .\settings_app\templates\settings_app\viewSettings.html:20
-msgid "Zurück"
-msgstr "Back"
+#: .\templates\settings_app\notificationSettings.html:16
+msgid "Neuer Follower"
+msgstr "New Follower"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:5
-#: .\settings_app\templates\settings_app\settingsOverview.html:15
+#: .\templates\settings_app\notificationSettings.html:20
+msgid "Beitrags Like"
+msgstr "Liked Post"
+
+#: .\templates\settings_app\notificationSettings.html:24
+msgid "Kommentar Like"
+msgstr "Liked Comment"
+
+#: .\templates\settings_app\notificationSettings.html:28
+msgid "Neuer Kommentar"
+msgstr "New Comment"
+
+#: .\templates\settings_app\notificationSettings.html:32
+msgid "Beitrag geteilt"
+msgstr "Shared Post"
+
+#: .\templates\settings_app\portfolioSettings.html:4
+#: .\templates\settings_app\settingsOverview.html:17
+#: .\templates\settings_app\viewSettings.html:17
 msgid "Portfolioeinstellungen"
 msgstr "Portfolio Settings"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:11
+#: .\templates\settings_app\portfolioSettings.html:11
 msgid "Datums- und Zeitformat"
 msgstr "Date-/Time Format"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:19
+#: .\templates\settings_app\portfolioSettings.html:19
 msgid "Währung"
 msgstr "Currency"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:24
+#: .\templates\settings_app\portfolioSettings.html:21
 msgid "Euro"
 msgstr "Euro"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:25
+#: .\templates\settings_app\portfolioSettings.html:22
 msgid "USD"
 msgstr "USD"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:26
+#: .\templates\settings_app\portfolioSettings.html:23
 msgid "Pfund"
 msgstr "Pound"
 
-#: .\settings_app\templates\settings_app\portfolioSettings.html:27
+#: .\templates\settings_app\portfolioSettings.html:24
 msgid "Rubel"
 msgstr "Ruble"
 
-#: .\settings_app\templates\settings_app\securitySettings.html:5
-#: .\settings_app\templates\settings_app\settingsOverview.html:18
+#: .\templates\settings_app\securitySettings.html:4
+#: .\templates\settings_app\settingsOverview.html:19
+#: .\templates\settings_app\viewSettings.html:19
 msgid "Sicherheitseinstellungen"
 msgstr "Security Settings"
 
-#: .\settings_app\templates\settings_app\settingsOverview.html:8
-msgid "Einstellungsübersicht"
-msgstr "Settings Overview"
+#: .\templates\settings_app\settingsOverview.html:9
+#: .\templates\settings_app\viewSettings.html:4
+#: .\templates\settings_app\viewSettings.html:9
+#, fuzzy
+#| msgid "Profileinstellungen"
+msgid "Einstellungen"
+msgstr "Profile Settings"
 
-#: .\settings_app\templates\settings_app\settingsOverview.html:12
-#: .\settings_app\templates\settings_app\userSettings.html:4
+#: .\templates\settings_app\settingsOverview.html:15
+#: .\templates\settings_app\userSettings.html:4
+#: .\templates\settings_app\viewSettings.html:15
 msgid "Profileinstellungen"
 msgstr "Profile Settings"
 
-#: .\settings_app\templates\settings_app\settingsOverview.html:24
-#: .\settings_app\templates\settings_app\viewSettings.html:5
+#: .\templates\settings_app\settingsOverview.html:23
+#: .\templates\settings_app\viewSettings.html:23
 msgid "Anzeigeeinstellungen"
 msgstr "Display Settings"
 
-#: .\settings_app\templates\settings_app\viewSettings.html:10
-msgid "Theme"
-msgstr "Theme"
+#: .\templates\settings_app\settingsOverview.html:26
+#: .\templates\settings_app\viewSettings.html:26
+msgid "API-Admin Panel"
+msgstr "API-Admin Panel"
 
-#: .\settings_app\templates\settings_app\viewSettings.html:12
-msgid "Hell"
-msgstr "Light"
+#: .\templates\settings_app\settingsOverview.html:44
+#: .\templates\settings_app\viewSettings.html:53
+msgid "Speichern"
+msgstr "Save"
 
-#: .\settings_app\templates\settings_app\viewSettings.html:13
-msgid "Dunkel"
-msgstr "Dark"
+#: .\templates\settings_app\userSettings.html:16
+msgid "Nachname"
+msgstr "Lastname"
+
+#: .\templates\settings_app\userSettings.html:21
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: .\templates\settings_app\viewSettings.html:39
+msgid "Sprache"
+msgstr "Language"
+
+#~ msgid "Theme"
+#~ msgstr "Theme"
+
+#~ msgid "Hell"
+#~ msgstr "Light"
+
+#~ msgid "Dunkel"
+#~ msgstr "Dark"
+
+#~ msgid "test"
+#~ msgstr "I am translated"
+
+#~ msgid "Benachrichtigung wenn ihnen jemand folgt"
+#~ msgstr "Notification when someone follows you"
+
+#~ msgid "Benachrichtigung wenn jemand einen ihrer Beiträge geliked hat"
+#~ msgstr "Notification when someone has liked one of your posts"
+
+#~ msgid "Benachrichtigung wenn jemand eins ihrer Kommentare geliked hat"
+#~ msgstr "Notification when someone has liked one of your comments"
+
+#~ msgid "Benachrichtigung wenn jemand ein Kommentar von dir kommentiert"
+#~ msgstr "Notification when someone has commented your posts"
+
+#~ msgid "Benachrichtigung wenn jemand einen ihrer Beiträge geteilt hat"
+#~ msgstr "Notification when someone has shared one of your posts"
+
+#~ msgid "Zurück"
+#~ msgstr "Back"
+
+#~ msgid "Einstellungsübersicht"
+#~ msgstr "Settings Overview"

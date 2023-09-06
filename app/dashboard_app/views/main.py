@@ -11,11 +11,12 @@ from dashboard_app.models import Transaction
 from dashboard_app.views.watchlist import convert_watchlist
 from user_app.models import CustomUser
 from dashboard_app.views.coin_overview import get_coin_overview
+from django.utils import translation
 
 @login_required
 def dashboard(request, timespan):
     """ Render the dashboard. """
-
+    
     # get querysets
     transactions = Transaction.objects.filter(user=request.user.id)
     assets = Asset.objects.filter(transaction__user=request.user).annotate(
@@ -74,7 +75,6 @@ def watchlist(request, username, sort_by_attribute, direction):
 @login_required
 def transactions(request):
     """ Render the transactions page. """
-
     data = {"transactions": Transaction.objects.filter(
         user=request.user.id).order_by("-purchaseDate")}
 

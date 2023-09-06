@@ -1,3 +1,4 @@
+{% load i18n %} 
 <div class="modal fade"
      id="transaction_delete_modal_{{ id }}"
      tabindex="-1"
@@ -6,21 +7,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="transaction_update_modal_Label">Transaktion löschen</h1>
+                <h1 class="modal-title fs-5" id="transaction_update_modal_Label">{% trans "Transaktion löschen" %}</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div>Soll diese Transaktion unwiderruflich gelöscht werden?</div>
+                <div>{% trans "Soll diese Transaktion unwiderruflich gelöscht werden?" %}</div>
             </div>
             <div class="modal-footer">
                 <button type="button"
                         class="btn btn-outline-secondary me-auto"
-                        data-bs-dismiss="modal">Schließen</button>
+                        data-bs-dismiss="modal">{% trans "Schließen" %}</button>
                 <a href="{% url 'dashboard_app:transaction_delete' id %}"
-                   class="btn btn-outline-danger">Löschen</a>
+                   class="btn btn-outline-danger">{% trans "Löschen" %}</a>
             </div>
         </div>
     </div>

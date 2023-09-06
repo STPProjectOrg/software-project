@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="modal fade"
      id="profileBannerModal"
      tabindex="-1"
@@ -6,7 +7,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="profileBannerModalLabel">Banner anpassen</h1>
+                <h1 class="modal-title fs-5" id="profileBannerModalLabel">{% trans "Banner anpassen" %}</h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
@@ -41,8 +42,8 @@
                 <div class="modal-footer pb-0">
                     <button type="button"
                             class="btn btn-outline-secondary me-auto"
-                            data-bs-dismiss="modal">Abbrechen</button>
-                    <button type="submit" class="btn btn-outline-primary">Änderungen speichern</button>
+                            data-bs-dismiss="modal">{% trans "Abbrechen" %}</button>
+                    <button type="submit" class="btn btn-outline-primary">{% trans "Änderungen speichern" %}</button>
                 </div>
             </form>
         </div>
