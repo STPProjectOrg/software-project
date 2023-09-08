@@ -205,13 +205,13 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-md-9">
-                                    <!-- Hier ist Ihr Line Chart -->
+                                    {# Line Chart #}
                                     <div style="height:40vh">
                                         <canvas id="lineChart" style="height:100%"></canvas>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <!-- Hier ist Ihr Pie Chart -->
+                                    {# Pie Chart #}
                                     <div class="d-flex flex-column justify-content-center align-items-center"
                                          style="height:40vh">
                                         <canvas id="pieChart" style="z-index: 100;"></canvas>
@@ -229,7 +229,7 @@
         </div>
     {% endif %}
     {# Create post #}
-    <div class="row mt-4">
+    <div class="row mt">
         <div class="col d-flex flex-column gap-3">
             {% for post in myposts %}
                 {% if not post.privacy_settings == 'private' or post.user_id == request.user.id %}

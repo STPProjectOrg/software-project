@@ -19,23 +19,27 @@
                 <div class="modal-body">
                     <div class="row">
                         {% for banner in banners %}
-                        <div class="col-6 my-2 align-items-center">
-                            <div class="form-check form-check-inline">
-                                {% if banner.0 == current_banner %}
-                                <input class="form-check-input" type="radio" 
-                                    name="profile_banner" id="{{ banner.1 }}" value="{{ banner.0 }}"
-                                    checked>
-                                {% else %}
-                                <input class="form-check-input" type="radio" 
-                                    name="profile_banner" id="{{ banner.1 }}" value="{{ banner.0 }}">
-                                {% endif %}
-                                <label class="form-check-label ms-2" for="{{ banner.1 }}">
-                                    <div class="aspect-ratio" style="position: relative; overflow: hidden;">
-                                        <img src="{{ banner.0 }}" class="img-fluid d-block" style="width: 100%; height: 100%; object-fit: cover;">
-                                    </div>
-                                </label>
+                            <div class="col-6 my-2 align-items-center" style="height: 15vh">
+                                <div class="form-check form-check-inline">
+                                    {% if banner.0 == current_banner %}
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="profile_banner"
+                                               id="{{ banner.1 }}"
+                                               value="{{ banner.0 }}"
+                                               checked>
+                                    {% else %}
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="profile_banner"
+                                               id="{{ banner.1 }}"
+                                               value="{{ banner.0 }}">
+                                    {% endif %}
+                                    <label class="form-check-label ms-2" for="{{ banner.1 }}">
+                                        <img src="{{ banner.0 }}" class="w-100 h-100 rounded">
+                                    </label>
+                                </div>
                             </div>
-                        </div>
                         {% endfor %}
                     </div>
                 </div>
