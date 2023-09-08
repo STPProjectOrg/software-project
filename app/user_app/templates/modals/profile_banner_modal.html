@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <div class="row">
                         {% for banner in banners %}
-                            <div class="col-6 my-2 align-items-center" style="height: 15vh">
+                            <div class="col-6 my-2 align-items-center" style="height: 10vh">
                                 <div class="form-check form-check-inline">
                                     {% if banner.0 == current_banner %}
                                         <input class="form-check-input"
@@ -36,7 +36,7 @@
                                                value="{{ banner.0 }}">
                                     {% endif %}
                                     <label class="form-check-label ms-2" for="{{ banner.1 }}">
-                                        <img src="{{ banner.0 }}" class="w-100 h-100 rounded">
+                                        <img src="{{ banner.0 }}" class="w-100 h-100">
                                     </label>
                                 </div>
                             </div>
