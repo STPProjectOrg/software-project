@@ -25,7 +25,7 @@ class TestUrls(TestCase):
             user = self.user
         )
         self.client.login(username='testuser', password='testpassword')
-        add_asset_to_database("BTC","EUR")
+        Asset.objects.get_or_create(name="BTC", coinName="Bitcoin", imageUrl="https://www.cryptocompare.com/media/37746251/btc.png")
         self.asset = Asset.objects.get_or_create(name="BTC")[0]
         AssetHistory.objects.create(
             date = date.fromisoformat('2023-05-20'),
@@ -107,18 +107,16 @@ class TestUrls(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_transactions_add(self):
-        response = self.client.get(reverse('dashboard_app:transaction_add', args=['BTC']))
+        response = self.client.post(reverse('dashboard_app:transaction_add',args=['BTC']), {"sell": False, "price":24000,"date":date.fromisoformat('2023-05-20'),"amount":1,"charge":10,"tax":5, "cost": 24015, "post":False, "postText": ""})
         self.assertEqual(response.status_code, 302)
 
-'''
     def test_transactions_update(self):
-        response = self.client.post('dashboard_app:transaction_update', {"price":24000,"purchaseDate":date.fromisoformat('2023-05-20'),"amount":1,"charge":10,"tax":5},args=[1])
+        response = self.client.post(reverse('dashboard_app:transaction_update',args=[1]), {"price":24000,"date":date.fromisoformat('2023-05-20'),"amount":1,"charge":10,"tax":5, "cost": 24015})
         self.assertEqual(response.status_code, 302)
 
     def test_transactions_delete(self):
         response = self.client.get(reverse('dashboard_app:transaction_delete', args=[1]))
         self.assertEqual(response.status_code, 302)
-'''
 
     
 
