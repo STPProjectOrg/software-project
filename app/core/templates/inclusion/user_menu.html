@@ -1,49 +1,145 @@
 {% load i18n %}
 {% if True %}
     <div class="col-auto">
-        <button class="btn btn-link h-100 pe-0 position-relative" type="button">
-            <i class="bi bi-bell-fill fs-5 position-absolute"></i>
-            <span class="translate-middle badge rounded-pill bg-danger start-100"
-                {# TODO: WERT #}>7</span>
-            </button>
-        </div>
-    {% else %}
-        <div class="col-auto">
-            <button class="btn btn-link h-100 pe-0 position-relative" type="button">
-                <i class="bi bi-bell-fill fs-5"></i>
-            </button>
-        </div>
-    {% endif %}
-    <div class="col-auto">
         <div class="dropdown">
-            <button class="btn btn-link h-100 ps-0"
+            <button class="btn btn-link h-100 pe-0 position-relative"
                     type="button"
                     data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                <img class="logo-fs-3"
-                     src="{{ request.user.userprofileinfo.get_profile_pic }}">
+                    aria-expanded="false"
+                    id="notificationButton">
+                <i class="bi bi-bell-fill fs-5 position-absolute"></i>
             </button>
-            <ul class="dropdown-menu">
-                <li class="text-center">
-                    <p class="my-2 text-body-emphasis fw-bold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
-                </li>
-                <li>
-                    <a class="dropdown-item"
-                       href="{% url 'user_app:profile' request.user.username 0 %}"><i class="bi bi-person-fill pe-2"></i>{% trans "Profil" %}</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'core:qaa' %}"><i class="bi bi-info-circle pe-2"></i>{% trans "Hilfe" %}</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'settings_app:userSettings' %}"><i class="bi bi-gear pe-2"></i>{% trans "Einstellungen" %}</a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item text-danger-emphasis"
-                       href="{% url 'user_app:logout' %}"><i class="bi bi-box-arrow-in-left pe-2"></i>{% trans "Abmelden" %}</a>
-                </li>
+            <ul class="dropdown-menu" id="dropdownMenu">
             </ul>
         </div>
     </div>
+{% else %}
+    <div class="col-auto">
+        <button class="btn btn-link h-100 pe-0 position-relative" type="button">
+            <i class="bi bi-bell-fill fs-5"></i>
+        </button>
+    </div>
+{% endif %}
+<div class="col-auto">
+    <div class="dropdown">
+        <button class="btn btn-link h-100 ps-0"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            <img class="logo-fs-3"
+                 src="{{ request.user.userprofileinfo.get_profile_pic }}">
+        </button>
+        <ul class="dropdown-menu">
+            <li class="text-center">
+                <p class="my-2 text-body-emphasis fw-bold">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+            </li>
+            <li>
+                <a class="dropdown-item"
+                   href="{% url 'user_app:profile' request.user.username 0 %}"><i class="bi bi-person-fill pe-2"></i>{% trans "Profil" %}</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'core:qaa' %}"><i class="bi bi-info-circle pe-2"></i>{% trans "Hilfe" %}</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'settings_app:userSettings' %}"><i class="bi bi-gear pe-2"></i>{% trans "Einstellungen" %}</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item text-danger-emphasis"
+                   href="{% url 'user_app:logout' %}"><i class="bi bi-box-arrow-in-left pe-2"></i>{% trans "Abmelden" %}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+        const openDropdownButton = document.getElementById('notificationButton');
+        const dropdown = document.getElementById('dropdownMenu');
+        let websocket;
+    
+        var loc = window.location
+        var wsStart = "ws://"
+        if (loc.protocol == "https:"){
+            wsStart = "wss://"
+        }
+        var webSocketEndpoint =  wsStart + loc.host + '/notifications/'  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
+    
+        websocket = new WebSocket(webSocketEndpoint);
+        let messages = [];
+        
+        websocket.onmessage = function(e){
+            messages = []
+            const messageObject = JSON.parse(e.data)
+            console.log(messageObject)
+            if(messageObject.type === "websocket.all_notifications"){
+            
+                const notifications = messageObject.notifications
+            
+                for(let key in notifications){
+                    messages.push(notifications[key].message)
+                }
+                
+            }
+        }
+
+        openDropdownButton.addEventListener('click', () => {
+            removeAllChildNodes(dropdown)
+
+
+            messages.forEach((notification) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('dropdown-item');
+                
+                const text = document.createElement('p')
+                const node = document.createTextNode(notification);
+                text.appendChild(node)
+                listItem.appendChild(text);
+
+                const listItemDivider = document.createElement('li');
+                const divider = document.createElement('hr')
+                divider.classList.add('dropdown-divider')
+                listItemDivider.appendChild(divider)
+
+                dropdown.appendChild(listItem)
+                dropdown.appendChild(listItemDivider)
+            })
+        })
+
+        deleteButton.addEventListener('click', () => {
+            websocket.send({ type: "websocket_delete_all_notifications"})
+        })
+
+        function removeAllChildNodes(parent) {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }
+        {% comment %} openDropdownButton.addEventListener('click', () => {
+            // Establish a WebSocket connection to your server.
+            websocket.onmessage = function(e){
+                // Parse the incoming data (assuming it's JSON).
+                const data = JSON.parse(e.data);
+                
+                console.log(data) // Access the notification data
+                console.log(data.notifications) // Access the notification data
+                
+                // Populate the dropdown with received data.
+                if (data && data.length > 0) {
+                    dropdown.innerHTML = ''; // Clear existing options
+                    data.notifications.forEach((item) => {
+                        const notification = document.createElement('li');
+                        const text = document.createElement('p')
+                        console.log(item);
+                        notification.classList.add('dropdown-item');
+                        notification.appendChild(text);
+    
+                        
+                        option.textContent = item.name; // Adjust this based on your data structure
+                        option.value = item.id; // Adjust this based on your data structure
+                        dropdown.appendChild(option);
+                    });
+                }
+            }
+}); {% endcomment %}
+</script>
