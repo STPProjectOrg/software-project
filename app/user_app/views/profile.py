@@ -2,6 +2,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
+from notification_app.methods import send_notification
 from settings_app.models import Settings
 from dashboard_app.views import charts
 from user_app.models import CustomUser, UserFollowing
@@ -11,6 +12,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, F
 from dashboard_app.views import kpi
 from community_app.views import post
+from channels.layers import get_channel_layer
+
+
+channel_layer = get_channel_layer()
+
 
 @login_required
 def profile_redirect(request):
@@ -22,7 +28,8 @@ def profile_redirect(request):
         request: The http request
     """
     username = request.user.username
-    profile_url = reverse('user_app:profile', kwargs={'username': username, 'timespan': 0})
+    profile_url = reverse('user_app:profile', kwargs={
+                          'username': username, 'timespan': 0})
     return redirect(profile_url)
 
 
@@ -42,25 +49,27 @@ def profile(request, username, timespan):
 
     # Declare common variables
     is_user_profile = request.user.username == profile_user.username
-    portfolio_privacy_setting = Settings.objects.get_or_create(user=profile_user)[0].dashboard_privacy_settings
+    portfolio_privacy_setting = Settings.objects.get_or_create(
+        user=profile_user)[0].dashboard_privacy_settings
 
     # Get profile user's follow-lists
     profile_followers_list = CustomUser.objects.filter(
         following__following_user_id=profile_user.id).select_related("userprofileinfo")
     profile_following_list = CustomUser.objects.filter(
         followers__follower_user_id=profile_user.id).select_related("userprofileinfo")
-    
-    # Get follower list of the signed user 
+
+    # Get follower list of the signed user
     user_following_list = request.user.following.values_list(
         "following_user_id", flat=True)
-    is_user_following = profile_user.userprofileinfo.id in user_following_list 
+    is_user_following = profile_user.userprofileinfo.id in user_following_list
 
     # Post-Section
     my_posts = post.get_by_user(profile_user)
     postform = post.PostForm()
 
     # Chart Data
-    chart_data = get_chart_data(profile_user.id, portfolio_privacy_setting, timespan)
+    chart_data = get_chart_data(
+        profile_user.id, portfolio_privacy_setting, timespan)
 
     return render(request, 'user_app/profile.html',
                   {"profile_user": profile_user,
@@ -74,10 +83,10 @@ def profile(request, username, timespan):
                    "postform": postform,
                    "myposts": my_posts,
                    "pie_data": chart_data["pie_data"],
-                    "line_data": chart_data["line_data"],
-                    "assets": chart_data["assets"],
-                    "kpi_total": chart_data["kpi_total"],
-                    "has_transactions": chart_data["has_transactions"],
+                   "line_data": chart_data["line_data"],
+                   "assets": chart_data["assets"],
+                   "kpi_total": chart_data["kpi_total"],
+                   "has_transactions": chart_data["has_transactions"],
                    })
 
 
@@ -101,7 +110,7 @@ def get_chart_data(user_id, privacy_setting, timespan):
                               on the privacy setting.
     """
     transactions = Transaction.objects.filter(user=user_id)
-    
+
     assets = Asset.objects.filter(transaction__user=user_id).annotate(
         amount=Sum("transaction__amount"),
         cost=Sum("transaction__cost"),
@@ -110,12 +119,14 @@ def get_chart_data(user_id, privacy_setting, timespan):
     ).distinct()
 
     has_transactions = bool(transactions)
-    kpi_total = kpi.get_kpi(transactions, assets)["total"] if has_transactions else 0
-    anonymize = True if privacy_setting == "without values" else False    
+    kpi_total = kpi.get_kpi(transactions, assets)[
+        "total"] if has_transactions else 0
+    anonymize = True if privacy_setting == "without values" else False
 
     pie_data = charts.get_pie_data(assets, anonymize)
-    line_data = charts.get_portfolio_line_data(transactions, timespan, anonymize)
-    
+    line_data = charts.get_portfolio_line_data(
+        transactions, timespan, anonymize)
+
     return {
         "assets": assets,
         "pie_data": pie_data,
@@ -154,5 +165,9 @@ def toggle_follow(request, username):
             UserFollowing.objects.create(
                 follower_user=profile_user, following_user=other_user)
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    print(other_user.pk)
 
+    send_notification(channel_layer, other_user.pk, "follow",
+                      f"{profile_user.first_name} {profile_user.last_name} follows you now.")
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
