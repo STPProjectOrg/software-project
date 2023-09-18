@@ -33,9 +33,5 @@ RUN pip install -r /usr/src/app/requirements.txt
 
 # copy project
 COPY . /usr/src/app/
-#Make messages for all your languages
-RUN python django-admin makemessages -a
 
-# Compile messages
-RUN python django-admin compilemessages
 RUN python manage.py migrate
