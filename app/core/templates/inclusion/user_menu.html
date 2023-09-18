@@ -112,7 +112,7 @@
         })
 
         deleteButton.addEventListener('click', () => {
-            websocket.send({ type: "websocket_delete_all_notifications"})
+            websocket.send("deleteAllNotifications")
         })
 
         function removeAllItems(parent) {
