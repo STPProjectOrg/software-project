@@ -165,9 +165,7 @@ def toggle_follow(request, username):
             UserFollowing.objects.create(
                 follower_user=profile_user, following_user=other_user)
 
-    print(other_user.pk)
-
     send_notification(channel_layer, other_user.pk, "follow",
-                      f"{profile_user.first_name} {profile_user.last_name} follows you now.")
+                      f"{profile_user.username} follows you now.")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
