@@ -1,4 +1,5 @@
 from datetime import date
+import datetime
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -177,38 +178,34 @@ class TestViews(TestCase):
         self.assertEqual(context["asset_in_watchlist"], True)
         self.assertEqual(context["line_data"], test_line_data)
 
+    def test_watchlist(self):
+        self.client.get(reverse('dashboard_app:watchlist_add', args=['BTC']))
+        response = self.client.get(reverse('dashboard_app:watchlist', args=['testuser','no_sort','n']))
+        context = response.context
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard_app/watchlist.html')
+        self.assertEqual(len(context["watchlist"]), 1)
+        self.assertEqual(context["watchlist"][0]["name"], "BTC")
+        self.assertEqual(context["watchlist"][0]["isInWatchlist"], True)
+        self.assertEqual(context["watchlist"][0]["isInPortfolio"], True)
+        self.assertEqual(context["username"], self.user.username)
+        self.assertEqual(context["is_own_watchlist"], True)
+        self.assertEqual(context["watchlist_privacy_settings"], "all")
 
-'''
-    #Test User erstellen und einloggen
-    def setUp(self):
-        User = get_user_model()
-        self.user = User.objects.create_user("test", "test@test.de", "test")
-        self.client = Client()
+    def test_transactions(self):
+        response = self.client.get(reverse('dashboard_app:transactions'))
+        context = response.context
+        test_transactions = Transaction.objects.filter(
+        user=self.user.id).order_by("-purchaseDate")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard_app/transactions.html')
+        self.assertQuerysetEqual(context["transactions"], test_transactions, ordered=False, transform=lambda x: x)
 
-    def test_dashboard_page_unauthorized_html(self):
-        response = self.client.get(reverse("dashboard_app:dashboard"))
+    def test_coin_overview(self):
+        response = self.client.get(reverse('dashboard_app:coin_overview', args=['no_sort','n']))
+        context = response.context
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard_app/coins_overview.html')
+        self.assertEqual(context['coins'][0]["name"], "BTC")
+        self.assertEqual(context['coins'][1]["name"], "ETH")
 
-        assert response.status_code == 302, 'Should redirect to login page'
-        assert 'login' in response.url
-   
-    def test_dashboard_page_authorized_html(self):
-        self.client.login(username='test', password='test')
-        response = self.client.get(reverse("dashboard_app:dashboard"))
-
-        assert response.status_code == 200, 'Status code should be 200'
-        self.assertTemplateUsed(response, 'dashboard_app/dashboard.html')
-
-     Stellt API-Anfrage
-    def test_asset_page_unauthorized_html(self):
-        response = self.client.get(reverse("dashboard_app:asset", kwargs={"coin": "btc"}))
-
-        assert response.status_code == 302, 'Should redirect to login page'
-        assert 'login' in response.url
-
-    def test_asset_page_authorized_html(self):
-        self.client.login(username='test', password='test')
-        response = self.client.get(reverse("dashboard_app:asset", kwargs={"coin": "btc"}))
-
-        assert response.status_code == 200, 'Status code should be 200'
-        self.assertTemplateUsed(response, 'dashboard_app/asset.html')
-'''
