@@ -6,8 +6,14 @@ from django.http import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from community_app.models import Post, PostLike, Tag
 from community_app.forms import PostForm
+from notification_app.methods import send_notification
 from messaging_app.utils import compress_image
 from settings_app.models import Settings
+from channels.layers import get_channel_layer
+
+
+channel_layer = get_channel_layer()
+
 
 def create(request):
     """ Create a new 'Post' from PostForm(). """
@@ -20,13 +26,13 @@ def create(request):
             user_id=request.user.id,
             content=form_data.get("content"),
             created_at=datetime.now(),
-            image = form_data.get("image"),
+            image=form_data.get("image"),
             tags=form_data.get("tags"),
             privacy_settings=settings.posts_privacy_settings
         )
         j = form_data.get("tags").split(",")
         for t in j:
-            Tag.objects.get_or_create(tagname=t, post = post)
+            Tag.objects.get_or_create(tagname=t, post=post)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -64,14 +70,16 @@ def get_by_feed(feed, **kwargs):
 
     return posts
 
+
 def get_by_tag(tag, **kwargs):
     tags = Tag.objects.filter(tagname=tag)
     posts = []
     for tag in tags:
         post = Post.objects.get(id=tag.post_id)
         posts.append(post)
-    
+
     return posts
+
 
 def get_by_user(user, **kwargs):
     posts = Post.objects.filter(user_id=user.id)
@@ -95,5 +103,10 @@ def like_toggle(request, post_id):
     except ObjectDoesNotExist:
         PostLike.objects.create(user=request.user,
                                 post=Post.objects.get(id=post_id))
+
+    post = Post.objects.filter(id=post_id).get()
+
+    send_notification(channel_layer, post.user.id, "like",
+                      f"{request.user.username} liked your post.")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
