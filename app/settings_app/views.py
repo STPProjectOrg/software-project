@@ -119,7 +119,7 @@ def view_settings(request):
     form = LanguageSettingsForm(initial={"language_setting": translation.get_language})
     data = {"form": form}
     if request.method == "POST":
-        return HttpResponseRedirect("/i18n/setlang/en-us")
+        return HttpResponseRedirect("")
     return render(request, 'settings_app/viewSettings.html',context=data)
 
 
