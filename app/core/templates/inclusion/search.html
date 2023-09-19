@@ -3,7 +3,8 @@
 {% trans "Suche" as search_placeholder %}
 <form id="search-form"
       method="get"
-      action="{% url 'core:search_results' %}">
+      action="{% url 'core:search_results' %}"
+      class="my-auto">
     <div class="input-group my-auto mx-auto" style="max-width: {{ width }}%">
         <div class="position-absolute pt-4 px-2 pb-2 mt-3 w-100 bg-dark rounded border"
              id="search_results"
@@ -21,7 +22,7 @@
                    id="search_input"
                    autocomplete="off"
                    class="form-control"
-                   placeholder="{{search_placeholder}}"
+                   placeholder="{{ search_placeholder }}"
                    aria-label="Suche"
                    oninput="search()">
         </div>
