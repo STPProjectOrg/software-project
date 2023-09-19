@@ -34,7 +34,7 @@
                         {% endblock settings_title %}
                     </div>
                 </div>
-                <form class="m-0" method="post">
+                <form class="m-0" method="post" action="{% block url %} {% endblock url %}">
                     {% csrf_token %}
                     <div class="card-body d-flex gap-3 flex-column">
                         {% block settings %}

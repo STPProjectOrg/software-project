@@ -14,6 +14,7 @@ from community_app.models import Post
 from dashboard_app.models import Watchlist
 from app.settings import LANGUAGE_CODE
 
+
 @login_required
 def settings(request):
     """
@@ -116,11 +117,8 @@ def view_settings(request):
     """
     Renders the view settings page.
     """
-    form = LanguageSettingsForm(initial={"language_setting": translation.get_language})
+    form = LanguageSettingsForm(initial={"language": translation.get_language})
     data = {"form": form}
     if request.method == "POST":
         return HttpResponseRedirect("/i18n/setlang/en-us")
-    return render(request, 'settings_app/viewSettings.html',context=data)
-
-
-
+    return render(request, 'settings_app/viewSettings.html', context=data)
