@@ -6,6 +6,9 @@
 {% block class_selector_security %}
     chat-user-entry-selected
 {% endblock class_selector_security %}
+{% block url %}
+    {% url "settings_app:security_settings_update" %}
+{% endblock url %}
 {% block settings %}
     <div>
         <label for="{{ form.posts_privacy_setting.id_for_label }}"
