@@ -2,6 +2,7 @@
 
 from django.urls import reverse_lazy
 from django.shortcuts import render
+from dashboard_app.models import Watchlist
 from user_app.models import UserProfileInfo, ProfileBanner
 from user_app.forms import UserRegistrationForm
 from settings_app.models import Settings
@@ -38,6 +39,7 @@ def register(request):
             # the new created CustomUser instance as foreign key  
             UserProfileInfo.objects.create(user=new_user)
             Settings.objects.create(user=new_user)
+            Watchlist.objects.create(user=new_user)
             ProfileBanner.objects.create(user=new_user)
 
             # Render the success page

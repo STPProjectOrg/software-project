@@ -12,7 +12,6 @@ from community_app.models import Post
 
 def add(request, coin):
     """ Create a new Transaction. """
-
     form = TransactionAddForm(request.POST)
     if form.is_valid():
         form_data = form.cleaned_data
