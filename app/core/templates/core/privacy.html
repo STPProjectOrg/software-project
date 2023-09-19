@@ -4,35 +4,39 @@
     For further information visit:
     https://www.ionos.de/digitalguide/websites/online-recht/mehr-nutzervertrauen-dank-datenschutzerklaerung/
 {% endcomment %}
-
 {% block content %}
     {# Title #}
     <div>
         <h1>{% trans "Datenschutz" %}</h1>
     </div>
-
     {# Content #}
     <div class="mt-4">
-        
         <h2>{% trans "Anbieter" %}</h2>
-        <p>{% trans "Die" %} <b>{% trans "Verantwortlichen" %}</b> {% trans "im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze sind alle im" %} <a href="{% url 'core:legal_disclosure' %}">Impressum</a> {% trans "aufgeführten Personen." %}</p>
-        
+        <p>
+            {% trans "Die" %} <b>{% trans "Verantwortlichen" %}</b> {% trans "im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze sind alle im" %} <a href="{% url 'core:legal_disclosure' %}">Impressum</a> {% trans "aufgeführten Personen." %}
+        </p>
         <h2>{% trans "Angabe der Rechtsgrundlage" %}</h2>
-        <p>{% trans "Insofern wir für die Verarbeitung der personenbezogenen Daten eine" %}<b>{% trans "Einwilligung" %}</b> {% trans " der betroffenen Person eingeholt haben, gilt Artikel 6 Absatz 1 Unterabsatz 1a der DSGVO als rechtliche Grundlage." %}</p>
-        <p>{% trans "Ist die Verarbeitung personenbezogener Daten für die " %} <b>{% trans "Erfüllung eines Vertrags" %}</b> {% trans "mit der betroffenen Person oder für " %}<b>{% trans "vorvertragliche Maßnahmen " %}</b> {% trans "erforderlich, die durch die betroffene Person veranlasst wurden, dient Artikel 6 Absatz 1 Unterabsatz 1b (DSGVO) als Rechtsgrundlage." %}</p>
-        <p>{% trans "Ist die Datenverarbeitung das Resultat einer " %}<b>{% trans "rechtlichen Verpflichtung" %}</b>, {% trans "der wir unterliegen, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1c der DSGVO als rechtliche Basis." %}</p>
-        <p>{% trans "Erfolgt die Verarbeitung personenbezogener Daten, um " %}<b>{% trans "lebenswichtige Interessen" %}</b> {% trans "der betroffenen Person oder einer anderen natürlichen Person zu schützen, dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage." %}</p>
-        <p>{% trans "Dient die Datenverarbeitung einer Aufgabe, die im " %}<b>{% trans "öffentlichen Interesse" %}</b> {% trans "liegt oder in " %}<b>{% trans "Ausübung öffentlicher Gewalt" %}</b> {% trans "erfolgt, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1e der DSGVO." %}</p>
-        <p>{% trans "Insofern die Verarbeitung personenbezogener Daten erforderlich ist, um " %}<b>{% trans "berechtigte Interessen des Verantwortlichen" %}</b> {% trans "oder " %}<b>{% trans "eines Dritten" %}</b> {% trans "zu wahren – ohne dabei die Interessen, Grundrechte oder Grundfreiheiten der betroffenen Person zu gefährden –, gilt Artikel 6 Absatz 1 Unterabsatz 1f (DSGVO) als Rechtsgrundlage." %}</p>
-
-        <h2>{% trans "Angabe des Datenverarbeitungszwecks" %}</h2>
-        {# TODO #}
-
-        <h2>{% trans "Angabe der Datenspeicherungsdauer" %}</h2>
-        {# TODO #}
-
+        <p>
+            {% trans "Insofern wir für die Verarbeitung der personenbezogenen Daten eine" %}<b>{% trans "Einwilligung" %}</b> {% trans " der betroffenen Person eingeholt haben, gilt Artikel 6 Absatz 1 Unterabsatz 1a der DSGVO als rechtliche Grundlage." %}
+        </p>
+        <p>
+            {% trans "Ist die Verarbeitung personenbezogener Daten für die " %} <b>{% trans "Erfüllung eines Vertrags" %}</b> {% trans "mit der betroffenen Person oder für " %}<b>{% trans "vorvertragliche Maßnahmen " %}</b> {% trans "erforderlich, die durch die betroffene Person veranlasst wurden, dient Artikel 6 Absatz 1 Unterabsatz 1b (DSGVO) als Rechtsgrundlage." %}
+        </p>
+        <p>
+            {% trans "Ist die Datenverarbeitung das Resultat einer " %}<b>{% trans "rechtlichen Verpflichtung" %}</b>, {% trans "der wir unterliegen, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1c der DSGVO als rechtliche Basis." %}
+        </p>
+        <p>
+            {% trans "Erfolgt die Verarbeitung personenbezogener Daten, um " %}<b>{% trans "lebenswichtige Interessen" %}</b> {% trans "der betroffenen Person oder einer anderen natürlichen Person zu schützen, dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage." %}
+        </p>
+        <p>
+            {% trans "Dient die Datenverarbeitung einer Aufgabe, die im " %}<b>{% trans "öffentlichen Interesse" %}</b> {% trans "liegt oder in " %}<b>{% trans "Ausübung öffentlicher Gewalt" %}</b> {% trans "erfolgt, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1e der DSGVO." %}
+        </p>
+        <p>
+            {% trans "Insofern die Verarbeitung personenbezogener Daten erforderlich ist, um " %}<b>{% trans "berechtigte Interessen des Verantwortlichen" %}</b> {% trans "oder " %}<b>{% trans "eines Dritten" %}</b> {% trans "zu wahren – ohne dabei die Interessen, Grundrechte oder Grundfreiheiten der betroffenen Person zu gefährden –, gilt Artikel 6 Absatz 1 Unterabsatz 1f (DSGVO) als Rechtsgrundlage." %}
+        </p>
         <h2>{% trans "Betroffenenrechte" %}</h2>
-        <p>{% trans "Im Sinne der DSGVO zählen Sie als Betroffener, wenn personenbezogene Daten, die Sie betreffen, von uns verarbeitet werden. Aus diesem Grund können Sie von verschiedenen Betroffenenrechten Gebrauch machen, die in der Datenschutz-Grundverordnung verankert sind. Hierbei handelt es sich um das " %}<b>{% trans "Auskunftsrecht" %}</b>{% trans " (Artikel 15 DSGVO), das " %}<b>{% trans "Recht auf Berichtigung" %}</b>{% trans " (Artikel 16 DSGVO), das " %}<b>{% trans "Recht auf Löschung" %}</b> {% trans "(Artikel 17 DSGVO), das " %}<b>{% trans "Recht auf Einschränkung der Verarbeitung" %}</b> {% trans "(Artikel 18 DSGVO), das " %}<b>{% trans "Widerspruchsrecht" %}</b> {% trans "(Artikel 21 DSGVO), das " %}<b>{% trans "Recht auf Beschwerde bei einer Aufsichtsbehörde" %}</b> {% trans "(Artikel 77 DSGVO) sowie das Recht auf " %}<b>{% trans "Datenübertragbarkeit" %}</b> (Artikel 20 DSGVO).</p>
-        
+        <p>
+            {% trans "Im Sinne der DSGVO zählen Sie als Betroffener, wenn personenbezogene Daten, die Sie betreffen, von uns verarbeitet werden. Aus diesem Grund können Sie von verschiedenen Betroffenenrechten Gebrauch machen, die in der Datenschutz-Grundverordnung verankert sind. Hierbei handelt es sich um das " %}<b>{% trans "Auskunftsrecht" %}</b>{% trans " (Artikel 15 DSGVO), das " %}<b>{% trans "Recht auf Berichtigung" %}</b>{% trans " (Artikel 16 DSGVO), das " %}<b>{% trans "Recht auf Löschung" %}</b> {% trans "(Artikel 17 DSGVO), das " %}<b>{% trans "Recht auf Einschränkung der Verarbeitung" %}</b> {% trans "(Artikel 18 DSGVO), das " %}<b>{% trans "Widerspruchsrecht" %}</b> {% trans "(Artikel 21 DSGVO), das " %}<b>{% trans "Recht auf Beschwerde bei einer Aufsichtsbehörde" %}</b> {% trans "(Artikel 77 DSGVO) sowie das Recht auf " %}<b>{% trans "Datenübertragbarkeit" %}</b> (Artikel 20 DSGVO).
+        </p>
     </div>
 {% endblock content %}
