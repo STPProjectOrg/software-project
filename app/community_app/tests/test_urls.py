@@ -1,9 +1,6 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from community_app.views import main, comment, post
-from community_app.models import Post, Comment
-from user_app.models import CustomUser
-from datetime import datetime
 
 class TestUrls(SimpleTestCase):
 

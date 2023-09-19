@@ -1,5 +1,5 @@
 from django.test import SimpleTestCase
-from messaging_app.views import AddMessageForm
+from messaging_app.forms import AddMessageForm
 
 class TestForms(SimpleTestCase):
 

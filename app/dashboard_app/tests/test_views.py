@@ -9,7 +9,8 @@ from dashboard_app.models import Transaction, Watchlist
 
 User = get_user_model()
 class TestViews(TestCase):
-    
+
+    #Test User erstellen und einloggen
     def setUp(self):
         self.user = User.objects.create_user(
             username='testuser',

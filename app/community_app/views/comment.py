@@ -68,4 +68,8 @@ def like_comment(request, comment_id):
         CommentLike.objects.create(user=request.user,
                                    comment=Comment.objects.get(id=comment_id))
 
+    comment = Comment.objects.filter(id=comment_id).get()
+    send_notification(channel_layer, comment.post.user.id, "like",
+                      f"{request.user.username} liked your comment.")
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

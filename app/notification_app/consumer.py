@@ -2,6 +2,7 @@ import json
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.exceptions import StopConsumer
+import json5
 from notification_app.methods import (
     create_notification,
     delete_all_notifications,
@@ -43,21 +44,33 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             )
 
     async def websocket_receive(self, message):
-        await self.send(
-            json.dumps({
-                "type": "websocket.receive",
-                "group": self.group_name,
-                "message": "Received message."
-            })
-        )
 
-        await self.channel_layer.group_send(
-            f"{self.group_name}",
-            {
-                "type": "websocket.create_notification",
-                "message": message
-            }
-        )
+        if (message["text"] != "deleteAllNotifications"):
+
+            await self.send(
+                json.dumps({
+                    "type": "websocket.receive",
+                    "group": self.group_name,
+                    "message": "Received message."
+                })
+            )
+
+            await self.channel_layer.group_send(
+                f"{self.group_name}",
+                {
+                    "type": "websocket.create_notification",
+                    "message": message
+                }
+            )
+
+        else:
+            await self.channel_layer.group_send(
+                f"{self.group_name}",
+                {
+                    "type": "websocket.delete_all_notifications",
+                    "message": message
+                }
+            )
 
     async def websocket_disconnect(self, message):
         await switch_user_state(self.group_name)
