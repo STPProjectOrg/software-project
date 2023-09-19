@@ -7,7 +7,6 @@ from django import forms
 from user_app.models import CustomUser
 from .models import Settings
 from django.utils.translation import gettext_lazy as _
-
 # TODO: Template String für Internationalisierung der Dropdown Texte
 CHOICES = [(False, 'Deaktiviert'), (True, 'Aktiviert')]
 
@@ -125,9 +124,10 @@ class SecuritySettingsForm(forms.Form):
                "id": "dashboard_privacy_setting"}),
         required=True)
 
+
 class LanguageSettingsForm(forms.Form):
-    language_setting = forms.CharField(label="Language", widget=forms.Select(
-        choices=[("de", "de"), ("en-us", "en-us")],
+    language = forms.CharField(label="Language", widget=forms.Select(
+        choices=[("de", "Deutsch (de)"), ("en-us", "Englisch (en)")],
         attrs={"class": "form-control",
                "id": "language_setting"}),
         required=True)
