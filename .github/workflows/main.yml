@@ -57,6 +57,15 @@ jobs:
       #  run: |
       #    cd app
       #    python manage.py test user_app
+      - name: Dashboard App Tests
+        run: |
+          cd app
+          python manage.py test dashboard_app
+
+      - name: User App Tests
+        run: |
+          cd app
+          python manage.py test user_app
 
   build:
     name: Build Docker Images
