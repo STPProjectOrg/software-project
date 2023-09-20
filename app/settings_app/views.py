@@ -117,6 +117,7 @@ def view_settings(request):
     """
     Renders the view settings page.
     """
+    print(translation.get_language())
     form = LanguageSettingsForm(initial={"language": translation.get_language})
     data = {"form": form}
     if request.method == "POST":
