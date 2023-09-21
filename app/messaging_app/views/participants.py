@@ -20,9 +20,8 @@ def get_participants(user):
              "last_message": participant.last_message, 
              "last_message_sent_at": define_created_at(participant.last_message_sent_at),
              "unread_messages": Message.objects.filter(from_user=participant.participant_id, to_user=user).filter(message_read=False).__len__(),
-             "participant_pic": user.userprofileinfo.profile_pic.url 
-                                if user.userprofileinfo.profile_pic 
-                                else "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
+             "participant_pic": participant.participant_id.userprofileinfo.get_profile_pic
+                                
             })
         
     return participants
