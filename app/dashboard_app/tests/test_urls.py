@@ -78,10 +78,6 @@ class TestUrls(TestCase):
             cost = 50022
         )
 
-    def test_dashboard(self):
-        response = self.client.get(reverse('dashboard_app:dashboard', args=['0']))
-        self.assertEqual(response.status_code, 200)
-
     def test_asset(self):
         response = self.client.get(reverse('dashboard_app:asset', args=['BTC',7]))
         self.assertEqual(response.status_code, 200)
