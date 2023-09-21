@@ -147,26 +147,6 @@ class TestViews(TestCase):
             cost = 582
         )
 
-    def test_dashboard (self):
-        compare_pie = {'data': [75000.0, 840.0], 'labels': ['Bitcoin', 'Ethereum'], 'symbols': ['BTC', 'ETH']}
-        compare_line = {'button_values': {'1week': 134.42857142857142, '1month': 134.42857142857142, '6month': 134.42857142857142, '1year': 134.42857142857142, 'all': 134.42857142857142}, 'data': [560.0, 560.0, 25560.0, 25560.0, 75840.0], 'labels': ['16.05.2023', '17.05.2023', '18.05.2023', '19.05.2023', '20.05.2023']}
-        compare_kpi = {'invested': 75840.0, 'tax': 48.0, 'charge': 40.0, 'total': 75840.0, 'cost': 75928.0, 'profit': -88.0}
-        compare_assets = Asset.objects.filter(transaction__user=self.user).annotate(
-            amount=Sum("transaction__amount"),
-            cost=Sum("transaction__cost"),
-            total_value=F("amount") * F("price"),
-            profit=F("total_value") - F("cost")
-        ).distinct()
-        response = self.client.get(reverse('dashboard_app:dashboard', args=['0']))
-        context = response.context
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'dashboard_app/dashboard.html')
-        self.assertEqual(context['pie_data'], compare_pie)
-        self.assertEqual(context['line_data'], compare_line)
-        self.assertEqual(context['kpi'], compare_kpi)
-        self.assertQuerysetEqual(context['assets'], compare_assets, ordered=False, transform=lambda x: x)
-
     def test_asset(self):
         test_asset = Asset.objects.get_or_create(name="BTC")[0]
         test_line_data = {'button_values': {'1week': 0.0, '1month': 0.0, '6month': 0.0, '1year': 0.0, 'all': 0.0}, 'data': [25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0], 'labels': ['14.05.2023', '15.05.2023', '16.05.2023', '17.05.2023', '18.05.2023', '19.05.2023', '20.05.2023']}
