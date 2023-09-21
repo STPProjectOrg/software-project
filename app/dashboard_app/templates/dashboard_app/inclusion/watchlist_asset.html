@@ -1,8 +1,10 @@
 {% load i18n %}
+{% load core_tags %}
 <tr>
     <td class="text-center align-middle">
         <a href="{% url 'dashboard_app:asset' asset.name 0 %}">
-            <img src="{{ asset.imageUrl }}" style="width:35px;"></a>
+            <img src="{{ asset.imageUrl }}" style="width:35px;">
+        </a>
     </td>
     <td class="text-center align-middle">
         <a class="btn btn-link p-0"
@@ -10,27 +12,27 @@
     </td>
     <td class="text-center align-middle">
         <a class="btn btn-link p-0"
-            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.coinName }}</a>
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.coinName }}</a>
     </td>
     <td class="text-center align-middle">
-        <a class="btn btn-link p-0" 
-            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.price }}</a>
+        <a class="btn btn-link p-0"
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.price|to_locale_valuta }}</a>
     </td>
     <td class="text-center align-middle">
-        <a class="btn btn-link p-0" 
-            href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.pricediff }}</a>
+        <a class="btn btn-link p-0"
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.pricediff|to_locale_valuta }}</a>
     </td>
     {% if asset.pricediffpercent > 0 %}
         <td class="text-center align-middle">
-            <a  class="btn btn-link p-0" 
-                style="color: green"
-                href="{% url 'dashboard_app:asset' asset.name 0 %}">+{{ asset.pricediffpercent }}</a>
+            <a class="btn btn-link p-0"
+               style="color: green"
+               href="{% url 'dashboard_app:asset' asset.name 0 %}">+{{ asset.pricediffpercent }}</a>
         </td>
     {% else %}
         <td class="text-center align-middle">
-            <a  class="btn btn-link p-0" 
-                style="color: red"
-                href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.pricediffpercent }}</a>
+            <a class="btn btn-link p-0"
+               style="color: red"
+               href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.pricediffpercent }}</a>
         </td>
     {% endif %}
     {# Dropdown price_change #}
@@ -67,17 +69,17 @@
     {% if is_own_watchlist %}
         <td class="text-center align-middle">
             <a class="btn btn-link p-0"
-                href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.added_at }}</a>
+               href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.added_at }}</a>
         </td>
     {% endif %}
-        <td class="text-center align-middle">
-            <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">
-                <i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
-        </td>
+    <td class="text-center align-middle">
+        <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">
+            <i class="bi bi-star-fill" style="font-size: 1rem;"></i></a>
+    </td>
     {% if is_own_watchlist %}
         <td class="text-center align-middle">
             <a class="btn btn-link p-0"
-                href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.isInPortfolio }}</a>
+               href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.isInPortfolio }}</a>
         </td>
     {% endif %}
 </tr>

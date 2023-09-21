@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load core_tags %}
 <tr class="align-middle">
     <td class="text-center">
         <a href="{% url 'dashboard_app:asset' asset.name 0 %}">
@@ -15,7 +16,7 @@
     </td>
     <td class="text-start">
         <a class="btn btn-link p-0"
-           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.price }}</a>
+           href="{% url 'dashboard_app:asset' asset.name 0 %}">{{ asset.price|to_locale_valuta }}</a>
     </td>
     <td class="text-center">
         <a href="{% url 'dashboard_app:watchlist_add' asset.name %}">
