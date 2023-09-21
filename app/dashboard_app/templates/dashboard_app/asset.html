@@ -3,11 +3,6 @@
 {% load core_tags %}
 {% load i18n %}
 {% block content %}
-    {% comment %} <div class="row">
-        <div class="col">
-            
-        </div>
-    </div> {% endcomment %}
     {# Portfolio Overview #}
     <div class="row bg-body-tertiary mx-n4 mt-n4 p-4 gap-4">
         <div class="col-sm-12 d-flex flex-column col-md gap-4">
@@ -18,7 +13,7 @@
                         <img class="logo-fs-1" src="{{ asset.imageUrl }}">
                     </div>
                     <div>
-                        <div class="fs-5 fw-light">u/{{ asset.name }}</div>
+                        <div class="fs-5 fw-light">a/{{ asset.name }}</div>
                         <div class="fs-3 fw-semibold">{{ asset.coinName }}</div>
                     </div>
                 </div>
