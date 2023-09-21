@@ -15,6 +15,7 @@ def get_pie_data(assets: AssetManager, anonymize: bool):
             anonymous_data.append(val/smallest_val)
         data = anonymous_data
 
+
     return {"data": data,
             "labels": list(assets.values_list("coinName", flat=True)),
             "symbols": list(assets.values_list("name", flat=True))}
@@ -29,8 +30,8 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int, ano
     data = []
     labels = []
 
-    today = date.today()  # For live-server
-    # today = date.fromisoformat('2023-05-20')  # For development
+    #today = date.today()  # For live-server
+    today = date.fromisoformat('2023-05-20')  # For development
 
     day = transactions.earliest('purchaseDate').purchaseDate
 
@@ -45,10 +46,11 @@ def get_portfolio_line_data(transactions: TransactionManager, timespan: int, ano
         for asset in assets:
             assetVal = AssetHistory.objects.filter(
                 name=asset['asset'], date=day).values('value')[:1].get()['value']
-
-            asset_transactions = Transaction.objects.filter(
+            asset_transactions = transactions.filter(
                 asset=asset['asset'], purchaseDate__lte=day)
             for transaction in asset_transactions:
+                if(asset["asset"] == 1):
+                    print(transaction.amount)
                 value += transaction.amount*assetVal
 
         # value = sum(
