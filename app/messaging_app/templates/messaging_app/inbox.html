@@ -84,7 +84,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="ms-auto">
-                                        <small>{{ message.created_at }}</small>
+                                        <small>{{ message.created_at|format_date }}</small>
                                     </div>
                                 </div>
                             {% else %}
@@ -102,7 +102,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="me-auto">
-                                        <small>{{ message.created_at }}</small>
+                                        <small>{{ message.created_at|format_date }}</small>
                                     </div>
                                 </div>
                             {% endif %}
@@ -110,7 +110,7 @@
                     </div>
                     <div class="card-footer">
                         <form class="my-2 d-flex flex-column gap-2"
-                                action="{% url 'messaging_app:create_message' participant %}"
+                              action="{% url 'messaging_app:create_message' participant %}"
                               method="post"
                               enctype='multipart/form-data'>
                             {% csrf_token %}
