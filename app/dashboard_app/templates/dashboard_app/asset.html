@@ -27,14 +27,8 @@
                 </div>
             </div>
             <div class="row gap-4">
-                {# KPI #}
-                <div class="col-auto bg-body p-3 border rounded d-flex flex-row">
-                    KPI ...
-                    <div>Name, Symbol, Preis, Umlauf(?) ...</div>
-                </div>
-                <div class="col m-n2"></div>
                 {# Actions #}
-                <div class="col col-auto mt-auto bg-body p-3 border rounded d-flex flex-row">
+                <div class="col ms-auto col-auto mt-auto bg-body p-3 border rounded d-flex flex-row">
                     <a href="{% url 'dashboard_app:watchlist_add' asset.name %}"
                        class="btn btn-outline-primary me-3">
                         {% if asset_in_watchlist %}
