@@ -1,29 +1,21 @@
 {% load i18n %}
-{% if True %}
-    <div class="col-auto">
-        <div class="dropdown">
-            <button class="btn btn-link h-100 pe-0 position-relative"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    id="notificationButton">
-                <i class="bi bi-bell-fill fs-5 position-absolute"></i>
-            </button>
-            <ul class="dropdown-menu" id="dropdownMenu">
-                <button class="dropdown-item btn btn-danger h-100 d-flex justify-content-center"
-                        id="deleteButton">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </ul>
-        </div>
-    </div>
-{% else %}
-    <div class="col-auto">
-        <button class="btn btn-link h-100 pe-0 position-relative" type="button">
+<div class="col-auto">
+    <div class="dropdown">
+        <button class="btn btn-link h-100 pe-0 position-relative"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                id="notificationButton">
             <i class="bi bi-bell-fill fs-5"></i>
         </button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+            <button class="dropdown-item btn btn-danger h-100 d-flex justify-content-center"
+                    id="deleteButton">
+                <i class="bi bi-trash"></i>
+            </button>
+        </ul>
     </div>
-{% endif %}
+</div>
 <div class="col-auto">
     <div class="dropdown">
         <button class="btn btn-link h-100 ps-0"
