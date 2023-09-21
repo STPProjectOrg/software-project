@@ -1,84 +1,87 @@
 {% extends "core/clear_base.html" %}
+{% load i18n %}
 {% block content %}
     <div>
         <h1>Features</h1>
     </div>
-    <div class="row mt-4">
-        <div class="col">
+    <div class="row row-gap-4">
+        <div class="col-4">
             <div class="card">
                 <div class="card-header fs-3 fw-semibold text-white">Umsetzung in Django</div>
                 <div class="card-body">
-                    Dieses Projekt wurde in der Programmiersprache Python auf Basis des Django-Frameworks erstellt. Dadurch ist ein Robustes Framework gewährleistet, welches umfangreiche Anpassungen ermöglicht, von dem Nutzer vielseitig profitieren!
+                    {% trans "Dieses Projekt wurde in der Programmiersprache Python auf Basis des Django-Frameworks erstellt. Dadurch ist ein Robustes Framework gewährleistet, welches umfangreiche Anpassungen ermöglicht, von dem Nutzer vielseitig profitieren!" %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Sicherheit durch Django Admin</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Sicherheit durch Django Admin" %}</div>
                 <div class="card-body">
-                    Um Nutzerdaten zu schützen wurde als Grundlage für die Authentifizierung auf Django-Admin zurückgegriffen. Hierdurch konnte auf Komponenten für die Nutzerverwaltung zurückgegriffen werden, die sich bereits im großen Maßstab bewährt haben. Aufbauen hierrauf wurde der Login und die Registrierung angepasst. Für den Fall, dass Nutzer ihr Passwort vergessen wurde sogar das Zurücksetzen über Email hinzugefügt.
+                    {% trans "Um Nutzerdaten zu schützen wurde als Grundlage für die Authentifizierung auf Django-Admin zurückgegriffen. Hierdurch konnte auf Komponenten für die Nutzerverwaltung zurückgegriffen werden, die sich bereits im großen Maßstab bewährt haben. Aufbauen hierrauf wurde der Login und die Registrierung angepasst. Für den Fall, dass Nutzer ihr Passwort vergessen wurde sogar das Zurücksetzen über Email hinzugefügt." %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Umfangreiche Kursdaten</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Umfangreiche Kursdaten" %}</div>
                 <div class="card-body">
-                    Für die Bereitstellung der Kurse greifen wir auf tagesaktuelle Kurse von Cryptocompare.com zurück, welche über einen Background-Job täglich über eine API-Schnittstelle abgerufen und in unsere Datenbank gespeichert werden. Für die bessere Darstellung wurden die Daten der vergangenen Jahre für eine Vielzahl von Kryptowährungen gespeichert.
+                    {% trans "Für die Bereitstellung der Kurse greifen wir auf tagesaktuelle Kurse von Cryptocompare.com zurück, welche über einen Background-Job täglich über eine API-Schnittstelle abgerufen und in unsere Datenbank gespeichert werden. Für die bessere Darstellung wurden die Daten der vergangenen Jahre für eine Vielzahl von Kryptowährungen gespeichert." %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Detailliertes Portfolio</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Detailliertes Portfolio" %}</div>
                 <div class="card-body">
-                    Für jede Kryptowährung wird automatisch eine Detailseite erstellt. Von hier aus können Werte auf die Merkliste gesetzt werden oder dem Portfolio hinzugefügt werden. Aus den hinzugefügten Werten wird ein taggenauer Kursverlauf erstellt und eine Vielzahl von KPI angezeigt.
+                    {% trans "Für jede Kryptowährung wird automatisch eine Detailseite erstellt. Von hier aus können Werte auf die Merkliste gesetzt werden oder dem Portfolio hinzugefügt werden. Aus den hinzugefügten Werten wird ein taggenauer Kursverlauf erstellt und eine Vielzahl von KPI angezeigt." %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Attraktive UI</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Attraktive UI" %}</div>
                 <div class="card-body">
-                    Das UI baut auf Bootstrap v5.3 und bietet so eine menge an herausragenden Komponenten, welche bei der Gestaltung umfangreich zum Einsatz kamen. Darüber hinaus wurde das bestehende Design um über 300 Zeilen SCCS erweitert, um Schriftart, Farben und vieles mehr zu individualisieren. Es wurde ein neuer Name überlegt und mit AI ein Logo erstellt.
+                    {% trans "Das UI baut auf Bootstrap v5.3 und bietet so eine menge an herausragenden Komponenten, welche bei der Gestaltung umfangreich zum Einsatz kamen. Darüber hinaus wurde das bestehende Design um über 300 Zeilen SCCS erweitert, um Schriftart, Farben und vieles mehr zu individualisieren. Es wurde ein neuer Name überlegt und mit AI ein Logo erstellt." %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Interaktive Charts</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Interaktive Charts" %}</div>
                 <div class="card-body">
-                    Wir verwenden Chart.js um Kursdiagramme zu erstellen, mit denen unsere Nutzer interagieren können. Natürlich wurde auch diese Diagramme grafisch grundlegend überarbeitet und funktionstechnisch um zum Beispiel eine Filterfunktion erweitert.
+                    {% trans "Wir verwenden Chart.js um Kursdiagramme zu erstellen, mit denen unsere Nutzer interagieren können. Natürlich wurde auch diese Diagramme grafisch grundlegend überarbeitet und funktionstechnisch um zum Beispiel eine Filterfunktion erweitert." %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Individualisierbares Profil</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Individualisierbares Profil" %}</div>
                 <div class="card-body">
-                    Das Nutzerprofil lässt sich durch ein Profil-Bild und Banner individualisieren. Auch eine Biografie kann festgelegt werden.
+                    {% trans "Das Nutzerprofil lässt sich durch ein Profil-Bild und Banner individualisieren. Auch eine Biografie kann festgelegt werden." %}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col">
+        <div class="col-4">
             <div class="card">
-                <div class="card-header fs-3 fw-semibold text-white">Moderne Community-Funktionen</div>
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Moderne Community-Funktionen" %}</div>
                 <div class="card-body">
-                    Wir bieten die Möglichkeit an anderen Nutzern zu folgen und auch selbst gefolgt zu werden. Außerdem können Posts erstellt werden, um seine Ansichten und Meinungen mit der Community zu teilen.
+                    {% trans "Wir bieten die Möglichkeit an anderen Nutzern zu folgen und auch selbst gefolgt zu werden. Außerdem können Posts erstellt werden, um seine Ansichten und Meinungen mit der Community zu teilen." %}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "Benachrichtigungen in Echtzeit" %}</div>
+                <div class="card-body">
+                    {% trans "Mithilfe einer WebSocket-Verbindung werden die Benachrichtigungen unter den Usern in Echtzeit übertragen und angezeigt." %}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header fs-3 fw-semibold text-white">{% trans "CI/CD" %}</div>
+                <div class="card-body">
+                    {% trans "Die Webanwendung wird mithilfe von CICD ausgeliefert, dies beinhaltet eine Pipeline in welcher Auto-Tests die grundlegende Funktionalität unserer Anwendung testen und einen Linter welcher die Codestruktur standartisieren soll." %}
                 </div>
             </div>
         </div>
