@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-02 20:49+0200\n"
+"POT-Creation-Date: 2023-09-21 17:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\templates\core\clear_base.html:38
+#: templates/core/clear_base.html:38
 msgid "Anmelden"
 msgstr "Sign In"
 
-#: .\templates\core\clear_base.html:39
+#: templates/core/clear_base.html:39
 msgid "Registrieren"
 msgstr "Register"
 
-#: .\templates\core\cookie_disclosure.html:6
-#: .\templates\inclusion\footer.html:22
+#: templates/core/cookie_disclosure.html:6 templates/inclusion/footer.html:22
 msgid "Cookie-Erklärung"
 msgstr "Cookie Policy"
 
-#: .\templates\core\cookie_disclosure.html:11
+#: templates/core/cookie_disclosure.html:11
 msgid "Information"
 msgstr "Information"
 
-#: .\templates\core\cookie_disclosure.html:12
+#: templates/core/cookie_disclosure.html:12
 msgid ""
 "Cookie-Dateien sind kleine Textdateien. Sie werden genutzt, um mit einer "
 "Internetseite verbundene Informationen für einige Zeit lokal auf Ihrem "
@@ -44,7 +43,7 @@ msgstr ""
 "related to a website on your computer for a certain period of time and "
 "transmit it back to the server upon request."
 
-#: .\templates\core\cookie_disclosure.html:13
+#: templates/core/cookie_disclosure.html:13
 msgid ""
 "Die meisten Internet-Browser sind so eingestellt, dass sie Cookies "
 "automatisch akzeptieren. Sie können diese Funktion jedoch in Ihrem Browser "
@@ -57,7 +56,7 @@ msgstr ""
 "the browser is closed. There is no merging of cookie information with "
 "personal data."
 
-#: .\templates\core\cookie_disclosure.html:14
+#: templates/core/cookie_disclosure.html:14
 msgid ""
 "Beim Aufruf der Internetseite werden ausschließlich technisch notwendige "
 "Cookies gesetzt. Die auf dieser Seite eingesetzten Session-Cookies "
@@ -68,22 +67,22 @@ msgstr ""
 "session cookies used on this page do not contain personal data and are "
 "deleted after submitting the forms or closing the browser."
 
-#: .\templates\core\cookie_disclosure.html:15
+#: templates/core/cookie_disclosure.html:15
 msgid ""
 "Eine Zusammenführung dieser Informationen mit personenbezogenen Daten findet "
 "nicht statt."
 msgstr "There is no merging of this information with personal data."
 
-#: .\templates\core\cookie_disclosure.html:16
+#: templates/core/cookie_disclosure.html:16
 msgid ""
 "Folgende Funktionen verwenden Cookies, um korrekt funktionieren zu können."
 msgstr "The following functions use cookies to function correctly."
 
-#: .\templates\core\cookie_disclosure.html:17
+#: templates/core/cookie_disclosure.html:17
 msgid "Cookie für Login-Funktion"
 msgstr "Cookie for login function"
 
-#: .\templates\core\cookie_disclosure.html:18
+#: templates/core/cookie_disclosure.html:18
 msgid ""
 "Um sich für bestimmte Website-Funktionen einloggen zu können, ist es "
 "notwendig, einen Cookie zu setzen. Wenn Sie sich einloggen, wird im Cookie "
@@ -96,16 +95,148 @@ msgstr ""
 "logged in to the website. This way, you don't have to log in again for each "
 "visit to a different subpage. When you log out, the cookie will be deleted."
 
-#: .\templates\core\legal_disclosure.html:11
-#: .\templates\inclusion\footer.html:18
+#: templates/core/landing.html:12
+msgid ""
+"Dieses Projekt wurde in der Programmiersprache Python auf Basis des Django-"
+"Frameworks erstellt. Dadurch ist ein Robustes Framework gewährleistet, "
+"welches umfangreiche Anpassungen ermöglicht, von dem Nutzer vielseitig "
+"profitieren!"
+msgstr ""
+"This project was created in the Python programming language using the Django framework. This ensures a robust framework that allows for extensive customization, benefiting users in various ways!"
+
+#: templates/core/landing.html:18
+msgid "Sicherheit durch Django Admin"
+msgstr ""
+"Security through Django Admin"
+
+#: templates/core/landing.html:20
+msgid ""
+"Um Nutzerdaten zu schützen wurde als Grundlage für die Authentifizierung auf "
+"Django-Admin zurückgegriffen. Hierdurch konnte auf Komponenten für die "
+"Nutzerverwaltung zurückgegriffen werden, die sich bereits im großen Maßstab "
+"bewährt haben. Aufbauen hierrauf wurde der Login und die Registrierung "
+"angepasst. Für den Fall, dass Nutzer ihr Passwort vergessen wurde sogar das "
+"Zurücksetzen über Email hinzugefügt."
+msgstr ""
+"To protect user data, Django-Admin was used as the foundation for authentication. This allowed us to leverage user management components that have already proven themselves at a large scale. Building on this, the login and registration processes were customized. In the event that users forget their passwords, a password reset via email was even added."
+
+#: templates/core/landing.html:26
+msgid "Umfangreiche Kursdaten"
+msgstr ""
+"Extensive course data"
+
+#: templates/core/landing.html:28
+msgid ""
+"Für die Bereitstellung der Kurse greifen wir auf tagesaktuelle Kurse von "
+"Cryptocompare.com zurück, welche über einen Background-Job täglich über eine "
+"API-Schnittstelle abgerufen und in unsere Datenbank gespeichert werden. Für "
+"die bessere Darstellung wurden die Daten der vergangenen Jahre für eine "
+"Vielzahl von Kryptowährungen gespeichert."
+msgstr ""
+"To provide the courses, we retrieve daily updated data from Cryptocompare.com, which is fetched and stored in our database through a background job using an API interface. To enhance presentation, data from previous years has been stored for a wide range of cryptocurrencies."
+
+#: templates/core/landing.html:34
+msgid "Detailliertes Portfolio"
+msgstr ""
+"Detailed portfolio"
+
+#: templates/core/landing.html:36
+msgid ""
+"Für jede Kryptowährung wird automatisch eine Detailseite erstellt. Von hier "
+"aus können Werte auf die Merkliste gesetzt werden oder dem Portfolio "
+"hinzugefügt werden. Aus den hinzugefügten Werten wird ein taggenauer "
+"Kursverlauf erstellt und eine Vielzahl von KPI angezeigt."
+msgstr ""
+"For each cryptocurrency, an individual detail page is automatically generated. From here, users can add items to their watchlist or portfolio. A precise daily price history is created from the added items, and a variety of key performance indicators (KPIs) are displayed."
+
+#: templates/core/landing.html:42
+msgid "Attraktive UI"
+msgstr ""
+"Attractive UI"
+
+#: templates/core/landing.html:44
+msgid ""
+"Das UI baut auf Bootstrap v5.3 und bietet so eine menge an herausragenden "
+"Komponenten, welche bei der Gestaltung umfangreich zum Einsatz kamen. "
+"Darüber hinaus wurde das bestehende Design um über 300 Zeilen SCCS "
+"erweitert, um Schriftart, Farben und vieles mehr zu individualisieren. Es "
+"wurde ein neuer Name überlegt und mit AI ein Logo erstellt."
+msgstr ""
+"The UI is built on Bootstrap v5.3, providing a wealth of outstanding components that were extensively utilized in the design. Furthermore, the existing design was extended with over 300 lines of SCSS to customize fonts, colors, and more. A new name was brainstormed, and a logo was created using AI."
+
+#: templates/core/landing.html:50
+msgid "Interaktive Charts"
+msgstr ""
+"Interactive charts"
+
+#: templates/core/landing.html:52
+msgid ""
+"Wir verwenden Chart.js um Kursdiagramme zu erstellen, mit denen unsere "
+"Nutzer interagieren können. Natürlich wurde auch diese Diagramme grafisch "
+"grundlegend überarbeitet und funktionstechnisch um zum Beispiel eine "
+"Filterfunktion erweitert."
+msgstr ""
+"We use Chart.js to create price charts that our users can interact with. Naturally, these charts have been extensively redesigned graphically and functionally enhanced, including the addition of features such as a filtering function."
+
+#: templates/core/landing.html:58
+msgid "Individualisierbares Profil"
+msgstr ""
+"Customizable profile"
+
+#: templates/core/landing.html:60
+msgid ""
+"Das Nutzerprofil lässt sich durch ein Profil-Bild und Banner "
+"individualisieren. Auch eine Biografie kann festgelegt werden."
+msgstr ""
+"User profiles can be personalized with a profile picture and banner. A biography can also be added."
+
+#: templates/core/landing.html:66
+msgid "Moderne Community-Funktionen"
+msgstr ""
+"Modern community features"
+
+#: templates/core/landing.html:68
+msgid ""
+"Wir bieten die Möglichkeit an anderen Nutzern zu folgen und auch selbst "
+"gefolgt zu werden. Außerdem können Posts erstellt werden, um seine Ansichten "
+"und Meinungen mit der Community zu teilen."
+msgstr ""
+
+#: templates/core/landing.html:74
+msgid "Benachrichtigungen in Echtzeit"
+msgstr ""
+"We offer the ability to follow other users and be followed in return. Additionally, users can create posts to share their views and opinions with the community."
+
+#: templates/core/landing.html:76
+msgid ""
+"Mithilfe einer WebSocket-Verbindung werden die Benachrichtigungen unter den "
+"Usern in Echtzeit übertragen und angezeigt."
+msgstr ""
+"Notifications are transmitted and displayed in real-time among users through a WebSocket connection."
+
+#: templates/core/landing.html:82
+msgid "CI/CD"
+msgstr ""
+"CI/CD"
+
+#: templates/core/landing.html:84
+msgid ""
+"Die Webanwendung wird mithilfe von CICD ausgeliefert, dies beinhaltet eine "
+"Pipeline in welcher Auto-Tests die grundlegende Funktionalität unserer "
+"Anwendung testen und einen Linter welcher die Codestruktur standartisieren "
+"soll."
+msgstr ""
+"The web application is deployed using Continuous Integration/Continuous Deployment (CI/CD), which includes a pipeline where automated tests validate the basic functionality of our application. Additionally, a linter is used to standardize the code structure."
+
+#: templates/core/legal_disclosure.html:11 templates/inclusion/footer.html:18
 msgid "Impressum"
 msgstr "Legal Disclosure"
 
-#: .\templates\core\legal_disclosure.html:16 .\templates\core\privacy.html:17
+#: templates/core/legal_disclosure.html:16 templates/core/privacy.html:14
 msgid "Anbieter"
 msgstr "Provider"
 
-#: .\templates\core\legal_disclosure.html:17
+#: templates/core/legal_disclosure.html:17
 msgid ""
 "Die Webseite wird im Rahmen einer Projektarbeit an der Hochschule Flensburg "
 "für private Zwecke betrieben."
@@ -113,19 +244,19 @@ msgstr ""
 "The website is operated for private purposes as part of a project at "
 "Flensburg University of Applied Sciences."
 
-#: .\templates\core\privacy.html:11 .\templates\inclusion\footer.html:20
+#: templates/core/privacy.html:10 templates/inclusion/footer.html:20
 msgid "Datenschutz"
 msgstr "Privacy"
 
-#: .\templates\core\privacy.html:18
+#: templates/core/privacy.html:16
 msgid "Die"
 msgstr "The"
 
-#: .\templates\core\privacy.html:18
+#: templates/core/privacy.html:16
 msgid "Verantwortlichen"
 msgstr "ones responsible"
 
-#: .\templates\core\privacy.html:18
+#: templates/core/privacy.html:16
 msgid ""
 "im Sinn der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler "
 "Datenschutzgesetze sind alle im"
@@ -133,23 +264,23 @@ msgstr ""
 "regarding the General Data Protection Regulation (GDPR) and other national "
 "Data Protection Regulations are all"
 
-#: .\templates\core\privacy.html:18
+#: templates/core/privacy.html:16
 msgid "aufgeführten Personen."
 msgstr "people listed."
 
-#: .\templates\core\privacy.html:20
+#: templates/core/privacy.html:18
 msgid "Angabe der Rechtsgrundlage"
 msgstr "Legal Basis"
 
-#: .\templates\core\privacy.html:21
+#: templates/core/privacy.html:20
 msgid "Insofern wir für die Verarbeitung der personenbezogenen Daten eine"
 msgstr "Should processing personal data need "
 
-#: .\templates\core\privacy.html:21
+#: templates/core/privacy.html:20
 msgid "Einwilligung"
 msgstr "Consent"
 
-#: .\templates\core\privacy.html:21
+#: templates/core/privacy.html:20
 msgid ""
 " der betroffenen Person eingeholt haben, gilt Artikel 6 Absatz 1 Unterabsatz "
 "1a der DSGVO als rechtliche Grundlage."
@@ -157,23 +288,23 @@ msgstr ""
 " from the affected person, article 6 paragraph 1 , 1a (GDPR) will pose as "
 "legal basis "
 
-#: .\templates\core\privacy.html:22
+#: templates/core/privacy.html:23
 msgid "Ist die Verarbeitung personenbezogener Daten für die "
 msgstr "Should the processing of personal Data be necessary for "
 
-#: .\templates\core\privacy.html:22
+#: templates/core/privacy.html:23
 msgid "Erfüllung eines Vertrags"
 msgstr "fulfilling a Contract"
 
-#: .\templates\core\privacy.html:22
+#: templates/core/privacy.html:23
 msgid "mit der betroffenen Person oder für "
 msgstr "with the affected Person or for "
 
-#: .\templates\core\privacy.html:22
+#: templates/core/privacy.html:23
 msgid "vorvertragliche Maßnahmen "
 msgstr "pre-contract measures "
 
-#: .\templates\core\privacy.html:22
+#: templates/core/privacy.html:23
 msgid ""
 "erforderlich, die durch die betroffene Person veranlasst wurden, dient "
 "Artikel 6 Absatz 1 Unterabsatz 1b (DSGVO) als Rechtsgrundlage."
@@ -181,29 +312,29 @@ msgstr ""
 "made necessary by the affected person, article 6 paragraph 1 , 1b (GDPR) "
 "will pose as legal basis "
 
-#: .\templates\core\privacy.html:23
+#: templates/core/privacy.html:26
 msgid "Ist die Datenverarbeitung das Resultat einer "
 msgstr "Should the processing of data abe a result of an"
 
-#: .\templates\core\privacy.html:23
+#: templates/core/privacy.html:26
 msgid "rechtlichen Verpflichtung"
 msgstr "obligation by law"
 
-#: .\templates\core\privacy.html:23
+#: templates/core/privacy.html:26
 msgid ""
 "der wir unterliegen, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1c "
 "der DSGVO als rechtliche Basis."
 msgstr "article 6 paragraph 1 , 1c (GDPR) will pose as legal basis"
 
-#: .\templates\core\privacy.html:24
+#: templates/core/privacy.html:29
 msgid "Erfolgt die Verarbeitung personenbezogener Daten, um "
 msgstr "Should the processing of personal data be made necessary to protect "
 
-#: .\templates\core\privacy.html:24
+#: templates/core/privacy.html:29
 msgid "lebenswichtige Interessen"
 msgstr "vital interests"
 
-#: .\templates\core\privacy.html:24
+#: templates/core/privacy.html:29
 msgid ""
 "der betroffenen Person oder einer anderen natürlichen Person zu schützen, "
 "dient Artikel 6 Absatz 1 Unterabsatz 1d (DSGVO) als Rechtsgrundlage."
@@ -211,44 +342,44 @@ msgstr ""
 " of the affected Person or any other natural person,  article 6 paragraph "
 "1 , 1d (GDPR) will pose as legal basis"
 
-#: .\templates\core\privacy.html:25
+#: templates/core/privacy.html:32
 msgid "Dient die Datenverarbeitung einer Aufgabe, die im "
 msgstr "Should the processing of data facilitate a matter of "
 
-#: .\templates\core\privacy.html:25
+#: templates/core/privacy.html:32
 msgid "öffentlichen Interesse"
 msgstr "public interest"
 
-#: .\templates\core\privacy.html:25
+#: templates/core/privacy.html:32
 msgid "liegt oder in "
 msgstr "or happen in the scope of the"
 
-#: .\templates\core\privacy.html:25
+#: templates/core/privacy.html:32
 msgid "Ausübung öffentlicher Gewalt"
 msgstr "exercise of public authority"
 
-#: .\templates\core\privacy.html:25
+#: templates/core/privacy.html:32
 msgid ""
 "erfolgt, berufen wir uns auf Artikel 6 Absatz 1 Unterabsatz 1e der DSGVO."
 msgstr "article 6 paragraph 1 , 1e (GDPR) will pose as legal basis"
 
-#: .\templates\core\privacy.html:26
+#: templates/core/privacy.html:35
 msgid "Insofern die Verarbeitung personenbezogener Daten erforderlich ist, um "
 msgstr "Should the processing of personal data be necessary to protect "
 
-#: .\templates\core\privacy.html:26
+#: templates/core/privacy.html:35
 msgid "berechtigte Interessen des Verantwortlichen"
 msgstr "legitimate interests of the responsible "
 
-#: .\templates\core\privacy.html:26
+#: templates/core/privacy.html:35
 msgid "oder "
 msgstr "or "
 
-#: .\templates\core\privacy.html:26
+#: templates/core/privacy.html:35
 msgid "eines Dritten"
 msgstr "a third party"
 
-#: .\templates\core\privacy.html:26
+#: templates/core/privacy.html:35
 msgid ""
 "zu wahren – ohne dabei die Interessen, Grundrechte oder Grundfreiheiten der "
 "betroffenen Person zu gefährden –, gilt Artikel 6 Absatz 1 Unterabsatz 1f "
@@ -257,19 +388,11 @@ msgstr ""
 " without risking interests, rights or freedoms of the affected person, "
 "article 6 paragraph 1 , 1f (GDPR) will pose as legal basis"
 
-#: .\templates\core\privacy.html:28
-msgid "Angabe des Datenverarbeitungszwecks"
-msgstr "Indication of the purpose of data processing"
-
-#: .\templates\core\privacy.html:31
-msgid "Angabe der Datenspeicherungsdauer"
-msgstr "Indication of the data retention period "
-
-#: .\templates\core\privacy.html:34
+#: templates/core/privacy.html:37
 msgid "Betroffenenrechte"
 msgstr "data subject rights"
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid ""
 "Im Sinne der DSGVO zählen Sie als Betroffener, wenn personenbezogene Daten, "
 "die Sie betreffen, von uns verarbeitet werden. Aus diesem Grund können Sie "
@@ -280,158 +403,165 @@ msgstr ""
 "regardingyou is processed by us. Due to that fact, you can take advantage of "
 "several subject rights,which are set in the GDPR. There is the "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Auskunftsrecht"
 msgstr "Right of providing information "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid " (Artikel 15 DSGVO), das "
 msgstr "(aricle 15 GDPR), the "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Recht auf Berichtigung"
 msgstr "Right to Rectification "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid " (Artikel 16 DSGVO), das "
 msgstr "(aricle 16 GDPR), the "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Recht auf Löschung"
 msgstr "Right to Deletion"
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "(Artikel 17 DSGVO), das "
 msgstr "(aricle 17 GDPR), the "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Recht auf Einschränkung der Verarbeitung"
 msgstr "Right to restriction of processing "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "(Artikel 18 DSGVO), das "
 msgstr "(aricle 18 GDPR), the "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Widerspruchsrecht"
 msgstr "Right to object"
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "(Artikel 21 DSGVO), das "
 msgstr "(aricle 21 GDPR), the "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Recht auf Beschwerde bei einer Aufsichtsbehörde"
 msgstr "Right to complain to a supervising agency"
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "(Artikel 77 DSGVO) sowie das Recht auf "
 msgstr "(aricle 77 GDPR), as well as the  "
 
-#: .\templates\core\privacy.html:35
+#: templates/core/privacy.html:39
 msgid "Datenübertragbarkeit"
 msgstr "Right to transfer data"
 
-#: .\templates\core\questions_and_answers.html:6
+#: templates/core/questions_and_answers.html:6
 msgid "Fragen und Antworten"
 msgstr "Questions and Answers"
 
-#: .\templates\core\questions_and_answers.html:7
+#: templates/core/questions_and_answers.html:7
 msgid "Hier finden Sie Antworten zu häufig gestellten Fragen."
 msgstr "Here you can find answers to the most common questions"
 
-#: .\templates\core\questions_and_answers.html:19
+#: templates/core/questions_and_answers.html:19
 msgid "Wie kann ich Coins zu meinem Depot hinzufügen?"
 msgstr "How can i add coins to my Portfolio"
 
-#: .\templates\core\questions_and_answers.html:26
+#: templates/core/questions_and_answers.html:26
 msgid ""
 "Coins können über die Suchleiste gefunden und aufgerufen werden. Über den "
 "Button "
 msgstr "Coins can be found through the search bar and the Button "
 
-#: .\templates\core\questions_and_answers.html:26
+#: templates/core/questions_and_answers.html:26
 #, fuzzy
 #| msgid "Transaktionen"
 msgid "Transaktion hinzufügen"
 msgstr "Transactions"
 
-#: .\templates\core\questions_and_answers.html:27
+#: templates/core/questions_and_answers.html:27
 msgid ""
 "wird das Formular zum hinzufügen geöffnet. Hier können, neben dem Kaufdatum "
 "und der Stückzahl, auch Kosten, Steuern und weiteres festgehalten werden."
-msgstr "opens the Form to add the coin to your Portfolio. Here you can state the purchase date, the amount you bought, the price, taxes and charges."
+msgstr ""
+"opens the Form to add the coin to your Portfolio. Here you can state the "
+"purchase date, the amount you bought, the price, taxes and charges."
 
-#: .\templates\inclusion\navigation.html:4
+#: templates/inclusion/navigation.html:4
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: .\templates\inclusion\navigation.html:5
+#: templates/inclusion/navigation.html:5
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: .\templates\inclusion\navigation.html:6
+#: templates/inclusion/navigation.html:6
 msgid "Watchlist"
 msgstr "Watchlist"
 
-#: .\templates\inclusion\navigation.html:7
+#: templates/inclusion/navigation.html:7
 msgid "Coin Overview"
 msgstr ""
 
-#: .\templates\inclusion\navigation.html:8
+#: templates/inclusion/navigation.html:8
 msgid "Transaktionen"
 msgstr "Transactions"
 
-#: .\templates\inclusion\navigation.html:13
+#: templates/inclusion/navigation.html:13
 msgid "Sozial"
 msgstr "Social"
 
-#: .\templates\inclusion\navigation.html:14
-#: .\templates\inclusion\user_menu.html:32
+#: templates/inclusion/navigation.html:14 templates/inclusion/user_menu.html:34
 msgid "Profil"
 msgstr "Profile"
 
-#: .\templates\inclusion\navigation.html:15
+#: templates/inclusion/navigation.html:15
 msgid "Community"
 msgstr "Community"
 
-#: .\templates\inclusion\navigation.html:16
+#: templates/inclusion/navigation.html:16
 msgid "Nachrichten"
 msgstr "Messages"
 
-#: .\templates\inclusion\search.html:3
+#: templates/inclusion/search.html:3
 msgid "Suche"
 msgstr "Search"
 
-#: .\templates\inclusion\search_modal.html:10
+#: templates/inclusion/search_modal.html:10
 msgid "Suchergebnisse"
 msgstr "Search results"
 
-#: .\templates\inclusion\search_modal.html:28
+#: templates/inclusion/search_modal.html:28
 msgid "Schließen"
 msgstr "Close"
 
-#: .\templates\inclusion\search_result.html:6
+#: templates/inclusion/search_result.html:6
 msgid "Keine Ergebnisse gefunden!"
 msgstr "No results found!"
 
-#: .\templates\inclusion\search_result.html:12
+#: templates/inclusion/search_result.html:12
 #, fuzzy
 #| msgid "Benutzer"
 msgid "Nutzer"
 msgstr "User"
 
-#: .\templates\inclusion\user_menu.html:35
+#: templates/inclusion/user_menu.html:37
 msgid "Hilfe"
 msgstr "Help"
 
-#: .\templates\inclusion\user_menu.html:38
+#: templates/inclusion/user_menu.html:40
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: .\templates\inclusion\user_menu.html:45
+#: templates/inclusion/user_menu.html:47
 msgid "Abmelden"
 msgstr "Sign out"
+
+#~ msgid "Angabe des Datenverarbeitungszwecks"
+#~ msgstr "Indication of the purpose of data processing"
+
+#~ msgid "Angabe der Datenspeicherungsdauer"
+#~ msgstr "Indication of the data retention period "
 
 #~ msgid "Coin Übersicht"
 #~ msgstr "Coin overview"

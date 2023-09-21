@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-02 20:00+0200\n"
+"POT-Creation-Date: 2023-09-21 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,232 +17,250 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\templates\modals\profile_banner_modal.html:10
+#: user_app/templates/modals/profile_banner_modal.html:10
 msgid "Banner anpassen"
 msgstr "Edit Banner"
 
-#: .\templates\modals\profile_banner_modal.html:45
-#: .\templates\modals\profile_biography_modal.html:34
-#: .\templates\modals\profile_image_modal.html:33
+#: user_app/templates/modals/profile_banner_modal.html:49
+#: user_app/templates/modals/profile_biography_modal.html:34
+#: user_app/templates/modals/profile_image_modal.html:33
 msgid "Abbrechen"
 msgstr "Abort"
 
-#: .\templates\modals\profile_banner_modal.html:46
-#: .\templates\modals\profile_biography_modal.html:35
-#: .\templates\modals\profile_image_modal.html:36
+#: user_app/templates/modals/profile_banner_modal.html:50
+#: user_app/templates/modals/profile_biography_modal.html:35
+#: user_app/templates/modals/profile_image_modal.html:36
 msgid "Änderungen speichern"
 msgstr "Save changes"
 
-#: .\templates\modals\profile_biography_modal.html:10
+#: user_app/templates/modals/profile_biography_modal.html:10
 msgid "Biografie anpassen"
 msgstr "Edit biography"
 
-#: .\templates\modals\profile_followers_modal.html:10
-#: .\templates\user_app\profile.html:63
+#: user_app/templates/modals/profile_followers_modal.html:10
+#: user_app/templates/user_app/profile.html:63
 msgid "Follower"
 msgstr "Follower"
 
-#: .\templates\modals\profile_followers_modal.html:38
-#: .\templates\modals\profile_following_modal.html:38
-#: .\templates\user_app\follower_list.html:22
-#: .\templates\user_app\follower_list.html:25
-#: .\templates\user_app\profile.html:149
+#: user_app/templates/modals/profile_followers_modal.html:38
+#: user_app/templates/modals/profile_following_modal.html:38
+#: user_app/templates/user_app/follower_list.html:22
+#: user_app/templates/user_app/follower_list.html:25
+#: user_app/templates/user_app/profile.html:149
 msgid "Entfolgen"
 msgstr "Unfollow"
 
-#: .\templates\modals\profile_followers_modal.html:43
-#: .\templates\modals\profile_following_modal.html:43
-#: .\templates\user_app\follower_list.html:29
-#: .\templates\user_app\profile.html:154
+#: user_app/templates/modals/profile_followers_modal.html:43
+#: user_app/templates/modals/profile_following_modal.html:43
+#: user_app/templates/user_app/follower_list.html:29
+#: user_app/templates/user_app/profile.html:154
 msgid "Folgen"
 msgstr "Follow"
 
-#: .\templates\modals\profile_followers_modal.html:54
-#: .\templates\modals\profile_following_modal.html:54
+#: user_app/templates/modals/profile_followers_modal.html:54
+#: user_app/templates/modals/profile_following_modal.html:54
 msgid "Schließen"
 msgstr "Close"
 
-#: .\templates\modals\profile_following_modal.html:10
-#: .\templates\user_app\profile.html:72
+#: user_app/templates/modals/profile_following_modal.html:10
+#: user_app/templates/user_app/profile.html:72
 msgid "Gefolgt"
 msgstr "Follows"
 
-#: .\templates\modals\profile_image_modal.html:10
+#: user_app/templates/modals/profile_image_modal.html:10
 msgid "Profilbild anpassen"
 msgstr "Edit Profile Picture"
 
-#: .\templates\modals\profile_image_modal.html:35
+#: user_app/templates/modals/profile_image_modal.html:35
 msgid "Profilbild löschen"
 msgstr "Delete Profile Picture"
 
-#: .\templates\user_app\follower_list.html:4
+#: user_app/templates/user_app/follower_list.html:4
 msgid "Follower Liste"
 msgstr "Follower list"
 
-#: .\templates\user_app\follower_list.html:5
+#: user_app/templates/user_app/follower_list.html:5
 msgid "Dir folgt:"
 msgstr "You are followed by:"
 
-#: .\templates\user_app\follower_list.html:16
+#: user_app/templates/user_app/follower_list.html:16
 msgid "Follower:"
 msgstr "Follower"
 
-#: .\templates\user_app\login.html:5
+#: user_app/templates/user_app/login.html:5
 msgid "Login"
 msgstr "Login"
 
-#: .\templates\user_app\login.html:12
+#: user_app/templates/user_app/login.html:12
 msgid "Anmeldung"
 msgstr "Sign in"
 
-#: .\templates\user_app\login.html:16
-#: .\templates\user_app\register\registration.html:56
+#: user_app/templates/user_app/login.html:16
+#: user_app/templates/user_app/register/registration.html:56
 msgid "Benutzername"
 msgstr "Username"
 
-#: .\templates\user_app\login.html:25
-#: .\templates\user_app\register\registration.html:69
+#: user_app/templates/user_app/login.html:25
+#: user_app/templates/user_app/register/registration.html:69
 msgid "Passwort"
 msgstr "Password"
 
-#: .\templates\user_app\login.html:39
+#: user_app/templates/user_app/login.html:39
 msgid "Fehlgeschlagen"
 msgstr "Error"
 
-#: .\templates\user_app\login.html:47
-msgid "Passwort vergessen?"
-msgstr "Forgot Password?"
-
-#: .\templates\user_app\password_recovery\reset_password.html:4
-#: .\templates\user_app\password_recovery\reset_password_complete.html:4
-#: .\templates\user_app\password_recovery\reset_password_sent.html:4
-msgid "Passwort Hilfe"
-msgstr "Password Help"
-
-#: .\templates\user_app\password_recovery\reset_password.html:12
-#: .\templates\user_app\password_recovery\reset_password_complete.html:12
-#: .\templates\user_app\password_recovery\reset_password_confirm.html:12
-#: .\templates\user_app\password_recovery\reset_password_sent.html:12
-msgid "Passwort Zurücksetzen"
-msgstr "Reset Password"
-
-#: .\templates\user_app\password_recovery\reset_password.html:21
-#: .\templates\user_app\register\registration.html:44
-msgid "E-Mail"
-msgstr "E-Mail"
-
-#: .\templates\user_app\password_recovery\reset_password_complete.html:14
-msgid "Passwort erfolgreich zurückgesetzt"
-msgstr "Password Reset successful"
-
-#: .\templates\user_app\password_recovery\reset_password_complete.html:18
-msgid "Sie können sich nun mit Ihrem neues Passwort anmelden."
-msgstr "You can now log in with your new Password"
-
-#: .\templates\user_app\password_recovery\reset_password_complete.html:20
-#: .\templates\user_app\register\registration_success.html:20
+#: user_app/templates/user_app/login.html:45
+#: user_app/templates/user_app/password_recovery/reset_password_complete.html:20
+#: user_app/templates/user_app/register/registration_success.html:20
 msgid "Anmelden"
 msgstr "Sign in"
 
-#: .\templates\user_app\password_recovery\reset_password_confirm.html:15
+#: user_app/templates/user_app/login.html:48
+msgid "Passwort vergessen?"
+msgstr "Forgot Password?"
+
+#: user_app/templates/user_app/password_recovery/reset_password.html:4
+#: user_app/templates/user_app/password_recovery/reset_password_complete.html:4
+#: user_app/templates/user_app/password_recovery/reset_password_sent.html:4
+msgid "Passwort Hilfe"
+msgstr "Password Help"
+
+#: user_app/templates/user_app/password_recovery/reset_password.html:12
+#: user_app/templates/user_app/password_recovery/reset_password_complete.html:12
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:12
+#: user_app/templates/user_app/password_recovery/reset_password_sent.html:12
+msgid "Passwort Zurücksetzen"
+msgstr "Reset Password"
+
+#: user_app/templates/user_app/password_recovery/reset_password.html:15
+msgid ""
+"Setzen Sie hier Ihr Passwort zurück. Geben Sie dazu bitte die in Ihrem "
+"Benutzer registrierte E-Mail Adresse an."
+msgstr ""
+
+#: user_app/templates/user_app/password_recovery/reset_password.html:20
+#: user_app/templates/user_app/register/registration.html:44
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: user_app/templates/user_app/password_recovery/reset_password_complete.html:14
+msgid "Passwort erfolgreich zurückgesetzt"
+msgstr "Password Reset successful"
+
+#: user_app/templates/user_app/password_recovery/reset_password_complete.html:18
+msgid "Sie können sich nun mit Ihrem neues Passwort anmelden."
+msgstr "You can now log in with your new Password"
+
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:15
 msgid "Vergeben Sie bitte ein neues Passwort."
 msgstr "Please enter a new Password"
 
-#: .\templates\user_app\password_recovery\reset_password_confirm.html:19
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:19
 msgid "Neues Passwort"
 msgstr "New Password"
 
-#: .\templates\user_app\password_recovery\reset_password_confirm.html:32
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:32
 msgid "Neues Passwort bestätigen"
 msgstr "Confirm new Password"
 
-#: .\templates\user_app\password_recovery\reset_password_confirm.html:50
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:50
 msgid "Fehler"
 msgstr "Error"
 
-#: .\templates\user_app\password_recovery\reset_password_confirm.html:61
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:55
+msgid ""
+"Der Link zum zurücksetzen des Passworts ist ungültig. Womöglich wurde dieser "
+"bereits genutzt. Bitte fordern Sie einen neuen Link an."
+msgstr ""
+
+#: user_app/templates/user_app/password_recovery/reset_password_confirm.html:59
 msgid "Passwort zurücksetzen"
 msgstr "Reset Password"
 
-#: .\templates\user_app\password_recovery\reset_password_sent.html:14
+#: user_app/templates/user_app/password_recovery/reset_password_sent.html:14
 msgid "Email versendet"
 msgstr "Email sent"
 
-#: .\templates\user_app\password_recovery\reset_password_sent.html:18
+#: user_app/templates/user_app/password_recovery/reset_password_sent.html:18
 msgid "Schauen Sie für weitere Informationen in Ihrem E-Mail Postfach nach!"
 msgstr "For more information, please have a look into your Email inbox"
 
-#: .\templates\user_app\profile.html:91
+#: user_app/templates/user_app/profile.html:91
 msgid "Keine Biografie gesetzt."
 msgstr "No biography set"
 
-#: .\templates\user_app\profile.html:102
+#: user_app/templates/user_app/profile.html:102
 msgid "Neuer Post"
 msgstr "New Post"
 
-#: .\templates\user_app\profile.html:126
+#: user_app/templates/user_app/profile.html:126
 msgid "Nachricht senden"
 msgstr "Send Message"
 
-#: .\templates\user_app\profile.html:137
+#: user_app/templates/user_app/profile.html:137
 msgid "Watchlist ansehen"
 msgstr "View Watchlist"
 
-#: .\templates\user_app\profile.html:164
-msgid "Nutzer Portfolio"
-msgstr "User Portfolio"
-
-#: .\templates\user_app\profile.html:170
+#: user_app/templates/user_app/profile.html:169
 msgid "Kursverlauf"
 msgstr "Course"
 
-#: .\templates\user_app\profile.html:177
+#: user_app/templates/user_app/profile.html:176
 msgid "Gesamt"
 msgstr "Total"
 
-#: .\templates\user_app\profile.html:183
+#: user_app/templates/user_app/profile.html:182
 msgid "Jahr"
 msgstr "1 Year"
 
-#: .\templates\user_app\profile.html:189
+#: user_app/templates/user_app/profile.html:188
 msgid "6 Monate"
 msgstr "6 Months"
 
-#: .\templates\user_app\profile.html:195
+#: user_app/templates/user_app/profile.html:194
 msgid "Monat"
 msgstr "1 Month"
 
-#: .\templates\user_app\profile.html:201
+#: user_app/templates/user_app/profile.html:200
 msgid "Woche"
 msgstr "1 Week"
 
-#: .\templates\user_app\profile.html:218
+#: user_app/templates/user_app/profile.html:218
 msgid "Gesamtwert"
 msgstr "Total Value"
 
-#: .\templates\user_app\register\registration.html:5
-#: .\templates\user_app\register\registration.html:12
-#: .\templates\user_app\register\registration_success.html:4
-#: .\templates\user_app\register\registration_success.html:12
+#: user_app/templates/user_app/register/registration.html:5
+#: user_app/templates/user_app/register/registration.html:12
+#: user_app/templates/user_app/register/registration_success.html:4
+#: user_app/templates/user_app/register/registration_success.html:12
 msgid "Registrierung"
 msgstr "Sign Up"
 
-#: .\templates\user_app\register\registration.html:19
+#: user_app/templates/user_app/register/registration.html:19
 msgid "Vorname"
 msgstr "Firstname"
 
-#: .\templates\user_app\register\registration.html:31
+#: user_app/templates/user_app/register/registration.html:31
 msgid "Nachname"
 msgstr "Lastname"
 
-#: .\templates\user_app\register\registration.html:81
+#: user_app/templates/user_app/register/registration.html:81
 msgid "Passwort bestätigen"
 msgstr "Confirm Password"
 
-#: .\templates\user_app\register\registration_success.html:14
+#: user_app/templates/user_app/register/registration.html:93
+#, fuzzy
+#| msgid "Registrierung"
+msgid "Registrieren"
+msgstr "Sign Up"
+
+#: user_app/templates/user_app/register/registration_success.html:14
 msgid "Benutzer wurde erfolgreich erstellt."
 msgstr "Account was successfully created"
 
-#: .\templates\user_app\register\registration_success.html:18
+#: user_app/templates/user_app/register/registration_success.html:18
 msgid "Sie können sich nun mit Ihren Zugangsdaten anmelden."
-msgstr "You can now Log in with your credentials" 
+msgstr "You can now Log in with your credentials"
+
+#~ msgid "Nutzer Portfolio"
+#~ msgstr "User Portfolio"

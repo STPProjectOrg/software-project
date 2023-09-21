@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 12:26+0200\n"
+"POT-Creation-Date: 2023-09-21 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\messaging_app\templates\messaging_app\inbox.html:116
+#: messaging_app/templates/messaging_app/inbox.html:121
 msgid "Senden"
 msgstr "Send"
 
-#: .\messaging_app\templates\messaging_app\inbox.html:127
+#: messaging_app/templates/messaging_app/inbox.html:132
 msgid "Hier werden deine Chats angezeigt."
 msgstr "Your chats will appear here."
 
-#: .\messaging_app\templates\messaging_app\inbox.html:128
+#: messaging_app/templates/messaging_app/inbox.html:133
 msgid "Derzeit hast du dich noch nicht mit anderen ausgetauscht."
 msgstr "At the moment you haven't exchanged ideas with others."

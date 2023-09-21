@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-02 19:42+0200\n"
+"POT-Creation-Date: 2023-09-21 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,265 +17,265 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\templates\dashboard_app\asset.html:42
+#: dashboard_app/templates/dashboard_app/asset.html:42
 #, fuzzy
 #| msgid "Watchlist hinzufügen"
 msgid "Watchlist entfernen"
 msgstr "Add to Watchlist"
 
-#: .\templates\dashboard_app\asset.html:44
+#: dashboard_app/templates/dashboard_app/asset.html:44
 msgid "Watchlist hinzufügen"
 msgstr "Add to Watchlist"
 
-#: .\templates\dashboard_app\asset.html:50
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:11
+#: dashboard_app/templates/dashboard_app/asset.html:50
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:11
 msgid "Transaktion hinzufügen"
 msgstr "Add Transaction"
 
-#: .\templates\dashboard_app\asset.html:59
-#: .\templates\dashboard_app\dashboard.html:89
+#: dashboard_app/templates/dashboard_app/asset.html:59
+#: dashboard_app/templates/dashboard_app/dashboard.html:89
 msgid "Kursverlauf"
 msgstr ""
 
-#: .\templates\dashboard_app\asset.html:66
-#: .\templates\dashboard_app\dashboard.html:96
+#: dashboard_app/templates/dashboard_app/asset.html:66
+#: dashboard_app/templates/dashboard_app/dashboard.html:96
 #, fuzzy
 #| msgid "Gesamtpreis"
 msgid "Gesamt"
 msgstr "Total price"
 
-#: .\templates\dashboard_app\asset.html:72
-#: .\templates\dashboard_app\dashboard.html:102
+#: dashboard_app/templates/dashboard_app/asset.html:72
+#: dashboard_app/templates/dashboard_app/dashboard.html:102
 msgid "Jahr"
 msgstr ""
 
-#: .\templates\dashboard_app\asset.html:78
-#: .\templates\dashboard_app\dashboard.html:108
+#: dashboard_app/templates/dashboard_app/asset.html:78
+#: dashboard_app/templates/dashboard_app/dashboard.html:108
 msgid "6 Monate"
 msgstr ""
 
-#: .\templates\dashboard_app\asset.html:84
-#: .\templates\dashboard_app\dashboard.html:114
+#: dashboard_app/templates/dashboard_app/asset.html:84
+#: dashboard_app/templates/dashboard_app/dashboard.html:114
 msgid "Monat"
 msgstr ""
 
-#: .\templates\dashboard_app\asset.html:90
-#: .\templates\dashboard_app\dashboard.html:120
+#: dashboard_app/templates/dashboard_app/asset.html:90
+#: dashboard_app/templates/dashboard_app/dashboard.html:120
 msgid "Woche"
 msgstr ""
 
-#: .\templates\dashboard_app\coins_overview.html:6
-#: .\templates\dashboard_app\coins_overview.html:12
+#: dashboard_app/templates/dashboard_app/coins_overview.html:6
+#: dashboard_app/templates/dashboard_app/coins_overview.html:12
 msgid "Übersicht"
 msgstr "Overview"
 
-#: .\templates\dashboard_app\coins_overview.html:18
-#: .\templates\dashboard_app\transactions.html:32
+#: dashboard_app/templates/dashboard_app/coins_overview.html:18
+#: dashboard_app/templates/dashboard_app/transactions.html:32
 msgid "Icon"
 msgstr "Icon"
 
-#: .\templates\dashboard_app\coins_overview.html:22
-#: .\templates\dashboard_app\coins_overview.html:24
-#: .\templates\dashboard_app\transactions.html:33
-#: .\templates\dashboard_app\watchlist.html:49
-#: .\templates\dashboard_app\watchlist.html:51
+#: dashboard_app/templates/dashboard_app/coins_overview.html:22
+#: dashboard_app/templates/dashboard_app/coins_overview.html:24
+#: dashboard_app/templates/dashboard_app/transactions.html:33
+#: dashboard_app/templates/dashboard_app/watchlist.html:49
+#: dashboard_app/templates/dashboard_app/watchlist.html:51
 msgid "Symbol"
 msgstr "Symbol"
 
-#: .\templates\dashboard_app\coins_overview.html:30
-#: .\templates\dashboard_app\coins_overview.html:32
-#: .\templates\dashboard_app\transactions.html:34
-#: .\templates\dashboard_app\watchlist.html:56
-#: .\templates\dashboard_app\watchlist.html:58
+#: dashboard_app/templates/dashboard_app/coins_overview.html:30
+#: dashboard_app/templates/dashboard_app/coins_overview.html:32
+#: dashboard_app/templates/dashboard_app/transactions.html:34
+#: dashboard_app/templates/dashboard_app/watchlist.html:56
+#: dashboard_app/templates/dashboard_app/watchlist.html:58
 msgid "Name"
 msgstr "Name"
 
-#: .\templates\dashboard_app\coins_overview.html:37
-#: .\templates\dashboard_app\coins_overview.html:39
-#: .\templates\dashboard_app\watchlist.html:63
-#: .\templates\dashboard_app\watchlist.html:65
+#: dashboard_app/templates/dashboard_app/coins_overview.html:37
+#: dashboard_app/templates/dashboard_app/coins_overview.html:39
+#: dashboard_app/templates/dashboard_app/watchlist.html:63
+#: dashboard_app/templates/dashboard_app/watchlist.html:65
 msgid "Preis Heute"
 msgstr "Price today"
 
-#: .\templates\dashboard_app\coins_overview.html:42
-#: .\templates\dashboard_app\watchlist.html:6
-#: .\templates\dashboard_app\watchlist.html:94
+#: dashboard_app/templates/dashboard_app/coins_overview.html:42
+#: dashboard_app/templates/dashboard_app/watchlist.html:6
+#: dashboard_app/templates/dashboard_app/watchlist.html:94
 msgid "Watchlist"
 msgstr "Watchlist"
 
-#: .\templates\dashboard_app\dashboard.html:6
+#: dashboard_app/templates/dashboard_app/dashboard.html:6
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: .\templates\dashboard_app\dashboard.html:13
+#: dashboard_app/templates/dashboard_app/dashboard.html:13
 msgid "Hier wird dein Dashboard angezeigt."
 msgstr "Your Dashboard will be shown here"
 
-#: .\templates\dashboard_app\dashboard.html:14
+#: dashboard_app/templates/dashboard_app/dashboard.html:14
 msgid "Füge Werte zu deinem Portfolio hinzu, damit diese angezeigt werden."
 msgstr "Add Assets to your portfolio to have them show up"
 
-#: .\templates\dashboard_app\dashboard.html:16
-#: .\templates\dashboard_app\transactions.html:16
-#: .\templates\dashboard_app\watchlist.html:17
+#: dashboard_app/templates/dashboard_app/dashboard.html:16
+#: dashboard_app/templates/dashboard_app/transactions.html:16
+#: dashboard_app/templates/dashboard_app/watchlist.html:17
 msgid "Weitere Informationen findest du hier."
 msgstr "You can find more informtion here"
 
-#: .\templates\dashboard_app\dashboard.html:45
+#: dashboard_app/templates/dashboard_app/dashboard.html:45
 msgid "Ausgaben:"
 msgstr "total spent:"
 
-#: .\templates\dashboard_app\dashboard.html:49
+#: dashboard_app/templates/dashboard_app/dashboard.html:49
 msgid "Investiert:"
 msgstr "Invested:"
 
-#: .\templates\dashboard_app\dashboard.html:53
+#: dashboard_app/templates/dashboard_app/dashboard.html:53
 msgid "Gebühren:"
 msgstr "Fees:"
 
-#: .\templates\dashboard_app\dashboard.html:57
+#: dashboard_app/templates/dashboard_app/dashboard.html:57
 msgid "Steuern:"
 msgstr "Taxes:"
 
-#: .\templates\dashboard_app\dashboard.html:62
-#: .\templates\dashboard_app\inclusion\assets_table.html:15
+#: dashboard_app/templates/dashboard_app/dashboard.html:62
+#: dashboard_app/templates/dashboard_app/inclusion/assets_table.html:15
 msgid "Gewinn"
 msgstr "Profit"
 
-#: .\templates\dashboard_app\dashboard.html:68
-#: .\templates\dashboard_app\dashboard.html:79
-#: .\templates\dashboard_app\inclusion\assets_table.html:14
+#: dashboard_app/templates/dashboard_app/dashboard.html:68
+#: dashboard_app/templates/dashboard_app/dashboard.html:79
+#: dashboard_app/templates/dashboard_app/inclusion/assets_table.html:14
 #, fuzzy
 #| msgid "Gesamtpreis"
 msgid "Gesamtwert"
 msgstr "Total price"
 
-#: .\templates\dashboard_app\dashboard.html:135
+#: dashboard_app/templates/dashboard_app/dashboard.html:135
 msgid "Assets"
 msgstr "Assets"
 
-#: .\templates\dashboard_app\inclusion\assets_table.html:11
+#: dashboard_app/templates/dashboard_app/inclusion/assets_table.html:11
 msgid "Stückzahl"
 msgstr "Amount"
 
-#: .\templates\dashboard_app\inclusion\assets_table.html:12
+#: dashboard_app/templates/dashboard_app/inclusion/assets_table.html:12
 msgid "Kaufpreis"
 msgstr "Purchase price"
 
-#: .\templates\dashboard_app\inclusion\assets_table.html:13
+#: dashboard_app/templates/dashboard_app/inclusion/assets_table.html:13
 msgid "Wert / Stück"
 msgstr "Value / Unit"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:22
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:22
 msgid "Verkaufen?"
 msgstr "Sell?"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:26
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:22
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:26
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:22
 msgid "Kaufdatum"
 msgstr "Purchase date"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:30
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:26
-#: .\templates\dashboard_app\transactions.html:36
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:30
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:26
+#: dashboard_app/templates/dashboard_app/transactions.html:36
 msgid "Anzahl"
 msgstr "Amount"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:37
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:37
 msgid "Gesamtpreis"
 msgstr "Total price"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:44
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:40
-#: .\templates\dashboard_app\transactions.html:39
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:44
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:40
+#: dashboard_app/templates/dashboard_app/transactions.html:39
 msgid "Gebühren"
 msgstr "Fees"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:51
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:47
-#: .\templates\dashboard_app\transactions.html:38
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:51
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:47
+#: dashboard_app/templates/dashboard_app/transactions.html:38
 msgid "Steuern"
 msgstr "Taxes"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:58
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:58
 msgid "Transaktion posten?"
 msgstr "Post transaction?"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:65
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:65
 msgid "Post text"
 msgstr "Post text"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:72
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:72
 msgid "Tags"
 msgstr "Tags"
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:82
-#: .\templates\dashboard_app\modals\transaction_delete_modal.html:22
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:57
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:82
+#: dashboard_app/templates/dashboard_app/modals/transaction_delete_modal.html:22
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:57
 msgid "Schließen"
 msgstr ""
 
-#: .\templates\dashboard_app\modals\transaction_add_modal.html:83
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:58
+#: dashboard_app/templates/dashboard_app/modals/transaction_add_modal.html:83
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:58
 msgid "Speichern"
 msgstr "Save"
 
-#: .\templates\dashboard_app\modals\transaction_delete_modal.html:10
+#: dashboard_app/templates/dashboard_app/modals/transaction_delete_modal.html:10
 msgid "Transaktion löschen"
 msgstr "Delete transaction"
 
-#: .\templates\dashboard_app\modals\transaction_delete_modal.html:17
+#: dashboard_app/templates/dashboard_app/modals/transaction_delete_modal.html:17
 msgid "Soll diese Transaktion unwiderruflich gelöscht werden?"
 msgstr "Do you want to delete this transaction irrevocably?"
 
-#: .\templates\dashboard_app\modals\transaction_delete_modal.html:24
-#: .\templates\dashboard_app\transactions.html:85
+#: dashboard_app/templates/dashboard_app/modals/transaction_delete_modal.html:24
+#: dashboard_app/templates/dashboard_app/transactions.html:85
 msgid "Löschen"
 msgstr "Delete"
 
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:10
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:10
 msgid "Transaktion bearbeiten"
 msgstr "Edit transaction"
 
-#: .\templates\dashboard_app\modals\transaction_update_modal.html:33
+#: dashboard_app/templates/dashboard_app/modals/transaction_update_modal.html:33
 msgid "Preis"
 msgstr "price"
 
-#: .\templates\dashboard_app\transactions.html:6
-#: .\templates\dashboard_app\transactions.html:25
+#: dashboard_app/templates/dashboard_app/transactions.html:6
+#: dashboard_app/templates/dashboard_app/transactions.html:25
 msgid "Transaktionen"
 msgstr "Transactions"
 
-#: .\templates\dashboard_app\transactions.html:13
+#: dashboard_app/templates/dashboard_app/transactions.html:13
 msgid "Hier wird dein Transaktionen angezeigt."
 msgstr "Your transactions are shown here"
 
-#: .\templates\dashboard_app\transactions.html:14
+#: dashboard_app/templates/dashboard_app/transactions.html:14
 msgid ""
 "Füge Transaktionen zu deinem Portfolio hinzu, damit diese angezeigt werden."
 msgstr "Add transactions to your Portfolio to have them shown here"
 
-#: .\templates\dashboard_app\transactions.html:35
+#: dashboard_app/templates/dashboard_app/transactions.html:35
 msgid "Datum"
 msgstr "Date"
 
-#: .\templates\dashboard_app\transactions.html:37
+#: dashboard_app/templates/dashboard_app/transactions.html:37
 msgid "Preis / Stück"
 msgstr "Price / Unit"
 
-#: .\templates\dashboard_app\transactions.html:40
+#: dashboard_app/templates/dashboard_app/transactions.html:40
 msgid "Gesamtkosten"
 msgstr "Total Cost"
 
-#: .\templates\dashboard_app\transactions.html:79
+#: dashboard_app/templates/dashboard_app/transactions.html:79
 msgid "Bearbeiten"
 msgstr "Edit"
 
-#: .\templates\dashboard_app\watchlist.html:14
+#: dashboard_app/templates/dashboard_app/watchlist.html:14
 msgid "Sie haben noch keine Assets Ihrer Watchlist hinzugefügt."
 msgstr "You currently don't have any Assets on your Watchlist."
 
-#: .\templates\dashboard_app\watchlist.html:15
+#: dashboard_app/templates/dashboard_app/watchlist.html:15
 msgid ""
 "Um ein Asset Ihrer Watchlist hinzuzufügen, suchen Sie nach einem Asset in "
 "der Suche und drücken Sie auf den Stern."
@@ -283,42 +283,44 @@ msgstr ""
 "To add an Asset to your Watchlist, search for it in the Searchbar above and "
 "click the star"
 
-#: .\templates\dashboard_app\watchlist.html:26
+#: dashboard_app/templates/dashboard_app/watchlist.html:26
 msgid "hat noch keine Assets zur Watchlist hinzugefügt."
 msgstr "has no Assets on their Watchlist"
 
-#: .\templates\dashboard_app\watchlist.html:36
+#: dashboard_app/templates/dashboard_app/watchlist.html:36
 msgid "Meine Watchlist"
 msgstr "My Watchlist"
 
-#: .\templates\dashboard_app\watchlist.html:38
+#: dashboard_app/templates/dashboard_app/watchlist.html:38
 msgid "Watchlist von"
 msgstr "Watchlist of"
 
-#: .\templates\dashboard_app\watchlist.html:46
+#: dashboard_app/templates/dashboard_app/watchlist.html:46
 msgid "Bild"
 msgstr "Picture"
 
-#: .\templates\dashboard_app\watchlist.html:69
-#: .\templates\dashboard_app\watchlist.html:71
+#: dashboard_app/templates/dashboard_app/watchlist.html:69
+#: dashboard_app/templates/dashboard_app/watchlist.html:71
 msgid "Preis vor X Tagen"
 msgstr "Price X days ago"
 
-#: .\templates\dashboard_app\watchlist.html:77
-#: .\templates\dashboard_app\watchlist.html:79
+#: dashboard_app/templates/dashboard_app/watchlist.html:77
+#: dashboard_app/templates/dashboard_app/watchlist.html:79
+#, fuzzy, python-format
+#| msgid "Differenz in %%"
 msgid "Differenz in %%"
 msgstr "Difference in %"
 
-#: .\templates\dashboard_app\watchlist.html:83
+#: dashboard_app/templates/dashboard_app/watchlist.html:83
 msgid "Preis Change"
 msgstr "Price Difference"
 
-#: .\templates\dashboard_app\watchlist.html:87
-#: .\templates\dashboard_app\watchlist.html:89
+#: dashboard_app/templates/dashboard_app/watchlist.html:87
+#: dashboard_app/templates/dashboard_app/watchlist.html:89
 msgid "Hinzugefügt am"
 msgstr "Added on"
 
-#: .\templates\dashboard_app\watchlist.html:99
-#: .\templates\dashboard_app\watchlist.html:101
+#: dashboard_app/templates/dashboard_app/watchlist.html:99
+#: dashboard_app/templates/dashboard_app/watchlist.html:101
 msgid "Portfolio"
 msgstr "Portfolio"

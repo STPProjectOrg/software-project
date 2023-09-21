@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-02 17:05+0200\n"
+"POT-Creation-Date: 2023-09-21 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,126 +17,120 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\forms.py:40 .\templates\settings_app\userSettings.html:25
+#: settings_app/forms.py:39
+#: settings_app/templates/settings_app/userSettings.html:25
 msgid "Benutzername"
 msgstr "Username"
 
-#: .\forms.py:41
+#: settings_app/forms.py:40
 msgid "Email"
 msgstr "Email"
 
-#: .\forms.py:42 .\templates\settings_app\userSettings.html:12
+#: settings_app/forms.py:41
+#: settings_app/templates/settings_app/userSettings.html:12
 msgid "Vorname"
 msgstr "Firstname"
 
-#: .\forms.py:43
+#: settings_app/forms.py:42
 msgid "Name"
 msgstr "Lastname"
 
-#: .\templates\settings_app\notificationSettings.html:4
-#: .\templates\settings_app\settingsOverview.html:21
-#: .\templates\settings_app\viewSettings.html:21
+#: settings_app/templates/settings_app/notificationSettings.html:4
+#: settings_app/templates/settings_app/settingsOverview.html:21
 msgid "Benachrichtigungseinstellungen"
 msgstr "Notification Settings"
 
-#: .\templates\settings_app\notificationSettings.html:12
+#: settings_app/templates/settings_app/notificationSettings.html:12
 msgid "Veränderung der Assetmenge"
 msgstr "Notification of change in asset quantity"
 
-#: .\templates\settings_app\notificationSettings.html:16
+#: settings_app/templates/settings_app/notificationSettings.html:16
 msgid "Neuer Follower"
 msgstr "New Follower"
 
-#: .\templates\settings_app\notificationSettings.html:20
+#: settings_app/templates/settings_app/notificationSettings.html:20
 msgid "Beitrags Like"
 msgstr "Liked Post"
 
-#: .\templates\settings_app\notificationSettings.html:24
+#: settings_app/templates/settings_app/notificationSettings.html:24
 msgid "Kommentar Like"
 msgstr "Liked Comment"
 
-#: .\templates\settings_app\notificationSettings.html:28
+#: settings_app/templates/settings_app/notificationSettings.html:28
 msgid "Neuer Kommentar"
 msgstr "New Comment"
 
-#: .\templates\settings_app\notificationSettings.html:32
+#: settings_app/templates/settings_app/notificationSettings.html:32
 msgid "Beitrag geteilt"
 msgstr "Shared Post"
 
-#: .\templates\settings_app\portfolioSettings.html:4
-#: .\templates\settings_app\settingsOverview.html:17
-#: .\templates\settings_app\viewSettings.html:17
+#: settings_app/templates/settings_app/portfolioSettings.html:4
+#: settings_app/templates/settings_app/settingsOverview.html:17
 msgid "Portfolioeinstellungen"
 msgstr "Portfolio Settings"
 
-#: .\templates\settings_app\portfolioSettings.html:11
+#: settings_app/templates/settings_app/portfolioSettings.html:11
 msgid "Datums- und Zeitformat"
 msgstr "Date-/Time Format"
 
-#: .\templates\settings_app\portfolioSettings.html:19
+#: settings_app/templates/settings_app/portfolioSettings.html:19
 msgid "Währung"
 msgstr "Currency"
 
-#: .\templates\settings_app\portfolioSettings.html:21
+#: settings_app/templates/settings_app/portfolioSettings.html:21
 msgid "Euro"
 msgstr "Euro"
 
-#: .\templates\settings_app\portfolioSettings.html:22
+#: settings_app/templates/settings_app/portfolioSettings.html:22
 msgid "USD"
 msgstr "USD"
 
-#: .\templates\settings_app\portfolioSettings.html:23
+#: settings_app/templates/settings_app/portfolioSettings.html:23
 msgid "Pfund"
 msgstr "Pound"
 
-#: .\templates\settings_app\portfolioSettings.html:24
+#: settings_app/templates/settings_app/portfolioSettings.html:24
 msgid "Rubel"
 msgstr "Ruble"
 
-#: .\templates\settings_app\securitySettings.html:4
-#: .\templates\settings_app\settingsOverview.html:19
-#: .\templates\settings_app\viewSettings.html:19
+#: settings_app/templates/settings_app/securitySettings.html:4
+#: settings_app/templates/settings_app/settingsOverview.html:19
 msgid "Sicherheitseinstellungen"
 msgstr "Security Settings"
 
-#: .\templates\settings_app\settingsOverview.html:9
-#: .\templates\settings_app\viewSettings.html:4
-#: .\templates\settings_app\viewSettings.html:9
+#: settings_app/templates/settings_app/settingsOverview.html:9
 #, fuzzy
 #| msgid "Profileinstellungen"
 msgid "Einstellungen"
 msgstr "Profile Settings"
 
-#: .\templates\settings_app\settingsOverview.html:15
-#: .\templates\settings_app\userSettings.html:4
-#: .\templates\settings_app\viewSettings.html:15
+#: settings_app/templates/settings_app/settingsOverview.html:15
+#: settings_app/templates/settings_app/userSettings.html:4
 msgid "Profileinstellungen"
 msgstr "Profile Settings"
 
-#: .\templates\settings_app\settingsOverview.html:23
-#: .\templates\settings_app\viewSettings.html:23
+#: settings_app/templates/settings_app/settingsOverview.html:23
+#: settings_app/templates/settings_app/viewSettings.html:4
 msgid "Anzeigeeinstellungen"
 msgstr "Display Settings"
 
-#: .\templates\settings_app\settingsOverview.html:26
-#: .\templates\settings_app\viewSettings.html:26
+#: settings_app/templates/settings_app/settingsOverview.html:26
 msgid "API-Admin Panel"
 msgstr "API-Admin Panel"
 
-#: .\templates\settings_app\settingsOverview.html:44
-#: .\templates\settings_app\viewSettings.html:53
+#: settings_app/templates/settings_app/settingsOverview.html:44
 msgid "Speichern"
 msgstr "Save"
 
-#: .\templates\settings_app\userSettings.html:16
+#: settings_app/templates/settings_app/userSettings.html:16
 msgid "Nachname"
 msgstr "Lastname"
 
-#: .\templates\settings_app\userSettings.html:21
+#: settings_app/templates/settings_app/userSettings.html:21
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: .\templates\settings_app\viewSettings.html:39
+#: settings_app/templates/settings_app/viewSettings.html:14
 msgid "Sprache"
 msgstr "Language"
 
