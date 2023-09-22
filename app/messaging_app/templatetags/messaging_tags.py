@@ -29,7 +29,7 @@ def tag(value: str):
                         current, f'<a href="http://localhost:8000/auth/profile/{current[1:current.__len__()]}/0/">{current}</a>')
                 elif Asset.objects.filter(name=current[1:current.__len__()].upper()).exists():
                     value = value.replace(
-                        current, f'<a href="http://localhost:8000/dashboard_app/asset/{current[1:current.__len__()].lower()}">{current}</a>')
+                        current, f'<a href="http://localhost:8000/dashboard/asset/{current[1:current.__len__()]}/0">{current}</a>')
 
     return mark_safe(value)
 
