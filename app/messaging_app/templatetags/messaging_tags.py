@@ -26,7 +26,7 @@ def tag(value: str):
             if current[0] == "@":
                 if CustomUser.objects.filter(username=current[1:current.__len__()]).exists():
                     value = value.replace(
-                        current, f'<a href="http://localhost:8000/auth/profile/{current[1:current.__len__()]}/">{current}</a>')
+                        current, f'<a href="http://localhost:8000/auth/profile/{current[1:current.__len__()]}/0/">{current}</a>')
                 elif Asset.objects.filter(name=current[1:current.__len__()].upper()).exists():
                     value = value.replace(
                         current, f'<a href="http://localhost:8000/dashboard_app/asset/{current[1:current.__len__()].lower()}">{current}</a>')
